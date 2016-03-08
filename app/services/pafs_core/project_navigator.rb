@@ -1,10 +1,12 @@
+# Play nice with Ruby 3 (and rubocop)
+# frozen_string_literal: true
 module PafsCore
   class ProjectNavigator
 
     # add 'pages' or 'steps' to the STEPS list
     # NOTE: STEPS.first and STEPS.last are used to determine the start
     # and end points for the user's journey (although we can change this)
-    STEPS = [ :project_name ]
+    STEPS = [:project_name].freeze
 
     # TODO: once devise is set up
     #
@@ -23,7 +25,7 @@ module PafsCore
 
     def start_new_project
       # we will need to position a project so that it 'belongs' somewhere
-      # and is 'owned' by a user.  I envisage that we would use the 
+      # and is 'owned' by a user.  I envisage that we would use the
       # current_user passed into the constructor to get this information.
       project = project_service.create_project
       Object::const_get("PafsCore::#{self.class.first_step.to_s.camelcase}Step").new project

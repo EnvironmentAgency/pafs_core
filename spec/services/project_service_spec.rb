@@ -1,11 +1,12 @@
-require 'rails_helper'
+# Play nice with Ruby 3 (and rubocop)
+# frozen_string_literal: true
+require "rails_helper"
 
 RSpec.describe PafsCore::ProjectService do
-
   describe ".new_project" do
     it "builds a new project model without saving to the database" do
       p = nil
-      expect { p = subject.new_project }.to_not change{PafsCore::Project.count}
+      expect { p = subject.new_project }.to_not change { PafsCore::Project.count }
       expect(p).to be_a PafsCore::Project
       expect(p.reference_number).to_not be_nil
       expect(p.version).to eq(0)
@@ -15,7 +16,9 @@ RSpec.describe PafsCore::ProjectService do
   describe ".create_project" do
     it "creates a new project and saves to the database" do
       p = nil
-      expect { p = subject.create_project }.to change{PafsCore::Project.count}.by(1)
+      expect { p = subject.create_project }.
+        to change { PafsCore::Project.count }.by(1)
+
       expect(p).to be_a PafsCore::Project
       expect(p.reference_number).to_not be_nil
       expect(p.version).to eq(0)
@@ -29,7 +32,8 @@ RSpec.describe PafsCore::ProjectService do
     end
 
     it "raises ActiveRecord::RecordNotFound for an invalid reference_number" do
-      expect { subject.find_project("123") }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { subject.find_project("123") }.
+        to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -40,4 +44,3 @@ RSpec.describe PafsCore::ProjectService do
     end
   end
 end
-

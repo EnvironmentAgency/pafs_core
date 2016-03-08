@@ -1,6 +1,8 @@
-require 'rails_helper'
+# Play nice with Ruby 3 (and rubocop)
+# frozen_string_literal: true
+require "rails_helper"
 
-RSpec.describe PafsCore::Project, :type => :model do
+RSpec.describe PafsCore::Project, type: :model do
   describe "attributes" do
     subject { FactoryGirl.create(:project) }
 
@@ -15,10 +17,9 @@ RSpec.describe PafsCore::Project, :type => :model do
     end
 
     it "validates the format of :reference_number" do
-      subject.reference_number = '123'
+      subject.reference_number = "123"
       expect(subject.valid?).to be false
       expect(subject.errors[:reference_number].join).to match /invalid format/
     end
   end
 end
-

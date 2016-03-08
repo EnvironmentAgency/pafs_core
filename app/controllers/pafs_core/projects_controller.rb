@@ -1,3 +1,5 @@
+# Play nice with Ruby 3 (and rubocop)
+# frozen_string_literal: true
 class PafsCore::ProjectsController < PafsCore::ApplicationController
   def index
     #
@@ -14,8 +16,8 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   # GET
   def step
     # edit step
-    @project = project_navigator.find_project_step(params[:id], params[:step]) 
-    # we want to go to the page in the process requested in the 
+    @project = project_navigator.find_project_step(params[:id], params[:step])
+    # we want to go to the page in the process requested in the
     # params[:step] part of the URL and display the appropriate form
     render @project.view_path
   end
@@ -38,6 +40,6 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
 private
   def project_navigator
     # TODO: pass current_user to ProjectNavigator constructor
-    @project_navigator ||= PafsCore::ProjectNavigator.new # current_user 
+    @project_navigator ||= PafsCore::ProjectNavigator.new # current_user
   end
 end

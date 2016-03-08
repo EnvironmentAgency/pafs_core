@@ -1,3 +1,5 @@
+# Play nice with Ruby 3 (and rubocop)
+# frozen_string_literal: true
 module PafsCore
   class BasicStep
     include ActiveModel::Model, ActiveRecord::AttributeAssignment
@@ -19,7 +21,7 @@ module PafsCore
     end
 
     def step_name
-      self.class.name.demodulize.chomp('Step').underscore
+      self.class.name.demodulize.chomp("Step").underscore
     end
 
     def view_path
@@ -27,4 +29,3 @@ module PafsCore
     end
   end
 end
-
