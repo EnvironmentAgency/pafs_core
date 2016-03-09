@@ -6,7 +6,48 @@ module PafsCore
     # add 'pages' or 'steps' to the STEPS list
     # NOTE: STEPS.first and STEPS.last are used to determine the start
     # and end points for the user's journey (although we can change this)
-    STEPS = [:project_name].freeze
+    STEPS = [:project_name,
+             :project_reference_number,
+             :financial_year,
+             :timescale,
+             :source_of_funding,
+             :funding_details,
+             :early_start,
+             :location,
+             :classification,
+             :risks,
+             :number_of_households,
+             :standard_of_protection,
+             :outcomes,
+             :defra,
+             :directives,
+             :environmental_issues,
+             :higher_priority,
+             :funding_calculator,
+             :summary].freeze
+
+    # Not sure we really need this --v
+    # GROUPS = {
+    #   project_details: [:project_name,
+    #                     :project_details,
+    #                     :financial_year,
+    #                     :timescale],
+    #   funding: [:source_of_funding,
+    #             :funding_details,
+    #             :early_start],
+    #   location_and_type: [:location,
+    #                       :classification],
+    #   beneficiaries: [:risks,
+    #                   :number_of_households,
+    #                   :standard_of_protection,
+    #                   :outcomes],
+    #   related_programs: [:defra,
+    #                      :directives],
+    #   other: [:environmental_issues,
+    #           :higher_priority,
+    #           :funding_calculator,
+    #           :summary]
+    # }
 
     # TODO: once devise is set up
     #

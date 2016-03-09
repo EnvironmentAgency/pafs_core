@@ -11,9 +11,9 @@ gemspec
 # your gem to rubygems.org.
 
 # Once the development stable we should move this to the gemspec
-gem 'digital_services_core',
-    git: 'https://github.com/EnvironmentAgency/digital-services-core',
-    branch: 'develop'
+# gem 'digital_services_core',
+#     git: 'https://github.com/EnvironmentAgency/digital-services-core',
+#     branch: 'develop'
 
 group :development, :test do
   gem 'byebug'
@@ -21,9 +21,9 @@ group :development, :test do
   gem 'guard-rspec', require: false
 end
 
-group :test do
-  gem 'sinatra'
-end
+# group :test do
+#   gem 'sinatra'
+# end
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]

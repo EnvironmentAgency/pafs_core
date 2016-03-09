@@ -1,8 +1,10 @@
-<h1>What would you like to name your project?</h1>
+<h1>Which financial year do you expect your project to end?</h1>
+
 <div>
   <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.label :project_end_financial_year %>
+    <%= f.text_field :project_end_financial_year %>
     <%= f.submit 'Save and Continue' %>
   <% end %>
 </div>
+

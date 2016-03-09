@@ -24,6 +24,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "shoulda-matchers", "~> 3.1"
   s.add_development_dependency "capybara"
   s.add_development_dependency "pry-rails"
-  s.add_development_dependency "ffaker"
+  # s.add_development_dependency "ffaker"
 
 end

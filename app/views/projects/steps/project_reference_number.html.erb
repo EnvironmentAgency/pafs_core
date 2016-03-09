@@ -1,0 +1,11 @@
+<h1>Project reference number</h1>
+
+<p>Your project reference number is</p>
+
+<div>
+  <p><%= @project.reference_number %></p>
+  <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+    <%= f.submit 'Continue' %>
+  <% end %>
+</div>
+

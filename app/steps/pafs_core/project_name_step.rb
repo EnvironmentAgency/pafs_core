@@ -9,7 +9,7 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params))
       if valid? && project.save
-        @step = :step_two
+        @step = :project_reference_number
         true
       else
         false
