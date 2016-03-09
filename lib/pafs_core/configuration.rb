@@ -1,3 +1,5 @@
+# Play nice with Ruby 3 (and rubocop)
+# frozen_string_literal: true
 # Class for setting configuration options in this engine. See e.g.
 # http://stackoverflow.com/questions/24104246/how-to-use-activesupportconfigurable-with-rails-engine
 #

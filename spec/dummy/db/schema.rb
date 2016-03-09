@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307131830) do
+ActiveRecord::Schema.define(version: 20160309111322) do
 
   create_table "dsc_address_contacts", id: false, force: :cascade do |t|
     t.integer "address_id", null: false
@@ -192,6 +192,16 @@ ActiveRecord::Schema.define(version: 20160307131830) do
   end
 
   add_index "dsc_versions", ["item_type", "item_id"], name: "index_dsc_versions_on_item_type_and_item_id"
+
+  create_table "pafs_core_areas", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.string   "area_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pafs_core_areas", ["name"], name: "index_pafs_core_areas_on_name"
 
   create_table "pafs_core_projects", force: :cascade do |t|
     t.string   "reference_number", null: false
