@@ -1,0 +1,17 @@
+---
+en:
+  date:
+    formats:
+      long: "%d %B %Y"
+  back: Back
+  back_to_start_link: Back
+  login: login
+  logout: logout
+  yes_option: 'Yes'
+  no_option: 'No'
+  optional_label: "(Optional)"
+  shared:
+    phase_banner:
+      feedback: feedback
+      heading_html: This is a new service – your %{href} will help us to improve it.
+
