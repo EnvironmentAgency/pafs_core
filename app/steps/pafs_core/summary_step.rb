@@ -4,7 +4,7 @@ module PafsCore
   # NOTE: this is just a placeholder for now
   class SummaryStep < BasicStep
     def update(params)
-        true
+      true
     end
 
     def previous_step
@@ -16,4 +16,3 @@ module PafsCore
     end
   end
 end
-
