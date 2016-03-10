@@ -45,7 +45,7 @@ FactoryGirl.define do
     end
 
     factory :pso_area do
-      area_type "PSO area"
+      area_type "PSO Area"
 
       trait :with_rma_areas do
         after(:create) do |pso_area|
