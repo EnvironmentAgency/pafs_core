@@ -10,20 +10,11 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# Once the development stable we should move this to the gemspec
-# gem 'digital_services_core',
-#     git: 'https://github.com/EnvironmentAgency/digital-services-core',
-#     branch: 'develop'
-
 group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'guard-rspec', require: false
 end
-
-# group :test do
-#   gem 'sinatra'
-# end
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
