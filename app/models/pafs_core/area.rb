@@ -16,9 +16,6 @@ module PafsCore
     belongs_to :parent, class_name: "Area"
     has_many :children, class_name: "Area", foreign_key: "parent_id"
     has_many :area_projects
-    #has_many :projects,
-    #  -> { select("pafs_core_projects.*, pafs_core_area_projects.owner AS owner") },
-    #  through: :area_projects
 
     scope :top_level, -> { where(parent_id: nil) }
 
