@@ -11,19 +11,19 @@ FactoryGirl.define do
 
       trait :with_ea_areas do
         after(:create) do |country|
-          (1..5).each { FactoryGirl.create(:ea_area, parent_id: country.id) }
+          2.times { FactoryGirl.create(:ea_area, parent_id: country.id) }
         end
       end
 
       trait :with_ea_and_pso_areas do
         after(:create) do |country|
-          (1..5).each { FactoryGirl.create(:ea_area, :with_pso_areas, parent_id: country.id) }
+          2.times { FactoryGirl.create(:ea_area, :with_pso_areas, parent_id: country.id) }
         end
       end
 
       trait :with_full_hierarchy do
         after(:create) do |country|
-          (1..5).each { FactoryGirl.create(:ea_area, :with_pso_and_rma_areas, parent_id: country.id) }
+          2.times { FactoryGirl.create(:ea_area, :with_pso_and_rma_areas, parent_id: country.id) }
         end
       end
     end
@@ -33,29 +33,42 @@ FactoryGirl.define do
 
       trait :with_pso_areas do
         after(:create) do |area|
-          (1..5).each { FactoryGirl.create(:pso_area, parent_id: area.id) }
+          2.times { FactoryGirl.create(:pso_area, parent_id: area.id) }
         end
       end
 
       trait :with_pso_and_rma_areas do
         after(:create) do |area|
-          (1..5).each { FactoryGirl.create(:pso_area, :with_rma_areas, parent_id: area.id) }
+          2.times { FactoryGirl.create(:pso_area, :with_rma_areas, parent_id: area.id) }
         end
       end
     end
 
     factory :pso_area do
-      area_type "PSO area"
+      area_type "PSO Area"
 
       trait :with_rma_areas do
         after(:create) do |pso_area|
-          (1..5).each { FactoryGirl.create(:rma_area, parent_id: pso_area.id) }
+          2.times { FactoryGirl.create(:rma_area, :with_project, parent_id: pso_area.id) }
         end
       end
     end
 
     factory :rma_area do
       area_type "RMA"
+
+      trait :with_project do
+        after(:create) do |rma_area|
+          p = PafsCore::Project.create(
+            name: "Project #{rma_area.name}",
+            reference_number: "P#{sprintf '%06d', rma_area.id}",
+            version: 0
+          )
+          p.save
+
+          rma_area.area_projects.create(project_id: p.id, owner: true)
+        end
+      end
     end
   end
 end
