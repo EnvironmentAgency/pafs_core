@@ -10,6 +10,8 @@ en:
   yes_option: 'Yes'
   no_option: 'No'
   optional_label: "(Optional)"
+  save_and_continue_label: "Save and continue"
+  continue_label: "Continue"
   shared:
     phase_banner:
       feedback: feedback

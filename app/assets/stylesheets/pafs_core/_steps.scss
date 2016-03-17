@@ -1,0 +1,17 @@
+@import "colours";
+
+.step-container {
+  margin-top: 1em;
+
+  .confirmation-box {
+    //background-color: $department-for-environment-food-rural-affairs;
+    color: $white;
+    background-color: $turquoise;
+    padding: 1em;
+    text-align: center;
+  }
+
+  .step-form {
+    margin-top: 1em;
+  }
+}

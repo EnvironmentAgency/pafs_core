@@ -1,0 +1,8 @@
+en:
+  projects:
+    steps:
+      project_reference_number:
+        title: Project reference number
+        heading: Project created
+        label: Your project reference number is
+

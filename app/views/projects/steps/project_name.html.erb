@@ -1,8 +1,19 @@
-<h1>What would you like to name your project?</h1>
-<div>
-  <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <%= f.submit 'Save and Continue', class: 'button' %>
-  <% end %>
+<div class="step-container">
+  <h1 class="heading-large"><%= t('.title') %></h1>
+  <div class="step-form">
+    <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+      <div class="form-group">
+        <%= f.label :name, t(".project_name_label"), class: "form-label" %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <details>
+        <summary><span class="summary"><%= t('.details_label') %></span></summary>
+        <div class="panel-indent">
+          <%= t('.details_content_html') %>
+        </div>
+      </details>
+      <%= f.submit t("save_and_continue_label"), class: 'button' %>
+    <% end %>
+  </div>
 </div>
+

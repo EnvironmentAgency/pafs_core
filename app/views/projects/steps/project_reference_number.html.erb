@@ -1,11 +1,20 @@
-<h1>Project reference number</h1>
-
-<p>Your project reference number is</p>
-
-<div>
-  <p><%= @project.reference_number %></p>
-  <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
-    <%= f.submit 'Continue' %>
-  <% end %>
+<div class="step-container">
+  <h1 class="heading-large"><%= t('.title') %></h1>
+  <div class="step-form">
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <div class="confirmation-box">
+          <h2 class="heading-large"><%= t(".heading") %></h2>
+          <p>
+            <%= t(".label") %><br/>
+            <strong class="heading-medium"><%= @project.reference_number %></strong>
+          </p>
+        </div>
+        <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+          <%= f.submit t("continue_label"), class: 'button' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
