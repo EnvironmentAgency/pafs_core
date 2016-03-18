@@ -13,6 +13,10 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     redirect_to project_step_path(id: @project.to_param, step: @project.step)
   end
 
+  def create
+    # save the new project and start the steps
+  end
+
   # GET
   def step
     # edit step
