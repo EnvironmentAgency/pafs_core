@@ -1,0 +1,69 @@
+@import "colours";
+@import "typography";
+
+nav {
+  @include core-16;
+
+  h1.heading-small {
+    margin-bottom: 0.1em;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    line-height: 1.25em;
+    margin-bottom: 0.25em;
+
+    .complete-flag {
+      color: $button-colour;
+      float: left;
+      min-width: 1.2em;
+    }
+
+    a, .selected, .inactive {
+      margin-left: 1.2em;
+      padding-bottom: 0;
+      display: block;
+    }
+
+    .selected {
+      color: $text-colour;
+      border-bottom: 2px solid $text-colour;
+    }
+
+    .inactive {
+      color: $secondary-text-colour;
+      border-bottom: 2px solid $white;
+    }
+
+    a {
+      display: block;
+      border-bottom: 2px solid $white;
+      text-decoration: none;
+
+      &:visited {
+        background-color: transparent;
+        color: $link-colour;
+      }
+
+      &:hover {
+        color: $link-hover-colour;
+        border-bottom: 2px solid $link-hover-colour;
+      }
+
+      &:active {
+        background-color: transparent;
+        color: $link-colour;
+      }
+
+      &:focus {
+        background-color: transparent;
+        outline: unset;
+      }
+    }
+  }
+
+}

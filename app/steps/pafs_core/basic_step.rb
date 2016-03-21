@@ -25,7 +25,7 @@ module PafsCore
     end
 
     def view_path
-      "projects/steps/#{step_name}"
+      "pafs_core/projects/steps/#{step_name}"
     end
   end
 end

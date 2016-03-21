@@ -4,7 +4,6 @@
       <%= render partial: 'shared/navigator', project: @project %>
     </div>
     <div class="column-two-thirds">
-      <p>Content column</p>
       <h1 class="heading-large"><%= t('.title') %></h1>
       <div class="step-form">
         <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
@@ -24,4 +23,3 @@
     </div>
   </div>
 </div>
-
