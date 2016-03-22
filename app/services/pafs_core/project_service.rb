@@ -25,6 +25,11 @@ module PafsCore
       "P#{SecureRandom.hex[0..5].upcase}"
     end
 
+    def search(options = {})
+      #FIXME: just returning all projects while we're scaffolding
+      PafsCore::Project.all
+    end
+
     def show_projects(area_id, area_type)
       PafsCore::Project.find_by_sql(%{
         with recursive area_tree(id) as (

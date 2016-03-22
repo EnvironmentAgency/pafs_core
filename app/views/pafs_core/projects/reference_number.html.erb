@@ -1,0 +1,9 @@
+<h1 class="heading-large">Your project application number</h1>
+<p class="lede">Here is your project application number</p>
+<div class="panel-indent">
+  <span class="heading-large"><%= @project.reference_number %></span>
+</div>
+<p>Your unique project application number has been saved automatically.</p>
+
+<%= link_to t('continue_label'), project_step_path(@project), class: "button" %>
+

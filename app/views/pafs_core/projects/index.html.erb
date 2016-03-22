@@ -1,1 +1,39 @@
-<h1>This is the dashboard page</h1>
+<div id="dashboard">
+  <h1 class="heading-large">Project Application and Funding Service Dashboard</h1>
+
+  <p class="lede">Fondue when the cheese comes out everybody's happy edam. Manchego cheesecake cheeseburger stinking bishop cheese strings say cheese fromage frais queso. Mascarpone stilton pepper jack caerphilly cow boursin paneer squirty cheese.</p>
+
+  <p>Manchego danish fontina manchego. Cow camembert de normandie stinking bishop paneer halloumi croque monsieur croque monsieur edam. Who moved my cheese dolcelatte pepper jack cut the cheese cut the cheese who moved my cheese the big cheese cheesecake. Cheese strings when the cheese comes out everybody's happy.</p>
+
+  <div>
+    <%= link_to t('create_a_new_project_label'), pafs_core.new_project_path, class: "button" %>
+  </div>
+
+  <section>
+    <h2 class="heading-medium">Your existing project proposals</h2>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Reference no.</th>
+          <th scope="col">Project name</th>
+          <th scope="col">RMA</th>
+          <th scope="col">Location</th>
+          <th scope="col">Type</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @projects.each do |project| %>
+          <tr>
+            <td><%= project.reference_number %></td>
+            <td><%= project.name %></td>
+            <td>Bristol city council</td>
+            <td>BS4 8NP</td>
+            <td>1-6 yrs</td>
+            <td>Approved</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>

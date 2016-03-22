@@ -72,6 +72,10 @@ module PafsCore
       Object::const_get("PafsCore::#{self.class.first_step.to_s.camelcase}Step").new project
     end
 
+    def search(options = {})
+      project_service.search(options)
+    end
+
     def find_project_step(id, step)
       raise ActiveRecord::RecordNotFound.new("Unknown step [#{step}]") unless STEPS.include?(step.to_sym)
       # retrieve and wrap project

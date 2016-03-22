@@ -12,8 +12,8 @@ en:
   optional_label: "(Optional)"
   save_and_continue_label: "Save and continue"
   continue_label: "Continue"
+  create_a_new_project_label: "Create a new project proposal"
   shared:
     phase_banner:
       feedback: feedback
       heading_html: This is a new service – your %{href} will help us to improve it.
-
