@@ -1,6 +1,8 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 class PafsCore::ProjectsController < PafsCore::ApplicationController
+  before_action :authenticate_user!
+
   def index
     # dashboard page
     # (filterable) list of projects
@@ -27,7 +29,7 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
       render "reference_number"
     else
       # not a project we want to know about yet?
-      redirect_to projects_path, notice: "Not a 6 year project"
+      redirect_to projects_path, notice: "Not a 6 year project - so what do we do now?"
     end
   end
 

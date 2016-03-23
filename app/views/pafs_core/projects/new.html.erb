@@ -1,4 +1,4 @@
-<h1 class="heading-large">Does your project require Grant in Aid funding before <%= six_year_limit_date %>?</h1>
+<h1 class="heading-large"><%= t(".heading", date: six_year_limit_date) %></h1>
 <p class="lede">I love cheese, especially brie red leicester. Cream cheese cheese slices chalk and cheese smelly cheese bocconcini cheese and wine parmesan feta. Pepper jack squirty cheese cheese and biscuits danish fontina cheese and biscuits cauliflower cheese fromage mozzarella. Macaroni cheese boursin.</p>
 <div class="step-form">
   <%= form_tag pafs_core.projects_path, method: :post do %>
@@ -14,9 +14,9 @@
       </div>
     </fieldset>
     <details>
-      <summary><span class="summary"><%= t('.details_label') %></span></summary>
+      <summary><span class="summary"><%= t('.help_label') %></span></summary>
       <div class="panel-indent">
-        <%= t('.details_content_html') %>
+        <%= t('.help_content_html') %>
       </div>
     </details>
     <%= submit_tag t("save_and_continue_label"), class: 'button' %>

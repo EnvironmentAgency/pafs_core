@@ -4,7 +4,7 @@
       <%= render partial: 'shared/navigator', project: @project %>
     </div>
     <div class="column-two-thirds">
-      <h1 class="heading-large"><%= t('.title') %></h1>
+      <h1 class="heading-large"><%= t('.heading') %></h1>
       <div class="step-form">
         <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <div class="form-group">
@@ -12,9 +12,9 @@
             <%= f.text_field :name, class: "form-control" %>
           </div>
           <details>
-            <summary><span class="summary"><%= t('.details_label') %></span></summary>
+            <summary><span class="summary"><%= t('.help_label') %></span></summary>
             <div class="panel-indent">
-              <%= t('.details_content_html') %>
+              <%= t('.help_content_html') %>
             </div>
           </details>
           <%= f.submit t("save_and_continue_label"), class: 'button' %>

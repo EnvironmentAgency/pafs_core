@@ -13,6 +13,16 @@ en:
   save_and_continue_label: "Save and continue"
   continue_label: "Continue"
   create_a_new_project_label: "Create a new project proposal"
+  pafs_core:
+    projects:
+      new:
+        heading: "Does your project require Grant in Aid funding before %{date}?"
+        help_label: "Help"
+        help_content_html: "Some help text here please..."
+      reference_number:
+        heading: "Your project application number"
+        lede: "Here is your project application number"
+        info: "Your unique project application number has been saved automatically."
   shared:
     phase_banner:
       feedback: feedback

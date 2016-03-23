@@ -18,7 +18,8 @@ module PafsCore
     end
 
     def find_project(id)
-      Project.find_by!(reference_number: id)
+      # make it a case-insensitive search
+      Project.find_by!(reference_number: id.to_s.upcase)
     end
 
     def generate_reference_number
