@@ -1,0 +1,25 @@
+en:
+  activerecord:
+    attributes:
+      pafs_core/account_request:
+        first_name: "First name"
+        last_name: "Last name"
+        email: "Your business email address"
+        telephone_number: "Your business telephone number"
+        organisation: "Organisation"
+        job_title: "Job title"
+  pafs_core:
+    account_requests:
+      new:
+        heading: "Request an account"
+        lede: "This is for our records only and helps us to verify your account request."
+        email_hint_html: "We'll use this to confirm your registration."
+        telephone_number_hint_html: "This can be a landline or mobile.<br/>We may use this if we need any more information about your account request."
+        organisation_hint_html: "This helps us to verify your account request."
+        job_title_hint_html: "This helps us to verify your account request."
+        terms_and_conditions_label: "Read terms and conditions"
+        accept_terms_and_conditions_label: "By submitting an account request I accept the terms and conditions"
+        submit_label: "Request account"
+      show:
+        heading: "You have submitted your account request"
+        back_to_start_label: "Back to start"

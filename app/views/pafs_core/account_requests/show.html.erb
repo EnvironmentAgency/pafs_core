@@ -1,0 +1,12 @@
+<div class="confirmation-box">
+  <h1><%= t(".heading") %></h1>
+  <p>for<br/>
+  <strong class="heading-medium"><%= @account_request.email %></strong>
+  </p>
+</div>
+<p>We have sent you a confirmation email.</p>
+<h2 class="heading-medium">What happens next</h2>
+<p>We will check your details an email you your account details within 5 working days.</p>
+<p>If you have not received your account details after 5 working days, you can contact the Environment Agency on 02030 254 771.</p>
+
+<%= link_to t(".back_to_start_label"), main_app.page_path(:start), class: "button", role: "button" %>

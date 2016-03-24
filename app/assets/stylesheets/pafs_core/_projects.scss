@@ -1,0 +1,29 @@
+@import "typography";
+@import "colours";
+
+.confirmation-box {
+  //background-color: $department-for-environment-food-rural-affairs;
+  color: $white;
+  background-color: $turquoise;
+  margin: 1em 0 1em 0;
+  padding: 2em 0 1em 0;
+  text-align: center;
+
+  h1 {
+    @include core-36;
+    font-weight: 700;
+    line-height: 1.1em;
+  }
+}
+
+.step-container {
+  margin-top: 1em;
+
+  .heading-large {
+    margin-top: 0.4em;
+  }
+
+  .step-form {
+    margin-top: 1em;
+  }
+}
