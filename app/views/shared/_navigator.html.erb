@@ -1,104 +1,107 @@
-<nav>
-  <section>
-    <h1 class="heading-small">Project details</h1>
-    <ul>
-      <li>
-        <span class="complete-flag"><%= icon('check') %></span>
-        <%= link_to "Project Name", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"><%= icon('check') %></span>
-        <%= link_to "Financial year", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"><%= icon('check') %></span>
-        <%= link_to "Timescale", "#" %>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h1 class="heading-small">Funding</h1>
-    <ul>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Source of funding", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Funding details", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Early start", "#" %>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h1 class="heading-small">Location and type</h1>
-    <ul>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Location", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Classification" %>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h1 class="heading-small">Beneficiaries</h1>
-    <ul>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Risks", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"></span>
-        <span class="selected">Number of households</span>
-      </li>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Standard of protection", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"></span>
-        <span class="inactive">Outcomes</span>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h1 class="heading-small">Related programs</h1>
-    <ul>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "DEFRA", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Directives", "#" %>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h1 class="heading-small">Other</h1>
-    <ul>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Environmental issues", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Higher priority", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Funding calculator", "#" %>
-      </li>
-      <li>
-        <span class="complete-flag"></span>
-        <%= link_to "Summary", "#" %>
-      </li>
-    </ul>
-  </section>
-</nav>
+<div id="sidebar">
+  <header>
+    <h1 class="heading-small">Project <%= @project.reference_number %></h1>
+    <%= link_to t("overview_link"), pafs_core.projects_path %>
+  </header>
+  <nav>
+    <section>
+      <h1 class="heading-small">Project details</h1>
+      <ul>
+        <li>
+          <span class="complete-flag"><%= icon('check') %></span>
+          <%= link_to "Project name", "#" %>
+        </li>
+        <li>
+          <span class="complete-flag"><%= icon('check') %></span>
+          <%= link_to "Financial year", "#" %>
+        </li>
+        <li>
+          <span class="complete-flag"><%= icon('check') %></span>
+          <%= link_to "Timescales", "#" %>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h1 class="heading-small">Funding</h1>
+      <ul>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "Funding sources", "#" %>
+        </li>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "Funding values", "#" %>
+        </li>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "Earliest start", "#" %>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h1 class="heading-small">Location and type</h1>
+      <ul>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "Location", "#" %>
+        </li>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "Type" %>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h1 class="heading-small">Risks and outcomes</h1>
+      <ul>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "Risks", "#" %>
+        </li>
+        <li>
+          <span class="complete-flag"></span>
+          <span class="selected">Households benefiting</span>
+        </li>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "Standard of protection", "#" %>
+        </li>
+        <li>
+          <span class="complete-flag"></span>
+          <span class="inactive">Approach</span>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h1 class="heading-small">Environmental outcomes</h1>
+      <ul>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "WFD benefits", "#" %>
+        </li>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "Environmental issues", "#" %>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h1 class="heading-small">Urgency</h1>
+      <ul>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "Urgency details", "#" %>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h1 class="heading-small">Partnership funding</h1>
+      <ul>
+        <li>
+          <span class="complete-flag"></span>
+          <%= link_to "Caclulator", "#" %>
+        </li>
+      </ul>
+    </section>
+  </nav>
+</div>

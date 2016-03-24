@@ -13,6 +13,7 @@ en:
   save_and_continue_label: "Save and continue"
   continue_label: "Continue"
   create_a_new_project_label: "Create a new project proposal"
+  overview_link: "Project overview"
   pafs_core:
     projects:
       new:
