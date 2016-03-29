@@ -4,7 +4,7 @@ module PafsCore
   class BasicStep
     include ActiveModel::Model, ActiveRecord::AttributeAssignment
 
-    attr_reader :project
+    attr_reader :navigator, :project
 
     delegate  :id,
               :reference_number,
@@ -12,12 +12,19 @@ module PafsCore
               :persisted?,
               to: :project
 
-    def initialize(model)
+    def initialize(navigator, model)
+      @navigator = navigator
       @project = model
     end
 
+    # override this in the subclass if you need more functionality
     def completed?
       valid?
+    end
+
+    # override this in the subclass if the step could conditionally be disabled
+    def disabled?
+      false
     end
 
     def step_name

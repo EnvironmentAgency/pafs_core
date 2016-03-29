@@ -69,7 +69,7 @@ module PafsCore
       # and is 'owned' by a user.  I envisage that we would use the
       # current_user passed into the constructor to get this information.
       project = project_service.create_project
-      Object::const_get("PafsCore::#{self.class.first_step.to_s.camelcase}Step").new project
+      Object::const_get("PafsCore::#{self.class.first_step.to_s.camelcase}Step").new self, project
     end
 
     def search(options = {})
@@ -79,7 +79,7 @@ module PafsCore
     def find_project_step(id, step)
       raise ActiveRecord::RecordNotFound.new("Unknown step [#{step}]") unless STEPS.include?(step.to_sym)
       # retrieve and wrap project
-      Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new project_service.find_project(id)
+      Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new self, project_service.find_project(id)
     end
 
   private
