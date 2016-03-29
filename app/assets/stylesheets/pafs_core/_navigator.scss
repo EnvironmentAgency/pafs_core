@@ -5,6 +5,7 @@
   @include core-16;
 
   header {
+    border-top: 10px solid $govuk-blue;
     background-color: $grey-3;
     padding: 1em;
 
@@ -39,6 +40,8 @@
   
 
   nav {
+
+    padding-left: 1em;
 
     h1.heading-small {
       margin-bottom: 0.1em;

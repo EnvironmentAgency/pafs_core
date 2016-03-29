@@ -3,8 +3,5 @@ en:
     projects:
       steps:
         project_name:
-          heading: What would you like to name your project?
+          heading: What would you like to name your proposed project?
           project_name_label: Project name
-          help_label: Choosing a project name
-          help_content_html: <p>Think of an amusing name and then use that.</p>
-
