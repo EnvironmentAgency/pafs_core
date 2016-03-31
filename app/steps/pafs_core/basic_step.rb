@@ -16,6 +16,14 @@ module PafsCore
       @project = model
     end
 
+    def save!(*)
+      if valid?
+        project.save!
+      else
+        raise ActiveRecord::RecordInvalid.new(project.errors.full_messages)
+      end
+    end
+
     # override this in the subclass if you need more functionality
     def completed?
       valid?
