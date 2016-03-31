@@ -11,3 +11,4 @@ spec/dummy/.env
 config/secrets.yml
 tmp/
 .DS_Store
+coverage

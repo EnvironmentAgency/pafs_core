@@ -59,7 +59,6 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
 
 private
   def project_navigator
-    # TODO: pass current_user to ProjectNavigator constructor
-    @project_navigator ||= PafsCore::ProjectNavigator.new # current_user
+    @project_navigator ||= PafsCore::ProjectNavigator.new current_user
   end
 end

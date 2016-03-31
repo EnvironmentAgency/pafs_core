@@ -41,4 +41,22 @@ RSpec.describe PafsCore::ProjectNavigator do
         to raise_error(ActiveRecord::RecordNotFound)
     end
   end
+
+  describe ".build_project_step" do
+    let(:raw_project) { FactoryGirl.build(:project) }
+    let(:project_step) { subject.start_new_project }
+
+    it "wraps a project record with the requested :step" do
+      expect(raw_project).to be_a PafsCore::Project
+      p = described_class.build_project_step(raw_project, described_class.first_step)
+      expect(p).to be_a PafsCore::BasicStep
+      expect(p.step).to eq(described_class.first_step)
+    end
+
+    it "re-wraps an existing project step with the requested :step" do
+      expect(project_step.step).to eq(described_class.first_step)
+      p = described_class.build_project_step(project_step, described_class.last_step)
+      expect(p.step).to eq(described_class.last_step)
+    end
+  end
 end

@@ -49,12 +49,13 @@ module PafsCore
     #           :summary]
     # }
 
-    # TODO: once devise is set up
-    #
-    # attr_reader :user
-    # def initialize(user)
-    #   @user = user
-    # end
+    attr_reader :user
+
+    def initialize(user = nil)
+      # when instantiated from a controller the 'current_user' should
+      # be passed in. This will allow us to audit actions etc. down the line.
+      @user = user
+    end
 
     def self.first_step
       STEPS.first
@@ -69,7 +70,7 @@ module PafsCore
       # and is 'owned' by a user.  I envisage that we would use the
       # current_user passed into the constructor to get this information.
       project = project_service.create_project
-      Object::const_get("PafsCore::#{self.class.first_step.to_s.camelcase}Step").new self, project
+      Object::const_get("PafsCore::#{self.class.first_step.to_s.camelcase}Step").new project
     end
 
     def search(options = {})
@@ -79,13 +80,18 @@ module PafsCore
     def find_project_step(id, step)
       raise ActiveRecord::RecordNotFound.new("Unknown step [#{step}]") unless STEPS.include?(step.to_sym)
       # retrieve and wrap project
-      Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new self, project_service.find_project(id)
+      self.class.build_project_step(project_service.find_project(id), step)
+    end
+
+    def self.build_project_step(project, step)
+      # accept a step or a raw project activerecord object
+      project = project.project if project.instance_of? PafsCore::BasicStep
+      Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new(project)
     end
 
   private
     def project_service
-      @project_service ||= ProjectService.new # user
+      @project_service ||= ProjectService.new(user)
     end
-
   end
 end

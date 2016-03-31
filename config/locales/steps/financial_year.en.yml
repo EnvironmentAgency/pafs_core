@@ -1,0 +1,9 @@
+en:
+  pafs_core:
+    projects:
+      steps:
+        financial_year:
+          heading: What is the last financial year in which you expect your proposed project to spend any funds?
+          sub_heading: Before entering your last financial year
+          project_end_financial_year_label: Financial year starting April
+          project_end_financial_year_hint: "For example, 2017."

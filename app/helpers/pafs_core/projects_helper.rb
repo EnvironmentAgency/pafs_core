@@ -16,7 +16,7 @@ module PafsCore
     end
 
     def nav_step_item(project, step)
-      project_step = project.navigator.find_project_step(project.to_param, step)
+      project_step = PafsCore::ProjectNavigator.build_project_step(project.project, step)
       content_tag(:li) do
         concat(content_tag(:span, class: "complete-flag") do
           icon("check") if project_step.completed?
@@ -25,12 +25,12 @@ module PafsCore
           concat(content_tag(:span, class: "inactive") do
             step_label(step)
           end)
-        elsif project_step.step_name.to_sym == step.to_sym
+        elsif project.step_name == project_step.step_name
           concat(content_tag(:span, class: "selected") do
             step_label(step)
           end)
         else
-          concat link_to step_label, project_step_path(project_step)
+          concat link_to step_label(step), project_step_path(project_step)
         end
       end
     end

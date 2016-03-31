@@ -4,7 +4,7 @@ module PafsCore
   class BasicStep
     include ActiveModel::Model, ActiveRecord::AttributeAssignment
 
-    attr_reader :navigator, :project
+    attr_reader :project
 
     delegate  :id,
               :reference_number,
@@ -12,8 +12,7 @@ module PafsCore
               :persisted?,
               to: :project
 
-    def initialize(navigator, model)
-      @navigator = navigator
+    def initialize(model)
       @project = model
     end
 

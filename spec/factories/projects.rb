@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 FactoryGirl.define do
   factory :project, class: PafsCore::Project do
-    reference_number { PafsCore::ProjectService.new.generate_reference_number }
+    reference_number { PafsCore::ProjectService.new(nil).generate_reference_number }
     version 0
   end
 end

@@ -2,12 +2,13 @@
 # frozen_string_literal: true
 module PafsCore
   class ProjectService
+    attr_reader :user
 
-    # TODO: once devise is set up
-    # attr_reader :user
-    # def initialize(user)
-    #   @user = user
-    # end
+    def initialize(user = nil)
+      # when instantiated from a controller the 'current_user' should
+      # be passed in. This will allow us to audit actions etc. down the line.
+      @user = user
+    end
 
     def new_project
       Project.new(initial_attributes)

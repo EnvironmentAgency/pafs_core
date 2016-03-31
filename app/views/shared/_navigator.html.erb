@@ -8,10 +8,7 @@
       <h1 class="heading-small">Project details</h1>
       <ul>
         <%= nav_step_item(@project, :project_name) %>
-        <li>
-          <span class="complete-flag"><%= icon('check') %></span>
-          <%= link_to "Financial year", "#" %>
-        </li>
+        <%= nav_step_item(@project, :financial_year) %>
         <li>
           <span class="complete-flag"><%= icon('check') %></span>
           <%= link_to "Timescales", "#" %>

@@ -5,6 +5,11 @@ module PafsCore
     delegate :project_end_financial_year, :project_end_financial_year=, to: :project
 
     validates :project_end_financial_year, presence: true
+    validates :project_end_financial_year, numericality: { only_integer: true }
+    validates :project_end_financial_year, numericality: { greater_than: 2015,
+                                                           message: "must be later than 2015" }
+    validates :project_end_financial_year, numericality: { less_than: 2100,
+                                                           message: "must be earlier than 2100" }
 
     def update(params)
       assign_attributes(step_params(params))
@@ -17,7 +22,7 @@ module PafsCore
     end
 
     def previous_step
-      :project_reference_number
+      :project_name
     end
 
     def step
