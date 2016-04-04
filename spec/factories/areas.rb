@@ -61,7 +61,7 @@ FactoryGirl.define do
         after(:create) do |rma_area|
           p = PafsCore::Project.create(
             name: "Project #{rma_area.name}",
-            reference_number: "P#{sprintf '%06d', rma_area.id}",
+            reference_number: PafsCore::ProjectService.new.generate_reference_number,
             version: 0
           )
           p.save

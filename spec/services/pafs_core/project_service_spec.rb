@@ -38,9 +38,11 @@ RSpec.describe PafsCore::ProjectService do
   end
 
   describe ".generate_reference_number" do
-    let(:reference_number) { subject.generate_reference_number }
-    it "returns a 7 character string starting with the letter P" do
-      expect(reference_number).to match /\AP[A-F0-9]{6}\z/
+    it "returns a reference number in the correct format" do
+      PafsCore::RFCC_CODES.each do |rfcc_code|
+        ref = subject.generate_reference_number(rfcc_code)
+        expect(ref).to match /\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|WX|YO)C501E\/\d{3}A\/\d{3}A\z/
+      end
     end
   end
 end

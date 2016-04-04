@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 module PafsCore
   class Area < ActiveRecord::Base
-
     AREA_TYPES = ["Country",
                   "EA Area",
                   "PSO Area",

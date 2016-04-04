@@ -11,20 +11,22 @@ module PafsCore
     end
 
     def new_project
-      Project.new(initial_attributes)
+      PafsCore::Project.new(initial_attributes)
     end
 
     def create_project
-      Project.create(initial_attributes)
+      PafsCore::Project.create(initial_attributes)
     end
 
     def find_project(id)
       # make it a case-insensitive search
-      Project.find_by!(reference_number: id.to_s.upcase)
+      PafsCore::Project.find_by!(slug: id.to_s.upcase)
     end
 
-    def generate_reference_number
-      "P#{SecureRandom.hex[0..5].upcase}"
+    def generate_reference_number(rfcc_code = nil)
+      rfcc_code = derive_rfcc_code_from_user if rfcc_code.blank?
+      sequence_nos = PafsCore::ReferenceCounter.next_sequence_for(rfcc_code)
+      "#{rfcc_code}C501E/%03dA/%03dA" % sequence_nos
     end
 
     def search(options = {})
@@ -65,6 +67,12 @@ module PafsCore
         version: 0,
         # TODO: owner: user
       }
+    end
+
+    def derive_rfcc_code_from_user
+      #FIXME: this is just until we have the data from the data analyst
+      # and we can look this up based on the user's area
+      PafsCore::RFCC_CODES.last
     end
   end
 end

@@ -12,8 +12,8 @@ RSpec.describe PafsCore::Project, type: :model do
 
     it { is_expected.to validate_uniqueness_of(:reference_number).scoped_to :version }
 
-    it "returns :reference_number as a URL slug" do
-      expect(subject.to_param).to eq(subject.reference_number)
+    it "returns a parmeterized :reference_number as a URL slug" do
+      expect(subject.to_param).to eq(subject.reference_number.parameterize.upcase)
     end
 
     it "validates the format of :reference_number" do

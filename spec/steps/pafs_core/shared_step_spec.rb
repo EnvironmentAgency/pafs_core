@@ -16,8 +16,8 @@ RSpec.shared_examples "a project step" do
       expect(subject).to respond_to :reference_number
     end
 
-    it "returns :reference_number as a URL slug" do
-      expect(subject.to_param).to eq(subject.reference_number)
+    it "returns parameterized :reference_number as a URL slug" do
+      expect(subject.to_param).to eq(subject.reference_number.parameterize.upcase)
     end
 
     it "responds to :persisted?" do
