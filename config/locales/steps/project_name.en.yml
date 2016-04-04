@@ -3,5 +3,5 @@ en:
     projects:
       steps:
         project_name:
-          heading: What would you like to name your proposed project?
+          heading: What name would you like to give your proposed project?
           project_name_label: Project name
