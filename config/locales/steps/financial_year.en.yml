@@ -4,6 +4,6 @@ en:
       steps:
         financial_year:
           heading: What is the last financial year in which you expect your proposed project to spend any funds?
-          sub_heading: Before entering your last financial year
-          project_end_financial_year_label: Financial year starting April
+          lede: Do not include any financial year in which there are maintenance costs, as these costs are the responsibility of the risk management authority promoting the scheme.
+          project_end_financial_year_label: Financial year from April
           project_end_financial_year_hint: "For example, 2017."

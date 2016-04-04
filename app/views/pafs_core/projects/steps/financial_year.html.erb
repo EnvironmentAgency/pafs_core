@@ -5,12 +5,8 @@
     </div>
     <div class="column-two-thirds">
       <h1 class="heading-large"><%= t('.heading') %></h1>
-      <p class="lede">This information is used to select the years for the funding and outcome tables</p>
-      <h3 class="heading-medium"><%= t('.sub_heading') %></h3>
-      <ul class="list list-bullet">
-        <li>A financial year runs from 1 April to 31 March in the subsequent year, for example April 2017 to March 2018.</li>
-        <li>Do not include any financial year in which there are maintenance costs, as these costs are the responsibility of the risk management authority promoting the scheme.</li>
-      </ul>
+      <p class="lede"><%= t('.lede') %></p>
+      <p>A financial year runs from 1 April in one year to 31 March in the subsequent year, for example April 2017 to March 2018.</p>
       <div class="step-form">
         <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <div class="form-group">
