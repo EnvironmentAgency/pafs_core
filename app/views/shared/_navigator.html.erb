@@ -1,6 +1,6 @@
 <div id="sidebar">
   <header>
-    <h1 class="heading-small">Project <%= @project.reference_number %></h1>
+    <h1 class="heading-small">Project:<span><%= @project.reference_number %></span></h1>
     <%= link_to t("overview_link"), pafs_core.project_path(@project) %>
   </header>
   <nav>
@@ -9,10 +9,7 @@
       <ul>
         <%= nav_step_item(@project, :project_name) %>
         <%= nav_step_item(@project, :financial_year) %>
-        <li>
-          <span class="complete-flag"><%= icon('check') %></span>
-          <%= link_to "Timescales", "#" %>
-        </li>
+        <%= nav_step_item(@project, :key_dates) %>
       </ul>
     </section>
     <section>

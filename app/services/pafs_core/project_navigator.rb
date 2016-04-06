@@ -9,7 +9,7 @@ module PafsCore
     STEPS = [:project_name,
              :project_reference_number,
              :financial_year,
-             :timescale,
+             :key_dates,
              :source_of_funding,
              :funding_details,
              :early_start,

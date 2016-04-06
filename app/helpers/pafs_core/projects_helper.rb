@@ -38,5 +38,19 @@ module PafsCore
     def step_label(step)
       t("#{step}_step_label")
     end
+
+    def key_month_field(f, attr)
+      content_tag(:div, class: "form-group form-group-month") do
+        concat(f.label(attr, t(".month_label"), class: "form-label"))
+        concat(f.number_field(attr, in: 1..12, class: "form-control form-month"))
+      end
+    end
+
+    def key_year_field(f, attr)
+      content_tag(:div, class: "form-group form-group-year") do
+        concat(f.label(attr, t(".year_label"), class: "form-label"))
+        concat(f.number_field(attr, in: 2000...2100, class: "form-control form-year"))
+      end
+    end
   end
 end
