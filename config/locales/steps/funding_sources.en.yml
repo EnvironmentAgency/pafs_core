@@ -1,0 +1,18 @@
+en:
+  pafs_core:
+    projects:
+      steps:
+        funding_sources:
+          heading: What are the expected funding sources for your proposed project?
+          lede: Select all that apply. You should also include any gaps in funding under 'Not yet identified'.
+          select_all_options: Select all options that are relevant to you.
+          fcerm_gia_label: Flood and Coastal Erosion Risk Management Grant in Aid (FCERM GiA)
+          local_levy_label: Local levy
+          internal_drainage_boards_label: Internal Drainage Boards (IDB) precepts
+          public_contributions_label: Public contributions
+          private_contributions_label: Private contributions
+          other_ea_contributions_label: Other Environment Agency contributions
+          growth_funding_label: Growth funding
+          not_yet_identified_label: Not yet identified
+          list_contributors_label: List the names of potential contributors
+

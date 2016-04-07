@@ -10,7 +10,7 @@ module PafsCore
              :project_reference_number,
              :financial_year,
              :key_dates,
-             :source_of_funding,
+             :funding_sources,
              :funding_details,
              :early_start,
              :location,

@@ -23,5 +23,11 @@ FactoryGirl.define do
       ready_for_service_month 9
       ready_for_service_year 2019
     end
+
+    factory :funding_sources_step, class: PafsCore::FundingSourcesStep do
+      fcerm_gia true
+      public_contributions true
+      public_contributor_names "Mary, Mungo and Midge"
+    end
   end
 end

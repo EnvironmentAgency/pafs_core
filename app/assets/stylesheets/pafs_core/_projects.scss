@@ -1,6 +1,11 @@
 @import "typography";
 @import "colours";
 
+.js-enabled .js-hidden {
+  display: none;
+  visibility: initial;
+}
+
 .confirmation-box {
   //background-color: $department-for-environment-food-rural-affairs;
   color: $white;
@@ -37,6 +42,25 @@
       .this-is-not-the-content-you-are-looking-for {
         margin-bottom: 3em;
       }
+
+
+      .panel {
+        clear: both;
+        border-left-style: solid;
+        border-color: $grey-2;
+        padding: 0.8em;
+        margin-bottom: 0.8em;
+
+        .form-control {
+          width: 100%;
+        }
+      }
+
+      .panel-border-narrow {
+        border-left-width: 5px;
+        padding-bottom: 0;
+      }
+
     }
     .form-date {
       .form-group-month {
