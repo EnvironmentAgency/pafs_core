@@ -57,7 +57,7 @@ module PafsCore
            errors.add(attr, "cannot be blank")
          else
            m = val.to_i
-           if val < 1 || val > 12 || (m.to_s != val.to_s)
+           if m < 1 || m > 12 || (m.to_s != val.to_s)
              errors.add(attr, "must be in the range 1-12")
            end
          end
@@ -73,8 +73,8 @@ module PafsCore
          if val.blank?
            errors.add(attr, "cannot be blank")
          else
-           m = val.to_i
-           if val < 2000 || val > 2099 || (m.to_s != val.to_s)
+           y = val.to_i
+           if y < 2000 || y > 2099 || (y.to_s != val.to_s)
              errors.add(attr, "must be in the range 2000-2099")
            end
          end

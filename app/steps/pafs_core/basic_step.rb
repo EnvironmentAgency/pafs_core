@@ -34,6 +34,14 @@ module PafsCore
       false
     end
 
+    # override this in the subclass for multi-step processes
+    # This asks whether the supplied step is the one that is represented by
+    # the subclass. This is used by the navigator to highlight the current
+    # active task in the list
+    def is_current_step?(a_step)
+      step_name.to_sym == a_step.to_sym
+    end
+
     def step_name
       self.class.name.demodulize.chomp("Step").underscore
     end

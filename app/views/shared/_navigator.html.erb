@@ -20,10 +20,7 @@
           <span class="complete-flag"></span>
           <%= link_to "Funding values", "#" %>
         </li>
-        <li>
-          <span class="complete-flag"></span>
-          <%= link_to "Earliest start", "#" %>
-        </li>
+        <%= nav_step_item(@project, :earliest_start) %>
       </ul>
     </section>
     <section>

@@ -12,7 +12,8 @@ module PafsCore
              :key_dates,
              :funding_sources,
              :funding_details,
-             :early_start,
+             :earliest_start,
+             :earliest_date, # not in nav - accessible by choosing 'Yes' on :earliest_start
              :location,
              :classification,
              :risks,
@@ -86,6 +87,7 @@ module PafsCore
     def self.build_project_step(project, step)
       # accept a step or a raw project activerecord object
       project = project.project if project.instance_of? PafsCore::BasicStep
+
       Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new(project)
     end
 

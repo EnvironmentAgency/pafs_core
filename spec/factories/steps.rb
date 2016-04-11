@@ -29,5 +29,14 @@ FactoryGirl.define do
       public_contributions true
       public_contributor_names "Mary, Mungo and Midge"
     end
+
+    factory :earliest_start_step, class: PafsCore::EarliestStartStep do
+      could_start_early true
+    end
+
+    factory :earliest_date_step, class: PafsCore::EarliestDateStep do
+      earliest_start_month 3
+      earliest_start_year 2017
+    end
   end
 end
