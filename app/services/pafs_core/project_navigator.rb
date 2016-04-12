@@ -74,6 +74,10 @@ module PafsCore
       Object::const_get("PafsCore::#{self.class.first_step.to_s.camelcase}Step").new project
     end
 
+    def find(ref_number)
+      project_service.find_project(ref_number)
+    end
+
     def search(options = {})
       project_service.search(options)
     end
@@ -82,6 +86,9 @@ module PafsCore
       raise ActiveRecord::RecordNotFound.new("Unknown step [#{step}]") unless STEPS.include?(step.to_sym)
       # retrieve and wrap project
       self.class.build_project_step(project_service.find_project(id), step)
+      # TODO: we might want to check that it is valid to go to this step at this
+      # time.  e.g. someone manipulates/bookmarks the url and jumps to a 'sub' step
+      # that isn't valid based on the current project attributes
     end
 
     def self.build_project_step(project, step)

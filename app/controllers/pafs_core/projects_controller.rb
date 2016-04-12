@@ -9,6 +9,11 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     @projects = project_navigator.search(params)
   end
 
+  def show
+    # project summary page
+    @project = PafsCore::ProjectSummaryPresenter.new project_navigator.find(params[:id])
+  end
+
   def new
     # start a new project
     # ask the 'start within 6 years' question
