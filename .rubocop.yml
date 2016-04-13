@@ -9,6 +9,8 @@ AllCops:
     - 'script/**/*'
     - 'vendor/bundle/**/*'
     - '.git-hooks/**/*'
+    - 'Gemfile*'
+    - '*.gemspec'
     - !ruby/regexp /old_and_unused\.rb$/
     # Bin contains standard files created when Rails is initialised and
     # therefore they should be left as is

@@ -1,112 +1,107 @@
-@import "colours";
-@import "typography";
+@import 'colours';
+@import 'typography';
 
-#sidebar {
+.sidebar-heading {
   @include core-16;
+  background-color: $grey-3;
+  border-top: 10px solid $govuk-blue;
+  padding: 1em;
 
-  header {
-    border-top: 10px solid $govuk-blue;
-    background-color: $grey-3;
-    padding: 1em;
+  .heading-small {
+    margin-top: 0;
 
-    .heading-small {
-      margin-top: 0;
-
-      span {
-        display: block;
-      }
-    }
-
-    a {
-      background-color: transparent;
-      text-decoration: none;
-
-      &:visited {
-        color: $link-colour;
-      }
-
-      &:hover {
-        color: $link-hover-colour;
-        text-decoration: underline;
-      }
-
-      &:active {
-        background-color: transparent;
-        color: $link-colour;
-      }
-
-      &:focus {
-        background-color: transparent;
-        outline: unset;
-      }
+    span {
+      display: block;
     }
   }
-  
 
-  nav {
+  a {
+    background-color: transparent;
+    text-decoration: none;
 
-    padding-left: 1em;
-
-    h1.heading-small {
-      margin-bottom: 0.1em;
+    &:visited {
+      color: $link-colour;
     }
 
-    ul {
-      list-style-type: none;
-      padding: 0;
+    &:hover {
+      color: $link-hover-colour;
+      text-decoration: underline;
     }
 
-    li {
-      line-height: 1.25em;
-      margin-bottom: 0.25em;
+    &:active {
+      background-color: transparent;
+      color: $link-colour;
+    }
 
-      .complete-flag {
-        color: $button-colour;
-        float: left;
-        min-width: 1.2em;
-      }
+    &:focus {
+      background-color: transparent;
+      outline: unset;
+    }
+  }
+}
 
-      a, .selected, .inactive {
-        margin-left: 1.2em;
-        padding-bottom: 0;
-        display: block;
-      }
+.sidebar-nav {
+  padding-left: 1em;
 
-      .selected {
-        color: $text-colour;
-        border-bottom: 2px solid $text-colour;
-      }
+  .heading-small {
+    margin-bottom: 0.1em;
+  }
 
-      .inactive {
-        color: $secondary-text-colour;
-        border-bottom: 2px solid $white;
-      }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-      a {
-        display: block;
-        border-bottom: 2px solid $white;
-        text-decoration: none;
+  li {
+    line-height: 1.25em;
+    margin-bottom: 0.25em;
 
-        &:visited {
-          background-color: transparent;
-          color: $link-colour;
-        }
+    .complete-flag {
+      color: $button-colour;
+      float: left;
+      min-width: 1.2em;
+    }
 
-        &:hover {
-          color: $link-hover-colour;
-          border-bottom: 2px solid $link-hover-colour;
-        }
+    a, .selected, .inactive {
+      display: block;
+      margin-left: 1.2em;
+      padding-bottom: 0;
+    }
 
-        &:active {
-          background-color: transparent;
-          color: $link-colour;
-        }
+    .selected {
+      border-bottom: 2px solid $text-colour;
+      color: $text-colour;
+    }
 
-        &:focus {
-          background-color: transparent;
-          outline: unset;
-        }
-      }
+    .inactive {
+      border-bottom: 2px solid $white;
+      color: $secondary-text-colour;
+    }
+  }
+
+  .nav-link {
+    border-bottom: 2px solid $white;
+    display: block;
+    text-decoration: none;
+
+    &:visited {
+      background-color: transparent;
+      color: $link-colour;
+    }
+
+    &:hover {
+      border-bottom: 2px solid $link-hover-colour;
+      color: $link-hover-colour;
+    }
+
+    &:active {
+      background-color: transparent;
+      color: $link-colour;
+    }
+
+    &:focus {
+      background-color: transparent;
+      outline: unset;
     }
   }
 }

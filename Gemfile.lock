@@ -53,6 +53,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    childprocess (0.5.9)
+      ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.1)
     concurrent-ruby (1.0.1)
     database_cleaner (1.5.1)
@@ -84,6 +86,7 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     i18n (0.7.0)
+    iniparse (1.4.2)
     json (1.8.3)
     listen (3.0.6)
       rb-fsevent (>= 0.9.3)
@@ -103,6 +106,9 @@ GEM
     notiffany (0.0.8)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    overcommit (0.33.0)
+      childprocess (~> 0.5.8)
+      iniparse (~> 1.4)
     pg (0.18.4)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -195,6 +201,7 @@ DEPENDENCIES
   dotenv
   factory_girl_rails (~> 4.0)
   guard-rspec
+  overcommit
   pafs_core!
   pg
   pry

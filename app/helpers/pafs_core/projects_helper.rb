@@ -3,7 +3,7 @@
 module PafsCore
   module ProjectsHelper
     def financial_year_end
-      now = Date.today
+      now = Time.zone.today
       Date.new(now.month < 4 ? now.year : now.year + 1, 3, 31)
     end
 
@@ -30,7 +30,7 @@ module PafsCore
             step_label(step)
           end)
         else
-          concat link_to step_label(step), project_step_path(nav_step)
+          concat link_to(step_label(step), project_step_path(nav_step), class: "nav-link")
         end
       end
     end

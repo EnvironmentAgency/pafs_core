@@ -1,5 +1,5 @@
-@import "typography";
-@import "colours";
+@import 'typography';
+@import 'colours';
 
 .js-enabled .js-hidden {
   display: none;
@@ -7,9 +7,8 @@
 }
 
 .confirmation-box {
-  //background-color: $department-for-environment-food-rural-affairs;
-  color: $white;
   background-color: $turquoise;
+  color: $white;
   margin: 1em 0 1em 0;
   padding: 2em 0 1em 0;
   text-align: center;
@@ -26,11 +25,11 @@
   margin-bottom: 2em;
 }
 
-#summary {
+.summary {
   td {
     @include core-19;
-    vertical-align: top;
     padding: 0.75em 1.25em 0.5em 0;
+    vertical-align: top;
 
     &:last-child {
       text-align: right;
@@ -42,53 +41,49 @@
   .heading-large {
     margin-top: 1.25em;
   }
+}
 
-  .step-form {
-    margin-top: 1em;
-    
-    .form-group {
-      .with-divider {
-        border-bottom: 1px solid $grey-2;
-        padding-bottom: 0.25em;
-      }
-      .this-is-not-the-content-you-are-looking-for {
-        margin-bottom: 3em;
-      }
+.step-form {
+  margin-top: 1em;
 
+  .with-divider {
+    border-bottom: 1px solid $grey-2;
+    padding-bottom: 0.25em;
+  }
 
-      .panel {
-        clear: both;
-        border-left-style: solid;
-        border-color: $grey-2;
-        padding: 0.8em;
-        margin-bottom: 0.8em;
+  .this-is-not-the-content-you-are-looking-for {
+    margin-bottom: 3em;
+  }
 
-        .form-control {
-          width: 100%;
-        }
-      }
+  .panel {
+    border-color: $grey-2;
+    border-left-style: solid;
+    clear: both;
+    margin-bottom: 0.8em;
+    padding: 0.8em;
 
-      .panel-border-narrow {
-        border-left-width: 5px;
-        padding-bottom: 0;
-      }
-
+    .form-control {
+      width: 100%;
     }
-    .form-date {
-      .form-group-month {
-        float: left;
-        width: 4em;
-        // margin-right: 20px;
-        margin-bottom: 0;
-        clear: none;
+  }
 
-        .form-month {
-          width: 70%;
-        }
-      }
+  .panel-border-narrow {
+    border-left-width: 5px;
+    padding-bottom: 0;
+  }
+
+  .form-group-month {
+    clear: none;
+    float: left;
+    margin-bottom: 0;
+    width: 4em;
+
+    .form-month {
+      width: 70%;
     }
-    .form-year {
-      width: 4em;
-    }
+  }
+
+  .form-year {
+    width: 4em;
   }
 }
