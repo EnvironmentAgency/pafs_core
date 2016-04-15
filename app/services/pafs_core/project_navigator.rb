@@ -15,9 +15,11 @@ module PafsCore
              :earliest_start,
              :earliest_date, # not in nav - accessible by choosing 'Yes' on :earliest_start
              :location,
+             :map,
              :classification,
              :risks,
-             :number_of_households,
+             :main_risk, # not in nav - accessible following :risks
+             :households_benefiting,
              :standard_of_protection,
              :outcomes,
              :defra,

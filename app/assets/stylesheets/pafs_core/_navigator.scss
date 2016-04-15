@@ -41,6 +41,7 @@
 }
 
 .sidebar-nav {
+  @include core-16;
   padding-left: 1em;
 
   .heading-small {

@@ -1,0 +1,7 @@
+en:
+  pafs_core:
+    projects:
+      steps:
+        main_risk:
+          heading: What is the main source of risk your proposed project will protect against?
+          lede: You have told us that your proposed project will protect against these risks, please select which one is the main source of risk.

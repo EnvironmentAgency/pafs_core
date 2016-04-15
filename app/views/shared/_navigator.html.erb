@@ -24,7 +24,7 @@
       </ul>
     </section>
     <section>
-      <h1 class="heading-small">Location and type</h1>
+      <h1 class="heading-small">Location</h1>
       <ul>
         <li>
           <span class="complete-flag"></span>
@@ -32,20 +32,17 @@
         </li>
         <li>
           <span class="complete-flag"></span>
-          <%= link_to "Type" %>
+          <%= link_to "Map", "#" %>
         </li>
       </ul>
     </section>
     <section>
       <h1 class="heading-small">Risks and outcomes</h1>
       <ul>
+        <%= nav_step_item(@project, :risks) %>
         <li>
           <span class="complete-flag"></span>
-          <%= link_to "Risks", "#" %>
-        </li>
-        <li>
-          <span class="complete-flag"></span>
-          <span class="selected">Households benefiting</span>
+          <%= link_to "Households benefiting", "#" %>
         </li>
         <li>
           <span class="complete-flag"></span>

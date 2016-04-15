@@ -32,6 +32,20 @@ module PafsCore
       fs
     end
 
+    def risks
+      r = []
+      r << :fluvial_flooding if fluvial_flooding?
+      r << :tidal_flooding if tidal_flooding?
+      r << :groundwater_flooding if groundwater_flooding?
+      r << :surface_water_flooding if surface_water_flooding?
+      r << :coastal_erosion if coastal_erosion?
+      r
+    end
+
+    def is_main_risk?(risk)
+      main_risk.present? && main_risk == risk.to_s
+    end
+
     def early_start_date_or_no
       if could_start_early?
         presentable_date(:earliest_start)

@@ -20,7 +20,7 @@ module PafsCore
       if valid?
         project.save!
       else
-        raise ActiveRecord::RecordInvalid.new(project.errors.full_messages)
+        raise ActiveRecord::RecordInvalid.new(self)
       end
     end
 

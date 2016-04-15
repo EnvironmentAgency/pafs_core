@@ -50,6 +50,23 @@
         <td><%= @project.early_start_date_or_no %></td>
         <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :earliest_start), "aria-label": "Change the earliest start date" %></td>
       </tr>
+      <% # Risks ########### %>
+      <tr>
+        <td>Risks</td>
+        <td>
+          <ul>
+            <% @project.risks.each do |risk| %>
+              <li>
+                <%= t("#{risk}_label", scope: "pafs_core.projects.steps.risks") %>
+                <% if @project.is_main_risk? risk %>
+                  <span class="main-risk"> - Main source</span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :risks), "aria-label": "Change which risks your project is protecting against" %></td>
+      </tr>
     </tbody>
   </table>
 </section>

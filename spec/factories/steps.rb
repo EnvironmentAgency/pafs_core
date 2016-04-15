@@ -38,5 +38,13 @@ FactoryGirl.define do
       earliest_start_month 3
       earliest_start_year 2017
     end
+
+    factory :risks_step, class: PafsCore::RisksStep do
+      fluvial_flooding true
+    end
+
+    factory :main_risk_step, class: PafsCore::MainRiskStep do
+      main_risk "fluvial_flooding"
+    end
   end
 end
