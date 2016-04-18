@@ -31,4 +31,27 @@ RSpec.describe PafsCore::BasicStep, type: :model do
       expect(subject.view_path).to eq "pafs_core/projects/steps/basic"
     end
   end
+
+  describe "#is_current_step?" do
+    it "returns true if the current step matches the step parameter" do
+      expect(subject.is_current_step?(:basic)).to be true
+    end
+
+    it "returns false if the current step does not match the step parameter" do
+      expect(subject.is_current_step?(:not_this_step)).to be false
+    end
+  end
+
+  describe "#save!" do
+    subject { FactoryGirl.build(:basic_step) }
+
+    it "saves the record when validations passed" do
+      expect { subject.save! }.to change { PafsCore::Project.count }
+    end
+
+    it "raises ActiveRecord::RecordInvalid when validation fails" do
+      subject.project.reference_number = nil
+      expect { subject.save! }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
 end

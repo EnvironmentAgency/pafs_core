@@ -1,7 +1,0 @@
-en:
-  pafs_core:
-    projects:
-      steps:
-        project_name:
-          heading: What name would you like to give your proposed project?
-          project_name_label: Project name

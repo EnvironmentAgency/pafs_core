@@ -1,0 +1,61 @@
+en:
+  pafs_core:
+    projects:
+      steps:
+# project name
+        project_name:
+          heading: What name would you like to give your proposed project?
+          project_name_label: Project name
+# financial year
+        financial_year:
+          heading: What is the last financial year in which you expect your proposed project to spend any funds?
+          lede: Do not include any financial year in which there are maintenance costs, as these costs are the responsibility of the risk management authority promoting the scheme.
+          project_end_financial_year_label: Financial year from April
+          project_end_financial_year_hint: "For example, 2017."
+# key dates
+        key_dates:
+          heading: What are the estimated key dates for your proposed project?
+          outline_business_case: When do you expect to start your outline business case (Gateway 1)?
+          there_is_no_gateway_2: We don't need to know the key date for Gateway 2
+          award_the_contract: When do you expect to award the contract (Gateway 3)?
+          start_construction: When do you expect to start construction?
+          ready_for_service: When do you expect your proposed project to be ready for service (Gateway 4)?
+          month_label: Month
+          year_label: Year
+          example_text: For example, 3 2019
+# funding sources
+        funding_sources:
+          heading: What are the expected funding sources for your proposed project?
+          lede: Select all that apply. You should also include any gaps in funding under 'Not yet identified'.
+          select_all_options: Select all options that are relevant to you.
+          fcerm_gia_label: Flood and Coastal Erosion Risk Management Grant in Aid (FCERM GiA)
+          local_levy_label: Local levy
+          internal_drainage_boards_label: Internal Drainage Boards (IDB) precepts
+          public_contributions_label: Public contributions
+          private_contributions_label: Private contributions
+          other_ea_contributions_label: Other Environment Agency contributions
+          growth_funding_label: Growth funding
+          not_yet_identified_label: Not yet identified
+          list_contributors_label: List the names of potential contributors
+# earliest start
+        earliest_start:
+          heading: Could your project start earlier if FCERM funding was available earlier?
+# earliest date
+        earliest_date:
+          heading: What is the earliest estimated date to which the total costs could be brought forward if you could secure FCERM funding earlier?
+          month_label: Month
+          year_label: Year
+          example_text: For example, 3 2019
+# risks
+        risks:
+          heading: What are the risks your proposed project will protect against?
+          lede: Select all that apply.
+          fluvial_flooding_label: Fluvial (river) flooding
+          tidal_flooding_label: Tidal flooding
+          groundwater_flooding_label: Groundwater flooding
+          surface_water_flooding_label: Pluvial (surface water) flooding
+          coastal_erosion_label: Coastal erosion
+# main risk
+        main_risk:
+          heading: What is the main source of risk your proposed project will protect against?
+          lede: You have told us that your proposed project will protect against these risks, please select which one is the main source of risk.
