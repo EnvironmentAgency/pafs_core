@@ -25,7 +25,7 @@
       <tbody>
         <% @projects.each do |project| %>
           <tr>
-            <td><%= project.reference_number %></td>
+            <td><%= link_to project.reference_number, pafs_core.project_path(project), class: "project-link" %></td>
             <td><%= project.name %></td>
             <td>Bristol city council</td>
             <td>BS4 8NP</td>

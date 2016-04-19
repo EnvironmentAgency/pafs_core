@@ -6,6 +6,30 @@
   visibility: initial;
 }
 
+.project-link {
+  background-color: transparent;
+  text-decoration: none;
+
+  &:visited {
+    color: $link-colour;
+  }
+
+  &:hover {
+    color: $link-hover-colour;
+    text-decoration: underline;
+  }
+
+  &:active {
+    background-color: transparent;
+    color: $link-colour;
+  }
+
+  &:focus {
+    background-color: transparent;
+    outline: unset;
+  }
+}
+
 .confirmation-box {
   background-color: $turquoise;
   color: $white;

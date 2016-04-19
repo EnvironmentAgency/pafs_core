@@ -13,6 +13,12 @@
         <td><%= @project.name %></td>
         <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :project_name), "aria-label": "Change the project name" %></td>
       </tr>
+      <% # Project type ########### %>
+      <tr>
+        <td><%= t('project_type_step_label') %></td>
+        <td><%= @project.project_type_name %></td>
+        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :project_type), "aria-label": "Change the project type" %></td>
+      </tr>
       <% # financial year ########### %>
       <tr>
         <td>Financial year</td>

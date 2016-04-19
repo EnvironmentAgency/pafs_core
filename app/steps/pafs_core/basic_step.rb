@@ -12,6 +12,9 @@ module PafsCore
               :persisted?,
               to: :project
 
+    # this validation allows us to ensure the record is valid
+    validates :reference_number, presence: true
+
     def initialize(model)
       @project = model
     end

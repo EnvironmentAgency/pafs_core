@@ -1,0 +1,10 @@
+en:
+  pafs_core:
+    project_types:
+      def: DEF
+      cm: Capital Maintenance
+      plp: Property level protection
+      brg: Bridge works
+      str: Strategies
+      env: Environmental
+      env_house: Environmental (including Housing)

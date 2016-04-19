@@ -1,5 +1,6 @@
 en:
   project_name_step_label: "Project name"
+  project_type_step_label: "Type"
   financial_year_step_label: "Financial year"
   key_dates_step_label: "Key dates"
   funding_sources_step_label: "Funding sources"
