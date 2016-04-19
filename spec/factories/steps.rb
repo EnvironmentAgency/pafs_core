@@ -9,6 +9,10 @@ FactoryGirl.define do
       name "My fantastic flood prevention scheme"
     end
 
+    factory :project_type_step, class: PafsCore::ProjectTypeStep do
+      project_type PafsCore::PROJECT_TYPES.first
+    end
+
     factory :financial_year_step, class: PafsCore::FinancialYearStep do
       project_end_financial_year 2018
     end

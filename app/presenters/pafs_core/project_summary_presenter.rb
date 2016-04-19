@@ -3,6 +3,14 @@
 module PafsCore
   class ProjectSummaryPresenter < SimpleDelegator
 
+    def project_type_name
+      if project_type.present?
+        I18n.t(project_type.downcase, scope: "pafs_core.project_types")
+      else
+        ""
+      end
+    end
+
     def start_outline_business_case_date
       presentable_date(:start_outline_business_case)
     end

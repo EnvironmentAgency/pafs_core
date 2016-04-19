@@ -7,7 +7,8 @@ module PafsCore
     # NOTE: STEPS.first and STEPS.last are used to determine the start
     # and end points for the user's journey (although we can change this)
     STEPS = [:project_name,
-             :project_reference_number,
+             # :project_reference_number,
+             :project_type,
              :financial_year,
              :key_dates,
              :funding_sources,
