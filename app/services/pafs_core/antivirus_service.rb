@@ -1,4 +1,3 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "clamav/client"
 module PafsCore
@@ -11,8 +10,23 @@ module PafsCore
       @user = user
     end
 
-    def scan(file)
-      scanner.execute(ClamAV::Commands::ScanCommand.new(file))
+    def service_available?
+      scanner.execute(ClamAV::Commands::PingCommand.new)
+    end
+
+    def scan(path)
+      # default clamav scan op is SCAN which stops when it finds a virus
+      # so you would need to quarantine the file and re-scan until no virii
+      # were found
+      results = scanner.execute(ClamAV::Commands::ScanCommand.new(path.to_s))
+      results.each do |result|
+        if result.instance_of? ClamAV::VirusResponse
+          raise PafsCore::VirusFoundError.new(result.file, result.virus_name)
+        elsif result.instance_of? ClamAV::ErrorResponse
+          raise PafsCore::VirusScannerError.new(result.error_str)
+        end
+      end
+      true
     end
 
   private
