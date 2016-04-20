@@ -26,7 +26,7 @@ RSpec.describe PafsCore::ProjectNameStep, type: :model do
     it "updates the next step if valid" do
       expect(subject.step).to eq :project_name
       subject.update(params)
-      expect(subject.step).to eq :financial_year
+      expect(subject.step).to eq :project_type
     end
 
     it "returns false when validation fails" do

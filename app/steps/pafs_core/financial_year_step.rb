@@ -22,7 +22,7 @@ module PafsCore
     end
 
     def previous_step
-      :project_name
+      :project_type
     end
 
     def step

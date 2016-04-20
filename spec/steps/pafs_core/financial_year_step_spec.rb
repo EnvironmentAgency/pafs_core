@@ -65,7 +65,7 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
     subject { FactoryGirl.build(:financial_year_step) }
 
     it "should return :project_name" do
-      expect(subject.previous_step).to eq :project_name
+      expect(subject.previous_step).to eq :project_type
     end
   end
 end
