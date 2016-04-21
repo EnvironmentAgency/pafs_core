@@ -1,5 +1,6 @@
 # Project Application and Funding Service (PAFS) Core Shared
 
+[![Build Status](https://travis-ci.org/EnvironmentAgency/pafs_core.svg?branch=develop)](https://travis-ci.org/EnvironmentAgency/pafs_core)
 
 A Rails Engine for [Project Application and Funding Service](https://github.com/EnvironmentAgency/pafs-user)
 
