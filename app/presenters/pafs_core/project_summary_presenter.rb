@@ -62,14 +62,11 @@ module PafsCore
       end
     end
 
-    def self.wrap(collection)
-      collection.map { |obj| new(obj) }
-    end
-
     private
     def presentable_date(name)
       m = send("#{name}_month")
       y = send("#{name}_year")
+      # FIXME: can we do better than 'not set'?
       return "not set" if m.nil? || y.nil?
       Date.new(y, m, 1).strftime("%B %Y") # Month-name Year
     end
