@@ -88,17 +88,17 @@ module PafsCore
     def find_project_step(id, step)
       raise ActiveRecord::RecordNotFound.new("Unknown step [#{step}]") unless STEPS.include?(step.to_sym)
       # retrieve and wrap project
-      self.class.build_project_step(project_service.find_project(id), step)
+      self.class.build_project_step(project_service.find_project(id), step, user)
       # TODO: we might want to check that it is valid to go to this step at this
       # time.  e.g. someone manipulates/bookmarks the url and jumps to a 'sub' step
       # that isn't valid based on the current project attributes
     end
 
-    def self.build_project_step(project, step)
+    def self.build_project_step(project, step, user)
       # accept a step or a raw project activerecord object
       project = project.project if project.instance_of? PafsCore::BasicStep
 
-      Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new(project)
+      Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new(project, user)
     end
 
   private

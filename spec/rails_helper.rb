@@ -8,10 +8,10 @@ SimpleCov.start "rails"
 require File.expand_path("../dummy/config/environment", __FILE__)
 # Prevent database truncation if the environment is production
 # abort("The Rails environment is running in production mode!") if Rails.env.production?
-require "spec_helper"
 require "rspec/rails"
 require "factory_girl_rails"
 require "shoulda-matchers"
+require "spec_helper"
 
 Rails.backtrace_cleaner.remove_silencers!
 
@@ -30,7 +30,7 @@ Rails.backtrace_cleaner.remove_silencers!
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir["./spec/support/**/*.rb"].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

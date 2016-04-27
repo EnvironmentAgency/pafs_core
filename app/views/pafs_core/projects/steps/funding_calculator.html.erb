@@ -1,0 +1,26 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', project: @project %>
+    </div>
+    <div class="column-two-thirds">
+      <h1 class="heading-large"><%= t('.heading') %></h1>
+      <p class="lede"><%= t('.lede') %></p>
+      <div class="step-form">
+        <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step), html: { multipart: true } do |f| %>
+          <div class="form-group">
+            <%= f.label :funding_calculator_file_name, t(".funding_calculator_label"), class: "form-label" %>
+            <% if @project.funding_calculator_file_name.present? %>
+              <div class="form-hint">
+                <p><%= t(".download_link_label") %> <%= link_to @project.funding_calculator_file_name, download_funding_calculator_project_path(@project.to_param) %><br/><%= t(".uploaded_at_label") %> <%= l @project.funding_calculator_updated_at %></p>
+              </div>
+            <% end %>
+            <%= f.hidden_field :funding_calculator_file_name %>
+            <%= f.file_field :funding_calculator %>
+          </div>
+          <%= f.submit t("save_and_continue_label"), class: 'button' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

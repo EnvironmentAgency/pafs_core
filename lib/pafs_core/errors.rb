@@ -14,4 +14,7 @@ module PafsCore
       super "Encountered virus scanner problem - [#{msg}]"
     end
   end
+
+  class FileNotFound < RuntimeError
+  end
 end

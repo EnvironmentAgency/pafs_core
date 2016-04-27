@@ -69,3 +69,9 @@ en:
         main_risk:
           heading: What is the main source of risk your proposed project will protect against?
           lede: You have told us that your proposed project will protect against these risks, please select which one is the main source of risk.
+        funding_calculator:
+          heading: This is a test page
+          lede: This is a placeholder while we test file handling
+          funding_calculator_label: Funding calculator
+          download_link_label: Current funding calculator
+          uploaded_at_label: Uploaded on

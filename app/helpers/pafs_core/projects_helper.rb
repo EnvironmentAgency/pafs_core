@@ -16,7 +16,7 @@ module PafsCore
     end
 
     def nav_step_item(project, step)
-      nav_step = PafsCore::ProjectNavigator.build_project_step(project.project, step)
+      nav_step = PafsCore::ProjectNavigator.build_project_step(project.project, step, current_user)
       content_tag(:li) do
         concat(content_tag(:span, class: "complete-flag") do
           icon("check") if nav_step.completed?

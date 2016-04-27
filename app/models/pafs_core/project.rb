@@ -19,6 +19,10 @@ module PafsCore
       area_projects.ownerships.map(&:area).first
     end
 
+    def storage_path
+      @storage_path ||= File.join(to_param, version.to_s)
+    end
+
   private
     def set_slug
       self.slug = reference_number.parameterize.upcase

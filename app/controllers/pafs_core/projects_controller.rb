@@ -62,6 +62,14 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     end
   end
 
+  # GET
+  def download_funding_calculator
+    @project = project_navigator.find_project_step(params[:id], :funding_calculator)
+    @project.download do |data, filename, content_type|
+      send_data(data, filename: filename, type: content_type)
+    end
+  end
+
 private
   def project_navigator
     @project_navigator ||= PafsCore::ProjectNavigator.new current_user
