@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/EnvironmentAgency/pafs_core.svg?branch=develop)](https://travis-ci.org/EnvironmentAgency/pafs_core)
 [![Code Climate](https://codeclimate.com/github/EnvironmentAgency/pafs_core/badges/gpa.svg)](https://codeclimate.com/github/EnvironmentAgency/pafs_core)
+[![Test Coverage](https://codeclimate.com/github/EnvironmentAgency/pafs_core/badges/coverage.svg)](https://codeclimate.com/github/EnvironmentAgency/pafs_core/coverage)
+
 A Rails Engine for [Project Application and Funding Service](https://github.com/EnvironmentAgency/pafs-user)
 
 ## Versions
