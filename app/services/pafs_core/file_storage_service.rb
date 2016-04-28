@@ -13,7 +13,7 @@ module PafsCore
 
     def upload(from_path, to_path)
       # FIXME: once the server daemon is sorted re-enable this
-      # antivirus.scan(from_path)
+      antivirus.scan(from_path)
       storage.put_object(bucket: bucket_name, key: to_path, body: File.open(from_path))
     end
 
@@ -23,6 +23,13 @@ module PafsCore
     # fss.download("my_file_key", t)
     # t.rewind
     # # ... do stuff
+    # t.close!
+    # although seems to work more reliably under rails as a file name
+    # eg
+    # t = TempFile.new
+    # fss.download("my_file_key", t.path)
+    # t.rewind
+    # # ...
     # t.close!
     def download(file_key, dest)
       storage.get_object(bucket: bucket_name, key: file_key, response_target: dest)
