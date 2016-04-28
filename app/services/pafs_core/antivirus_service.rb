@@ -18,7 +18,13 @@ module PafsCore
       # default clamav scan op is SCAN which stops when it finds a virus
       # so you would need to quarantine the file and re-scan until no virii
       # were found
-      results = scanner.execute(ClamAV::Commands::ScanCommand.new(path.to_s))
+      file = path.to_s
+
+      # this is a file in /tmp with 0400 perms by default
+      # need to make it accessible to the virus scanner
+      File.chmod(0444, file) if File.file? file
+
+      results = scanner.execute(ClamAV::Commands::ScanCommand.new(file))
       results.each do |result|
         if result.instance_of? ClamAV::VirusResponse
           raise PafsCore::VirusFoundError.new(result.file, result.virus_name)

@@ -12,7 +12,6 @@ module PafsCore
     end
 
     def upload(from_path, to_path)
-      # FIXME: once the server daemon is sorted re-enable this
       antivirus.scan(from_path)
       storage.put_object(bucket: bucket_name, key: to_path, body: File.open(from_path))
     end
