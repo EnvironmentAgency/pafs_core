@@ -32,9 +32,12 @@ module PafsCore
     # t.close!
     def download(file_key, dest)
       storage.get_object(bucket: bucket_name, key: file_key, response_target: dest)
+    rescue Aws::S3::Errors::NoSuchKey => e
+      raise PafsCore::FileNotFoundError.new("Storage file not found: #{file_key}")
     end
 
     def delete(file_key)
+      # NOTE: this doesn't raise a S3 error if the key is not found
       storage.delete_object(bucket: bucket_name, key: file_key)
     end
 

@@ -34,10 +34,24 @@ RSpec.describe PafsCore::FileStorageService do
   end
 
   describe "#download" do
-    it "gets the requested file from storage" do
-      expect(storage).to receive(:get_object)
-      expect(Aws::S3::Client).to receive(:new) { storage }
-      expect { subject.download(dst_file, src_file) }.not_to raise_error
+    context "given a valid source file key" do
+      it "gets the requested file from storage" do
+        expect(storage).to receive(:get_object).
+          with(bucket: nil, key: dst_file, response_target: src_file)
+        expect(Aws::S3::Client).to receive(:new) { storage }
+        expect { subject.download(dst_file, src_file) }.not_to raise_error
+      end
+    end
+    context "given an invalid source file key" do
+      it "raises an error" do
+        expect(storage).to receive(:get_object) do
+          raise Aws::S3::Errors::NoSuchKey.new("context", "Not there")
+        end
+        expect(Aws::S3::Client).to receive(:new) { storage }
+
+        expect { subject.download("not_there", dst_file) }.
+          to raise_error PafsCore::FileNotFoundError
+      end
     end
   end
 

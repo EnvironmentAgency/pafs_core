@@ -50,5 +50,9 @@ FactoryGirl.define do
     factory :main_risk_step, class: PafsCore::MainRiskStep do
       main_risk "fluvial_flooding"
     end
+
+    factory :funding_calculator_step, class: PafsCore::FundingCalculatorStep do
+      funding_calculator_file_name "pf_calc.xls"
+    end
   end
 end

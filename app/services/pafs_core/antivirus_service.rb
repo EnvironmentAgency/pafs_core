@@ -20,9 +20,9 @@ module PafsCore
       # were found
       file = path.to_s
 
-      # this is a file in /tmp with 0400 perms by default
+      # this is a file in /tmp with 0600 perms by default
       # need to make it accessible to the virus scanner
-      File.chmod(0444, file) if File.file? file
+      File.chmod(0644, file) if File.file? file
 
       results = scanner.execute(ClamAV::Commands::ScanCommand.new(file))
       results.each do |result|

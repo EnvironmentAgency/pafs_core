@@ -15,6 +15,6 @@ module PafsCore
     end
   end
 
-  class FileNotFound < RuntimeError
+  class FileNotFoundError < RuntimeError
   end
 end

@@ -10,7 +10,9 @@ module PafsCore
              to: :project
 
     attr_reader :funding_calculator
+    attr_accessor :virus_info
     validates :funding_calculator_file_name, presence: true
+    validates :virus_info, absence: true
 
     def update(params)
       uploaded_file = step_params(params).fetch(:funding_calculator, nil)
@@ -23,30 +25,28 @@ module PafsCore
           storage.upload(uploaded_file.tempfile.path, dest_file)
 
           if old_file && old_file != filename
-            begin
-              storage.delete(File.join(storage_path, old_file))
-            rescue Aws::S3::Errors::NoSuchKey
-              Rails.logger.warning "Old file not found when deleting [#{old_file}]"
-            end
+            # aws doesn't raise an error if it cannot find the key when deleting
+            storage.delete(File.join(storage_path, old_file))
           end
 
           self.funding_calculator_file_name = filename
           self.funding_calculator_content_type = uploaded_file.content_type
           self.funding_calculator_file_size = uploaded_file.size
           self.funding_calculator_updated_at = Time.zone.now
+          self.virus_info = nil
         rescue PafsCore::VirusFoundError => e
           Rails.logger.error e.message
           # TODO: we could make a better message here or in the exeception
-          errors.add(:base, e.message)
+          self.virus_info = e.message
         rescue PafsCore::VirusScannerError => e
           Rails.logger.error e.message
           # TODO: we could make a better message here or in the exeception
-          errors.add(:base, e.message)
+          self.virus_info = e.message
         end
       end
 
       if valid? && project.save
-        @step = :project_name
+        @step = :summary
         true
       else
         false
@@ -54,7 +54,7 @@ module PafsCore
     end
 
     def previous_step
-      :higher_proirity
+      :urgency_details
     end
 
     def step
@@ -74,10 +74,6 @@ module PafsCore
           t
         end
       end
-    rescue Aws::S3::Errors::NoSuchKey
-      raise PafsCore::FileNotFound.new(
-        "Could not find the file [#{funding_calculator_file_name}]".
-        concat(" for project #{project.to_param} version: #{project.version}"))
     end
 
   private
