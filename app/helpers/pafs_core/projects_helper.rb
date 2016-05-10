@@ -39,17 +39,13 @@ module PafsCore
       t("#{step}_step_label")
     end
 
-    def key_month_field(f, attr)
-      content_tag(:div, class: "form-group form-group-month") do
-        concat(f.label(attr, t(".month_label"), class: "form-label"))
-        concat(f.number_field(attr, in: 1..12, class: "form-control form-month"))
-      end
-    end
-
-    def key_year_field(f, attr)
-      content_tag(:div, class: "form-group form-group-year") do
-        concat(f.label(attr, t(".year_label"), class: "form-label"))
-        concat(f.number_field(attr, in: 2000...2100, class: "form-control form-year"))
+    def key_date_field(f, attr)
+      # expecting attr to end with either '_month' or '_year'
+      date_type = attr.to_s.split("_").last
+      range = date_type == "month" ? 1..12 : 2000..2099
+      content_tag(:div, class: "form-group form-group-#{date_type}") do
+        concat(f.label(attr, t(".#{date_type}_label"), class: "form-label"))
+        concat(f.number_field(attr, in: range, class: "form-control form-#{date_type}"))
       end
     end
   end
