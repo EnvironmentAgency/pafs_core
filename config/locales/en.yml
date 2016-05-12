@@ -15,8 +15,6 @@ en:
     projects:
       new:
         heading: "Does your project proposal require local levy or FCERM grant in aid (FCERM GiA) funding before %{date}?"
-        help_label: "Help"
-        help_content_html: "Some help text here please..."
       reference_number:
         heading: "Your project application number"
         lede: "Here is your project application number"

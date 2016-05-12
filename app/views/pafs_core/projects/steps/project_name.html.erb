@@ -8,22 +8,21 @@
       <div class="step-form">
         <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <div class="form-group">
-            <h3 class="heading-medium">The project name should:</h3>
+            <p class="lede">This is the name by which the project will be known in the programmes published on the Environment Agency website, and in other publications.</p>
+            <h2 class="heading-medium">The project name should:</h2>
             <ul class="list-bullet">
-              <li>be clear and easy to understand for others</li>
-              <li>not contain any abbreviations unlikely to be clear to others</li>
-              <li>refer to the location and the river (where relevant)</li>
-              <li>refer to the nature of the work (for example flood alleviation scheme)</li>
-              <li>refer to the project phase or period (where relevant)</li>
+              <li>refer to the location (for example, town) and the river (if applicable)</li>
+              <li>refer to the nature of the work (for example Flood Alleviation Scheme)</li>
+              <li>refer to the project phase or period (if applicable)</li>
+              <li>be in plain English and not contain any abbreviations</li>
             </ul>
           </div>
           <div class="form-group">
-            <%= f.label :name, t(".project_name_label"), class: "form-label" %>
+            <%= f.label :name, t(".project_name_label"), class: "form-label-bold" %>
             <div class="form-hint">
-              Example 1: South Chesham River Colne Flood Alleviation Scheme,<br/>
-              Example 2: Clacton-on-Sea Coastal Erosion Project Phase
+              Example: South Chesham River Colne Flood Alleviation Scheme Phase IV
             </div>
-            <%= f.text_field :name, class: "form-control" %>
+            <%= f.text_field :name, class: "form-control form-wide" %>
           </div>
           <%= f.submit t("save_and_continue_label"), class: 'button' %>
         <% end %>
