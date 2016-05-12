@@ -17,16 +17,14 @@
   </div>
 
   <section>
-    <h2 class="heading-medium">Your existing project proposals</h2>
+    <h2 class="heading-medium">Your project proposals</h2>
     <table class="dashboard">
       <thead>
         <tr>
-          <th scope="col">Reference no.</th>
+          <th scope="col">National project number</th>
           <th scope="col">Project name</th>
-          <th scope="col">RMA</th>
-          <th scope="col">Location</th>
-          <th scope="col">Type</th>
-          <th scope="col">Status</th>
+          <th scope="col">Risk management authority</th>
+          <th scope="col">Last submitted</th>
         </tr>
       </thead>
       <tbody>
@@ -34,10 +32,8 @@
           <tr>
             <td><%= link_to project.reference_number, pafs_core.project_path(project), class: "project-link" %></td>
             <td><%= project.name %></td>
-            <td>Bristol city council</td>
-            <td>BS4 8NP</td>
-            <td>1-6 yrs</td>
-            <td>Approved</td>
+            <td>To do</td>
+            <td><%= l(project.submitted_at) if project.submitted_at %></td>
           </tr>
         <% end %>
       </tbody>

@@ -1,8 +1,5 @@
 ---
 en:
-  date:
-    formats:
-      long: "%d %B %Y"
   back: Back
   back_to_start_link: Back
   login: login
