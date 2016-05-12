@@ -24,6 +24,8 @@ en:
         heading: "Your project application number"
         lede: "Here is your project application number"
         info: "Your unique project application number has been saved automatically."
+      index:
+        contact_link: "https://www.gov.uk/guidance/flood-and-coastal-defence-funding-submit-a-project#find-your-local-fcerm-office"
   shared:
     phase_banner:
       feedback: feedback
