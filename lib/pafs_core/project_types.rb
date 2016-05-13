@@ -8,5 +8,7 @@ module PafsCore
   # BRG - works to bridges that enable FCERM activities
   # STR - strategies
   # ENV - environmental projects (not SSSI or BAP)
-  PROJECT_TYPES = %w[ DEF CM PLP BRG STR ENV ENV_HOUSE ].freeze
+  PROJECT_TYPES = %w[ DEF CM PLP BRG STR ENV ].freeze
+
+  ENVIRONMENTAL_TYPES = %w[ WITH_HOUSEHOLDS WITHOUT_HOUSEHOLDS ].freeze
 end

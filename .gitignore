@@ -7,6 +7,7 @@ spec/dummy/log/*.log
 spec/dummy/tmp/
 spec/dummy/.sass-cache
 spec/dummy/.env
+spec/dummy/db/migrate
 .env
 config/secrets.yml
 tmp/

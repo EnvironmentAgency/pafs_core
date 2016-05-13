@@ -5,23 +5,35 @@
     </div>
     <div class="column-two-thirds">
       <h1 class="heading-large"><%= t('.heading') %></h1>
-      <p class="lede"><%= t('.lede') %></p>
       <div class="step-form">
         <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <fieldset>
             <legend class="visuallyhidden">Select the type of your proposed project</legend>
             <div class="form-group">
-              <% PafsCore::PROJECT_TYPES.each do |pt| %>
+              <% PafsCore::PROJECT_TYPES[0...-1].each do |pt| %>
                 <%= f.label :project_type, class: "block-label", value: pt.to_s do %>
                   <%= f.radio_button :project_type, pt.to_s %>
                   <%= t("#{pt.downcase}_label", scope: "pafs_core.projects.steps.project_type") %>
                 <% end %>
               <% end %>
+              <%# special case with the ENV type as it reveals further options %>
+              <%= f.label :project_type, class: "block-label", value: 'ENV', data: { target: "env-group" } do %>
+                <%= f.radio_button :project_type, "ENV" %>
+                <%= t("env_label", scope: "pafs_core.projects.steps.project_type") %>
+              <% end %>
+              <div class="panel" id="env-group">
+                <% PafsCore::ENVIRONMENTAL_TYPES.each do |et| %>
+                  <%= f.label :environmental_type, class: "block-label", value: et.to_s do %>
+                    <%= f.radio_button :environmental_type, et.to_s %>
+                    <%= t("#{et.downcase}_label", scope: "pafs_core.projects.steps.project_type") %>
+                  <% end %>
+                <% end %>
+              </div>
             </div>
             <div class="form-group">
               <details role="group">
                 <summary role="button" aria-controls="details-content-0" aria-expanded="true"><span class="summary">Help with type of project</span></summary>
-                <div class="panel-indent" id="details-content-0" aria-hidden="false">
+                <div class="panel" id="details-content-0" aria-hidden="false">
                   <h3 class="heading-medium">CM</h3>
                   <p>Capital Maintenance. These works reinstate the Standard of Service of a Flood Defence asset in full, and preserve its design life. It returns the asset to its original design performance and does not increase or decrease the standard of service of the asset. It includes:</p>
                   <ul class="list-bullet">

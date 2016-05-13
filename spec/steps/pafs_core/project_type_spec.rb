@@ -12,29 +12,46 @@ RSpec.describe PafsCore::ProjectTypeStep, type: :model do
     it "validates that :project_type is present" do
       subject.project_type = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:project_type]).to include "must have a value"
+      expect(subject.errors.messages[:project_type]).to include "can't be blank"
     end
 
     it "validates that the selected :project_type is valid" do
-      PafsCore::PROJECT_TYPES.each do |pt|
+      PafsCore::PROJECT_TYPES.reject { |t| t == "ENV" }.each do |pt|
         subject.project_type = pt
         expect(subject.valid?).to be true
       end
       subject.project_type = "Peanuts"
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:project_type]).to include "must be a valid type"
+      expect(subject.errors.messages[:project_type]).to include "is not included in the list"
+    end
+    context "when ENV is the selected :project_type" do
+      before(:each) { subject.project_type = "ENV" }
+
+      it "validates that :environmental_type is present" do
+        expect(subject.valid?).to be false
+        expect(subject.errors.messages[:environmental_type]).to include "can't be blank"
+      end
+      it "validates that :environmental_type is a permitted value" do
+        PafsCore::ENVIRONMENTAL_TYPES.each do |et|
+          subject.environmental_type = et
+          expect(subject.valid?).to be true
+        end
+        subject.environmental_type = "BANANA"
+        expect(subject.valid?).to be false
+        expect(subject.errors.messages[:environmental_type]).to include "is not included in the list"
+      end
     end
   end
 
   describe "#update" do
     subject { FactoryGirl.create(:project_type_step) }
-    let(:params) { HashWithIndifferentAccess.new({ project_type_step: { project_type: "ENV" }})}
+    let(:params) { HashWithIndifferentAccess.new({ project_type_step: { project_type: "STR" }})}
     let(:error_params) { HashWithIndifferentAccess.new({ project_type_step: { project_type: "ABC" }})}
 
     it "saves the :project_type when valid" do
-      expect(subject.project_type).not_to eq "ENV"
+      expect(subject.project_type).not_to eq "STR"
       expect(subject.update(params)).to be true
-      expect(subject.project_type).to eq "ENV"
+      expect(subject.project_type).to eq "STR"
     end
 
     it "updates the next step if valid" do

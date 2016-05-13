@@ -6,16 +6,17 @@ en:
         project_name:
           heading: What name would you like to give your proposed project?
           project_name_label: Project name
+# project type
         project_type:
           heading: What is the main type of project you are proposing?
-          lede: Select one
           def_label: Changing the current standard of service or creating a new asset (known as DEF)
           cm_label: Reinstating the standard of service of an asset (known as CM)
-          plp_label: Property level protection (known as PLP)
+          plp_label: Property level protection withing the very significant (5% or more) flood band (known as PLP)
           brg_label: Works to bridges that enable FCERM activities, such as widening to increase flow rates (known as BRG)
           str_label: Strategies (known as STR)
-          env_label: Environmental projects delivering Sites of Special Interest (SSSI) remedies or net Biodiversity Action Plan (BAP) habitat gain (known as ENV)
-          env_house_label: Environmental projects delivering Sites of Special Interest (SSSI) remedies or net Biodiversity Action Plan (BAP) habitat gain (known as ENV) - With Households
+          env_label: Environmental projects that deliver sites of special interest (SSSI) remedies or net Biodiversity Action Plan (BAP) habitat gain (known as ENV)
+          with_households_label: with households protected
+          without_households_label: without households protected
 # financial year
         financial_year:
           heading: What is the last financial year in which you expect your proposed project to spend any funds?

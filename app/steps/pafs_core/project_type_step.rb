@@ -3,9 +3,14 @@
 module PafsCore
   class ProjectTypeStep < BasicStep
     delegate :project_type, :project_type=,
+             :environmental_type, :environmental_type=,
              to: :project
 
-    validate :project_type_is_present_and_is_valid
+    validates :project_type, presence: true
+    validates :project_type, inclusion: { in: PafsCore::PROJECT_TYPES }
+    # validate :project_type_is_present_and_is_valid
+    validates :environmental_type, presence: true, if: :environmental_project?
+    validates :environmental_type, inclusion: { in: PafsCore::ENVIRONMENTAL_TYPES }, if: :environmental_project?
 
     def update(params)
       assign_attributes(step_params(params))
@@ -25,17 +30,21 @@ module PafsCore
       @step ||= :project_type
     end
 
-  private
-    def step_params(params)
-      ActionController::Parameters.new(params).require(:project_type_step).permit(:project_type)
+    def environmental_project?
+      project_type == "ENV"
     end
 
-    def project_type_is_present_and_is_valid
-      if project_type.present?
-        errors.add(:project_type, "must be a valid type") unless PafsCore::PROJECT_TYPES.include?(project_type.to_s)
-      else
-        errors.add(:project_type, "must have a value")
-      end
+  private
+    def step_params(params)
+      ActionController::Parameters.new(params).require(:project_type_step).permit(:project_type, :environmental_type)
     end
+
+    # def project_type_is_present_and_is_valid
+    #   if project_type.present?
+    #     errors.add(:project_type, "must be a valid type") unless PafsCore::PROJECT_TYPES.include?(project_type.to_s)
+    #   else
+    #     errors.add(:project_type, "must have a value")
+    #   end
+    # end
   end
 end
