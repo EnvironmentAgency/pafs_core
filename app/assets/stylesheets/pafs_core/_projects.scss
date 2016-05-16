@@ -75,8 +75,8 @@
     padding-bottom: 0.25em;
   }
 
-  .this-is-not-the-content-you-are-looking-for {
-    margin-bottom: 3em;
+  .this-is-not-the-gateway-you-are-looking-for {
+    margin-bottom: 1em;
   }
 
   .panel {
@@ -100,6 +100,7 @@
     clear: none;
     float: left;
     margin-bottom: 0;
+    margin-right: 0;
     width: 4em;
 
     .form-month {
@@ -113,5 +114,15 @@
 
   .form-wide {
     width: 100%;
+  }
+}
+
+.vertical-squash {
+  .form-group {
+    margin-bottom: 1em;
+  }
+
+  .heading-medium {
+    margin-top: 0.8em;
   }
 }
