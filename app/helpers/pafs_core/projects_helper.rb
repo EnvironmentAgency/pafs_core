@@ -2,21 +2,21 @@
 # frozen_string_literal: true
 module PafsCore
   module ProjectsHelper
-    def financial_year_end
-      now = Time.zone.today
-      Date.new(now.month < 4 ? now.year : now.year + 1, 3, 31)
+    def financial_year_end_for(date)
+      Date.new(date.month < 4 ? date.year : date.year + 1, 3, 31)
     end
 
     def six_year_limit_date
-      (financial_year_end + 6.years).to_formatted_s(:long_ordinal)
+      Date.new(2021, 3, 31).to_formatted_s(:long_ordinal)
     end
 
-    def project_step_path(project)
-      pafs_core.project_step_path(id: project.to_param, step: project.step)
-    end
+    # def project_step_path(project)
+    #   pafs_core.project_step_path(id: project.to_param, step: project.step)
+    # end
+    #
 
     def nav_step_item(project, step)
-      nav_step = PafsCore::ProjectNavigator.build_project_step(project.project, step, current_user)
+      nav_step = PafsCore::ProjectNavigator.build_project_step(project.project, step, current_resource)
       content_tag(:li) do
         concat(content_tag(:span, class: "complete-flag") do
           icon("check") if nav_step.completed?
@@ -30,7 +30,10 @@ module PafsCore
             step_label(step)
           end)
         else
-          concat link_to(step_label(step), project_step_path(nav_step), class: "nav-link")
+          concat link_to(step_label(step),
+                         pafs_core.project_step_path(id: nav_step.to_param,
+                                                     step: nav_step.step),
+                                                     class: "nav-link")
         end
       end
     end

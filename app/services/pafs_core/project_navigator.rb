@@ -17,16 +17,14 @@ module PafsCore
              :earliest_date, # not in nav - accessible by choosing 'Yes' on :earliest_start
              :location,
              :map,
-             :classification,
              :risks,
              :main_risk, # not in nav - accessible following :risks
-             :households_benefiting,
+             :households_benefitting,
              :standard_of_protection,
-             :outcomes,
-             :defra,
-             :directives,
+             :approach,
+             :wfd_benefits,
              :environmental_issues,
-             :higher_priority,
+             :urgency_details,
              :funding_calculator,
              :summary].freeze
 
