@@ -34,9 +34,13 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
       @project = project_navigator.start_new_project
       render "reference_number"
     else
-      # not a project we want to know about yet?
-      redirect_to projects_path, notice: "Not a 6 year project - so what do we do now?"
+      # not a project we want to know about (yet)
+      redirect_to pipeline_projects_path
     end
+  end
+
+  # GET
+  def pipeline
   end
 
   # GET

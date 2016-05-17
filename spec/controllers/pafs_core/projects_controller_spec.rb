@@ -60,9 +60,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
         expect { post :create, yes_or_no: "no" }.not_to change { PafsCore::Project.count }
       end
 
-      it "redirects to the index" do
+      it "redirects to the pipeline page" do
         post :create, yes_or_no: "no"
-        expect(response).to redirect_to(projects_path)
+        expect(response).to redirect_to(pipeline_projects_path)
       end
     end
 
@@ -80,6 +80,13 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
         post :create
         expect(response).to render_template("new")
       end
+    end
+  end
+
+  describe "GET pipeline" do
+    it "renders the pipeline template" do
+      get :pipeline
+      expect(response).to render_template("pipeline")
     end
   end
 

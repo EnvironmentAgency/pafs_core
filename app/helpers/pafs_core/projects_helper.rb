@@ -10,6 +10,11 @@ module PafsCore
       Date.new(2021, 3, 31).to_formatted_s(:long_ordinal)
     end
 
+    def strategic_officer_link
+      link_to t("strategic_officer_label"), t("strategic_officer_link"),
+        rel: "external", target: "_blank"
+    end
+
     # def project_step_path(project)
     #   pafs_core.project_step_path(id: project.to_param, step: project.step)
     # end

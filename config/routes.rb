@@ -1,5 +1,9 @@
 PafsCore::Engine.routes.draw do
   resources :projects do
+    collection do
+      get :pipeline
+    end
+
     member do
       get :download_funding_calculator
     end
