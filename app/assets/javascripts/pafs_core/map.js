@@ -1,65 +1,108 @@
 //define the osMap variable
 var osMap;
 
-//this function creates the map and is called by the div in the HTML
+function initMap() {
+  if($('#map')){
+    loadOSMap();
+  }
+}
+function loadOSMap()
+{
 
-var init;
+  var mapDiv = $('#map');
+  var eastings = mapDiv.data('eastings'),
+  northings = mapDiv.data('northings'),
+  zoomLevel = mapDiv.data('zoomlevel'),
+  marker = mapDiv.data('marker');
 
-init = function()
+  osMap = new OpenSpace.Map('map', { controls: [ new OpenLayers.Control.TouchNavigation(
+    { dragPanOptions: {enableKinetic: true } }) ]
+  });
+  var markerLayer = osMap.getMarkerLayer();
 
-  {
+  osMap.getVectorLayer().styleMap.styles.select.defaultStyle.strokeWidth = 4;
+  osMap.getVectorLayer().styleMap.styles.temporary.defaultStyle.strokeWidth = 4;
+  osMap.getVectorLayer().styleMap.styles['default'].defaultStyle.strokeWidth = 4;
+  var vlayer = osMap.getVectorLayer();
+  var toolbar = new OpenLayers.Control.Panel({ displayClass:'olControlEditingToolbar'});
 
-//create new map
+  toolbar.addControls([
+    new OpenLayers.Control.Navigation(),
+    new OpenLayers.Control.ModifyFeature(vlayer, {vertexRenderIntent: 'temporary',displayClass: 'olControlModifyFeature'}),
+  ]);
 
-    osMap = new OpenSpace.Map('#map');
-
-//set map centre in National Grid Eastings and Northings and select zoom level 10
-
-// Set map centre in National Grid Eastings and Northings and select zoom level 6
-
-    osMap.setCenter(new OpenSpace.MapPoint(439000, 114000), 6);
-
-// Create a new vector layer to hold the polygon
-
-    var vectorLayer = new OpenLayers.Layer.Vector("Vector Layer");
-
-    osMap.addLayer(vectorLayer);
-
-// Create polygon style
-
-    var style_green =
-        {
-            strokeColor: "#000000",
-            strokeOpacity: 1,
-            strokeWidth: 2,
-            fillColor: "#00FF00",
-            fillOpacity: 0.6
-        };
-
-// Define polygon area
-
-    var p1 = new OpenLayers.Geometry.Point(439000, 114000);
-    var p2 = new OpenLayers.Geometry.Point(440000, 115000);
-    var p3 = new OpenLayers.Geometry.Point(437000, 116000);
-    var p4 = new OpenLayers.Geometry.Point(436000, 115000);
-    var p5 = new OpenLayers.Geometry.Point(436500, 113000);
-
+  var polygons = mapDiv.data('polygons');
+  polygons.forEach(function(polygon) {
     var points = [];
-    points.push(p1);
-    points.push(p2);
-    points.push(p3);
-    points.push(p4);
-    points.push(p5);
 
-// Create a polygon feature from the list of points
+    polygon.forEach(function(point) {
+      p = new OpenLayers.Geometry.Point(parseFloat(point[0]),parseFloat(point[1]));
+      points.push(p);
+    });
 
     var linearRing = new OpenLayers.Geometry.LinearRing(points);
-    var polygonFeature = new OpenLayers.Feature.Vector(linearRing, null, style_green);
+    var polygonFeature = new OpenLayers.Feature.Vector(linearRing);
 
-    vectorLayer.addFeatures([polygonFeature]);
+    vlayer.addFeatures([polygonFeature]);
+  });
 
+  if(typeof($('.location')[0]) !== 'undefined') {
+    dragControl = new OpenSpace.Control.DragMarkers(markerLayer);
+    osMap.addControl(dragControl);
+    dragControl.activate();
+    markerLayer.setDragMode(true);
+    osMap.events.remove('dblclick');
+    osMap.events.register("dblclick", this, this.addMarker);
   }
 
+  if(typeof($('.benefit_area')[0]) !== 'undefined') {
+    toolbar.addControls([
+      new OpenLayers.Control.DrawFeature(vlayer, OpenLayers.Handler.Polygon, {displayClass: 'olControlDrawFeaturePolygon'}),
+      new OpenLayers.Control.Button({ displayClass: "deleteButton", trigger: deleteFeature})
+    ]);
+  }
 
-$(document).ready(ready);
-$(document).on('page:load', ready);
+  lon = parseInt(marker[0]);
+  lat = parseInt(marker[1]);
+  var markerPoint = new OpenSpace.MapPoint(lon, lat);
+  osMap.createMarker(markerPoint);
+
+  osMap.addControls([toolbar, new OpenSpace.Control.SmallMapControl()]);
+  osMap.setCenter(new OpenSpace.MapPoint(eastings, northings), zoomLevel);
+}
+
+function report() {
+  osMap.getControlsByClass("OpenLayers.Control.Button")[0].activate();
+}
+
+function deleteFeature() {
+  if(osMap.getControlsByClass("OpenLayers.Control.ModifyFeature")[0].feature)
+
+  {
+    osMap.getControlsByClass("OpenLayers.Control.ModifyFeature")[0].feature.destroy();
+    osMap.getControlsByClass("OpenLayers.Control.ModifyFeature")[0].deactivate();
+    osMap.getControlsByClass("OpenLayers.Control.DrawFeature")[0].activate();
+    osMap.getControlsByClass("OpenLayers.Control.DrawFeature")[0].deactivate();
+    osMap.getControlsByClass("OpenLayers.Control.ModifyFeature")[0].activate();
+  }
+
+  osMap.getControlsByClass("OpenLayers.Control.Button")[0].deactivate();
+}
+
+function addMarker(evt) {
+  osMap.clearMarkers();
+  var posClick = osMap.getLonLatFromViewPortPx(evt.xy);
+  osMap.createMarker(posClick);
+  OpenLayers.Event.stop(evt);
+}
+
+function doNothing(evt) {
+  OpenLayers.Event.stop(evt);
+}
+
+function dragStop() {
+  markersLayer.setDragMode(false);
+  dragControl.deactivate();
+}
+
+$(document).ready(initMap);

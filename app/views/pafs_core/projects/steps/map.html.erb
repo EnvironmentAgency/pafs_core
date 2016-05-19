@@ -1,0 +1,33 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', project: @project %>
+    </div>
+    <div class="column-two-thirds">
+      <% if @map_centre.size == 1 %>
+        <% map_centre = @map_centre.first %>
+        <div class="grid-row">
+          <div class="column-three-thirds">
+            <div id="map"
+              class="benefit_area"
+              data-eastings=<%= map_centre[:eastings] %>
+              data-northings=<%= map_centre[:northings] %>
+              data-polygons= <%= JSON.parse(@project.benefit_area).to_json %>
+              data-zoomlevel=<%= @project.benefit_area_zoom_level %>
+              data-marker=<%= @project.project_location.to_json %>
+              style="width: max; height: 500px;">
+            </div>
+          </div>
+        </div>
+        <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+          <div class="form-group">
+            <%= f.hidden_field :benefit_area, value: @project.benefit_area.to_json %>
+            <%= f.hidden_field :benefit_area_centre %>
+            <%= f.hidden_field :benefit_area_zoom_level %>
+          </div>
+          <%= f.submit t("save_and_continue_label"), class: 'button', id: 'benefitAreaSaveButton' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

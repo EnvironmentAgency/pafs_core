@@ -50,5 +50,16 @@ FactoryGirl.define do
     factory :main_risk_step, class: PafsCore::MainRiskStep do
       main_risk "fluvial_flooding"
     end
+
+    factory :location_step, class: PafsCore::LocationStep do
+      project_location [404040, 212121]
+      project_location_zoom_level 6
+    end
+
+    factory :map_step, class: PafsCore::MapStep do
+      benefit_area "[[432123, 132453], [444444, 134444], [456543, 123432]]"
+      benefit_area_centre [404040, 212121]
+      benefit_area_zoom_level 4
+    end
   end
 end

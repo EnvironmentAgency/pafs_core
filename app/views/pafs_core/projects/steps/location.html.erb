@@ -1,5 +1,54 @@
-<h1>Location</h1>
-
-<!-- The div below holds the map -->
-
-<div id="map" style="width: 700px; height: 500px; border: 1px solid black;"></div>
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', project: @project %>
+    </div>
+    <div class="column-two-thirds">
+      <div class="grid-row" >
+        <%= form_tag(project_step_path(@project), method: 'get') do %>
+          <div class="column-two-thirds">
+            <%= text_field_tag :q, params[:q], placeholder: "Search here", label: nil %>
+          </div>
+          <div class="column-one-third">
+            <%= submit_tag "search", class: "button" %>
+          </div>
+        <% end %>
+      </div>
+      <% if @results.size > 1 %>
+        <%= form_tag(project_step_path(@project), method: 'get') do %>
+          <ul>
+            <% @results.each do |result| %>
+              <li>
+                <%= radio_button_tag :q, result[:address].html_safe %>
+                <%= label :q, result[:address].html_safe %>
+              </li>
+            <% end %>
+          </ul>
+          <%= submit_tag "search", class: "button" %>
+        <% end %>
+      <% elsif @results.size == 1 %>
+        <% map_centre = @results.first %>
+        <div class="grid-row">
+          <div class="column-three-thirds">
+            <div id="map"
+              class="location"
+              data-eastings=<%= map_centre[:eastings] %>
+              data-northings=<%= map_centre[:northings] %>
+              data-zoomlevel=<%= @project.project_location_zoom_level %>
+              data-polygons= <%= JSON.parse(@project.benefit_area).to_json %>
+              data-marker=<%= @project.project_location.to_json %>
+              style="width: max; height: 500px;">
+            </div>
+          </div>
+        </div>
+        <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+          <div class="form-group">
+            <%= f.hidden_field :project_location %>
+            <%= f.hidden_field :project_location_zoom_level %>
+          </div>
+          <%= f.submit t("save_and_continue_label"), class: 'button', id: 'locationSaveButton' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

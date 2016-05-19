@@ -42,6 +42,21 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   def step
     # edit step
     @project = project_navigator.find_project_step(params[:id], params[:step])
+
+    # This is necessary for the map to be set on the location step
+    if params[:step] == "location"
+      @results = PafsCore::MapService.new
+                                     .find(
+                                       params[:q],
+                                       @project.project_location
+                                     )
+    elsif params[:step] == "map"
+      @map_centre = PafsCore::MapService.new
+                                        .find(
+                                          @project.benefit_area_centre.join(","),
+                                          @project.project_location
+                                        )
+    end
     # we want to go to the page in the process requested in the
     # params[:step] part of the URL and display the appropriate form
     render @project.view_path

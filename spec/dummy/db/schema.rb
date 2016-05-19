@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419073740) do
+ActiveRecord::Schema.define(version: 20160517094816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,13 +55,13 @@ ActiveRecord::Schema.define(version: 20160419073740) do
   add_index "pafs_core_areas", ["name"], name: "index_pafs_core_areas_on_name", using: :btree
 
   create_table "pafs_core_projects", force: :cascade do |t|
-    t.string   "reference_number",                               null: false
-    t.integer  "version",                                        null: false
+    t.string   "reference_number",                                 null: false
+    t.integer  "version",                                          null: false
     t.string   "name"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.integer  "project_end_financial_year"
-    t.string   "slug",                              default: "", null: false
+    t.string   "slug",                              default: "",   null: false
     t.integer  "start_outline_business_case_month"
     t.integer  "start_outline_business_case_year"
     t.integer  "award_contract_month"
@@ -91,6 +91,11 @@ ActiveRecord::Schema.define(version: 20160419073740) do
     t.boolean  "coastal_erosion"
     t.string   "main_risk"
     t.string   "project_type"
+    t.text     "project_location",                  default: [],                array: true
+    t.integer  "project_location_zoom_level",       default: 6
+    t.text     "benefit_area",                      default: "[]"
+    t.text     "benefit_area_centre",               default: [],                array: true
+    t.integer  "benefit_area_zoom_level",           default: 6
   end
 
   add_index "pafs_core_projects", ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree

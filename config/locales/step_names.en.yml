@@ -6,3 +6,5 @@ en:
   funding_sources_step_label: "Funding sources"
   earliest_start_step_label: "Earliest start"
   risks_step_label: "Risks"
+  location_step_label: "Location"
+  map_step_label: "Map"

@@ -28,3 +28,7 @@ en:
     phase_banner:
       feedback: feedback
       heading_html: This is a new service – your %{href} will help us to improve it.
+  activemodel:
+    errors:
+      messages:
+        record_invalid: "Validation failed: %{errors}"
