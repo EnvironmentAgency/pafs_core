@@ -6,6 +6,16 @@
   visibility: initial;
 }
 
+.no-error .form-control {
+  // remove error highlighting from nested form-controls
+  border: 2px solid $grey-1;
+}
+
+.no-error .error .form-control {
+  // ensure error border when nested form-control has error but parent doesn't
+  border: 4px solid $red;
+}
+
 .project-link {
   background-color: transparent;
   text-decoration: none;

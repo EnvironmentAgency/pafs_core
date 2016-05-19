@@ -1,62 +1,35 @@
 <div class="step-container">
   <div class="grid-row">
     <div class="column-one-third">
-      <%= render partial: 'shared/navigator', project: @project %>
+      <%= render partial: 'shared/navigator', locals: { project: @project } %>
     </div>
     <div class="column-two-thirds">
-      <h1 class="heading-large"><%= t('.heading') %></h1>
-      <p class="lede"><%= t('.lede') %></p>
-      <p><%= t('.select_all_options') %></p>
-      <div class="step-form">
-        <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+      <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+        <%= f.error_header("Check your details", "The following error(s) prevented the form from being saved:") %>
+        <%#= render partial: 'shared/error_header', locals: { project: @project } %>
+        <h1 class="heading-large"><%= t('.heading') %></h1>
+        <p class="lede"><%= t('.lede') %></p>
+        <%= f.hint_text t('.example_text') %>
+        <div class="step-form">
           <fieldset>
             <legend class="visuallyhidden">What are the expected finding sources for your proposed project?</legend>
-            <div class="form-group">
-              <%= f.label :fcerm_gia, class: "block-label" do %>
-                <%= f.check_box :fcerm_gia %>
-                <%= t(".fcerm_gia_label") %>
+            <%= f.form_group :base do %>
+              <%= f.check_box :fcerm_gia %>
+              <%= f.check_box :local_levy %>
+              <%= f.check_box :internal_drainage_boards %>
+              <%= f.check_box :public_contributions do %>
+                <%= f.text_area :public_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".public_sector_example") %>
               <% end %>
-              <%= f.label :local_levy, class: "block-label" do %>
-                <%= f.check_box :local_levy %>
-                <%= t(".local_levy_label") %>
+              <%= f.check_box :private_contributions do %>
+                <%= f.text_area :private_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".private_sector_example") %>
               <% end %>
-              <%= f.label :internal_drainage_boards, class: "block-label" do %>
-                <%= f.check_box :internal_drainage_boards %>
-                <%= t(".internal_drainage_boards_label") %>
-              <% end %>
-              <%= f.label :public_contributions, class: "block-label", data: { target: "public-contributors" } do %>
-                <%= f.check_box :public_contributions %>
-                <%= t(".public_contributions_label") %>
-              <% end %>
-              <div class="panel panel-border-narrow js-hidden" id="public-contributors">
-                <%= f.label :public_contributor_names, t('.list_contributors_label'), class: "form-label" %>
-                <%= f.text_area :public_contributor_names, class: "form-control", cols: 30, rows: 10 %>
-              </div>
-              <%= f.label :private_contributions, class: "block-label", data: { target: "private-contributors" } do %>
-                <%= f.check_box :private_contributions %>
-                <%= t(".private_contributions_label") %>
-              <% end %>
-              <div class="panel panel-border-narrow js-hidden" id="private-contributors">
-                <%= f.label :private_contributor_names, t('.list_contributors_label'), class: "form-label" %>
-                <%= f.text_area :private_contributor_names, class: "form-control", cols: 30, rows: 10 %>
-              </div>
-              <%= f.label :other_ea_contributions, class: "block-label", data: { target: "other_ea-contributors" } do %>
-                <%= f.check_box :other_ea_contributions %>
-                <%= t(".other_ea_contributions_label") %>
-              <% end %>
-              <div class="panel panel-border-narrow js-hidden" id="other_ea-contributors">
+              <%= f.check_box :other_ea_contributions do %>
                 <%= f.label :other_ea_contributor_names, t('.list_contributors_label'), class: "form-label" %>
-                <%= f.text_area :other_ea_contributor_names, class: "form-control", cols: 30, rows: 10 %>
-              </div>
-              <%= f.label :growth_funding, class: "block-label" do %>
-                <%= f.check_box :growth_funding %>
-                <%= t(".growth_funding_label") %>
+                <%= f.text_area :other_ea_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".ea_example") %>
               <% end %>
-              <%= f.label :not_yet_identified, class: "block-label" do %>
-                <%= f.check_box :not_yet_identified %>
-                <%= t(".not_yet_identified_label") %>
-              <% end %>
-            </div>
+              <%= f.check_box :growth_funding %>
+              <%= f.check_box :not_yet_identified %>
+            <% end %>
           </fieldset>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>

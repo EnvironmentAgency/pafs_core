@@ -49,9 +49,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
         expect(assigns(:project).project).to eq PafsCore::Project.last
       end
 
-      it "renders the reference number page" do
+      it "redirects to the reference number page" do
         post :create, yes_or_no: "yes"
-        expect(response).to render_template "reference_number"
+        expect(response).to redirect_to reference_number_project_path(PafsCore::Project.last)
       end
     end
 

@@ -32,7 +32,7 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
       render :new
     elsif within_six_years == "yes"
       @project = project_navigator.start_new_project
-      render "reference_number"
+      redirect_to reference_number_project_path(@project)
     else
       # not a project we want to know about (yet)
       redirect_to pipeline_projects_path
@@ -41,6 +41,11 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
 
   # GET
   def pipeline
+  end
+
+  # GET
+  def reference_number
+    @project = project_navigator.find_project_step(params[:id], PafsCore::ProjectNavigator.first_step)
   end
 
   # GET

@@ -38,17 +38,20 @@ en:
 # funding sources
         funding_sources:
           heading: What are the expected funding sources for your proposed project?
-          lede: Select all that apply. You should also include any gaps in funding under 'Not yet identified'.
-          select_all_options: Select all options that are relevant to you.
-          fcerm_gia_label: Flood and Coastal Erosion Risk Management Grant in Aid (FCERM GiA)
+          lede: Select all that apply.
+          example_text: Select 'Not yet identified' for any gaps in funding
+          fcerm_gia_label: Flood and coastal erosion risk management grant in aid (FCERM GiA)
           local_levy_label: Local levy
-          internal_drainage_boards_label: Internal Drainage Boards (IDB) precepts
-          public_contributions_label: Public contributions
-          private_contributions_label: Private contributions
+          internal_drainage_boards_label: Internal drainage boards (IDB) precepts
+          public_contributions_label: Public sector contributions
+          private_contributions_label: Private sector contributions
           other_ea_contributions_label: Other Environment Agency contributions
           growth_funding_label: Growth funding
           not_yet_identified_label: Not yet identified
           list_contributors_label: List the names of potential contributors
+          public_sector_example: For example, local authority, parish council, Natural England. Do not enter values
+          private_sector_example: For example, community group, local business, national business, riparian land owner. Do not enter values
+          ea_example: Do not enter values
 # earliest start
         earliest_start:
           heading: Could your project start earlier if FCERM funding was available earlier?
