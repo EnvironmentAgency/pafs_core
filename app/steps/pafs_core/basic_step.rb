@@ -4,7 +4,7 @@ module PafsCore
   class BasicStep
     include ActiveModel::Model, ActiveRecord::AttributeAssignment
 
-    attr_reader :project
+    attr_reader :project, :user
 
     delegate  :id,
               :reference_number,
@@ -15,8 +15,9 @@ module PafsCore
     # this validation allows us to ensure the record is valid
     validates :reference_number, presence: true
 
-    def initialize(model)
+    def initialize(model, user = nil)
       @project = model
+      @user = user
     end
 
     def save!(*)

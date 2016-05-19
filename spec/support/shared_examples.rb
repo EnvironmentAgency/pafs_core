@@ -1,6 +1,5 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
-require "rails_helper"
 
 RSpec.shared_examples "a project step" do
   describe "attributes" do

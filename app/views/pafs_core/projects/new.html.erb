@@ -1,5 +1,4 @@
 <h1 class="heading-large"><%= t(".heading", date: six_year_limit_date) %></h1>
-<p class="lede">I love cheese, especially brie red leicester. Cream cheese cheese slices chalk and cheese smelly cheese bocconcini cheese and wine parmesan feta. Pepper jack squirty cheese cheese and biscuits danish fontina cheese and biscuits cauliflower cheese fromage mozzarella. Macaroni cheese boursin.</p>
 <div class="step-form">
   <%= form_tag pafs_core.projects_path, method: :post do %>
     <fieldset class="inline">
@@ -13,12 +12,16 @@
         </label>
       </div>
     </fieldset>
-    <details>
-      <summary><span class="summary"><%= t('.help_label') %></span></summary>
-      <div class="panel-indent">
-        <%= t('.help_content_html') %>
-      </div>
-    </details>
+    <div class="form-group">
+      <details>
+        <summary>
+          <span class="summary">My proposal is part of a wider project</span>
+        </summary>
+        <div class="panel">
+          <p>If your proposed project is part of a wider project, only include local levy or FCERM grant in aid (FCERM GiA) funding required for the specific phase covered by this proposal.</p>
+        </div>
+      </details>
+    </div>
     <%= submit_tag t("save_and_continue_label"), class: 'button' %>
   <% end %>
 </div>

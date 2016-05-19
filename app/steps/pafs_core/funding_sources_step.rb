@@ -5,11 +5,11 @@ module PafsCore
     delegate :fcerm_gia, :fcerm_gia=,
              :local_levy, :local_levy=,
              :internal_drainage_boards, :internal_drainage_boards=,
-             :public_contributions, :public_contributions=,
+             :public_contributions, :public_contributions=, :public_contributions?,
              :public_contributor_names, :public_contributor_names=,
-             :private_contributions, :private_contributions=,
+             :private_contributions, :private_contributions=, :private_contributions?,
              :private_contributor_names, :private_contributor_names=,
-             :other_ea_contributions, :other_ea_contributions=,
+             :other_ea_contributions, :other_ea_contributions=, :other_ea_contributions?,
              :other_ea_contributor_names, :other_ea_contributor_names=,
              :growth_funding, :growth_funding=,
              :not_yet_identified, :not_yet_identified=,
@@ -18,16 +18,21 @@ module PafsCore
     validates :public_contributor_names, presence: true, if: -> { public_contributions}
     validates :private_contributor_names, presence: true, if: -> { private_contributions}
     validates :other_ea_contributor_names, presence: true, if: -> { other_ea_contributions}
-    validates :public_contributor_names, absence: true, unless: -> { public_contributions }
-    validates :private_contributor_names, absence: true, unless: -> { private_contributions }
-    validates :other_ea_contributor_names, absence: true, unless: -> { other_ea_contributions }
     validate :at_least_one_funding_source_is_selected
 
     def update(params)
       assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :funding_values
-        true
+      if valid?
+        public_contributor_names = nil unless public_contributions?
+        private_contributor_names = nil unless private_contributions?
+        other_ea_contributor_names = nil unless other_ea_contributions?
+
+        if project.save
+          @step = :funding_values
+          true
+        else
+          false
+        end
       else
         false
       end

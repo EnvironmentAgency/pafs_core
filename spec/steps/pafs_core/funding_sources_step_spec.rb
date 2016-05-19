@@ -1,7 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "rails_helper"
-require_relative "./shared_step_spec"
 
 RSpec.describe PafsCore::FundingSourcesStep, type: :model do
   describe "attributes" do
@@ -23,13 +22,6 @@ RSpec.describe PafsCore::FundingSourcesStep, type: :model do
       expect(subject.errors.messages[:public_contributor_names]).to include "can't be blank"
     end
 
-    it "requires :public_contributor_names to be absent when :public_contributions is not selected" do
-      subject.public_contributions = false
-      subject.public_contributor_names = "Peter Shilton"
-      expect(subject.valid?).to be false
-      expect(subject.errors.messages[:public_contributor_names]).to include "must be blank"
-    end
-
     it "requires :private_contributor_names to be present when :private_contributions is selected" do
       subject.private_contributions = true
       subject.private_contributor_names = nil
@@ -37,25 +29,11 @@ RSpec.describe PafsCore::FundingSourcesStep, type: :model do
       expect(subject.errors.messages[:private_contributor_names]).to include "can't be blank"
     end
 
-    it "requires :private_contributor_names to be absent when :private_contributions is not selected" do
-      subject.private_contributions = false
-      subject.private_contributor_names = "Pat Jennings"
-      expect(subject.valid?).to be false
-      expect(subject.errors.messages[:private_contributor_names]).to include "must be blank"
-    end
-
     it "requires :other_ea_contributor_names to be present when :other_ea_contributions is selected" do
       subject.other_ea_contributions = true
       subject.other_ea_contributor_names = nil
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:other_ea_contributor_names]).to include "can't be blank"
-    end
-
-    it "requires :other_ea_contributor_names to be absent when :other_ea_contributions is not selected" do
-      subject.other_ea_contributions = false
-      subject.other_ea_contributor_names = "Nigel Martyn"
-      expect(subject.valid?).to be false
-      expect(subject.errors.messages[:other_ea_contributor_names]).to include "must be blank"
     end
   end
 

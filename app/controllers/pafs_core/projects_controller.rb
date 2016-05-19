@@ -1,7 +1,8 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 class PafsCore::ProjectsController < PafsCore::ApplicationController
-  before_action :authenticate_user!
+  # NOTE: this should be added via a decorator in consuming qpp if needed
+  # before_action :authenticate_user!
 
   def index
     # dashboard page
@@ -31,11 +32,20 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
       render :new
     elsif within_six_years == "yes"
       @project = project_navigator.start_new_project
-      render "reference_number"
+      redirect_to reference_number_project_path(@project)
     else
-      # not a project we want to know about yet?
-      redirect_to projects_path, notice: "Not a 6 year project - so what do we do now?"
+      # not a project we want to know about (yet)
+      redirect_to pipeline_projects_path
     end
+  end
+
+  # GET
+  def pipeline
+  end
+
+  # GET
+  def reference_number
+    @project = project_navigator.find_project_step(params[:id], PafsCore::ProjectNavigator.first_step)
   end
 
   # GET
@@ -65,7 +75,6 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   # PATCH
   def save
     # submit data for the current step and continue or exit
-
     # if request is exit redirect to summary or dashboard?
     # else go to next step
     @project = project_navigator.find_project_step(params[:id], params[:step])
@@ -77,8 +86,16 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     end
   end
 
+  # GET
+  def download_funding_calculator
+    @project = project_navigator.find_project_step(params[:id], :funding_calculator)
+    @project.download do |data, filename, content_type|
+      send_data(data, filename: filename, type: content_type)
+    end
+  end
+
 private
   def project_navigator
-    @project_navigator ||= PafsCore::ProjectNavigator.new current_user
+    @project_navigator ||= PafsCore::ProjectNavigator.new current_resource
   end
 end

@@ -1,5 +1,14 @@
 PafsCore::Engine.routes.draw do
-  resources :projects
+  resources :projects do
+    collection do
+      get :pipeline
+    end
+
+    member do
+      get :reference_number
+      get :download_funding_calculator
+    end
+  end
   resources :account_requests
 
   get 'projects/:id/:step' => 'projects#step', as: :project_step

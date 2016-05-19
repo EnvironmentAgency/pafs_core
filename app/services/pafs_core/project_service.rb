@@ -1,4 +1,3 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
   class ProjectService
@@ -64,8 +63,8 @@ module PafsCore
     def initial_attributes
       {
         reference_number: generate_reference_number,
-        version: 0,
-        # TODO: owner: user
+        version: 1,
+        # TODO: creator: user
       }
     end
 

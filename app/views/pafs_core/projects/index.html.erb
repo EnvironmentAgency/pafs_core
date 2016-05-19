@@ -1,25 +1,30 @@
 <div id="dashboard">
-  <h1 class="heading-large">Project Application and Funding Service Dashboard</h1>
+  <h1 class="heading-large">Welcome to the FCERM project funding service</h1>
 
-  <p class="lede">Fondue when the cheese comes out everybody's happy edam. Manchego cheesecake cheeseburger stinking bishop cheese strings say cheese fromage frais queso. Mascarpone stilton pepper jack caerphilly cow boursin paneer squirty cheese.</p>
+  <p class="lede">This is your home page. You can review and update any existing project proposal and start a new project proposal.</p>
 
-  <p>Manchego danish fontina manchego. Cow camembert de normandie stinking bishop paneer halloumi croque monsieur croque monsieur edam. Who moved my cheese dolcelatte pepper jack cut the cheese cut the cheese who moved my cheese the big cheese cheesecake. Cheese strings when the cheese comes out everybody's happy.</p>
+  <div class="panel panel-border-wide">
+    <p>If you want to request FCERM project funding for next year, you must apply before the submission deadline of 31st July 2017.</p>
+  </div>
+
+  <p>If you need to make a change to your project proposal after you've submitted it, for example because you made a mistake, you'll need to update and resubmit your project proposal before the submission deadline.</p>
+
+  <p>If you need to make a change after the submission deadline, you can still update and resubmit your project proposal but any changes won't be considered as part of the current assessment period.</p>
+  <p>If you have any questions about the projects listed here, contact your <%= strategic_officer_link %>.</p>
 
   <div>
     <%= link_to t('create_a_new_project_label'), pafs_core.new_project_path, class: "button" %>
   </div>
 
   <section>
-    <h2 class="heading-medium">Your existing project proposals</h2>
+    <h2 class="heading-medium">Your project proposals</h2>
     <table class="dashboard">
       <thead>
         <tr>
-          <th scope="col">Reference no.</th>
+          <th scope="col">National project number</th>
           <th scope="col">Project name</th>
-          <th scope="col">RMA</th>
-          <th scope="col">Location</th>
-          <th scope="col">Type</th>
-          <th scope="col">Status</th>
+          <th scope="col">Risk management authority</th>
+          <th scope="col">Last submitted</th>
         </tr>
       </thead>
       <tbody>
@@ -27,10 +32,8 @@
           <tr>
             <td><%= link_to project.reference_number, pafs_core.project_path(project), class: "project-link" %></td>
             <td><%= project.name %></td>
-            <td>Bristol city council</td>
-            <td>BS4 8NP</td>
-            <td>1-6 yrs</td>
-            <td>Approved</td>
+            <td>To do</td>
+            <td><%= l(project.submitted_at) if project.submitted_at %></td>
           </tr>
         <% end %>
       </tbody>

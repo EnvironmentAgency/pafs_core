@@ -2,21 +2,26 @@
 # frozen_string_literal: true
 module PafsCore
   module ProjectsHelper
-    def financial_year_end
-      now = Time.zone.today
-      Date.new(now.month < 4 ? now.year : now.year + 1, 3, 31)
+    def financial_year_end_for(date)
+      Date.new(date.month < 4 ? date.year : date.year + 1, 3, 31)
     end
 
     def six_year_limit_date
-      (financial_year_end + 6.years).to_formatted_s(:long_ordinal)
+      Date.new(2021, 3, 31).to_formatted_s(:long_ordinal)
     end
 
-    def project_step_path(project)
-      pafs_core.project_step_path(id: project.to_param, step: project.step)
+    def strategic_officer_link
+      link_to t("strategic_officer_label"), t("strategic_officer_link"),
+        rel: "external", target: "_blank"
     end
+
+    # def project_step_path(project)
+    #   pafs_core.project_step_path(id: project.to_param, step: project.step)
+    # end
+    #
 
     def nav_step_item(project, step)
-      nav_step = PafsCore::ProjectNavigator.build_project_step(project.project, step)
+      nav_step = PafsCore::ProjectNavigator.build_project_step(project.project, step, current_resource)
       content_tag(:li) do
         concat(content_tag(:span, class: "complete-flag") do
           icon("check") if nav_step.completed?
@@ -30,7 +35,10 @@ module PafsCore
             step_label(step)
           end)
         else
-          concat link_to(step_label(step), project_step_path(nav_step), class: "nav-link")
+          concat link_to(step_label(step),
+                         pafs_core.project_step_path(id: nav_step.to_param,
+                                                     step: nav_step.step),
+                                                     class: "nav-link")
         end
       end
     end
@@ -39,17 +47,15 @@ module PafsCore
       t("#{step}_step_label")
     end
 
-    def key_month_field(f, attr)
-      content_tag(:div, class: "form-group form-group-month") do
-        concat(f.label(attr, t(".month_label"), class: "form-label"))
-        concat(f.number_field(attr, in: 1..12, class: "form-control form-month"))
-      end
-    end
+    def key_date_field(f, attr)
+      # expecting attr to end with either '_month' or '_year'
+      date_type = attr.to_s.split("_").last
+      range = date_type == "month" ? 1..12 : 2000..2099
+      length = date_type == "month" ? 2 : 4
 
-    def key_year_field(f, attr)
-      content_tag(:div, class: "form-group form-group-year") do
-        concat(f.label(attr, t(".year_label"), class: "form-label"))
-        concat(f.number_field(attr, in: 2000...2100, class: "form-control form-year"))
+      content_tag(:div, class: "form-group form-group-#{date_type}") do
+        concat(f.label(attr, t(".#{date_type}_label"), class: "form-label"))
+        concat(f.number_field(attr, in: range, maxlength: length, class: "form-control form-#{date_type}"))
       end
     end
   end

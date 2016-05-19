@@ -1,7 +1,7 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "rails_helper"
-require_relative "./shared_step_spec"
+#require_relative "./shared_step_spec"
 
 RSpec.describe PafsCore::BasicStep, type: :model do
   subject { FactoryGirl.build(:basic_step) }

@@ -1,9 +1,9 @@
 <h1 class="heading-large"><%= t('.heading') %></h1>
 <p class="lede"><%= t('.lede') %></p>
-<div class="panel-indent">
+<div class="panel">
   <span class="heading-large"><%= @project.reference_number %></span>
 </div>
 <p><%= t('.info') %></p>
 
-<%= link_to t('continue_label'), project_step_path(@project), class: "button" %>
+<%= link_to t('continue_label'), pafs_core.project_step_path(id: @project.to_param, step: @project.step), class: "button" %>
 

@@ -1,7 +1,7 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "rails_helper"
-require_relative "./shared_step_spec"
+# require_relative "./shared_step_spec"
 
 RSpec.describe PafsCore::KeyDatesStep, type: :model do
   describe "attributes" do
@@ -25,7 +25,7 @@ RSpec.describe PafsCore::KeyDatesStep, type: :model do
        :ready_for_service_month].each do |attr|
         subject.send("#{attr}=", 0)
         expect(subject.valid?).to be false
-        expect(subject.errors.messages[attr]).to include "must be in the range 1-12"
+        expect(subject.errors.messages[attr]).to include "must be in the range 1 to 12"
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe PafsCore::KeyDatesStep, type: :model do
        :ready_for_service_month].each do |attr|
         subject.send("#{attr}=", 13)
         expect(subject.valid?).to be false
-        expect(subject.errors.messages[attr]).to include "must be in the range 1-12"
+        expect(subject.errors.messages[attr]).to include "must be in the range 1 to 12"
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe PafsCore::KeyDatesStep, type: :model do
        :ready_for_service_year].each do |attr|
         subject.send("#{attr}=", 1999)
         expect(subject.valid?).to be false
-        expect(subject.errors.messages[attr]).to include "must be in the range 2000-2099"
+        expect(subject.errors.messages[attr]).to include "must be in the range 2000 to 2099"
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe PafsCore::KeyDatesStep, type: :model do
        :ready_for_service_year].each do |attr|
         subject.send("#{attr}=", 2100)
         expect(subject.valid?).to be false
-        expect(subject.errors.messages[attr]).to include "must be in the range 2000-2099"
+        expect(subject.errors.messages[attr]).to include "must be in the range 2000 to 2099"
       end
     end
 

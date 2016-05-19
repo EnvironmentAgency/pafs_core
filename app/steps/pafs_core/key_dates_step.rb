@@ -41,44 +41,35 @@ module PafsCore
     end
 
     def key_dates_are_present_and_correct
-      months_are_present_and_in_range
-      years_are_present_and_in_range
+      dates_are_present_and_in_range
       return if errors.any?
       dates_are_in_order
     end
 
-    def months_are_present_and_in_range
+    def dates_are_present_and_in_range
       [:start_outline_business_case_month,
        :award_contract_month,
        :start_construction_month,
-       :ready_for_service_month].each do |attr|
-         val = send(attr)
-         if val.blank?
-           errors.add(attr, "cannot be blank")
-         else
-           m = val.to_i
-           if m < 1 || m > 12 || (m.to_s != val.to_s)
-             errors.add(attr, "must be in the range 1-12")
-           end
-         end
-       end
-    end
-
-    def years_are_present_and_in_range
-      [:start_outline_business_case_year,
+       :ready_for_service_month,
+       :start_outline_business_case_year,
        :award_contract_year,
        :start_construction_year,
        :ready_for_service_year].each do |attr|
-         val = send(attr)
-         if val.blank?
-           errors.add(attr, "cannot be blank")
-         else
-           y = val.to_i
-           if y < 2000 || y > 2099 || (y.to_s != val.to_s)
-             errors.add(attr, "must be in the range 2000-2099")
-           end
-         end
+         range = attr.to_s.end_with?("month") ? 1..12 : 2000..2099
+         validate_date_component(attr, range)
        end
+    end
+
+    def validate_date_component(attr, range)
+      val = send(attr)
+      if val.blank?
+        errors.add(attr, "cannot be blank")
+      else
+        m = val.to_i
+        unless range.include?(m) && (m.to_s == val.to_s)
+          errors.add(attr, "must be in the range #{range.min} to #{range.max}")
+        end
+      end
     end
 
     def dates_are_in_order

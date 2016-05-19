@@ -16,6 +16,9 @@ group :development, :test do
   gem 'guard-rspec', require: false
 end
 
+group :test do
+  gem "codeclimate-test-reporter", require: false
+end
+
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-

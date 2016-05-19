@@ -51,6 +51,7 @@ FactoryGirl.define do
       main_risk "fluvial_flooding"
     end
 
+<<<<<<< HEAD
     factory :location_step, class: PafsCore::LocationStep do
       project_location [404040, 212121]
       project_location_zoom_level 6
@@ -60,6 +61,10 @@ FactoryGirl.define do
       benefit_area "[[432123, 132453], [444444, 134444], [456543, 123432]]"
       benefit_area_centre [404040, 212121]
       benefit_area_zoom_level 4
+=======
+    factory :funding_calculator_step, class: PafsCore::FundingCalculatorStep do
+      funding_calculator_file_name "pf_calc.xls"
+>>>>>>> develop
     end
   end
 end

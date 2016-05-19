@@ -9,7 +9,7 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params))
       if valid? && project.save
-        @step = :financial_year
+        @step = :project_type
         true
       else
         false

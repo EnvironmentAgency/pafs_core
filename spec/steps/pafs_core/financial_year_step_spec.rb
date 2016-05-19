@@ -1,7 +1,7 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "rails_helper"
-require_relative "./shared_step_spec"
+# require_relative "./shared_step_spec"
 
 RSpec.describe PafsCore::FinancialYearStep, type: :model do
   describe "attributes" do
@@ -65,7 +65,7 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
     subject { FactoryGirl.build(:financial_year_step) }
 
     it "should return :project_name" do
-      expect(subject.previous_step).to eq :project_name
+      expect(subject.previous_step).to eq :project_type
     end
   end
 end

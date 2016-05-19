@@ -1,0 +1,10 @@
+<%- if project.errors.any? %>
+  <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+    <h1 class="heading-medium error-summary-heading" id="error-summary-heading">Check your details</h1>
+    <ul class="error-summary-list">
+      <% project.errors.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<%end -%>

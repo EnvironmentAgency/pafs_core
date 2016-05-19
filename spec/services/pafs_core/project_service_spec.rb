@@ -9,7 +9,7 @@ RSpec.describe PafsCore::ProjectService do
       expect { p = subject.new_project }.to_not change { PafsCore::Project.count }
       expect(p).to be_a PafsCore::Project
       expect(p.reference_number).to_not be_nil
-      expect(p.version).to eq(0)
+      expect(p.version).to eq(1)
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe PafsCore::ProjectService do
 
       expect(p).to be_a PafsCore::Project
       expect(p.reference_number).to_not be_nil
-      expect(p.version).to eq(0)
+      expect(p.version).to eq(1)
     end
   end
 

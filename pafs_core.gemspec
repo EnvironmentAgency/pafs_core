@@ -7,8 +7,8 @@ require "pafs_core/version"
 Gem::Specification.new do |s|
   s.name        = "pafs_core"
   s.version     = PafsCore::VERSION
-  s.authors     = ["Digital Services Team, Environment Agency"]
-  s.email       = ["dst@environment-agency.gov.uk"]
+  s.authors     = ["CIS Solutions Delivery, Environment Agency"]
+  s.email       = ["tony.headford@environment-agency.gov.uk"]
   s.homepage    = "https://github.com/EnvironmentAgency"
   s.summary     = "Project Application and Funding Service core shared functionality"
   s.description = "Project Application and Funding Service core shared functionality"
@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.5.1"
   s.add_dependency "cumberland"
+  s.add_dependency "clamav-client", "~> 3.0"
+  s.add_dependency "aws-sdk", "~> 2"
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "factory_girl_rails", "~> 4.0"
@@ -28,7 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "dotenv"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "simplecov"
-  s.add_development_dependency "overcommit"
+ s.add_development_dependency "overcommit"
   # s.add_development_dependency "ffaker"
-
 end

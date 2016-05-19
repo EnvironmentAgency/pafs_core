@@ -5,59 +5,60 @@
     </div>
     <div class="column-two-thirds">
       <h1 class="heading-large"><%= t('.heading') %></h1>
-      <div class="step-form">
+      <div class="step-form vertical-squash">
         <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <div class="form-group">
-            <h3 class="heading-medium with-divider"><%= t('.outline_business_case') %></h3>
+            <h3 class="heading-medium"><%= t('.outline_business_case') %></h3>
             <div class="form-group">
               <fieldset>
                 <legend class="visuallyhidden">Gateway 1 date</legend>
                 <div class="form-hint"><%= t(".example_text") %></div>
                 <div class="form-date">
-                  <%= key_month_field(f, :start_outline_business_case_month) %>
-                  <%= key_year_field(f, :start_outline_business_case_year) %>
+                  <%= key_date_field(f, :start_outline_business_case_month) %>
+                  <%= key_date_field(f, :start_outline_business_case_year) %>
                 </div>
               </fieldset>
             </div>
           </div>
           <div class="form-group">
-            <h3 class="heading-medium with-divider this-is-not-the-content-you-are-looking-for"><%= t('.there_is_no_gateway_2') %></h3>
+            <h3 class="heading-medium"><%= t('.gateway_2') %></h3>
+            <p class="this-is-not-the-gateway-you-are-looking-for"><%= t('.there_is_no_gateway_2') %></p>
           </div>
           <div class="form-group">
-            <h3 class="heading-medium with-divider"><%= t('.award_the_contract') %></h3>
+            <h3 class="heading-medium"><%= t('.award_the_contract') %></h3>
             <div class="form-group">
               <fieldset>
                 <legend class="visuallyhidden">Gateway 3 date</legend>
                 <div class="form-hint"><%= t(".example_text") %></div>
                 <div class="form-date">
-                  <%= key_month_field(f, :award_contract_month) %>
-                  <%= key_year_field(f, :award_contract_year) %>
+                  <%= key_date_field(f, :award_contract_month) %>
+                  <%= key_date_field(f, :award_contract_year) %>
                 </div>
               </fieldset>
             </div>
           </div>
           <div class="form-group">
-            <h3 class="heading-medium with-divider"><%= t('.start_construction') %></h3>
+            <h3 class="heading-medium"><%= t('.start_construction') %></h3>
             <div class="form-group">
               <fieldset>
                 <legend class="visuallyhidden">Construction start date</legend>
                 <div class="form-hint"><%= t(".example_text") %></div>
                 <div class="form-date">
-                  <%= key_month_field(f, :start_construction_month) %>
-                  <%= key_year_field(f, :start_construction_year) %>
+                  <%= key_date_field(f, :start_construction_month) %>
+                  <%= key_date_field(f, :start_construction_year) %>
                 </div>
               </fieldset>
             </div>
           </div>
           <div class="form-group">
-            <h3 class="heading-medium with-divider"><%= t('.ready_for_service') %></h3>
+            <h3 class="heading-medium"><%= t('.ready_for_service') %></h3>
             <div class="form-group">
               <fieldset>
                 <legend class="visuallyhidden">Gateway 4 date</legend>
                 <div class="form-hint"><%= t(".example_text") %></div>
                 <div class="form-date">
-                  <%= key_month_field(f, :ready_for_service_month) %>
-                  <%= key_year_field(f, :ready_for_service_year) %>
+                  <%= key_date_field(f, :ready_for_service_month) %>
+                  <%= key_date_field(f, :ready_for_service_year) %>
                 </div>
               </fieldset>
             </div>
@@ -68,4 +69,3 @@
     </div>
   </div>
 </div>
-

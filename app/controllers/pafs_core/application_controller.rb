@@ -2,5 +2,15 @@
 # frozen_string_literal: true
 module PafsCore
   class ApplicationController < ActionController::Base
+    include PafsCore::ApplicationHelper
+
+    before_filter :set_cache_headers
+
+  private
+    def set_cache_headers
+      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate, private"
+      response.headers["Pragma"] = "no-cache"
+      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    end
   end
 end

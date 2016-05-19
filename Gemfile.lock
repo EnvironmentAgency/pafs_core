@@ -8,7 +8,12 @@ PATH
   remote: .
   specs:
     pafs_core (0.0.2)
+<<<<<<< HEAD
       cumberland
+=======
+      aws-sdk (~> 2)
+      clamav-client (~> 3.0)
+>>>>>>> develop
       rails (~> 4.2.5.1)
 
 GEM
@@ -51,6 +56,12 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (6.0.3)
+    aws-sdk (2.2.37)
+      aws-sdk-resources (= 2.2.37)
+    aws-sdk-core (2.2.37)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.2.37)
+      aws-sdk-core (= 2.2.37)
     builder (3.2.2)
     byebug (8.2.4)
     capybara (2.7.0)
@@ -62,6 +73,9 @@ GEM
       xpath (~> 2.0)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
+    clamav-client (3.0.0)
+    codeclimate-test-reporter (0.5.0)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
     concurrent-ruby (1.0.1)
     database_cleaner (1.5.2)
@@ -96,7 +110,10 @@ GEM
       rspec (>= 2.99.0, < 4.0)
     i18n (0.7.0)
     iniparse (1.4.2)
+    jmespath (1.2.4)
+      json_pure (>= 1.8.1)
     json (1.8.3)
+    json_pure (1.8.3)
     listen (3.0.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
@@ -208,7 +225,11 @@ PLATFORMS
 DEPENDENCIES
   byebug
   capybara
+<<<<<<< HEAD
   cumberland!
+=======
+  codeclimate-test-reporter
+>>>>>>> develop
   database_cleaner
   dotenv
   factory_girl_rails (~> 4.0)
