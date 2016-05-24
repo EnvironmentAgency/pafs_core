@@ -11,6 +11,7 @@ require File.expand_path("../dummy/config/environment", __FILE__)
 # Prevent database truncation if the environment is production
 # abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
+#require "capybara/rspec"
 require "factory_girl_rails"
 require "shoulda-matchers"
 require "spec_helper"
@@ -42,6 +43,14 @@ Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
+  end
+end
+
+def escape_xpath_quotes(str)
+  if str =~ /'/
+    %[concat('] + str.gsub(/'/, %[', "'", ']) + %[')]
+  else
+    %['#{str}']
   end
 end
 

@@ -5,8 +5,7 @@
     </div>
     <div class="column-two-thirds">
       <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
-        <%= f.error_header("Check your details", "The following error(s) prevented the form from being saved:") %>
-        <%#= render partial: 'shared/error_header', locals: { project: @project } %>
+        <%= f.error_header("Woah there cowboy", "The following error(s) prevented the form from being saved:") %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
         <p class="lede"><%= t('.lede') %></p>
         <%= f.hint_text t('.example_text') %>
