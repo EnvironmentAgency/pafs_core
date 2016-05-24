@@ -139,7 +139,6 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       end
 
       it "adds the block content after the checkbox" do
-        puts @output
         expect(@output).to have_css("label.block-label + div.panel.js-hidden")
       end
 

@@ -20,13 +20,13 @@ module PafsCore
     def form_group(name, &block)
       name = name.to_sym
       content = [error_message(name)]
-      content << yield if block_given?
+      content << content_tag(:div) { yield } if block_given?
 
-      @template.content_tag(:div,
-                            class: error_class(name, "form-group"),
-                            id: content_id(name)) do
-                              safe_join(content, "\n")
-                            end
+      content_tag(:div,
+                  class: error_class(name, "form-group"),
+                  id: content_id(name)) do
+                    safe_join(content, "\n")
+                  end
     end
 
     def check_box(attribute, options = {}, &block)
