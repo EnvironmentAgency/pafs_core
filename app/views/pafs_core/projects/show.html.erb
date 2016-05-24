@@ -11,19 +11,19 @@
       <tr>
         <td>Project name</td>
         <td><%= @project.name %></td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :project_name), "aria-label": "Change the project name" %></td>
+        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :project_name), aria: { label: "Change the project name" } %></td>
       </tr>
       <% # Project type ########### %>
       <tr>
         <td><%= t('project_type_step_label') %></td>
         <td><%= @project.project_type_name %></td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :project_type), "aria-label": "Change the project type" %></td>
+        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :project_type), aria: { label: "Change the project type" } %></td>
       </tr>
       <% # financial year ########### %>
       <tr>
         <td>Financial year</td>
         <td><%= @project.project_end_financial_year %></td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :financial_year), "aria-label": "Change the financial year end of the project" %></td>
+        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :financial_year), aria: { label: "Change the financial year end of the project" } %></td>
       </tr>
       <% # Key dates ########### %>
       <tr>
@@ -36,25 +36,25 @@
             <li><%= @project.ready_for_service_date %> - Gateway 4</li>
           </ul>
         </td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :key_dates), "aria-label": "Change the key dates" %></td>
+        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :key_dates), aria: { label: "Change the key dates" } %></td>
       </tr>
       <% # Funding sources ########### %>
       <tr>
         <td>Funding sources</td>
         <td>
-          <ul>
+          <ol <%= "class=list-number" if @project.funding_sources.count > 1 %>>
             <% @project.funding_sources.each do |fs| %>
               <li><%= fs %></li>
             <% end %>
-          </ul>
+          </ol>
         </td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :funding_sources), "aria-label": "Change the funding sources" %></td>
+        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :funding_sources), aria: { label: "Change the funding sources" } %></td>
       </tr>
       <% # Earliest start ########### %>
       <tr>
         <td>Earliest start</td>
         <td><%= @project.early_start_date_or_no %></td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :earliest_start), "aria-label": "Change the earliest start date" %></td>
+        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :earliest_start), aria: { label: "Change the earliest start date" } %></td>
       </tr>
       <% # Risks ########### %>
       <tr>

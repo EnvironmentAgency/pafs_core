@@ -17,14 +17,13 @@
               <%= f.check_box :local_levy %>
               <%= f.check_box :internal_drainage_boards %>
               <%= f.check_box :public_contributions do %>
-                <%= f.text_area :public_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".public_sector_example") %>
+                <%= f.text_area :public_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".public_sector_example"), label: t(".list_contributors_label") %>
               <% end %>
               <%= f.check_box :private_contributions do %>
-                <%= f.text_area :private_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".private_sector_example") %>
+                <%= f.text_area :private_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".private_sector_example"), label: t(".list_contributors_label") %>
               <% end %>
               <%= f.check_box :other_ea_contributions do %>
-                <%= f.label :other_ea_contributor_names, t('.list_contributors_label'), class: "form-label" %>
-                <%= f.text_area :other_ea_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".ea_example") %>
+                <%= f.text_area :other_ea_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".ea_example"), label: t(".list_contributors_label") %>
               <% end %>
               <%= f.check_box :growth_funding %>
               <%= f.check_box :not_yet_identified %>

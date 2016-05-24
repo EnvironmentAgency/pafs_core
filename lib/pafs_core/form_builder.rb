@@ -52,8 +52,14 @@ module PafsCore
 
     def text_area(attribute, options = {})
       attribute = attribute.to_sym
-      contents = [label(attribute, class: "form-label")]
-      if options.fetch(:hint, false)
+
+      label_args = [attribute]
+      label_args << options.fetch(:label) if options.include? :label
+      label_args << { class: "form-label" }
+
+      contents = [label(*label_args)]
+
+      if options.include? :hint
         contents << hint_text(options.fetch(:hint))
         options.except!(:hint)
       end

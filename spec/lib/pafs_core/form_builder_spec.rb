@@ -192,6 +192,14 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       expect(@output).to have_css("label[for='funding_sources_public_contributor_names']")
     end
 
+    context "when options contain a :label key" do
+      let(:label_text) { "My lovely label" }
+      it "outputs a label for the attribute using the specified text" do
+        @output = builder.text_area(:public_contributor_names, options.merge({ label: label_text }))
+        expect(@output).to have_css("label", text: label_text)
+      end
+    end
+
     context "when hint text is supplied" do
       let(:hint) { "Always warm the pot" }
       before(:each) do
