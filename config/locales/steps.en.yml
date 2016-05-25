@@ -54,7 +54,8 @@ en:
           ea_example: Do not enter values
 # earliest start
         earliest_start:
-          heading: Could your project start earlier if FCERM funding was available earlier?
+          heading: Could your project start sooner if FCERM grant in aid (FCERM GiA) funding was available earlier?
+          lede: If you could secure FCERM grant in aid (FCERM GiA) funding earlier, what is the earliest estimated date to which the total costs could be brought forward without impacting on deliverability and outcomes?
 # earliest date
         earliest_date:
           heading: What is the earliest estimated date to which the total costs could be brought forward if you could secure FCERM funding earlier?

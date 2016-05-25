@@ -15,6 +15,20 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
         @output = builder.error_header("Errors", "Some errors here")
       end
 
+      context "when no text is supplied as params" do
+        before(:each) do
+          @output = builder.error_header
+        end
+
+        it "heading text defaults to :error_heading i18n locale string" do
+          expect(@output).to have_css("h1", text: I18n.t("error_heading"))
+        end
+
+        it "description text defaults to :error_description i18n locale string" do
+          expect(@output).to have_css("p", text: I18n.t("error_description"))
+        end
+      end
+
       it "outputs a header div" do
         expect(@output).to have_css("div.error-summary")
       end
@@ -100,7 +114,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
 
     context "when the attribute has errors" do
       # NOTE: this context is a bit bogus because we don't hang errors
-      # from checkboxes in the app (yet anyway).
+      # from individual checkboxes in the app (yet anyway).
       before(:each) do
         project.fcerm_gia = nil
         project.public_contributions = true
@@ -145,6 +159,120 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       it "wraps the block content in a show/hide div panel" do
         expect(@output).to have_css("div.panel.js-hidden p", text: "Wigwam")
       end
+    end
+  end
+
+  describe "#radio_button" do
+    let(:project) { FactoryGirl.build :earliest_start_step }
+
+    before(:each) do
+      allow(helper).to receive(:t) { "my label" }
+      project.valid?
+      @output = builder.radio_button(:could_start_early, "true")
+    end
+
+    context "when the attribute has errors" do
+      # NOTE: this context is a bit bogus because we don't hang errors
+      # from an individual radio button in the app (yet anyway).
+      before(:each) do
+        project.could_start_early = nil
+        project.valid?
+        @output = builder.radio_button(:could_start_early, "true")
+      end
+
+      it "isn't valid" do
+        expect(project.valid?).to be false
+      end
+
+      it "doesn't add 'error' to the class attribute of the label" do
+        expect(@output).not_to have_css("label.block-label.error")
+      end
+    end
+
+    it "outputs a label for the control using an I18n lookup for the text" do
+      expect(@output).to have_css("label.block-label", text: "my label")
+    end
+
+    context "when options contain a :label key" do
+      it "uses the :label value for the label text" do
+        @output = builder.radio_button(:could_start_early, "true", label: "Wigwam")
+        expect(@output).to have_css("label.block-label", text: "Wigwam")
+      end
+    end
+
+    it "outputs a radio button control" do
+      expect(@output).to have_css("input#earliest_start_could_start_early_true[type='radio']")
+    end
+
+    it "is valid" do
+      expect(project.valid?).to be true
+    end
+
+    it "doesn't add 'no-error' to the class attribute of the label" do
+      expect(@output).not_to have_css("label.block-label.no-error")
+    end
+  end
+
+  describe "#radio_button_group" do
+    let(:project) { FactoryGirl.build :earliest_start_step }
+
+    before(:each) do
+      allow(helper).to receive(:t) { "my label" }
+      project.valid?
+      @items = [
+        { value: "true", options: { label: "Yes" } },
+        { value: "false", options: { label: "No" } }
+      ]
+      @output = builder.radio_button_group(:could_start_early, @items)
+    end
+
+    context "when the attribute has errors" do
+      # NOTE: this context is a bit bogus because we don't hang errors
+      # from an individual radio button in the app (yet anyway).
+      before(:each) do
+        project.could_start_early = nil
+        project.valid?
+        @output = builder.radio_button_group(:could_start_early, @items)
+      end
+
+      it "isn't valid" do
+        expect(project.valid?).to be false
+      end
+
+      it "adds 'error' to the class attribute of the containing div form-group" do
+        expect(@output).to have_css("div.form-group.error")
+      end
+    end
+
+    it "outputs a div form-group container for the radio buttons" do
+      expect(@output).to have_css("div.form-group")
+    end
+
+    context "when options do not contain a :label key" do
+      before(:each) do
+        @items = [{ value: "true" }, { value: "false" }]
+        @output = builder.radio_button_group(:could_start_early, @items)
+      end
+      it "uses an I18n lookup for the label text" do
+        @items.each do |item|
+          expect(@output).
+            to have_css("label[for=earliest_start_could_start_early_#{item.fetch(:value)}]", text: "my label")
+        end
+      end
+    end
+
+    it "outputs a radio button control for each value in the group" do
+      @items.each do |item|
+        expect(@output).to have_css("input#earliest_start_could_start_early_#{item.fetch(:value)}[type='radio']")
+      end
+    end
+
+    it "is valid" do
+      expect(project.valid?).to be true
+    end
+
+    it "adds 'no-error' to the class attribute of the containing div form-group" do
+      expect(@output).to have_css("div.form-group.no-error")
     end
   end
 

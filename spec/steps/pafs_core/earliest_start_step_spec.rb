@@ -12,7 +12,7 @@ RSpec.describe PafsCore::EarliestStartStep, type: :model do
     it "validates that :could_start_early has been set" do
       subject.could_start_early = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:could_start_early]).to include "You must select either yes or no"
+      expect(subject.errors.messages[:could_start_early]).to include "^You must select either yes or no"
     end
   end
 

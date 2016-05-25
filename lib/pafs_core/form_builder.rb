@@ -3,11 +3,14 @@ module PafsCore
   class FormBuilder < ActionView::Helpers::FormBuilder
     delegate :content_tag, :tag, :safe_join, to: :@template
 
-    def error_header(heading, description = nil)
+    def error_header(heading = nil, description = nil)
       if @object.errors.any?
-        contents = [error_heading(heading)]
-        contents << error_description(description) if description.present?
-        contents << error_list
+        h = heading || I18n.t(:error_heading)
+        d = description || I18n.t(:error_description)
+
+        contents = [error_heading(h),
+                    error_description(d),
+                    error_list]
 
         content_tag(:div, class: "error-summary", role: "group",
                     aria: { labelledby: "error-summary-heading" },
@@ -47,6 +50,32 @@ module PafsCore
                                   end])
       else
         f
+      end
+    end
+
+    def radio_button_group(attribute, items)
+      content = []
+      items.each do |item|
+        content << radio_button(attribute, item.fetch(:value), item.fetch(:options, {}))
+      end
+      form_group(attribute) do
+        safe_join(content, "\n")
+      end
+    end
+
+    def radio_button(attribute, value, options = {})
+      attribute = attribute.to_sym
+      label_opts = { class: "block-label", value: value }
+      content = [super(attribute, value, options)]
+      if options.include? :label
+        content << options.fetch(:label)
+        options.delete(:label)
+      else
+        content << label_text(attribute)
+      end
+
+      label(attribute, label_opts) do
+        safe_join(content, "\n")
       end
     end
 
@@ -112,7 +141,7 @@ module PafsCore
       el = []
       @object.errors.keys.sort.each do |k|
         @object.errors.full_messages_for(k).each_with_index do |message, i|
-          el << content_tag(:li, content_tag(:a, message, href: "##{error_id(k, i)}"))
+          el << content_tag(:li, content_tag(:a, error_trim(message), href: "##{error_id(k, i)}"))
         end
       end
       content_tag(:ul, class: "error-summary-list") do
@@ -120,17 +149,27 @@ module PafsCore
       end
     end
 
+    # This enables us to have custom messages without the attribute name
+    # at the beginning.
+    # When adding a message in a validator do this:
+    # errors.add(:my_attr, "^You must do something")
+    # When outputting the errors.full_messages / full_messages_for(:attr)
+    # pipe it through here to trim off everything upto and including the '^'
+    # or just return the original message if no '^' is present
+    def error_trim(message)
+      message.split("^").last if message
+    end
+
     def error_message(attribute)
       if @object.errors.include? attribute
         content = []
         @object.errors.full_messages_for(attribute).each_with_index do |message, i|
-          content << content_tag(:p, message.html_safe,
+          content << content_tag(:p, error_trim(message).html_safe,
                                  class: "error-message",
                                  id: error_id(attribute, i))
         end
         safe_join(content, "\n")
       end
     end
-
   end
 end

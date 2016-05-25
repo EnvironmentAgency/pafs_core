@@ -4,6 +4,8 @@ en:
   back_to_start_link: Back
   login: login
   logout: logout
+  error_heading: "Check your details"
+  error_description: "The following error(s) prevented the form from being saved:"
   yes_option: 'Yes'
   no_option: 'No'
   optional_label: "(Optional)"
