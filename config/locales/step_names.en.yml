@@ -10,10 +10,6 @@ en:
   location_step_label: "Location"
   map_step_label: "Map"
   risks_step_label: "Risks"
-<<<<<<< HEAD
-  location_step_label: "Location"
-  map_step_label: "Map"
-=======
   main_risk_step_label: "Main risk"
   households_benefitting_step_label: "Households benfitting"
   standard_of_protection_step_label: "Standard of protection"
@@ -23,4 +19,3 @@ en:
   urgency_details_step_label: "Urgency details"
   funding_calculator_step_label: "Funding calculator"
   summary_step_label: "Summary"
->>>>>>> develop

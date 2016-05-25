@@ -8,12 +8,9 @@ PATH
   remote: .
   specs:
     pafs_core (0.0.2)
-<<<<<<< HEAD
-      cumberland
-=======
       aws-sdk (~> 2)
       clamav-client (~> 3.0)
->>>>>>> develop
+      cumberland
       rails (~> 4.2.5.1)
 
 GEM
@@ -225,11 +222,8 @@ PLATFORMS
 DEPENDENCIES
   byebug
   capybara
-<<<<<<< HEAD
-  cumberland!
-=======
   codeclimate-test-reporter
->>>>>>> develop
+  cumberland!
   database_cleaner
   dotenv
   factory_girl_rails (~> 4.0)

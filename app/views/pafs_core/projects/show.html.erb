@@ -73,6 +73,18 @@
         </td>
         <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :risks), "aria-label": "Change which risks your project is protecting against" %></td>
       </tr>
+      <% # Location ######## %>
+      <tr>
+        <td>Location</td>
+        <td><%= @project.project_location %></td>
+        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :location), "aria-label": "Change the location of the project" %></td>
+      </tr>
+      <% # Map ############# %>
+      <tr>
+        <td>Map</td>
+        <td><%= @project.benefit_area %></td>
+        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :map), "aria-label": "Change the benefit area of the project" %></td>
+      </tr>
     </tbody>
   </table>
 </section>

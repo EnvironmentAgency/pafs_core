@@ -20,5 +20,7 @@ group :test do
   gem "codeclimate-test-reporter", require: false
 end
 
+gem 'cumberland', path: '../cumberland'
+
 # To use a debugger
 # gem 'byebug', group: [:development, :test]

@@ -32,19 +32,8 @@ function loadOSMap()
   ]);
 
   var polygons = mapDiv.data('polygons');
-  polygons.forEach(function(polygon) {
-    var points = [];
 
-    polygon.forEach(function(point) {
-      p = new OpenLayers.Geometry.Point(parseFloat(point[0]),parseFloat(point[1]));
-      points.push(p);
-    });
-
-    var linearRing = new OpenLayers.Geometry.LinearRing(points);
-    var polygonFeature = new OpenLayers.Feature.Vector(linearRing);
-
-    vlayer.addFeatures([polygonFeature]);
-  });
+  createBenefitAreas(polygons, vlayer);
 
   if(typeof($('.location')[0]) !== 'undefined') {
     dragControl = new OpenSpace.Control.DragMarkers(markerLayer);
@@ -62,13 +51,32 @@ function loadOSMap()
     ]);
   }
 
-  lon = parseInt(marker[0]);
-  lat = parseInt(marker[1]);
-  var markerPoint = new OpenSpace.MapPoint(lon, lat);
-  osMap.createMarker(markerPoint);
-
   osMap.addControls([toolbar, new OpenSpace.Control.SmallMapControl()]);
   osMap.setCenter(new OpenSpace.MapPoint(eastings, northings), zoomLevel);
+  createInitialMarker(marker);
+}
+
+function createInitialMarker(marker) {
+  var lon = parseFloat(marker[0]);
+  var lat = parseFloat(marker[1]);
+  var markerPoint = new OpenLayers.LonLat(lon, lat);
+  osMap.createMarker(markerPoint);
+}
+
+function createBenefitAreas(polygons, vlayer) {
+  polygons.forEach(function(polygon) {
+    var points = [];
+
+    polygon.forEach(function(point) {
+      p = new OpenLayers.Geometry.Point(parseFloat(point[0]),parseFloat(point[1]));
+      points.push(p);
+    });
+
+    var linearRing = new OpenLayers.Geometry.LinearRing(points);
+    var polygonFeature = new OpenLayers.Feature.Vector(linearRing);
+
+    vlayer.addFeatures([polygonFeature]);
+  });
 }
 
 function report() {
@@ -92,6 +100,7 @@ function deleteFeature() {
 function addMarker(evt) {
   osMap.clearMarkers();
   var posClick = osMap.getLonLatFromViewPortPx(evt.xy);
+  console.log(posClick);
   osMap.createMarker(posClick);
   OpenLayers.Event.stop(evt);
 }

@@ -5,7 +5,7 @@
     </div>
     <div class="column-two-thirds">
       <div class="grid-row" >
-        <%= form_tag(project_step_path(@project), method: 'get') do %>
+        <%= form_tag('', method: 'get') do %>
           <div class="column-two-thirds">
             <%= text_field_tag :q, params[:q], placeholder: "Search here", label: nil %>
           </div>
@@ -15,7 +15,7 @@
         <% end %>
       </div>
       <% if @results.size > 1 %>
-        <%= form_tag(project_step_path(@project), method: 'get') do %>
+        <%= form_tag('', method: 'get') do %>
           <ul>
             <% @results.each do |result| %>
               <li>
