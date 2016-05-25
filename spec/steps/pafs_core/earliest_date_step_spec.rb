@@ -46,6 +46,15 @@ RSpec.describe PafsCore::EarliestDateStep, type: :model do
     end
   end
 
+  describe "#is_current_step?" do
+    subject { FactoryGirl.build(:earliest_date_step) }
+    context "as a sub-step of :earliest_start" do
+      it "returns true when passed :earliest_start" do
+        expect(subject.is_current_step?(:earliest_start)).to eq true
+      end
+    end
+  end
+
   describe "#update" do
     subject { FactoryGirl.create(:earliest_date_step) }
     let(:valid_params) {

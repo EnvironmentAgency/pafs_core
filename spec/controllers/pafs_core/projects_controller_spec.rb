@@ -90,6 +90,21 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
     end
   end
 
+  describe "GET reference_number" do
+    before(:each) do
+      @project = FactoryGirl.create(:project)
+      get :reference_number, id: @project.to_param
+    end
+
+    it "renders the reference_number template" do
+      expect(response).to render_template("reference_number")
+    end
+
+    it "assigns @project to the first step" do
+      expect(assigns(:project)).to be_instance_of PafsCore::ProjectNameStep
+    end
+  end
+
   describe "GET step" do
     before(:each) { @project = FactoryGirl.create(:project) }
 
