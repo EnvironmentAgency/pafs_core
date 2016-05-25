@@ -12,37 +12,37 @@ RSpec.describe PafsCore::EarliestDateStep, type: :model do
     it "validates that :earliest_start_month is present" do
       subject.earliest_start_month = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start_month]).to include "cannot be blank"
+      expect(subject.errors.messages[:base]).to include "Month can't be blank"
     end
 
     it "validates that :earliest_start_month is greater than 0" do
       subject.earliest_start_month = 0
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start_month]).to include "must be in the range 1-12"
+      expect(subject.errors.messages[:base]).to include "Month must be in the range 1 to 12"
     end
 
     it "validates that :earliest_start_month is less than 13" do
       subject.earliest_start_month = 13
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start_month]).to include "must be in the range 1-12"
+      expect(subject.errors.messages[:base]).to include "Month must be in the range 1 to 12"
     end
 
     it "validates that :earliest_start_year is present" do
       subject.earliest_start_year = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start_year]).to include "cannot be blank"
+      expect(subject.errors.messages[:base]).to include "Year can't be blank"
     end
 
     it "validates that :earliest_start_year is greater than 1999" do
       subject.earliest_start_year = 1999
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start_year]).to include "must be in the range 2000-2099"
+      expect(subject.errors.messages[:base]).to include "Year must be in the range 2000 to 2099"
     end
 
     it "validates that :earliest_start_year is less than 2100" do
       subject.earliest_start_year = 2100
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start_year]).to include "must be in the range 2000-2099"
+      expect(subject.errors.messages[:base]).to include "Year must be in the range 2000 to 2099"
     end
   end
 

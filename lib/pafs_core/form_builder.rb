@@ -22,7 +22,8 @@ module PafsCore
 
     def form_group(name, &block)
       name = name.to_sym
-      content = [error_message(name)]
+      # content = [error_message(name)]
+      content = []
       content << content_tag(:div) { yield } if block_given?
 
       content_tag(:div,
@@ -63,16 +64,39 @@ module PafsCore
       end
     end
 
+    def month_and_year(attribute, options = {})
+      m_key = "#{attribute}_month".to_sym
+      y_key = "#{attribute}_year".to_sym
+
+      contents = [content_tag(:span, label_for(attribute, options), class: "form-label-bold")]
+      contents << hint_text(options.delete(:hint)) if options.include? :hint
+      contents << error_message(:base) if @object.errors.any?
+      contents << content_tag(:div, class: "form-date") do
+        safe_join([
+          content_tag(:div, class: "form-group form-group-month") do
+            safe_join([
+              label(m_key, I18n.t("month_label"), class: "form-label"),
+              number_field(m_key, in: 1..12, maxlength: 2, class: "form-control form-month")
+            ], "\n")
+          end,
+          content_tag(:div, class: "form-group form-group-year") do
+            safe_join([
+              label(y_key, I18n.t("year_label"), class: "form-label"),
+              number_field(y_key, in: 2000..2099, maxlength: 4, class: "form-control form-year")
+            ], "\n")
+          end
+        ], "\n")
+      end
+
+      form_group(:base) do
+        safe_join(contents, "\n")
+      end
+    end
+
     def radio_button(attribute, value, options = {})
       attribute = attribute.to_sym
       label_opts = { class: "block-label", value: value }
-      content = [super(attribute, value, options)]
-      if options.include? :label
-        content << options.fetch(:label)
-        options.delete(:label)
-      else
-        content << label_text(attribute)
-      end
+      content = [super(attribute, value, options), label_for(attribute, options)]
 
       label(attribute, label_opts) do
         safe_join(content, "\n")
@@ -83,15 +107,12 @@ module PafsCore
       attribute = attribute.to_sym
 
       label_args = [attribute]
-      label_args << options.fetch(:label) if options.include? :label
+      label_args << options.delete(:label) if options.include? :label
       label_args << { class: "form-label" }
 
       contents = [label(*label_args)]
 
-      if options.include? :hint
-        contents << hint_text(options.fetch(:hint))
-        options.except!(:hint)
-      end
+      contents << hint_text(options.delete(:hint)) if options.include? :hint
       contents << error_message(attribute)
       contents << super(attribute, options)
 
@@ -104,7 +125,27 @@ module PafsCore
       content_tag(:p, text, class: "form-hint")
     end
 
+    def error_message(attribute)
+      if @object.errors.include? attribute
+        content = []
+        @object.errors.full_messages_for(attribute).each_with_index do |message, i|
+          content << content_tag(:p, error_trim(message).html_safe,
+                                 class: "error-message",
+                                 id: error_id(attribute, i))
+        end
+        safe_join(content, "\n")
+      end
+    end
+
   private
+    def label_for(attribute, options = {})
+      if options.include? :label
+        options.delete(:label)
+      else
+        label_text(attribute)
+      end
+    end
+
     def error_class(attribute, default_classes)
       "#{default_classes || ''} #{'no-' unless @object.errors.include?(attribute.to_sym)}error"
     end
@@ -160,16 +201,5 @@ module PafsCore
       message.split("^").last if message
     end
 
-    def error_message(attribute)
-      if @object.errors.include? attribute
-        content = []
-        @object.errors.full_messages_for(attribute).each_with_index do |message, i|
-          content << content_tag(:p, error_trim(message).html_safe,
-                                 class: "error-message",
-                                 id: error_id(attribute, i))
-        end
-        safe_join(content, "\n")
-      end
-    end
   end
 end

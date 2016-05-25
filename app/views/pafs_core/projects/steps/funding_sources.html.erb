@@ -13,6 +13,7 @@
           <fieldset>
             <legend class="visuallyhidden">What are the expected finding sources for your proposed project?</legend>
             <%= f.form_group :base do %>
+              <%= f.error_message(:base) %>
               <%= f.check_box :fcerm_gia %>
               <%= f.check_box :local_levy %>
               <%= f.check_box :internal_drainage_boards %>

@@ -8,6 +8,8 @@ en:
   error_description: "The following error(s) prevented the form from being saved:"
   yes_option: 'Yes'
   no_option: 'No'
+  month_label: "Month"
+  year_label: "Year"
   optional_label: "(Optional)"
   save_and_continue_label: "Save and continue"
   continue_label: "Continue"

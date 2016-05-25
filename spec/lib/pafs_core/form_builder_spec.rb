@@ -84,13 +84,6 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
         output = builder.form_group(:name)
         expect(output).to have_css("div.form-group.error")
       end
-
-      it "outputs the error message before the yielded content" do
-        output = builder.form_group(:name) { "<p>Some text</p>".html_safe }
-        expect(output).to have_css("div.form-group p:first-child",
-                                   text: project.errors.full_messages_for(:name).first)
-        expect(output).to have_css("div.form-group p:last-child", text: "Some text")
-      end
     end
 
     it "uses the name param to generate an id attribute" do
@@ -273,6 +266,110 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
 
     it "adds 'no-error' to the class attribute of the containing div form-group" do
       expect(@output).to have_css("div.form-group.no-error")
+    end
+  end
+
+  describe "#month_and_year" do
+    let(:project) { FactoryGirl.build :earliest_date_step }
+
+    before(:each) do
+      project.valid?
+      allow(helper).to receive(:t) { "my label" }
+      @output = builder.month_and_year(:earliest_start, {})
+    end
+
+    it "outputs a div that wraps the content as :base" do
+      expect(@output).to have_css("div#earliest_date-base-content.form-group")
+    end
+
+    it "adds 'no-error' to the form group div" do
+      expect(@output).to have_css("div.form-group.no-error")
+    end
+
+    it "outputs a div with the class 'form-date'" do
+      expect(@output).to have_css("div.form-group div.form-date")
+    end
+
+    it "outputs a span with the label text" do
+      expect(@output).to have_css("span.form-label-bold", text: "my label")
+    end
+
+    context "when a label is specified in the options" do
+      before(:each) do
+        @output = builder.month_and_year(:earliest_start, { label: "Wigwam" })
+      end
+
+      it "outputs a span with the label text from the options" do
+        expect(@output).to have_css("span.form-label-bold", text: "Wigwam")
+      end
+    end
+
+    context "when :base has errors" do
+      before(:each) do
+        project.earliest_start_month = nil
+        project.earliest_start_year = nil
+        project.valid?
+        @output = builder.month_and_year(:earliest_start, {})
+      end
+
+      it "adds 'error' class to the 'form-group' div" do
+        expect(@output).to have_css("div.form-group.error#earliest_date-base-content")
+      end
+
+      it "adds error messages before the input fields" do
+        expect(@output).to have_css("p.error-message + div.form-date")
+      end
+    end
+
+    context "generated input fields" do
+      it "outputs a month field with a type of 'number'" do
+        expect(@output).to have_css("input#earliest_date_earliest_start_month[type='number']", count: 1)
+      end
+
+      it "adds the class 'form-month' to the month field" do
+        expect(@output).to have_css("input.form-month")
+      end
+
+      it "limits the month field entry to the range 1-12" do
+        expect(@output).to have_css("input.form-month[min='1'][max='12']", count: 1)
+      end
+
+      it "limits the max month length to 2 characters" do
+        expect(@output).to have_css("input.form-month[size='2']", count: 1)
+      end
+
+      it "outputs a year field with a type of number" do
+        expect(@output).to have_css("input#earliest_date_earliest_start_year[type='number']", count: 1)
+      end
+
+      it "adds the class 'form-year' to the year field" do
+        expect(@output).to have_css("input.form-year")
+      end
+
+      it "limits the year field entry to the range 2000-2099" do
+        expect(@output).to have_css("input.form-year[min='2000'][max='2099']", count: 1)
+      end
+
+      it "limits the max year length to 4 characters" do
+        expect(@output).to have_css("input.form-year[size='4']", count: 1)
+      end
+    end
+  end
+
+  describe "#error_message" do
+    let(:project) { FactoryGirl.build :project_name_step }
+    context "when the attribute has errors" do
+      before(:each) do
+        project.name = nil
+        project.valid?
+        @output = builder.error_message(:name)
+      end
+
+      it "outputs the error messages" do
+        project.errors.full_messages_for(:name).each do |msg|
+          expect(@output).to have_css("p.error-message", text: msg)
+        end
+      end
     end
   end
 

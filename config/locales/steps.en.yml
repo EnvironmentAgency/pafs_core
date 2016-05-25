@@ -58,9 +58,11 @@ en:
           lede: If you could secure FCERM grant in aid (FCERM GiA) funding earlier, what is the earliest estimated date to which the total costs could be brought forward without impacting on deliverability and outcomes?
 # earliest date
         earliest_date:
-          heading: What is the earliest estimated date to which the total costs could be brought forward if you could secure FCERM funding earlier?
+          heading: What is the earliest date to which project costs could be brought forward?
+          lede: If you could secure FCERM grant in aid (FCERM GiA) funding earlier, what is the earliest estimated date to which the total costs could be brought forward without impacting on deliverability and outcomes?
           month_label: Month
           year_label: Year
+          earliest_start_label: "Earliest start"
           example_text: For example, 3 2019
 # risks
         risks:

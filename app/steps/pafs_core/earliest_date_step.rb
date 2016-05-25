@@ -39,30 +39,36 @@ module PafsCore
     end
 
     def earliest_start_date_is_present_and_correct
-      validate_month
-      validate_year
+      if earliest_start_month.blank?
+        if earliest_start_year.blank?
+          errors.add(:base, "The date can't be blank")
+        else
+          errors.add(:base, "Month can't be blank")
+        end
+      elsif earliest_start_year.blank?
+        errors.add(:base, "Year can't be blank")
+      else
+        validate_month
+        validate_year
+      end
     end
 
     def validate_month
       m = earliest_start_month
-      if m.blank?
-        errors.add(:earliest_start_month, "cannot be blank")
-      else
+      if m.present?
         mon = m.to_i
         if mon < 1 || mon > 12 || (m.to_s != mon.to_s)
-          errors.add(:earliest_start_month, "must be in the range 1-12")
+          errors.add(:base, "Month must be in the range 1 to 12")
         end
       end
     end
 
     def validate_year
       y = earliest_start_year
-      if y.blank?
-        errors.add(:earliest_start_year, "cannot be blank")
-      else
+      if y.present?
         year = y.to_i
         if (year < 2000 || year > 2099) || (year.to_s != y.to_s)
-          errors.add(:earliest_start_year, "must be in the range 2000-2099")
+          errors.add(:base, "Year must be in the range 2000 to 2099")
         end
       end
     end
