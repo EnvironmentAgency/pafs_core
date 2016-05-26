@@ -154,6 +154,20 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
         expect(response).to render_template("project_type")
       end
     end
+
+    context "when only a single risk is selected" do
+      before(:each) do
+        patch :save, id: @project.to_param, step: "risks", risks_step: { tidal_flooding: "1" }
+      end
+
+      it "auto sets the main risk" do
+        expect(PafsCore::Project.find_by(slug: @project.slug).main_risk).to eq "tidal_flooding"
+      end
+
+      it "jumps to the step after main_risk_step" do
+        expect(response).to redirect_to project_step_path(id: @project.to_param, step: :households_benefiting)
+      end
+    end
   end
 
   describe "GET download_funding_calculator" do

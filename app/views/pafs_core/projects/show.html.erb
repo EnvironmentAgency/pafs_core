@@ -64,7 +64,7 @@
             <% @project.risks.each do |risk| %>
               <li>
                 <%= t("#{risk}_label", scope: "pafs_core.projects.steps.risks") %>
-                <% if @project.is_main_risk? risk %>
+                <% if @project.risks.count > 1 && @project.is_main_risk?(risk) %>
                   <span class="main-risk"> - Main source</span>
                 <% end %>
               </li>

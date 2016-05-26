@@ -54,23 +54,13 @@ module PafsCore
       end
     end
 
-    def radio_button_group(attribute, items)
-      content = []
-      items.each do |item|
-        content << radio_button(attribute, item.fetch(:value), item.fetch(:options, {}))
-      end
-      form_group(attribute) do
-        safe_join(content, "\n")
-      end
-    end
-
     def month_and_year(attribute, options = {})
       m_key = "#{attribute}_month".to_sym
       y_key = "#{attribute}_year".to_sym
 
       contents = [content_tag(:span, label_for(attribute, options), class: "form-label-bold")]
       contents << hint_text(options.delete(:hint)) if options.include? :hint
-      contents << error_message(:base) if @object.errors.any?
+      contents << error_message(:base) if @object.errors.include? :base
       contents << content_tag(:div, class: "form-date") do
         safe_join([
           content_tag(:div, class: "form-group form-group-month") do
@@ -90,6 +80,18 @@ module PafsCore
 
       form_group(:base) do
         safe_join(contents, "\n")
+      end
+    end
+
+    def radio_button_group(attribute, items)
+      content = []
+      content << error_message(attribute) if @object.errors.include? attribute
+
+      items.each do |item|
+        content << radio_button(attribute, item.fetch(:value), item.fetch(:options, {}))
+      end
+      form_group(attribute) do
+        safe_join(content, "\n")
       end
     end
 
