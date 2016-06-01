@@ -35,6 +35,7 @@ RSpec.describe PafsCore::Area, type: :model do
       subject { FactoryGirl.create(:country) }
 
       it { is_expected.to_not validate_presence_of :parent_id }
+      it { is_expected.to_not validate_presence_of :sub_type }
     end
   end
   context "sub-Country area" do
@@ -43,6 +44,14 @@ RSpec.describe PafsCore::Area, type: :model do
       subject { FactoryGirl.create(area_levels.sample, parent_id: 1) }
 
       it { is_expected.to validate_presence_of :parent_id }
+      it { is_expected.to_not validate_presence_of :sub_type unless subject.area_type == "RMA"}
+    end
+  end
+  context "RMA Area" do
+    describe "sub type" do
+      subject { FactoryGirl.create(:rma_area, parent_id: 1) }
+
+      it { is_expected.to validate_presence_of :sub_type }
     end
   end
 
