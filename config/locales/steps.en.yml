@@ -83,3 +83,18 @@ en:
           funding_calculator_label: Funding calculator
           download_link_label: Current funding calculator
           uploaded_at_label: Uploaded on
+# standard of protection
+        standard_of_protection:
+          heading: What standard of protection will your proposed project provide against flooding?
+          lede: This is the risk of the area protected by your proposed project flooding, over a 100 year period.
+          aep_text: This is also known as the annual exceedance probability (AEP).
+          example_text: For example, a 2% (1 in 50) standard of protection means that the area is likely to flood - on average - once every 50 years
+          flood_before_example_text: For example, 45%
+          flood_after_example_text: For example, 15%
+# standard of protection coastal
+        standard_of_protection_coastal:
+          heading: What standard of protection will your proposed project provide against coastal erosion?
+          lede: This is the additional number of years of potential occupancy of properties protected by your proposed project.
+          text: Normally this is the useful life of the coastal defence being built or upgraded or the time until the next major investment, whichever is sooner.
+          coastal_before_example_text: For example, 20 years
+          coastal_after_example_text: For example, 80 years

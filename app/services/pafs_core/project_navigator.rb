@@ -21,6 +21,7 @@ module PafsCore
              :main_risk, # not in nav - accessible following :risks
              :households_benefitting,
              :standard_of_protection,
+             :standard_of_protection_coastal, # not in nav - follows :standard_of_protection
              :approach,
              :wfd_benefits,
              :environmental_issues,

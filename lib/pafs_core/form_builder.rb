@@ -22,7 +22,6 @@ module PafsCore
 
     def form_group(name, &block)
       name = name.to_sym
-      # content = [error_message(name)]
       content = []
       content << content_tag(:div) { yield } if block_given?
 
@@ -52,6 +51,19 @@ module PafsCore
       else
         f
       end
+    end
+
+    def percent_field(attribute, options = {})
+      def_opts = {
+        class: "form-control form-narrow",
+        after: "%",
+        in: 0..100,
+        maxlength: 3,
+        size: 3,
+        label_class: "form-label-bold"
+      }
+      options = options.reverse_merge(def_opts)
+      number_field(attribute, options)
     end
 
     def month_and_year(attribute, options = {})
@@ -136,6 +148,32 @@ module PafsCore
                                  id: error_id(attribute, i))
         end
         safe_join(content, "\n")
+      end
+    end
+
+    %i[
+      email_field
+      password_field
+      number_field
+      phone_field
+      range_field
+      search_field
+      telephone_field
+      text_field
+      url_field
+    ].each do |method_name|
+      define_method(method_name) do |attribute, *args|
+        options = args.extract_options!
+        content_after = options.fetch(:after, nil)
+
+        content = [label(attribute, class: options.fetch(:label_class, "form-label-bold"))]
+        content << hint_text(options.fetch(:hint)) if options.include? :hint
+        content << error_message(attribute) if @object.errors.include? attribute
+        content << super(attribute, options.except(:label_class, :hint, :after))
+        content << content_after if content_after
+        form_group(attribute) do
+          safe_join(content, "\n")
+        end
       end
     end
 
