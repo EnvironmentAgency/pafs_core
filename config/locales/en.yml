@@ -34,3 +34,11 @@ en:
     phase_banner:
       feedback: feedback
       heading_html: This is a new service – your %{href} will help us to improve it.
+  activemodel:
+    attributes:
+      pafs_core/standard_of_protection_step:
+        flood_protection_before: "Before"
+        flood_protection_after: "After"
+      pafs_core/standard_of_protection_coastal_step:
+        coastal_protection_before: "Before"
+        coastal_protection_after: "After"

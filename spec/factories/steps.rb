@@ -51,6 +51,16 @@ FactoryGirl.define do
       main_risk "fluvial_flooding"
     end
 
+    factory :standard_of_protection_step, class: PafsCore::StandardOfProtectionStep do
+      flood_protection_before 66
+      flood_protection_after 23
+    end
+
+    factory :standard_of_protection_coastal_step, class: PafsCore::StandardOfProtectionCoastalStep do
+      coastal_protection_before 10
+      coastal_protection_after 30
+    end
+
     factory :funding_calculator_step, class: PafsCore::FundingCalculatorStep do
       funding_calculator_file_name "pf_calc.xls"
     end

@@ -269,6 +269,32 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
     end
   end
 
+  describe "#percent_field" do
+    let(:project) { FactoryGirl.build :standard_of_protection_step }
+
+    before(:each) do
+      project.valid?
+      allow(helper).to receive(:t) { "my label" }
+      @output = builder.percent_field(:flood_protection_before, {})
+    end
+
+    it "groups the output with a div" do
+      expect(@output).to have_css("div.form-group")
+    end
+
+    it "adds 'no-error' to the form group div" do
+      expect(@output).to have_css("div.form-group.no-error")
+    end
+
+    it "outputs a label for the control" do
+      expect(@output).to have_css("label[for='standard_of_protection_flood_protection_before']")
+    end
+
+    it "outputs a number field" do
+      expect(@output).to have_css("input#standard_of_protection_flood_protection_before[type='number']")
+    end
+  end
+
   describe "#month_and_year" do
     let(:project) { FactoryGirl.build :earliest_date_step }
 
