@@ -36,6 +36,8 @@ en:
       heading_html: This is a new service – your %{href} will help us to improve it.
   activemodel:
     attributes:
+      pafs_core/project_name_step:
+        name: "Project name"
       pafs_core/standard_of_protection_step:
         flood_protection_before: "Before"
         flood_protection_after: "After"

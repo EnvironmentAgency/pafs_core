@@ -176,11 +176,13 @@ module PafsCore
       define_method(method_name) do |attribute, *args|
         options = args.extract_options!
         content_after = options.fetch(:after, nil)
-
-        content = [label(attribute, class: options.fetch(:label_class, "form-label-bold"))]
+        label_args = [attribute]
+        label_args << options.fetch(:label) if options.include?(:label)
+        label_args << { class: options.fetch(:label_class, "form-label-bold") }
+        content = [label(*label_args)]
         content << hint_text(options.fetch(:hint)) if options.include? :hint
         content << error_message(attribute) if @object.errors.include? attribute
-        content << super(attribute, options.except(:label_class, :hint, :after))
+        content << super(attribute, options.except(:label, :label_class, :hint, :after))
         content << content_after if content_after
         form_group(attribute) do
           safe_join(content, "\n")

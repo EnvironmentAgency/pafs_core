@@ -6,6 +6,7 @@ en:
         project_name:
           heading: What name would you like to give your proposed project?
           project_name_label: Project name
+          example_text: For example, South Chesham River Colne Flood Alleviation Scheme Phase IV
 # project type
         project_type:
           heading: What is the main type of project you are proposing?
