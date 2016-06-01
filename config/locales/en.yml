@@ -38,6 +38,8 @@ en:
     attributes:
       pafs_core/project_name_step:
         name: "Project name"
+      pafs_core/financial_year_step:
+        project_end_financial_year: "Financial year from April"
       pafs_core/standard_of_protection_step:
         flood_protection_before: "Before"
         flood_protection_after: "After"

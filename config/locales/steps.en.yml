@@ -22,8 +22,8 @@ en:
         financial_year:
           heading: What is the last financial year in which you expect your proposed project to spend any funds?
           lede: Do not include any financial year in which there are maintenance costs, as these costs are the responsibility of the risk management authority promoting the scheme.
-          project_end_financial_year_label: Financial year from April
-          project_end_financial_year_hint: "For example, 2017."
+          description: A financial year runs from 1 April in one year to 31 March in the subsequent year, for example April 2017 to March 2018.
+          example_text: "For example, 2017."
 # key dates
         key_dates:
           heading: What are the estimated dates for important milestones of your proposed project?
