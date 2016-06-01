@@ -110,11 +110,22 @@ module PafsCore
     def radio_button(attribute, value, options = {})
       attribute = attribute.to_sym
       label_opts = { class: "block-label", value: value }
-      content = [super(attribute, value, options), label_for(attribute, options)]
+      label_opts[:data] = { target: options.fetch(:target) } if options.include?(:target)
+      # label_opts[:data] = { target: content_id("#{attribute}-#{value}") } if block_given?
 
-      label(attribute, label_opts) do
-        safe_join(content, "\n")
+      f = label(attribute, label_opts) do
+        safe_join([super(attribute, value, options.except(:label)), label_for(attribute, options)],
+                  "\n")
       end
+
+      f
+      # if block_given?
+      #   safe_join([f, content_tag(:div,
+      #                             id: content_id("#{attribute}-#{value}"),
+      #                             class: "panel js-hidden") do
+      #                               yield
+      #                             end], "\n")
+      # end
     end
 
     def text_area(attribute, options = {})
