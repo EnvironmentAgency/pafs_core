@@ -69,7 +69,7 @@ module PafsCore
     end
 
     def output_errors_to_console(faulty_entries)
-      puts faulty_entries
+      puts faulty_entries unless Rails.env.test?
     end
 
     def report_error(error, record)
