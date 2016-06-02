@@ -54,6 +54,12 @@ def escape_xpath_quotes(str)
   end
 end
 
+# removes last word part from symbol
+# eg. takes :award_contract_year and returns :award_contract
+def parent_symbol(s)
+  s.to_s.split("_")[0...-1].join("_").to_sym
+end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

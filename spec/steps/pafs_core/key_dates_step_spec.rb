@@ -1,7 +1,5 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "rails_helper"
-# require_relative "./shared_step_spec"
 
 RSpec.describe PafsCore::KeyDatesStep, type: :model do
   describe "attributes" do
@@ -9,12 +7,17 @@ RSpec.describe PafsCore::KeyDatesStep, type: :model do
 
     it_behaves_like "a project step"
 
-    it "should validate presence of the date attributes with custom message" do
-      [:start_outline_business_case_month, :start_outline_business_case_year,
-       :award_contract_month, :award_contract_year,
-       :start_construction_month, :start_construction_year,
-       :ready_for_service_month, :ready_for_service_year].each do |attr|
-        should validate_presence_of(attr).with_message("cannot be blank")
+    it "groups month and year validation" do
+      [:start_outline_business_case,
+       :award_contract,
+       :start_construction,
+       :ready_for_service].each do |attr|
+        %w[month year].each do |f|
+          subject.send "#{attr}_#{f}=", nil
+          expect(subject.valid?).to eq false
+          expect(subject.errors.include?(attr)).to eq true
+          expect(subject.errors.messages[attr]).to include "^Enter a valid date"
+        end
       end
     end
 
@@ -25,7 +28,7 @@ RSpec.describe PafsCore::KeyDatesStep, type: :model do
        :ready_for_service_month].each do |attr|
         subject.send("#{attr}=", 0)
         expect(subject.valid?).to be false
-        expect(subject.errors.messages[attr]).to include "must be in the range 1 to 12"
+        expect(subject.errors.messages[parent_symbol(attr)]).to include "^Enter a valid date"
       end
     end
 
@@ -36,7 +39,7 @@ RSpec.describe PafsCore::KeyDatesStep, type: :model do
        :ready_for_service_month].each do |attr|
         subject.send("#{attr}=", 13)
         expect(subject.valid?).to be false
-        expect(subject.errors.messages[attr]).to include "must be in the range 1 to 12"
+        expect(subject.errors.messages[parent_symbol(attr)]).to include "^Enter a valid date"
       end
     end
 
@@ -47,57 +50,57 @@ RSpec.describe PafsCore::KeyDatesStep, type: :model do
        :ready_for_service_year].each do |attr|
         subject.send("#{attr}=", 1999)
         expect(subject.valid?).to be false
-        expect(subject.errors.messages[attr]).to include "must be in the range 2000 to 2099"
+        expect(subject.errors.messages[parent_symbol(attr)]).to include "^Enter a valid date"
       end
     end
 
-    it "validates that the year fields cannot have a value greater than 2099" do
+    it "validates that the year fields cannot have a value greater than 2100" do
       [:start_outline_business_case_year,
        :award_contract_year,
        :start_construction_year,
        :ready_for_service_year].each do |attr|
-        subject.send("#{attr}=", 2100)
+        subject.send("#{attr}=", 2101)
         expect(subject.valid?).to be false
-        expect(subject.errors.messages[attr]).to include "must be in the range 2000 to 2099"
+        expect(subject.errors.messages[parent_symbol(attr)]).to include "^Enter a valid date"
       end
     end
 
     it "validates that :ready_for_service date cannot be before :start_construction date" do
       subject.ready_for_service_year = subject.start_construction_year - 1
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:ready_for_service_year]).
+      expect(subject.errors.messages[:ready_for_service]).
         to include "can't be earlier than start of construction date"
       subject.ready_for_service_year = subject.start_construction_year
       expect(subject.valid?).to be true
       subject.ready_for_service_month = subject.start_construction_month - 1
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:ready_for_service_year]).
+      expect(subject.errors.messages[:ready_for_service]).
         to include "can't be earlier than start of construction date"
     end
 
     it "validates that :start_construction date cannot be before :award_contract date" do
       subject.start_construction_year = subject.award_contract_year - 1
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:start_construction_year]).
+      expect(subject.errors.messages[:start_construction]).
         to include "can't be earlier than award of contract date"
       subject.start_construction_year = subject.award_contract_year
       expect(subject.valid?).to be true
       subject.start_construction_month = subject.award_contract_month - 1
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:start_construction_year]).
+      expect(subject.errors.messages[:start_construction]).
         to include "can't be earlier than award of contract date"
     end
 
     it "validates that :award_contract date cannot be before :outline_business_case date" do
       subject.award_contract_year = subject.start_outline_business_case_year - 1
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:award_contract_year]).
+      expect(subject.errors.messages[:award_contract]).
         to include "can't be earlier than the start of the outline business case date"
       subject.award_contract_year = subject.start_outline_business_case_year
       expect(subject.valid?).to be true
       subject.award_contract_month = subject.start_outline_business_case_month - 1
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:award_contract_year]).
+      expect(subject.errors.messages[:award_contract]).
         to include "can't be earlier than the start of the outline business case date"
     end
   end

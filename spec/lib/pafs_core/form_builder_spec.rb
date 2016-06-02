@@ -304,8 +304,8 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       @output = builder.month_and_year(:earliest_start, {})
     end
 
-    it "outputs a div that wraps the content as :base" do
-      expect(@output).to have_css("div#earliest_date-base-content.form-group")
+    it "outputs a div that wraps the content as the attribute supplied" do
+      expect(@output).to have_css("div#earliest_date-earliest_start-content.form-group")
     end
 
     it "adds 'no-error' to the form group div" do
@@ -316,21 +316,17 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       expect(@output).to have_css("div.form-group div.form-date")
     end
 
-    it "outputs a span with the label text" do
-      expect(@output).to have_css("span.form-label-bold", text: "my label")
-    end
-
-    context "when a label is specified in the options" do
+    context "when :heading is specified in the options" do
       before(:each) do
-        @output = builder.month_and_year(:earliest_start, { label: "Wigwam" })
+        @output = builder.month_and_year(:earliest_start, { heading: "Wigwam" })
       end
 
-      it "outputs a span with the label text from the options" do
-        expect(@output).to have_css("span.form-label-bold", text: "Wigwam")
+      it "outputs a h4 element with the text from the options" do
+        expect(@output).to have_css("h4.heading-small", text: "Wigwam")
       end
     end
 
-    context "when :base has errors" do
+    context "when attribute has errors" do
       before(:each) do
         project.earliest_start_month = nil
         project.earliest_start_year = nil
@@ -339,7 +335,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       end
 
       it "adds 'error' class to the 'form-group' div" do
-        expect(@output).to have_css("div.form-group.error#earliest_date-base-content")
+        expect(@output).to have_css("div.form-group.error#earliest_date-earliest_start-content")
       end
 
       it "adds error messages before the input fields" do
@@ -372,8 +368,8 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
         expect(@output).to have_css("input.form-year")
       end
 
-      it "limits the year field entry to the range 2000-2099" do
-        expect(@output).to have_css("input.form-year[min='2000'][max='2099']", count: 1)
+      it "limits the year field entry to the range 2000-2100" do
+        expect(@output).to have_css("input.form-year[min='2000'][max='2100']", count: 1)
       end
 
       it "limits the max year length to 4 characters" do

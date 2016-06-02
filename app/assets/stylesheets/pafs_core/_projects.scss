@@ -111,15 +111,17 @@
     float: left;
     margin-bottom: 0;
     margin-right: 0;
-    width: 4em;
+    width: 3.5em;
 
     .form-month {
-      width: 70%;
+      width: 2.5em;
     }
   }
 
-  .form-year {
-    width: 4em;
+  .form-group-year {
+    .form-year {
+      width: 3.5em;
+    }
   }
 
   .form-wide {

@@ -10,7 +10,9 @@
           <h1 class="heading-large"><%= t('.heading') %></h1>
           <p class="lede"><%= t('.lede') %></p>
 
-          <%= f.month_and_year(:earliest_start, hint: t(".example_text")) %>
+          <%= f.month_and_year(:earliest_start,
+                               heading: t(".earliest_start_label"),
+                               hint: t(".example_text")) %>
 
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>

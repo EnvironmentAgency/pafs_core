@@ -70,31 +70,64 @@ module PafsCore
       m_key = "#{attribute}_month".to_sym
       y_key = "#{attribute}_year".to_sym
 
-      contents = [content_tag(:span, label_for(attribute, options), class: "form-label-bold")]
+      contents = []
+      contents << heading_text(options.delete(:heading)) if options.include? :heading
       contents << hint_text(options.delete(:hint)) if options.include? :hint
-      contents << error_message(:base) if @object.errors.include? :base
+      contents << error_message(attribute) if @object.errors.include? attribute
+      # need to handle the 2 fields as one for errors
       contents << content_tag(:div, class: "form-date") do
         safe_join([
           content_tag(:div, class: "form-group form-group-month") do
             safe_join([
               label(m_key, I18n.t("month_label"), class: "form-label"),
-              number_field(m_key, in: 1..12, maxlength: 2, class: "form-control form-month")
-            ], "\n")
+              number_field_without_label(m_key, in: 1..12, maxlength: 2,
+                         class: "form-control form-month")], "\n")
           end,
           content_tag(:div, class: "form-group form-group-year") do
             safe_join([
               label(y_key, I18n.t("year_label"), class: "form-label"),
-              number_field(y_key, in: 2000..2099, maxlength: 4, class: "form-control form-year")
-            ], "\n")
+              number_field_without_label(y_key,
+                                         in: 2000..2100, maxlength: 4,
+                                         class: "form-control form-year")
+              ], "\n")
           end
         ], "\n")
       end
 
-      form_group(:base) do
+      form_group(attribute) do
         safe_join(contents, "\n")
       end
     end
 
+    # def month_and_year(attribute, options = {})
+    #   m_key = "#{attribute}_month".to_sym
+    #   y_key = "#{attribute}_year".to_sym
+    #
+    #   contents = [content_tag(:span, label_for(attribute, options), class: "form-label-bold")]
+    #   contents << hint_text(options.delete(:hint)) if options.include? :hint
+    #   contents << error_message(:base) if @object.errors.include? :base
+    #   contents << content_tag(:div, class: "form-date") do
+    #     safe_join([
+    #       content_tag(:div, class: "form-group form-group-month") do
+    #         safe_join([
+    #           label(m_key, I18n.t("month_label"), class: "form-label"),
+    #           number_field(m_key, in: 1..12, maxlength: 2, class: "form-control form-month")
+    #         ], "\n")
+    #       end,
+    #       content_tag(:div, class: "form-group form-group-year") do
+    #         safe_join([
+    #           label(y_key, I18n.t("year_label"), class: "form-label"),
+    #           number_field(y_key, in: 2000..2100, maxlength: 4, class: "form-control form-year")
+    #         ], "\n")
+    #       end
+    #     ], "\n")
+    #   end
+    #
+    #   form_group(:base) do
+    #     safe_join(contents, "\n")
+    #   end
+    # end
+    #
     def radio_button_group(attribute, items)
       content = []
       content << error_message(attribute) if @object.errors.include? attribute
@@ -150,6 +183,10 @@ module PafsCore
       content_tag(:p, text, class: "form-hint")
     end
 
+    def heading_text(text)
+      content_tag(:h4, text, class: "heading-small")
+    end
+
     def error_message(attribute)
       if @object.errors.include? attribute
         content = []
@@ -173,7 +210,7 @@ module PafsCore
       text_field
       url_field
     ].each do |method_name|
-      define_method(method_name) do |attribute, *args|
+      define_method("#{method_name}_with_label") do |attribute, *args|
         options = args.extract_options!
         content_after = options.fetch(:after, nil)
         label_args = [attribute]
@@ -182,12 +219,13 @@ module PafsCore
         content = [label(*label_args)]
         content << hint_text(options.fetch(:hint)) if options.include? :hint
         content << error_message(attribute) if @object.errors.include? attribute
-        content << super(attribute, options.except(:label, :label_class, :hint, :after))
+        content << send("#{method_name}_without_label", attribute, options.except(:label, :label_class, :hint, :after))
         content << content_after if content_after
         form_group(attribute) do
           safe_join(content, "\n")
         end
       end
+      alias_method_chain(method_name, :label)
     end
 
   private
