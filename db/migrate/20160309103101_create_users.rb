@@ -36,12 +36,22 @@ class CreateUsers < ActiveRecord::Migration
 
       # Uncomment below if timestamps were not included in your original model.
       t.timestamps null: false
+      t.string     :invitation_token
+      t.datetime   :invitation_created_at
+      t.datetime   :invitation_sent_at
+      t.datetime   :invitation_accepted_at
+      t.integer    :invitation_limit
+      t.references :invited_by, polymorphic: true
+      t.integer    :invitations_count, default: 0
     end
 
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     add_index :users, :unlock_token,         unique: true
+    add_index :users, :invitations_count
+    add_index :users, :invitation_token, unique: true
+    add_index :users, :invited_by_id
   end
 
 end
