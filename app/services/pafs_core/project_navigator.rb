@@ -11,21 +11,29 @@ module PafsCore
              :project_type,
              :financial_year,
              :key_dates,
+
              :funding_sources,
              :funding_details,
              :earliest_start,
              :earliest_date, # not in nav - accessible by choosing 'Yes' on :earliest_start
              :location,
              :map,
+
              :risks,
              :main_risk, # not in nav - accessible following :risks
              :households_benefitting,
              :standard_of_protection,
              :standard_of_protection_coastal, # not in nav - follows :standard_of_protection
              :approach,
+
              :wfd_benefits,
-             :environmental_issues,
-             :urgency_details,
+             :habitat_outcomes,
+             :additional_outcomes,
+             :fish_eel_passages,
+
+             :urgency,
+             :urgency_details, # not in nav - follows :urgency
+
              :funding_calculator,
              :summary].freeze
 
