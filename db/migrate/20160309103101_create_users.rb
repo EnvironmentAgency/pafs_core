@@ -1,6 +1,6 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
-    create_table(:users) do |t|
+    create_table(:pafs_core_users) do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
@@ -45,13 +45,13 @@ class CreateUsers < ActiveRecord::Migration
       t.integer    :invitations_count, default: 0
     end
 
-    add_index :users, :email,                unique: true
-    add_index :users, :reset_password_token, unique: true
+    add_index :pafs_core_users, :email,                unique: true
+    add_index :pafs_core_users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
-    add_index :users, :unlock_token,         unique: true
-    add_index :users, :invitations_count
-    add_index :users, :invitation_token, unique: true
-    add_index :users, :invited_by_id
+    add_index :pafs_core_users, :unlock_token,         unique: true
+    add_index :pafs_core_users, :invitations_count
+    add_index :pafs_core_users, :invitation_token, unique: true
+    add_index :pafs_core_users, :invited_by_id
   end
 
 end

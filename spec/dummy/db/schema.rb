@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 20160602100101) do
   add_index "pafs_core_user_areas", ["area_id"], name: "index_pafs_core_user_areas_on_area_id", using: :btree
   add_index "pafs_core_user_areas", ["user_id"], name: "index_pafs_core_user_areas_on_user_id", using: :btree
 
-  create_table "users", force: :cascade do |t|
+  create_table "pafs_core_users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -157,11 +157,11 @@ ActiveRecord::Schema.define(version: 20160602100101) do
     t.integer  "invitations_count",      default: 0
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
-  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
-  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
+  add_index "pafs_core_users", ["email"], name: "index_pafs_core_users_on_email", unique: true, using: :btree
+  add_index "pafs_core_users", ["invitation_token"], name: "index_pafs_core_users_on_invitation_token", unique: true, using: :btree
+  add_index "pafs_core_users", ["invitations_count"], name: "index_pafs_core_users_on_invitations_count", using: :btree
+  add_index "pafs_core_users", ["invited_by_id"], name: "index_pafs_core_users_on_invited_by_id", using: :btree
+  add_index "pafs_core_users", ["reset_password_token"], name: "index_pafs_core_users_on_reset_password_token", unique: true, using: :btree
+  add_index "pafs_core_users", ["unlock_token"], name: "index_pafs_core_users_on_unlock_token", unique: true, using: :btree
 
 end

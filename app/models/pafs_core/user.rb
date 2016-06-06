@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 module PafsCore
   class User < ActiveRecord::Base
-    self.table_name = "users"
+    # self.table_name = "users"
     validates :first_name, presence: true
     validates :last_name, presence: true
     validates_uniqueness_of :email, case_sensitive: false
