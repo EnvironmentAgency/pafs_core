@@ -89,6 +89,12 @@
     margin-bottom: 1em;
   }
 
+  .control-text-block {
+    clear: both;
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
   .panel {
     border-color: $grey-2;
     border-left-style: solid;

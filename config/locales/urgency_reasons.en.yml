@@ -1,7 +1,7 @@
 en:
   pafs_core:
     urgency_reasons:
-      not_urgent_label: The prpoject is not urgent
+      not_urgent_label: The project is not urgent
       statutory_need_label: Business critical statutory need
       legal_need_label: Business critical legal need
       health_and_safety_label: Health and safety issue

@@ -99,3 +99,10 @@ en:
           text: Normally this is the useful life of the coastal defence being built or upgraded or the time until the next major investment, whichever is sooner.
           coastal_before_example_text: For example, 20 years
           coastal_after_example_text: For example, 80 years
+        urgency:
+          heading: Is the project urgent for any of the following reasons?
+        urgency_details:
+          heading: Why is your project urgent?
+          lede: "You previously told us that your proposed project is urgent because:"
+          urgency_details_label: You now need to tell us why this applies
+          example_text: Limit your answer to 700 characters or fewer

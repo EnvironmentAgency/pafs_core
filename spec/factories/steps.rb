@@ -61,6 +61,14 @@ FactoryGirl.define do
       coastal_protection_after 30
     end
 
+    factory :urgency_step, class: PafsCore::UrgencyStep do
+      urgency_reason "health_and_safety"
+    end
+
+    factory :urgency_details_step, class: PafsCore::UrgencyDetailsStep do
+      urgency_details "This is the description"
+    end
+
     factory :funding_calculator_step, class: PafsCore::FundingCalculatorStep do
       funding_calculator_file_name "pf_calc.xls"
     end
