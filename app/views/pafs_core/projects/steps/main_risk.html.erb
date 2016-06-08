@@ -4,20 +4,22 @@
       <%= render partial: 'shared/navigator', project: @project %>
     </div>
     <div class="column-two-thirds">
-      <h1 class="heading-large"><%= t('.heading') %></h1>
-      <p class="lede"><%= t('.lede') %></p>
       <div class="step-form">
-        <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+        <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+          <%= f.error_header %>
+          <h1 class="heading-large"><%= t('.heading') %></h1>
+          <p class="lede"><%= t('.lede') %></p>
           <fieldset>
             <legend class="visuallyhidden">Select the main risk your proposed project wull protect against</legend>
-            <div class="form-group">
-              <% @project.risks.each do |risk| %>
-                <%= f.label :main_risk, class: "block-label", value: risk.to_s do %>
-                  <%= f.radio_button :main_risk, risk.to_s %>
-                  <%= t("#{risk}_label", scope: "pafs_core.projects.steps.risks") %>
-                <% end %>
-              <% end %>
-            </div>
+            <%= f.hidden_field :main_risk %>
+            <%= f.radio_button_group(:main_risk,
+                                     @project.risks.map do |r|
+                                        { value: r.to_s,
+                                          options: {
+                                            label: t("#{r}_label", scope: "pafs_core.projects.steps.risks")
+                                          }
+                                        }
+                                      end) %>
           </fieldset>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>

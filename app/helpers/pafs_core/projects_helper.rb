@@ -15,6 +15,10 @@ module PafsCore
         rel: "external", target: "_blank"
     end
 
+    def urgency_reason_text(reason)
+      I18n.t("#{reason}_label", scope: "pafs_core.urgency_reasons")
+    end
+
     # def project_step_path(project)
     #   pafs_core.project_step_path(id: project.to_param, step: project.step)
     # end

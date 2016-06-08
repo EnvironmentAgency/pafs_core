@@ -4,16 +4,14 @@
       <%= render partial: 'shared/navigator', project: @project %>
     </div>
     <div class="column-two-thirds">
-      <h1 class="heading-large"><%= t('.heading') %></h1>
-      <p class="lede"><%= t('.lede') %></p>
-      <p>A financial year runs from 1 April in one year to 31 March in the subsequent year, for example April 2017 to March 2018.</p>
-      <div class="step-form">
-        <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
-          <div class="form-group">
-            <%= f.label :project_end_financial_year, t(".project_end_financial_year_label"), class: "form-label" %>
-            <div class="form-hint"><%= t(".project_end_financial_year_hint") %></div>
-            <%= f.number_field :project_end_financial_year, in: 2017...2100, class: "form-control form-year" %>
-          </div>
+      <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+        <%= f.error_header %>
+        <h1 class="heading-large"><%= t('.heading') %></h1>
+        <p class="lede"><%= t('.lede') %></p>
+        <p><%= t(".description") %></p>
+        <div class="step-form">
+          <%= f.number_field :project_end_financial_year, in: 2017..2100, class: "form-control form-year", hint: t(".example_text") %>
+
           <%= f.submit t("save_and_continue_label"), class: 'button' %>
         <% end %>
       </div>

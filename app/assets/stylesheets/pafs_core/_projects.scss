@@ -89,6 +89,12 @@
     margin-bottom: 1em;
   }
 
+  .control-text-block {
+    clear: both;
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
   .panel {
     border-color: $grey-2;
     border-left-style: solid;
@@ -111,19 +117,29 @@
     float: left;
     margin-bottom: 0;
     margin-right: 0;
-    width: 4em;
+    width: 3.5em;
 
     .form-month {
-      width: 70%;
+      width: 2.5em;
+    }
+  }
+
+  .form-group-year {
+    .form-year {
+      width: 3.5em;
     }
   }
 
   .form-year {
-    width: 4em;
+    width: 3.5em;
   }
 
   .form-wide {
     width: 100%;
+  }
+
+  .form-narrow {
+    width: 3em;
   }
 }
 

@@ -1,0 +1,33 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', project: @project %>
+    </div>
+    <div class="column-two-thirds">
+      <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+        <%= f.error_header %>
+        <%= f.hidden_field :id %>
+        <h1 class="heading-large"><%= t('.heading') %></h1>
+        <div class="step-form">
+          <fieldset>
+            <legend class="visuallyhidden">Select the reason why your project is urgent</legend>
+            <%= f.form_group(:urgency_reason) do %>
+              <%= f.error_message(:urgency_reason) %>
+              <% PafsCore::URGENCY_REASONS.each do |r| %>
+                <%= f.radio_button :urgency_reason,
+                                   r.to_s,
+                                   label: urgency_reason_text(r) %>
+                <% if r == "not_urgent" %>
+                  <div class="control-text-block">or</div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </fieldset>
+          <div class="form-group">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

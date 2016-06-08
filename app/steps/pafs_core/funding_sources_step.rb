@@ -21,6 +21,7 @@ module PafsCore
     validate :at_least_one_funding_source_is_selected
 
     def update(params)
+      result = false
       assign_attributes(step_params(params))
       if valid?
         public_contributor_names = nil unless public_contributions?
@@ -29,13 +30,10 @@ module PafsCore
 
         if project.save
           @step = :funding_values
-          true
-        else
-          false
+          result = true
         end
-      else
-        false
       end
+      result
     end
 
     def previous_step

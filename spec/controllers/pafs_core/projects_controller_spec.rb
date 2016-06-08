@@ -90,6 +90,21 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
     end
   end
 
+  describe "GET reference_number" do
+    before(:each) do
+      @project = FactoryGirl.create(:project)
+      get :reference_number, id: @project.to_param
+    end
+
+    it "renders the reference_number template" do
+      expect(response).to render_template("reference_number")
+    end
+
+    it "assigns @project to the first step" do
+      expect(assigns(:project)).to be_instance_of PafsCore::ProjectNameStep
+    end
+  end
+
   describe "GET step" do
     before(:each) { @project = FactoryGirl.create(:project) }
 
@@ -137,6 +152,20 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
         patch :save, id: @project.to_param, step: "project_type",
           project_type_step: { project_type: "1234" }
         expect(response).to render_template("project_type")
+      end
+    end
+
+    context "when only a single risk is selected" do
+      before(:each) do
+        patch :save, id: @project.to_param, step: "risks", risks_step: { tidal_flooding: "1" }
+      end
+
+      it "auto sets the main risk" do
+        expect(PafsCore::Project.find_by(slug: @project.slug).main_risk).to eq "tidal_flooding"
+      end
+
+      it "jumps to the step after main_risk_step" do
+        expect(response).to redirect_to project_step_path(id: @project.to_param, step: :households_benefiting)
       end
     end
   end

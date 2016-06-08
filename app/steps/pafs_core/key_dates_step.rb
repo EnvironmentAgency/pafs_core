@@ -47,28 +47,18 @@ module PafsCore
     end
 
     def dates_are_present_and_in_range
-      [:start_outline_business_case_month,
-       :award_contract_month,
-       :start_construction_month,
-       :ready_for_service_month,
-       :start_outline_business_case_year,
-       :award_contract_year,
-       :start_construction_year,
-       :ready_for_service_year].each do |attr|
-         range = attr.to_s.end_with?("month") ? 1..12 : 2000..2099
-         validate_date_component(attr, range)
-       end
-    end
-
-    def validate_date_component(attr, range)
-      val = send(attr)
-      if val.blank?
-        errors.add(attr, "cannot be blank")
-      else
-        m = val.to_i
-        unless range.include?(m) && (m.to_s == val.to_s)
-          errors.add(attr, "must be in the range #{range.min} to #{range.max}")
-        end
+      [:start_outline_business_case,
+       :award_contract,
+       :start_construction,
+       :ready_for_service].each do |attr|
+        m = "#{attr}_month"
+        y = "#{attr}_year"
+        mv = send(m)
+        yv = send(y)
+        errors.add(attr, "^Enter a valid date") unless mv.present? &&
+                                                       yv.present? &&
+                                                       (1..12).cover?(mv.to_i) &&
+                                                       (2000..2100).cover?(yv.to_i)
       end
     end
 
@@ -80,13 +70,17 @@ module PafsCore
 
       if dt4 < dt3
         # error
-        errors.add(:ready_for_service_year, "can't be earlier than start of construction date")
-      elsif dt3 < dt2
+        errors.add(:ready_for_service, "can't be earlier than start of construction date")
+      end
+
+      if dt3 < dt2
         # error
-        errors.add(:start_construction_year, "can't be earlier than award of contract date")
-      elsif dt2 < dt1
+        errors.add(:start_construction, "can't be earlier than award of contract date")
+      end
+
+      if dt2 < dt1
         # error
-        errors.add(:award_contract_year, "can't be earlier than the start of the outline business case date")
+        errors.add(:award_contract, "can't be earlier than the start of the outline business case date")
       end
     end
   end

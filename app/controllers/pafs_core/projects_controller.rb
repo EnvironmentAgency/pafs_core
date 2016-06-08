@@ -80,6 +80,18 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     @project = project_navigator.find_project_step(params[:id], params[:step])
     # each step is responsible for managing their params safely
     if @project.update(params)
+      # if the next step is :main_risk, handle the case where only 1 risk
+      # has been selected by auto-updating the main risk with the selected one
+      # and then moving to the subsequent step, bypassing the main risk step
+      # from the user's perspective.
+      if @project.step == :main_risk
+        p = project_navigator.find_project_step(params[:id], :main_risk)
+        if p.risks.count == 1
+          p.update({main_risk_step: { main_risk: p.risks.first.to_s }})
+          @project = p
+        end
+      end
+
       redirect_to project_step_path(id: @project.to_param, step: @project.step)
     else
       render @project.view_path

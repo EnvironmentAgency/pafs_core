@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160517094816) do
+=======
+ActiveRecord::Schema.define(version: 20160607122314) do
+
+>>>>>>> develop
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +54,7 @@ ActiveRecord::Schema.define(version: 20160517094816) do
     t.string   "area_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "sub_type"
   end
 
   add_index "pafs_core_areas", ["name"], name: "index_pafs_core_areas_on_name", using: :btree
@@ -101,6 +107,13 @@ ActiveRecord::Schema.define(version: 20160517094816) do
     t.datetime "funding_calculator_updated_at"
     t.datetime "submitted_at"
     t.string   "environmental_type"
+    t.integer  "flood_protection_before"
+    t.integer  "flood_protection_after"
+    t.integer  "coastal_protection_before"
+    t.integer  "coastal_protection_after"
+    t.string   "urgency_reason"
+    t.string   "urgency_details"
+    t.string   "approach"
   end
 
   add_index "pafs_core_projects", ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree
@@ -115,5 +128,52 @@ ActiveRecord::Schema.define(version: 20160517094816) do
   end
 
   add_index "pafs_core_reference_counters", ["rfcc_code"], name: "index_pafs_core_reference_counters_on_rfcc_code", unique: true, using: :btree
+
+  create_table "pafs_core_user_areas", force: :cascade do |t|
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "user_id",                    null: false
+    t.integer  "area_id",                    null: false
+    t.boolean  "primary",    default: false
+  end
+
+  add_index "pafs_core_user_areas", ["area_id"], name: "index_pafs_core_user_areas_on_area_id", using: :btree
+  add_index "pafs_core_user_areas", ["user_id"], name: "index_pafs_core_user_areas_on_user_id", using: :btree
+
+  create_table "pafs_core_users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.integer  "failed_attempts",        default: 0,  null: false
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "first_name",             default: "", null: false
+    t.string   "last_name",              default: "", null: false
+    t.string   "job_title"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+    t.integer  "invitations_count",      default: 0
+  end
+
+  add_index "pafs_core_users", ["email"], name: "index_pafs_core_users_on_email", unique: true, using: :btree
+  add_index "pafs_core_users", ["invitation_token"], name: "index_pafs_core_users_on_invitation_token", unique: true, using: :btree
+  add_index "pafs_core_users", ["invitations_count"], name: "index_pafs_core_users_on_invitations_count", using: :btree
+  add_index "pafs_core_users", ["invited_by_id"], name: "index_pafs_core_users_on_invited_by_id", using: :btree
+  add_index "pafs_core_users", ["reset_password_token"], name: "index_pafs_core_users_on_reset_password_token", unique: true, using: :btree
+  add_index "pafs_core_users", ["unlock_token"], name: "index_pafs_core_users_on_unlock_token", unique: true, using: :btree
 
 end

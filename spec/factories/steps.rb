@@ -52,6 +52,7 @@ FactoryGirl.define do
     end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     factory :location_step, class: PafsCore::LocationStep do
       project_location [404040, 212121]
       project_location_zoom_level 6
@@ -62,6 +63,30 @@ FactoryGirl.define do
       benefit_area_centre [404040, 212121]
       benefit_area_zoom_level 4
 =======
+=======
+    factory :standard_of_protection_step, class: PafsCore::StandardOfProtectionStep do
+      flood_protection_before 66
+      flood_protection_after 23
+    end
+
+    factory :standard_of_protection_coastal_step, class: PafsCore::StandardOfProtectionCoastalStep do
+      coastal_protection_before 10
+      coastal_protection_after 30
+    end
+
+    factory :approach_step, class: PafsCore::ApproachStep do
+      approach "We will go left and then turn right for a bit"
+    end
+
+    factory :urgency_step, class: PafsCore::UrgencyStep do
+      urgency_reason "health_and_safety"
+    end
+
+    factory :urgency_details_step, class: PafsCore::UrgencyDetailsStep do
+      urgency_details "This is the description"
+    end
+
+>>>>>>> develop
     factory :funding_calculator_step, class: PafsCore::FundingCalculatorStep do
       funding_calculator_file_name "pf_calc.xls"
 >>>>>>> develop

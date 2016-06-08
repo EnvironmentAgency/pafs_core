@@ -56,6 +56,7 @@ FactoryGirl.define do
 
     factory :rma_area do
       area_type "RMA"
+      sub_type "Local Authority"
 
       trait :with_project do
         after(:create) do |rma_area|

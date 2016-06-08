@@ -50,7 +50,7 @@ module PafsCore
         m = main_risk
         errors.add(:main_risk, "must be one of the selected risks") unless self.respond_to?(m) && self.send(m) == true
       else
-        errors.add(:main_risk, "must have a value")
+        errors.add(:main_risk, "^A main source of risk must be selected")
       end
     end
   end

@@ -11,6 +11,7 @@ module PafsCore
     validates_uniqueness_of :name
     validate :parentage
     validates_inclusion_of :area_type, in: AREA_TYPES
+    validate :rma_sub_type
 
     belongs_to :parent, class_name: "Area"
     has_many :children, class_name: "Area", foreign_key: "parent_id"
@@ -24,6 +25,10 @@ module PafsCore
       elsif area_type == AREA_TYPES[0] && parent_id.present?
         errors.add(:parent_id, "must be blank")
       end
+    end
+
+    def rma_sub_type
+      errors.add(:sub_type, "can't be blank") if area_type == AREA_TYPES[3] && sub_type.blank?
     end
 
     def owned_projects
