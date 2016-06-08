@@ -1,0 +1,35 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', project: @project %>
+    </div>
+    <div class="column-two-thirds">
+      <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+        <%= f.error_header %>
+        <h1 class="heading-large"><%= t('.heading') %></h1>
+        <div class="step-form">
+          <fieldset>
+            <legend class="visuallyhidden">Explain how your project will achieve the outcomes</legend>
+            <%= f.text_area :approach, class: "form-control form-wide", cols: 30, rows: 10, hint: t(".example_text"), label: :none, group_class: "form-group" %>
+          </fieldset>
+          <div class="form-group">
+            <details role="group">
+              <summary role="button" aria-controls="examples">
+                <span class="summary"><%= t(".example_label") %></span>
+              </summary>
+              <div class="panel" id="examples">
+                <h4 class="heading-small">Example 1</h4>
+                <p><%= t(".example_1") %></p>
+                <h4 class="heading-small">Example 2</h4>
+                <p><%= t(".example_2") %></p>
+              </div>
+            </details>
+          </div>
+          <div class="form-group">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

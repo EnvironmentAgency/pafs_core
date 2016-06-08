@@ -61,6 +61,10 @@ FactoryGirl.define do
       coastal_protection_after 30
     end
 
+    factory :approach_step, class: PafsCore::ApproachStep do
+      approach "We will go left and then turn right for a bit"
+    end
+
     factory :urgency_step, class: PafsCore::UrgencyStep do
       urgency_reason "health_and_safety"
     end
