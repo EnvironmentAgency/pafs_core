@@ -8,6 +8,11 @@
         <% map_centre = @map_centre.first %>
         <div class="grid-row">
           <div class="column-three-thirds">
+            <div class="map-button">
+              <%= button_tag "Draw Polygon", class: "button", id: "draw-polygon", disable_with: "Drawing" %>
+              <%= button_tag "Select Polygon", class: "button", id: "select-polygon", disable_with: "Selecting"%>
+              <%= button_tag "Delete Polygon", class: "button", id: "delete-polygon", disable_with: "Deleting" %>
+            </div>
             <div id="map"
               class="benefit_area"
               data-eastings=<%= map_centre[:eastings] %>
@@ -24,8 +29,8 @@
             <%= f.hidden_field :benefit_area, value: @project.benefit_area.to_json %>
             <%= f.hidden_field :benefit_area_centre %>
             <%= f.hidden_field :benefit_area_zoom_level %>
+            <%= f.submit t("save_and_continue_label"), class: 'button', id: 'benefitAreaSaveButton' %>
           </div>
-          <%= f.submit t("save_and_continue_label"), class: 'button', id: 'benefitAreaSaveButton' %>
         <% end %>
       <% end %>
     </div>

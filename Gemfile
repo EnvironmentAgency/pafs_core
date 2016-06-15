@@ -21,6 +21,7 @@ group :test do
 end
 
 gem 'cumberland', path: '../cumberland'
+gem 'rack-cors'
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
