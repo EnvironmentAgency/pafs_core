@@ -6,6 +6,34 @@ module PafsCore
       Date.new(date.month < 4 ? date.year : date.year + 1, 3, 31)
     end
 
+    def funding_value_label(fv)
+      t("#{fv}_label", scope: "pafs_core.projects.steps.funding_values")
+    end
+
+    def str_year(year)
+      if year < 0
+        "previous"
+      else
+        year.to_s
+      end
+    end
+
+    def formatted_financial_year(year)
+      if year < 0
+        t("previous_years_label")
+      else
+        "#{year} to #{year + 1}"
+      end
+    end
+
+    def funding_table_cell(year, funding_source)
+      "#{str_year(year)}-#{funding_source} numeric"
+    end
+
+    def fy_total_class(year)
+      "#{str_year(year)}-total"
+    end
+
     def six_year_limit_date
       Date.new(2021, 3, 31).to_formatted_s(:long_ordinal)
     end

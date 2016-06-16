@@ -54,7 +54,14 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     @project = project_navigator.find_project_step(params[:id], params[:step])
     # we want to go to the page in the process requested in the
     # params[:step] part of the URL and display the appropriate form
-    render @project.view_path
+    if @project.disabled?
+      raise_not_found
+    else
+      # give the step the opportunity to do any tasks prior to being viewed
+      @project.before_view
+      # render the step
+      render @project.view_path
+    end
   end
 
   # PATCH
@@ -79,6 +86,7 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
 
       redirect_to project_step_path(id: @project.to_param, step: @project.step)
     else
+      # NOTE: not calling @project.before_view, but we could if we need to
       render @project.view_path
     end
   end

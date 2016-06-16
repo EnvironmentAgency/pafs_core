@@ -53,6 +53,22 @@ en:
           public_sector_example: For example, local authority, parish council, Natural England. Do not enter values
           private_sector_example: For example, community group, local business, national business, riparian land owner. Do not enter values
           ea_example: Do not enter values
+# funding values
+        funding_values:
+          heading: What is the estimated spend for each financial year?
+          lede: Spending estimates should be in pounds (£) and estimated at present day value. Future maintenance costs aren't required.
+          financial_year_label: Financial year (April to April)
+          fcerm_gia_label: Grant in Aid
+          local_levy_label: Local levy
+          internal_drainage_boards_label: Internal drainage board precepts
+          public_contributions_label: Public sector contributions
+          private_contributions_label: Private sector contributions
+          other_ea_contributions_label: Other Environment Agency contributions
+          growth_funding_label: Growth funding
+          not_yet_identified_label: Not yet identified
+          total_label: Total (£)
+        funding_values_summary:
+          heading: Confirm the estimated spend for each financial year.
 # earliest start
         earliest_start:
           heading: Could your project start sooner if FCERM grant in aid (FCERM GiA) funding was available earlier?

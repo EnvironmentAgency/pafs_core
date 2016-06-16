@@ -9,6 +9,9 @@ module PafsCore
 
     has_many :area_projects
     has_many :areas, through: :area_projects
+    has_many :funding_values
+    accepts_nested_attributes_for :funding_values, allow_destroy: true
+
     before_validation :set_slug, on: :create
 
     def to_param

@@ -13,7 +13,8 @@ module PafsCore
              :key_dates,
 
              :funding_sources,
-             :funding_details,
+             :funding_values,
+             :funding_values_summary, # not in nav - accessible only when no js following :funding_values
              :earliest_start,
              :earliest_date, # not in nav - accessible by choosing 'Yes' on :earliest_start
              :location,

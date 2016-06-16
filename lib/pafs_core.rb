@@ -7,6 +7,7 @@ require "pafs_core/project_types"
 require "pafs_core/urgency_reasons"
 require "pafs_core/errors"
 require "pafs_core/form_builder"
+require "pafs_core/funding_sources"
 
 module PafsCore
 end

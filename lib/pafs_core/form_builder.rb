@@ -20,6 +20,10 @@ module PafsCore
       end
     end
 
+    def fields_for record_name, record_object = nil, fields_options = {}, &block
+      super record_name, record_object, fields_options.merge(builder: self.class), &block
+    end
+
     def form_group(name, &block)
       name = name.to_sym
       content = []

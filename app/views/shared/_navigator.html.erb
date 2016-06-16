@@ -17,10 +17,7 @@
       <h1 class="heading-small">Funding</h1>
       <ul>
         <%= nav_step_item(@project, :funding_sources) %>
-        <li>
-          <span class="complete-flag"></span>
-          <%= link_to "Funding values", "#" %>
-        </li>
+        <%= nav_step_item(@project, :funding_values) %>
         <%= nav_step_item(@project, :earliest_start) %>
       </ul>
     </section>

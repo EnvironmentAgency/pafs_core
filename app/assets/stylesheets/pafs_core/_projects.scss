@@ -16,6 +16,54 @@
   border: 4px solid $red;
 }
 
+.scroll-horz {
+  overflow-x: auto;
+}
+
+.funding-table-summary .data-column {
+  text-align: right;
+}
+
+.funding-table .data-column {
+  text-align: center;
+}
+
+.funding-table, .funding-table-summary {
+  th {
+    vertical-align: top;
+  }
+
+  .financial-year-column {
+    min-width: 6.5em;
+  }
+
+  .data-column {
+    min-width: 6em;
+    width: 7em;
+  }
+
+  .data-total {
+    min-width: 6em;
+    text-align: right;
+    width: 7em;
+  }
+
+  .funding-value {
+    text-align: right;
+    width: 6em;
+  }
+
+  tfoot td, .row-total {
+    font-weight: bold;
+  }
+
+  &.hidden-totals {
+    tbody > td:last-child, th:last-child, tfoot > tr {
+      display: none;
+    }
+  }
+}
+
 .project-link {
   background-color: transparent;
   text-decoration: none;
