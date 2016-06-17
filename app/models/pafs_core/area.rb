@@ -19,16 +19,44 @@ module PafsCore
 
     scope :top_level, -> { where(parent_id: nil) }
 
+    def self.ea_areas
+      where(area_type: AREA_TYPES[1])
+    end
+
+    def self.pso_areas
+      where(area_type: AREA_TYPES[2])
+    end
+
+    def self.rma_areas
+      where(area_type: AREA_TYPES[3])
+    end
+
+    def country?
+      area_type == AREA_TYPES[0]
+    end
+
+    def ea_area?
+      area_type == AREA_TYPES[1]
+    end
+
+    def pso_area?
+      area_type == AREA_TYPES[2]
+    end
+
+    def rma?
+      area_type == AREA_TYPES[3]
+    end
+
     def parentage
-      if area_type != AREA_TYPES[0] && parent_id.blank?
+      if !country? && parent_id.blank?
         errors.add(:parent_id, "can't be blank")
-      elsif area_type == AREA_TYPES[0] && parent_id.present?
+      elsif country? && parent_id.present?
         errors.add(:parent_id, "must be blank")
       end
     end
 
     def rma_sub_type
-      errors.add(:sub_type, "can't be blank") if area_type == AREA_TYPES[3] && sub_type.blank?
+      errors.add(:sub_type, "can't be blank") if rma? && sub_type.blank?
     end
 
     def owned_projects

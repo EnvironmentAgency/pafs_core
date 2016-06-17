@@ -1,4 +1,3 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
   class User < ActiveRecord::Base
@@ -12,6 +11,16 @@ module PafsCore
 
     def full_name
       "#{first_name} #{last_name}"
+    end
+
+    def ea_area_code
+      # find the EA area under which this user belongs
+      # if an RMA it will be grandparent area
+      # if a PSO it will be the parent area
+      # if an EA user it will be the area
+      area = primary_area
+      area = area.parent until area.ea_area?
+      PafsCore::AREA_CODES.fetch(area.to_sym)
     end
 
     def primary_area
