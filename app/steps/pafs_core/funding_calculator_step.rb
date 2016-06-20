@@ -36,11 +36,11 @@ module PafsCore
           self.virus_info = nil
         rescue PafsCore::VirusFoundError => e
           Rails.logger.error e.message
-          # TODO: we could make a better message here or in the exeception
           self.virus_info = e.message
+          errors.add(:base, "The file was rejected because it contained a virus, try again")
         rescue PafsCore::VirusScannerError => e
           Rails.logger.error e.message
-          # TODO: we could make a better message here or in the exeception
+          errors.add(:base, "The file did not upload correctly, try again")
           self.virus_info = e.message
         end
       end
