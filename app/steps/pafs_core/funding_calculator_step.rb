@@ -76,6 +76,13 @@ module PafsCore
       end
     end
 
+    def delete_calculator
+      if funding_calculator_file_name.present?
+        storage.delete(File.join(storage_path, funding_calculator_file_name))
+        reset_file_attributes
+      end
+    end
+
   private
     def step_params(params)
       ActionController::Parameters.new(params).
@@ -83,8 +90,21 @@ module PafsCore
         permit(:funding_calculator)
     end
 
+    def reset_file_attributes
+      self.funding_calculator_file_name = nil
+      self.funding_calculator_content_type = nil
+      self.funding_calculator_file_size = nil
+      self.funding_calculator_updated_at = nil
+      self.virus_info = nil
+      project.save
+    end
+
     def storage
-      @storage ||= PafsCore::FileStorageService.new user
+      @storage ||= if Rails.env.development?
+                     PafsCore::DevelopmentFileStorageService.new user
+                   else
+                     PafsCore::FileStorageService.new user
+                   end
     end
   end
 end

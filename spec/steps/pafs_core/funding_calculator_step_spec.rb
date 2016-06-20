@@ -159,6 +159,31 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     end
   end
 
+  describe "#delete_calculator" do
+    let(:storage) { double("storage") }
+    subject { FactoryGirl.build(:funding_calculator_step) }
+    before(:each) do
+      expect(PafsCore::FileStorageService).to receive(:new) { storage }
+    end
+
+    context "when an uploaded file exists" do
+      it "removes the file from storage" do
+        expect(storage).to receive(:delete)
+        subject.delete_calculator
+      end
+
+      it "resets the stored file attributes" do
+        expect(storage).to receive(:delete)
+        subject.delete_calculator
+        expect(subject.funding_calculator_file_name).to be_nil
+        expect(subject.funding_calculator_content_type).to be_nil
+        expect(subject.funding_calculator_file_size).to be_nil
+        expect(subject.funding_calculator_updated_at).to be_nil
+        expect(subject.virus_info).to be_nil
+      end
+    end
+  end
+
   describe "#previous_step" do
     subject { FactoryGirl.build(:funding_calculator_step) }
 

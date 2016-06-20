@@ -99,6 +99,13 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     end
   end
 
+  # GET
+  def delete_funding_calculator
+    @project = project_navigator.find_project_step(params[:id], :funding_calculator)
+    @project.delete_calculator
+    redirect_to project_step_path(id: @project.to_param, step: :funding_calculator)
+  end
+
 private
   def project_navigator
     @project_navigator ||= PafsCore::ProjectNavigator.new current_resource
