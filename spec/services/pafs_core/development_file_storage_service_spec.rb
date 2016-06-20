@@ -22,7 +22,10 @@ RSpec.describe PafsCore::DevelopmentFileStorageService do
   end
 
   describe "#download" do
-    before(:each) { FileUtils.touch(dst_path) }
+    before(:each) do
+      FileUtils.mkdir_p(File.dirname(dst_path))
+      FileUtils.touch(dst_path)
+    end
 
     context "given a valid source file key" do
       it "gets the requested file from storage" do
@@ -39,7 +42,10 @@ RSpec.describe PafsCore::DevelopmentFileStorageService do
   end
 
   describe "#delete" do
-    before(:each) { FileUtils.touch(dst_path) }
+    before(:each) do
+      FileUtils.mkdir_p(File.dirname(dst_path))
+      FileUtils.touch(dst_path)
+    end
 
     it "deletes the requested file from storage" do
       expect { subject.delete(dst_file) }.not_to raise_error
