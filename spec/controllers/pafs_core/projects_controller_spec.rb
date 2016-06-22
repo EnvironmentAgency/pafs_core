@@ -165,7 +165,7 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       end
 
       it "jumps to the step after main_risk_step" do
-        expect(response).to redirect_to project_step_path(id: @project.to_param, step: :households_benefiting)
+        expect(response).to redirect_to project_step_path(id: @project.to_param, step: :flood_protection_outcomes)
       end
     end
   end

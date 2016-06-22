@@ -22,7 +22,10 @@ module PafsCore
 
              :risks,
              :main_risk, # not in nav - accessible following :risks
-             :households_benefitting,
+             :flood_protection_outcomes,
+             :flood_protection_outcomes_summary,
+             :coastal_erosion_protection_outcomes,
+             :coastal_erosion_protection_outcomes_summary,
              :standard_of_protection,
              :standard_of_protection_coastal, # not in nav - follows :standard_of_protection
              :approach,

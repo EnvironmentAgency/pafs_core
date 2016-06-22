@@ -100,6 +100,26 @@ en:
           funding_calculator_label: Funding calculator
           download_link_label: Current funding calculator
           uploaded_at_label: Uploaded on
+# flood protection outcomes
+        flood_protection_outcomes:
+          heading: How many households affected by flooding is the project likely to benefit?
+          lede: Don't include any houses built or converted after 1 January 2012.
+          financial_year_label: Financial year (April to April)
+          households_at_reduced_risk_label: How many households moved to a lower flood risk category?
+          households_moved_from_very_significant_and_significant_to_moderate_or_low_label: Of the households in A, how many moved out of the very significant or significant category to the moderate or low category?
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, how many are in the 20% most deprived areas?
+# flood protection outcomes summary
+        flood_protection_outcomes_summary:
+# coastal erosion protection outcomes
+        coastal_erosion_protection_outcomes:
+          heading: How many households affected coastal erosion is the project likely to benefit?
+          lede: Don't include any houses built or converted after 1 January 2012.
+          financial_year_label: Financial year (April to April)
+          households_at_reduced_risk_label: How many households are at a reduced risk of coastal erosion?
+          households_protected_from_loss_in_next_20_years_label: Of the households in A, how many are protected from loss within the next 20 years?
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, how many are in the 20% most deprived areas?
+# coastal erosion protection outcomes summary
+        coastal_erosion_protection_outcomes_summary:
 # standard of protection
         standard_of_protection:
           heading: What standard of protection will your proposed project provide against flooding?
