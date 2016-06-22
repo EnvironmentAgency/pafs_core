@@ -182,7 +182,7 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
   end
 
   describe "#completed?" do
-    subject { PafsCore::CoastalErosionProtectionOutcomesSummaryStep.new @project }
+    subject { PafsCore::CoastalErosionProtectionOutcomesStep.new @project }
 
     context "when project protects against coastal erosion" do
       context "when there are no current_coastal_erosion_protection_outcomes" do

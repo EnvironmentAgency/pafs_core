@@ -43,7 +43,7 @@ module PafsCore
     end
 
     def completed?
-      flooding? && !current_flood_protection_outcomes.empty?
+      !!(flooding? && !current_flood_protection_outcomes.empty?)
     end
 
     def step

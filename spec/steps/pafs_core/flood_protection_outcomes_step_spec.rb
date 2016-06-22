@@ -183,7 +183,7 @@ RSpec.describe PafsCore::FloodProtectionOutcomesStep, type: :model do
   end
 
   describe "#completed?" do
-    subject { PafsCore::FloodProtectionOutcomesSummaryStep.new @project }
+    subject { PafsCore::FloodProtectionOutcomesStep.new @project }
 
     context "when project protects against flooding" do
       context "when there are no current_flood_protection_outcomes" do
