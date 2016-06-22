@@ -3,124 +3,115 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::Area, type: :model do
-  context "Any Area" do
-    describe "attributes" do
-      area_levels = [
-        {
-          level: :country,
-          parent_id: nil
-        },
-        {
-          level: :ea_area,
-          parent_id: 1
-        },
-        {
-          level: :pso_area,
-          parent_id: 1
-        },
-        {
-          level: :rma_area,
-          parent_id: 1
-        },
-      ]
-      area = area_levels.sample
-      subject { FactoryGirl.create(area[:level], parent_id: area[:parent_id]) }
-      it { is_expected.to validate_presence_of :name }
-      it { is_expected.to validate_presence_of :area_type }
-      it { is_expected.to validate_inclusion_of(:area_type).in_array(PafsCore::Area::AREA_TYPES) }
-    end
-  end
-  context "Country" do
-    describe "attributes" do
+  describe "attributes" do
+    area_levels = [
+      {
+        level: :country,
+        parent_id: nil
+      },
+      {
+        level: :ea_area,
+        parent_id: 1
+      },
+      {
+        level: :pso_area,
+        parent_id: 1
+      },
+      {
+        level: :rma_area,
+        parent_id: 1
+      },
+    ]
+    area = area_levels.sample
+    subject { FactoryGirl.create(area[:level], parent_id: area[:parent_id]) }
+    it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_presence_of :area_type }
+    it { is_expected.to validate_inclusion_of(:area_type).in_array(PafsCore::Area::AREA_TYPES) }
+
+    context "Country" do
       subject { FactoryGirl.create(:country) }
 
-      it { is_expected.to_not validate_presence_of :parent_id }
+      it { is_expected.to validate_absence_of :parent_id }
       it { is_expected.to_not validate_presence_of :sub_type }
     end
-  end
-  context "sub-Country area" do
-    describe "attributes" do
-      area_levels = [:ea_area, :pso_area, :rma_area]
-      subject { FactoryGirl.create(area_levels.sample, parent_id: 1) }
 
+    context "EA area" do
+      subject { FactoryGirl.create(:ea_area, parent_id: 1) }
       it { is_expected.to validate_presence_of :parent_id }
-      it { is_expected.to_not validate_presence_of :sub_type unless subject.area_type == "RMA"}
+      it { is_expected.to_not validate_presence_of :sub_type }
     end
-  end
-  context "RMA Area" do
-    describe "sub type" do
-      subject { FactoryGirl.create(:rma_area, parent_id: 1) }
 
+    context "PSO area" do
+      subject { FactoryGirl.create(:pso_area, parent_id: 1) }
+      it { is_expected.to validate_presence_of :parent_id }
+      it { is_expected.to_not validate_presence_of :sub_type }
+    end
+
+    context "RMA area" do
+      subject { FactoryGirl.create(:rma_area, parent_id: 1) }
+      it { is_expected.to validate_presence_of :parent_id }
       it { is_expected.to validate_presence_of :sub_type }
     end
   end
 
-  context "Looking for visible projects" do
-    let(:country) { FactoryGirl.create(:country, :with_full_hierarchy) }
-    let(:ea_area_1) { country.children.first }
-    let(:ea_area_2) { country.children.second }
-    let(:pso_area_1) { ea_area_1.children.first }
-    let(:pso_area_2) { ea_area_1.children.second}
-    let(:pso_area_3) { ea_area_2.children.first }
-    let(:rma_area_1) { pso_area_1.children.first }
-    let(:rma_area_2) { pso_area_1.children.second}
-    let(:rma_area_3) { pso_area_2.children.first}
-    let(:rma_area_4) { pso_area_3.children.first }
+  describe "#country?" do
+    subject { FactoryGirl.create(:country) }
+    it "returns true when :area_type == 'Country'" do
+      expect(subject.country?).to eq true
+    end
+  end
 
-    describe ".projects" do
-      context "as a country" do
-        it "should see the correct number of projects" do
-          expect(country.projects.size).to eq(8)
-        end
-      end
-      context "as an EA area" do
-        it "should see the correct number of projects" do
-          expect(ea_area_1.projects.size).to eq(4)
-        end
+  describe ".ea_areas" do
+    subject { FactoryGirl.create(:ea_area, parent_id: 1) }
 
-        it "should not see another EA area's projects" do
-          expect(ea_area_1.projects).to_not eq(ea_area_2.projects)
-        end
+    it "returns EA areas" do
+      subject.reload
+      areas = described_class.ea_areas
+      expect(areas.length).to eq(1)
+      expect(areas.first).to eq subject
+    end
+  end
 
-        it "should not see shared projects from outside the EA area" do
-          project = rma_area_4.projects.first
-          rma_area_1.area_projects.create(project_id: project.id)
+  describe "#ea_area?" do
+    subject { FactoryGirl.create(:ea_area, parent_id: 1) }
+    it "returns true when :area_type == 'EA Area'" do
+      expect(subject.ea_area?).to eq true
+    end
+  end
 
-          expect(ea_area_1.projects).to_not include(project)
-        end
-      end
-      context "as a PSO area" do
-        it "should see the correct number of projects" do
-          expect(pso_area_1.projects.size).to eq(2)
-        end
+  describe ".pso_areas" do
+    subject { FactoryGirl.create(:pso_area, parent_id: 1) }
 
-        it "should not see another PSO area's projects" do
-          expect(pso_area_1.projects).to_not eq(pso_area_2.projects)
-        end
+    it "returns PSO areas" do
+      subject.reload
+      areas = described_class.pso_areas
+      expect(areas.length).to eq(1)
+      expect(areas.first).to eq subject
+    end
+  end
 
-        it "should not see shared projects from outside the PSO area" do
-          project = rma_area_3.projects.first
-          rma_area_1.area_projects.create(project_id: project.id)
+  describe "#pso_area?" do
+    subject { FactoryGirl.create(:pso_area, parent_id: 1) }
+    it "returns true when :area_type == 'PSO Area'" do
+      expect(subject.pso_area?).to eq true
+    end
+  end
 
-          expect(pso_area_1.projects).to_not include(project)
-        end
-      end
-      context "as an RMA area" do
-        it "should see the correct number of projects" do
-          expect(rma_area_1.projects.size).to eq(1)
-        end
+  describe ".rma_areas" do
+    subject { FactoryGirl.create(:rma_area, parent_id: 1) }
 
-        it "should not see another RMA area's projects" do
-          expect(rma_area_1.projects).to_not eq(rma_area_2.projects)
-        end
+    it "returns rma areas" do
+      subject.reload
+      areas = described_class.rma_areas
+      expect(areas.length).to eq(1)
+      expect(areas.first).to eq subject
+    end
+  end
 
-        it "should see another RMA's shared project" do
-          project = rma_area_2.projects.first
-          rma_area_1.area_projects.create(project_id: project.id)
-
-          expect(rma_area_1.projects).to include(project)
-        end
-      end
+  describe "#rma?" do
+    subject { FactoryGirl.create(:rma_area, parent_id: 1) }
+    it "returns true when :area_type == 'RMA'" do
+      expect(subject.rma?).to eq true
     end
   end
 end

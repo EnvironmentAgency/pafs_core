@@ -3,6 +3,14 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::ProjectNavigator do
+  before(:each) do
+    @pso = FactoryGirl.create(:pso_area, parent_id: 1, name: "PSO Essex")
+    @rma = FactoryGirl.create(:rma_area, parent_id: @pso.id)
+    @user = FactoryGirl.create(:user)
+    @user.user_areas.create(area_id: @rma.id, primary: true)
+  end
+  subject { PafsCore::ProjectNavigator.new @user }
+
   describe ".first_step" do
     it "returns the identifier of first step in the journey" do
       expect(described_class.first_step).to eq(described_class::STEPS.first)
