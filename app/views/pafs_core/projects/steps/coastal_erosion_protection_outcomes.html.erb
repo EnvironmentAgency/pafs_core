@@ -23,9 +23,9 @@
                     </tr>
                     <tr>
                       <th></th>
-                      <th class="data-column protection-outcomes">A</th>
-                      <th class="data-column protection-outcomes">B</th>
-                      <th class="data-column protection-outcomes">C</th>
+                      <th class="data-column protection-outcomes-subheading">A</th>
+                      <th class="data-column protection-outcomes-subheading">B</th>
+                      <th class="data-column protection-outcomes-subheading">C</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -37,19 +37,21 @@
                           <%= formatted_financial_year(builder.object.financial_year) %>
                         </td>
                         <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.households_at_reduced_risk) %>">
-                            <%= builder.number_field_without_label :households_at_reduced_risk, class: "funding-value",
+                            <%= builder.number_field_without_label :households_at_reduced_risk,                                     class: "funding-value",
                                                                    min: 0,
                                                                    step: 1 %>
                         </td>
                         <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.households_protected_from_loss_in_next_20_years) %> significant-to-low-risk">
-                            <%= builder.number_field_without_label :households_protected_from_loss_in_next_20_years, class: "funding-value significant-to-low-risk",
-                                                                   min: 0,
-                                                                   step: 1 %>
+                            <%= builder.number_field_without_label :households_protected_from_loss_in_next_20_years,
+                                                                  class: "significant-to-low-risk",
+                                                                  min: 0,
+                                                                  step: 1 %>
                         </td>
                         <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.households_protected_from_loss_in_20_percent_most_deprived) %>">
-                            <%= builder.number_field_without_label :households_protected_from_loss_in_20_percent_most_deprived, class: "funding-value most-deprived",
-                                                                   min: 0,
-                                                                   step: 1 %>
+                            <%= builder.number_field_without_label :households_protected_from_loss_in_20_percent_most_deprived,
+                                                                  class: "most-deprived",
+                                                                  min: 0,
+                                                                  step: 1 %>
                         </td>
                       </tr>
                     <% end %>

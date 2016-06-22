@@ -117,6 +117,11 @@ en:
           households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, how many are in the 20% most deprived areas?
 # flood protection outcomes summary
         flood_protection_outcomes_summary:
+          heading: Confirm the number of households affected by coastal erosion that the project will benefit
+          financial_year_label: Financial year (April to April)
+          households_at_reduced_risk_label: Households moved to a lower flood risk category
+          households_moved_from_very_significant_and_significant_to_moderate_or_low_label: Of the households in A, the households that have moved out of the very significant or significant category to the moderate or low category
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, the households that are in the 20% most deprived areas
 # coastal erosion protection outcomes
         coastal_erosion_protection_outcomes:
           heading: How many households affected coastal erosion is the project likely to benefit?
@@ -127,6 +132,11 @@ en:
           households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, how many are in the 20% most deprived areas?
 # coastal erosion protection outcomes summary
         coastal_erosion_protection_outcomes_summary:
+          heading: Confirm the number of households affected by coastal erosion that the project will benefit
+          financial_year_label: Financial year (April to April)
+          households_at_reduced_risk_label: Households are at a reduced risk of coastal erosion
+          households_protected_from_loss_in_next_20_years_label: Of the households in A, the households that are protected from loss within the next 20 years
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, the households that are in the 20% most deprived areas
 # standard of protection
         standard_of_protection:
           heading: What standard of protection will your proposed project provide against flooding?
