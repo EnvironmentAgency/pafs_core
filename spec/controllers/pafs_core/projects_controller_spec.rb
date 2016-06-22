@@ -34,6 +34,7 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
   describe "GET new" do
     it "renders the new template" do
       get :new
+      expect(assigns(:project)).not_to be_nil
       expect(response).to render_template("new")
     end
   end
@@ -82,14 +83,15 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
         expect { post :create }.not_to change { PafsCore::Project.count }
       end
 
-      it "sets a flash alert message" do
-        post :create
-        expect(flash[:alert]).to eq "Please choose Yes or No"
-      end
-
       it "renders the :new template" do
         post :create
         expect(response).to render_template("new")
+      end
+
+      it "assigns @project with an error message" do
+        post :create
+        expect(assigns(:project).errors[:base]).
+          to include "Tell us if you need funding before 31 March 2021"
       end
     end
   end

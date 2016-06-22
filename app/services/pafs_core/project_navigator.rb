@@ -79,6 +79,10 @@ module PafsCore
       STEPS.last
     end
 
+    def new_blank_project
+      PafsCore::Project.new
+    end
+
     def start_new_project
       # we will need to position a project so that it 'belongs' somewhere
       # and is 'owned' by a user.  I envisage that we would use the

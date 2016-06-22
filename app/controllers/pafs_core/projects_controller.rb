@@ -16,6 +16,7 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   end
 
   def new
+    @project = project_navigator.new_blank_project
     # start a new project
     # ask the 'start within 6 years' question
     # @project = project_navigator.start_new_project
@@ -27,8 +28,8 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     # save the new project and start the steps
     within_six_years = params.fetch(:yes_or_no, nil)
     if within_six_years.nil?
-      #TODO: set an error message requesting the user to select an option
-      flash[:alert] = "Please choose Yes or No"
+      @project = project_navigator.new_blank_project
+      @project.errors.add(:base, "Tell us if you need funding before 31 March 2021")
       render :new
     elsif within_six_years == "yes"
       @project = project_navigator.start_new_project
