@@ -34,8 +34,8 @@ module PafsCore
              :urgency,
              :urgency_details, # not in nav - follows :urgency
 
-             :funding_calculator,
-             :summary].freeze
+             :funding_calculator
+    ].freeze
 
     # Not sure we really need this --v
     # GROUPS = {

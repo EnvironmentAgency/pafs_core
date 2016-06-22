@@ -19,6 +19,13 @@ RSpec.describe PafsCore::DevelopmentFileStorageService do
       expect { subject.upload(src_file, dst_file) }.not_to raise_error
       expect(File.exists?(dst_path)).to eq true
     end
+
+    context "when the file cannot be accessed" do
+      it "raises an error" do
+        expect { subject.upload("missing.txt", dst_path) }.
+          to raise_error PafsCore::FileNotFoundError
+      end
+    end
   end
 
   describe "#download" do
@@ -50,6 +57,13 @@ RSpec.describe PafsCore::DevelopmentFileStorageService do
     it "deletes the requested file from storage" do
       expect { subject.delete(dst_file) }.not_to raise_error
       expect(File.exists?(dst_path)).to eq false
+    end
+
+    context "when the file cannot be accessed" do
+      it "raises an error" do
+        expect { subject.delete("missing.txt") }.
+          to raise_error PafsCore::FileNotFoundError
+      end
     end
   end
 end

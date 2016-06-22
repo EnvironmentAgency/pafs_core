@@ -11,8 +11,7 @@ module PafsCore
 
     attr_reader :funding_calculator
     attr_accessor :virus_info
-    validates :funding_calculator_file_name, presence: true
-    validates :virus_info, absence: true
+    validate :virus_free_funding_calculator_present
 
     def update(params)
       uploaded_file = step_params(params).fetch(:funding_calculator, nil)
@@ -34,13 +33,7 @@ module PafsCore
           self.funding_calculator_file_size = uploaded_file.size
           self.funding_calculator_updated_at = Time.zone.now
           self.virus_info = nil
-        rescue PafsCore::VirusFoundError => e
-          Rails.logger.error e.message
-          self.virus_info = e.message
-          errors.add(:base, "The file was rejected because it contained a virus, try again")
-        rescue PafsCore::VirusScannerError => e
-          Rails.logger.error e.message
-          errors.add(:base, "The file did not upload correctly, try again")
+        rescue PafsCore::VirusFoundError, PafsCore::VirusScannerError => e
           self.virus_info = e.message
         end
       end
@@ -105,6 +98,15 @@ module PafsCore
                    else
                      PafsCore::FileStorageService.new user
                    end
+    end
+
+    def virus_free_funding_calculator_present
+      if virus_info.present?
+        Rails.logger.error virus_info
+        errors.add(:base, "The file was rejected because it may contain a virus. Verify your file and try again")
+      elsif funding_calculator_file_name.blank?
+        errors.add(:base, "Please select your partnership funding calculator file")
+      end
     end
   end
 end

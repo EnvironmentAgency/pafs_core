@@ -128,6 +128,13 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       get :step, id: @project.to_param, step: "project_name"
       expect(response).to render_template "project_name"
     end
+
+    context "when step is disabled" do
+      it "raises a not_found error" do
+        expect { get :step, id: @project.to_param, step: "funding_values" }.
+          to raise_error ActionController::RoutingError
+      end
+    end
   end
 
   describe "PATCH save" do
@@ -149,6 +156,15 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
         patch :save, id: @project.to_param, step: "project_name",
           project_name_step: { name: "Haystack" }
         expect(response).to redirect_to project_step_path(id: @project.to_param, step: "project_type")
+      end
+
+      context "when the next step is :summary step" do
+        it "redirects to the project summary page" do
+          @project.update_attributes(funding_calculator_file_name: "peanuts.xsl")
+          patch :save, id: @project.to_param, step: "funding_calculator",
+          funding_calculator_step: { test: "Haystack" }
+          expect(response).to redirect_to project_path(id: @project.to_param)
+        end
       end
     end
 
@@ -204,6 +220,27 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           with(data, { filename: filename, type: content_type }) { controller.render nothing: true }
 
         get :download_funding_calculator, id: @project.to_param, step: "funding_calculator"
+      end
+    end
+  end
+
+  describe "GET delete_funding_calculator" do
+    before(:each) { @project = FactoryGirl.create(:project) }
+
+    context "given a file has been stored previously" do
+      let(:navigator) { double("project_navigator") }
+      let(:step) { double("funding_calculator_step") }
+      let(:filename) { "my_upload.xls" }
+      let(:content_type) { "text/plain" }
+
+      it "deletes the funding calculator" do
+        expect(controller).to receive(:project_navigator) { navigator }
+        expect(navigator).to receive(:find_project_step).
+          with(@project.to_param, :funding_calculator) { step }
+
+        expect(step).to receive(:delete_calculator)
+
+        get :delete_funding_calculator, id: @project.to_param
       end
     end
   end

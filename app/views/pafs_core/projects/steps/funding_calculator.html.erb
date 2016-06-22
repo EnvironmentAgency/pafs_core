@@ -5,6 +5,8 @@
     </div>
     <div class="column-two-thirds">
       <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step), html: { multipart: true } do |f| %>
+        <%= f.hidden_field :funding_calculator_file_name %>
+        <%= f.error_header %>
         <div class="step-form">
           <h1 class="heading-large"><%= t('.heading') %></h1>
           <p><%= t('.lede') %></p>
@@ -45,13 +47,15 @@
                   </tr>
                 </tbody>
               </table>
-              <%= f.hidden_field :funding_calculator_file_name %>
             </div>
           <% end %>
 
           <div class="form-group">
             <h3 class="heading-medium" id="file-upload"><%= t(".upload_heading") %></h3>
-            <%= f.file_field :funding_calculator, aria: { labelledby: "file-upload" } %>
+            <%= f.form_group(:base) do %>
+              <%= f.error_message(:base) %>
+              <%= f.file_field :funding_calculator, aria: { labelledby: "file-upload" } %>
+            <% end %>
           </div>
           <%= f.submit t("save_and_continue_label"), class: 'button' %>
         </div>

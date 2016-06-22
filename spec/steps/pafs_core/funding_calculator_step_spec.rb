@@ -10,8 +10,18 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
 
     it_behaves_like "a project step"
 
-    it { is_expected.to validate_presence_of :funding_calculator_file_name }
-    it { is_expected.to validate_absence_of :virus_info }
+    it "validates that a file has been selected" do
+      subject.funding_calculator_file_name = nil
+      expect(subject.valid?).to eq false
+      expect(subject.errors[:base]).to include "Please select your partnership funding calculator file"
+    end
+
+    it "validates that the file passed a virus check" do
+      subject.virus_info = "Found a nasty virus"
+      expect(subject.valid?).to eq false
+      expect(subject.errors[:base]).
+        to include "The file was rejected because it may contain a virus. Verify your file and try again"
+    end
   end
 
   describe "#update" do
