@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 module PafsCore
   class AreaProject < ActiveRecord::Base
-
     belongs_to :project
     belongs_to :area
 

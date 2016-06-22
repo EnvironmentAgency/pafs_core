@@ -70,7 +70,7 @@
   }
 
   &.hidden-totals {
-    tbody > td:last-child, th:last-child, tfoot > tr {
+    tbody td:last-child, th:last-child, tfoot > tr {
       display: none;
     }
   }

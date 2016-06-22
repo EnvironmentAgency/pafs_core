@@ -7,7 +7,6 @@ module PafsCore
     # NOTE: STEPS.first and STEPS.last are used to determine the start
     # and end points for the user's journey (although we can change this)
     STEPS = [:project_name,
-             # :project_reference_number,
              :project_type,
              :financial_year,
              :key_dates,
@@ -66,7 +65,7 @@ module PafsCore
 
     attr_reader :user
 
-    def initialize(user = nil)
+    def initialize(user)
       # when instantiated from a controller the 'current_user' should
       # be passed in. This will allow us to audit actions etc. down the line.
       @user = user
