@@ -40,7 +40,7 @@ module PafsCore
     end
 
     def at_least_one_risk_is_selected
-      errors.add(:base, "You must select at least one risk") unless
+      errors.add(:base, "Select the risks your project protects against") unless
         [fluvial_flooding,
          tidal_flooding,
          groundwater_flooding,
