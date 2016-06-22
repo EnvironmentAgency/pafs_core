@@ -38,6 +38,10 @@ module PafsCore
       Date.new(2021, 3, 31).to_formatted_s(:long_ordinal)
     end
 
+    def housing_protection_table_cell(year, thing)
+      "#{str_year(year)}-#{funding_source} numeric"
+    end
+
     def strategic_officer_link
       link_to t("strategic_officer_label"), t("strategic_officer_link"),
         rel: "external", target: "_blank"

@@ -38,10 +38,8 @@
       <h1 class="heading-small">Risks and outcomes</h1>
       <ul>
         <%= nav_step_item(@project, :risks) %>
-        <li>
-          <span class="complete-flag"></span>
-          <%= link_to "Households benefiting", "#" %>
-        </li>
+        <%= nav_step_item(@project, :flood_protection_outcomes) %>
+        <%= nav_step_item(@project, :coastal_erosion_protection_outcomes) %>
         <%= nav_step_item(@project, :standard_of_protection) %>
         <%= nav_step_item(@project, :approach) %>
       </ul>

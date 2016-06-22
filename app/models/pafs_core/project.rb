@@ -11,7 +11,11 @@ module PafsCore
     has_many :area_projects
     has_many :areas, through: :area_projects
     has_many :funding_values
+    has_many :flood_protection_outcomes
+    has_many :coastal_erosion_protection_outcomes
     accepts_nested_attributes_for :funding_values, allow_destroy: true
+    accepts_nested_attributes_for :flood_protection_outcomes, allow_destroy: true
+    accepts_nested_attributes_for :coastal_erosion_protection_outcomes, allow_destroy: true
 
     before_validation :set_slug, on: :create
 
@@ -26,6 +30,11 @@ module PafsCore
     def storage_path
       @storage_path ||= File.join(to_param, version.to_s)
     end
+
+    def flooding?
+      true if fluvial_flooding? || tidal_flooding? || groundwater_flooding? || surface_water_flooding?
+    end
+
   private
     def set_slug
       self.slug = reference_number.parameterize.upcase

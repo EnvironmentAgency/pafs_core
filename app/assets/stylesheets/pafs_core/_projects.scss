@@ -28,7 +28,7 @@
   text-align: center;
 }
 
-.funding-table, .funding-table-summary {
+.funding-table, .funding-table-summary, .protection-outcomes-table, .protection-outcomes-table-summary {
   th {
     vertical-align: top;
   }
@@ -40,6 +40,24 @@
   .data-column {
     min-width: 6em;
     width: 7em;
+  }
+
+  .protection-outcomes {
+    text-align: left;
+  }
+
+  .protection-outcomes-subheading {
+    text-align: right;
+  }
+
+  .significant-to-low-risk {
+    text-align: right;
+    width: 11.5em;
+  }
+
+  .most-deprived {
+    text-align: right;
+    width: 7.5em;
   }
 
   .data-total {
