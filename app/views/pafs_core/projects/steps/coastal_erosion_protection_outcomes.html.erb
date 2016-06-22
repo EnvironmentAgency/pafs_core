@@ -1,0 +1,78 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', locals: { project: @project } %>
+    </div>
+    <div class="column-two-thirds">
+      <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+        <%= f.error_header %>
+        <h1 class="heading-large"><%= t('.heading') %></h1>
+        <p><%= t('.lede') %></p>
+        <div class="step-form">
+          <%= f.form_group :base do %>
+            <%= f.error_message(:base) %>
+            <div class="scroll-horz">
+              <fieldset>
+                <table class="protection-outcomes-table hidden-totals">
+                  <thead>
+                    <tr>
+                      <th class="financial-year-column"><%= t(".financial_year_label") %></th>
+                      <th class="data-column protection-outcomes"><%= t(".households_at_reduced_risk_label") %></th>
+                      <th class="data-column protection-outcomes significant-to-low-risk"><%= t(".households_protected_from_loss_in_next_20_years_label") %></th>
+                      <th class="data-column protection-outcomes most-deprived"><%= t(".households_protected_from_loss_in_20_percent_most_deprived_label") %></th>
+                    </tr>
+                    <tr>
+                      <th></th>
+                      <th class="data-column protection-outcomes-subheading">A</th>
+                      <th class="data-column protection-outcomes-subheading">B</th>
+                      <th class="data-column protection-outcomes-subheading">C</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%= f.fields_for :coastal_erosion_protection_outcomes, @project.current_coastal_erosion_protection_outcomes do |builder| %>
+                      <tr>
+                        <td class="financial_year">
+                          <%= builder.hidden_field :financial_year %>
+                          <%= builder.hidden_field :id %>
+                          <%= formatted_financial_year(builder.object.financial_year) %>
+                        </td>
+                        <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.households_at_reduced_risk) %>">
+                            <%= builder.number_field_without_label :households_at_reduced_risk,                                     class: "funding-value",
+                                                                   min: 0,
+                                                                   step: 1 %>
+                        </td>
+                        <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.households_protected_from_loss_in_next_20_years) %> significant-to-low-risk">
+                            <%= builder.number_field_without_label :households_protected_from_loss_in_next_20_years,
+                                                                  class: "significant-to-low-risk",
+                                                                  min: 0,
+                                                                  step: 1 %>
+                        </td>
+                        <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.households_protected_from_loss_in_20_percent_most_deprived) %>">
+                            <%= builder.number_field_without_label :households_protected_from_loss_in_20_percent_most_deprived,
+                                                                  class: "most-deprived",
+                                                                  min: 0,
+                                                                  step: 1 %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td><%= t(".total_label") %></td>
+                      <td class="numeric households-at-reduced-risk-total">Total here</td>
+                      <td class="numeric moved-from-very-significant-and-significant-to-moderate-or-low-total">Total here</td>
+                      <td class="numeric households-protected-from-loss-in-20-percent-most-deprived-total">Total here</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </fieldset>
+            </div>
+            <% end %>
+          <div class="form-group">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

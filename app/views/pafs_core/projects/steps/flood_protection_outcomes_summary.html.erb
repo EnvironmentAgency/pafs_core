@@ -1,0 +1,75 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', locals: { project: @project } %>
+    </div>
+    <div class="column-two-thirds">
+      <h1 class="heading-large"><%= t('.heading') %></h1>
+      <div class="step-form">
+        <div class="form-group">
+          <div class="scroll-horz">
+            <fieldset>
+              <legend class="visuallyhidden"><%= t('.heading') %></legend>
+              <table class="fprotection-outcomes-table-summary">
+                <thead>
+                  <tr>
+                    <th class="financial-year-column"><%= t(".financial_year_label") %></th>
+                    <th class="data-column protection-outcomes"><%= t(".households_at_reduced_risk_label") %></th>
+                    <th class="data-column protection-outcomes significant-to-low-risk"><%= t(".households_moved_from_very_significant_and_significant_to_moderate_or_low_label") %></th>
+                    <th class="data-column protection-outcomes most-deprived"><%= t(".households_protected_from_loss_in_20_percent_most_deprived_label") %></th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th class="data-column protection-outcomes-subheading">A</th>
+                    <th class="data-column protection-outcomes-subheading">B</th>
+                    <th class="data-column protection-outcomes-subheading">C</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @project.current_flood_protection_outcomes.each do |fpo| %>
+                    <tr>
+                      <td class="financial_year">
+                        <%= formatted_financial_year(fpo.financial_year) %>
+                      </td>
+                      <td class="<%= funding_table_cell(fpo.financial_year, fpo.households_at_reduced_risk) %>">
+                        <%= number_with_delimiter fpo.send(:households_at_reduced_risk) %>
+                      </td>
+                      <td class="<%= funding_table_cell(fpo.financial_year, fpo.moved_from_very_significant_and_significant_to_moderate_or_low) %>">
+                        <%= number_with_delimiter fpo.send(:moved_from_very_significant_and_significant_to_moderate_or_low) %>
+                      </td>
+                      <td class="<%= funding_table_cell(fpo.financial_year, fpo.households_protected_from_loss_in_20_percent_most_deprived) %>">
+                        <%= number_with_delimiter fpo.send(:households_protected_from_loss_in_20_percent_most_deprived) %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td><%= funding_value_label(:total) %></td>
+                    <td class="numeric">
+                      <%= number_with_delimiter @project.total_for(:households_at_reduced_risk) %>
+                    </td>
+                    <td class="numeric">
+                      <%= number_with_delimiter @project.total_for(:moved_from_very_significant_and_significant_to_moderate_or_low) %>
+                    </td>
+                    <td class="numeric">
+                      <%= number_with_delimiter @project.total_for(:households_protected_from_loss_in_20_percent_most_deprived) %>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </fieldset>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= link_to "I want to amend these figures", pafs_core.project_step_path(id: @project.to_param, step: @project.previous_step) %>
+        </div>
+        <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+          <div class="form-group">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

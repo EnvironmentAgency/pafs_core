@@ -22,4 +22,28 @@ RSpec.describe PafsCore::Project, type: :model do
       expect(subject.errors[:reference_number].join).to match /invalid format/
     end
   end
+
+  describe "#flooding?" do
+    subject { FactoryGirl.create(:project) }
+
+    it "is expected to return true if the project protects against any kind of flooding" do
+      subject.fluvial_flooding = true
+      expect(subject.flooding?).to eq(true)
+
+      subject.fluvial_flooding = false
+      subject.groundwater_flooding = true
+      expect(subject.flooding?).to eq(true)
+
+      subject.groundwater_flooding = false
+      subject.tidal_flooding = true
+      expect(subject.flooding?).to eq(true)
+
+      subject.tidal_flooding = false
+      subject.surface_water_flooding = true
+      expect(subject.flooding?).to eq(true)
+
+      subject.surface_water_flooding = false
+      expect(subject.flooding?).not_to eq(true)
+    end
+  end
 end

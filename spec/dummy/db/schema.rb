@@ -55,6 +55,22 @@ ActiveRecord::Schema.define(version: 20160621065849) do
 
   add_index "pafs_core_areas", ["name"], name: "index_pafs_core_areas_on_name", using: :btree
 
+  create_table "pafs_core_coastal_erosion_protection_outcomes", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "financial_year",                                             null: false
+    t.integer "households_at_reduced_risk"
+    t.integer "households_protected_from_loss_in_next_20_years"
+    t.integer "households_protected_from_loss_in_20_percent_most_deprived"
+  end
+
+  create_table "pafs_core_flood_protection_outcomes", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "financial_year",                                                 null: false
+    t.integer "households_at_reduced_risk"
+    t.integer "moved_from_very_significant_and_significant_to_moderate_or_low"
+    t.integer "households_protected_from_loss_in_20_percent_most_deprived"
+  end
+
   create_table "pafs_core_funding_values", force: :cascade do |t|
     t.integer "project_id"
     t.integer "financial_year",                                 null: false
