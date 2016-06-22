@@ -39,17 +39,28 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
   end
 
   describe "POST create" do
+    before(:each) do
+      @pso = FactoryGirl.create(:pso_area, parent_id: 1, name: "PSO Essex")
+      @rma = FactoryGirl.create(:rma_area, parent_id: @pso.id)
+      @user = FactoryGirl.create(:user)
+      @user.user_areas.create(area_id: @rma.id, primary: true)
+      @nav = PafsCore::ProjectNavigator.new(@user)
+    end
+
     context "when starting within 6 years" do
       it "creates a new project" do
+        expect(subject).to receive(:project_navigator) { @nav }
         expect { post :create, yes_or_no: "yes" }.to change { PafsCore::Project.count }.by 1
       end
 
       it "assigns @project" do
+        expect(subject).to receive(:project_navigator) { @nav }
         post :create, yes_or_no: "yes"
         expect(assigns(:project).project).to eq PafsCore::Project.last
       end
 
       it "redirects to the reference number page" do
+        expect(subject).to receive(:project_navigator) { @nav }
         post :create, yes_or_no: "yes"
         expect(response).to redirect_to reference_number_project_path(PafsCore::Project.last)
       end

@@ -116,16 +116,22 @@ module PafsCore
     end
 
     def at_least_one_value_per_column_entered
-      selected_funding_sources.each do |fs|
-        found = false
-        funding_values.each do |fv|
-          val = fv.send(fs)
-          if val.present?
-            found = true
-            errors.add(:base, "Values must be greater than or equal to zero") if val.to_i < 0
+      if selected_funding_sources.empty?
+        # this is only for the nav so we don't get a tick when no funding sources
+        # have been selected yet
+        errors.add(:base, "You must select at least one funding source first")
+      else
+        selected_funding_sources.each do |fs|
+          found = false
+          funding_values.each do |fv|
+            val = fv.send(fs)
+            if val.present?
+              found = true
+              errors.add(:base, "Values must be greater than or equal to zero") if val.to_i < 0
+            end
           end
+          errors.add(:base, "Please enter a value for #{funding_source_name(fs)}") unless found
         end
-        errors.add(:base, "Please enter a value for #{funding_source_name(fs)}") unless found
       end
     end
 

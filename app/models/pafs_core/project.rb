@@ -7,6 +7,7 @@ module PafsCore
                                            message: "has an invalid format" }
     validates :version, presence: true
 
+    belongs_to :creator, class_name: "User"
     has_many :area_projects
     has_many :areas, through: :area_projects
     has_many :funding_values
@@ -25,7 +26,6 @@ module PafsCore
     def storage_path
       @storage_path ||= File.join(to_param, version.to_s)
     end
-
   private
     def set_slug
       self.slug = reference_number.parameterize.upcase

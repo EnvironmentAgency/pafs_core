@@ -35,6 +35,12 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:base]).to include "Values must be greater than or equal to zero"
     end
+
+    it "validates that at least one funding source is present" do
+      subject.project.fcerm_gia = nil
+      expect(subject.valid?).to eq false
+      expect(subject.errors.messages[:base]).to include "You must select at least one funding source first"
+    end
   end
 
   describe "#update" do
