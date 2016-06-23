@@ -43,13 +43,13 @@
                         </td>
                         <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.moved_from_very_significant_and_significant_to_moderate_or_low) %> significant-to-low-risk">
                             <%= builder.number_field_without_label :moved_from_very_significant_and_significant_to_moderate_or_low,
-                                                                  class: "significant-to-low-risk",
+                                                                  class: "protection-value significant-to-low-risk",
                                                                   min: 0,
                                                                   step: 1 %>
                         </td>
                         <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.households_protected_from_loss_in_20_percent_most_deprived) %>">
                             <%= builder.number_field_without_label :households_protected_from_loss_in_20_percent_most_deprived,
-                                                                  class: "most-deprived",
+                                                                  class: "protection-value most-deprived",
                                                                   min: 0,
                                                                   step: 1 %>
                         </td>
