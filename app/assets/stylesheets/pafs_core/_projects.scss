@@ -24,8 +24,16 @@
   text-align: right;
 }
 
-.funding-table .data-column {
-  text-align: center;
+.funding-table {
+  .data-column {
+    text-align: center;
+  }
+
+  &.hidden-totals {
+    tbody td:last-child, th:last-child {
+      display: none;
+    }
+  }
 }
 
 .funding-table, .funding-table-summary, .protection-outcomes-table, .protection-outcomes-table-summary {
@@ -51,13 +59,15 @@
   }
 
   .significant-to-low-risk {
-    text-align: right;
     width: 11.5em;
   }
 
   .most-deprived {
-    text-align: right;
     width: 7.5em;
+  }
+
+  .protection-value {
+    text-align: right;
   }
 
   .data-total {
@@ -76,7 +86,7 @@
   }
 
   &.hidden-totals {
-    tbody td:last-child, th:last-child, tfoot > tr {
+    tfoot > tr {
       display: none;
     }
   }

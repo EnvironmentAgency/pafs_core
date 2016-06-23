@@ -11,7 +11,7 @@ module PafsCore
              :coastal_erosion?,
              to: :project
 
-    validate :values_make_sense
+    validate :values_make_sense, :at_least_one_value
 
     def update(params)
       js_enabled = !!params.fetch(:js_enabled, false)
@@ -75,6 +75,11 @@ module PafsCore
       end
       errors.add(:base, "B must be smaller than or equal to A") if !b_too_big.empty?
       errors.add(:base, "C must be smaller than or equal to B") if !c_too_big.empty?
+    end
+
+    def at_least_one_value
+      total_households = flood_protection_outcomes.sum(:households_at_reduced_risk)
+      errors.add(:base, "There must be at least one value in column A") if total_households.nil?
     end
 
     private
