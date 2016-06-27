@@ -162,6 +162,10 @@ en:
           example_label: Show me examples
           example_1: Waterside has a long history of flooding from open and culverted watercourses, affecting around 100 properties in the village. This project is to develop the completed pre-feasibility into a business case, followed by detailed design and construction. Some options have already been implemented including upgrading the open watercourses. However, the restrictions caused by the culverts still need to be addressed – this will be done by upsizing the culverts.
           example_2: The coastal defences at Beachside protect approximately 5,000 properties from tidal flooding. The defences were constructed in the 1920s and are life expired. Previous breaches of the defences occurred within this length in 1977 resulting in the flooding of over 2,000 properties. The scheme aims to improve the standard of protection to these 5,000 properties by installing a new revetment, promenade and raised rear wall, together with soft landscaping works to the rear over a length of 1,800m.
+        surface_and_groundwater:
+          heading: Will the project protect or improve surface water or groundwater?
+        surface_and_groundwater_amount:
+          heading: How many kilometres of surface water or groundwater is the project likely to protect or improve?
         urgency:
           heading: Is the project urgent for any of the following reasons?
         urgency_details:
