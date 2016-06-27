@@ -31,6 +31,7 @@ module PafsCore
 
              :surface_and_groundwater,
              :surface_and_groundwater_amount, # not in nav
+             :improve_river, # not in nav
              # :wfd_benefits,
              :habitat_outcomes,
              :additional_outcomes,

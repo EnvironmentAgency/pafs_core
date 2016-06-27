@@ -21,6 +21,7 @@ en:
   approach_step_label: "Approach"
   surface_and_groundwater_step_label: "Surface and groundwater"
   surface_and_groundwater_amount_step_label: "Surface and groundwater"
+  improve_river_step_label: "Surface and groundwater"
   habitat_outcomes_step_label: "Habitat outcomes"
   additional_outcomes_step_label: "Additional outcomes"
   fish_eel_passages_step_label: "Fish/eel passages"

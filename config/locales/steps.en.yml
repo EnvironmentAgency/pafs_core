@@ -166,6 +166,8 @@ en:
           heading: Will the project protect or improve surface water or groundwater?
         surface_and_groundwater_amount:
           heading: How many kilometres of surface water or groundwater is the project likely to protect or improve?
+        improve_river:
+          heading: Will the project protect or improve a length of river or priority river habitat?
         urgency:
           heading: Is the project urgent for any of the following reasons?
         urgency_details:

@@ -73,6 +73,10 @@ FactoryGirl.define do
       improve_surface_or_groundwater_amount 50.25
     end
 
+    factory :improve_river_step, class: PafsCore::ImproveRiverStep do
+      improve_river true
+    end
+
     factory :urgency_step, class: PafsCore::UrgencyStep do
       urgency_reason "health_and_safety"
     end
