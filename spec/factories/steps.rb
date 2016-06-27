@@ -65,6 +65,18 @@ FactoryGirl.define do
       approach "We will go left and then turn right for a bit"
     end
 
+    factory :surface_and_groundwater_step, class: PafsCore::SurfaceAndGroundwaterStep do
+      improve_surface_or_groundwater true
+    end
+
+    factory :surface_and_groundwater_amount_step, class: PafsCore::SurfaceAndGroundwaterAmountStep do
+      improve_surface_or_groundwater_amount 50.25
+    end
+
+    factory :improve_river_step, class: PafsCore::ImproveRiverStep do
+      improve_river true
+    end
+
     factory :urgency_step, class: PafsCore::UrgencyStep do
       urgency_reason "health_and_safety"
     end

@@ -29,7 +29,10 @@ module PafsCore
              :standard_of_protection_coastal, # not in nav - follows :standard_of_protection
              :approach,
 
-             :wfd_benefits,
+             :surface_and_groundwater,
+             :surface_and_groundwater_amount, # not in nav
+             :improve_river, # not in nav
+             # :wfd_benefits,
              :habitat_outcomes,
              :additional_outcomes,
              :fish_eel_passages,

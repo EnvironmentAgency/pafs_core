@@ -13,7 +13,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     it "validates that a file has been selected" do
       subject.funding_calculator_file_name = nil
       expect(subject.valid?).to eq false
-      expect(subject.errors[:base]).to include "Please select your partnership funding calculator file"
+      expect(subject.errors[:base]).to include "Select your partnership funding calculator file"
     end
 
     it "validates that the file passed a virus check" do
