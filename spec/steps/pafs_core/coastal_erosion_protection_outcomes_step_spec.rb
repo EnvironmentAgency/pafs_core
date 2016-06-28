@@ -36,6 +36,16 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:base]).to include "B must be smaller than or equal to A"
     end
+
+    it "validates that there is at least one A value" do
+      @project.coastal_erosion_protection_outcomes = []
+      @project.save
+      subject.coastal_erosion_protection_outcomes.build(financial_year: 2020,
+                                                        households_at_reduced_risk: 0)
+
+      expect(subject.valid?).to be false
+      expect(subject.errors.messages[:base]).to include "There must be at least one value in column A"
+    end
   end
 
   describe "#update" do
