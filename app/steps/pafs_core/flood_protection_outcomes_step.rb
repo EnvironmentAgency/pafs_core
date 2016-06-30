@@ -78,8 +78,8 @@ module PafsCore
     end
 
     def at_least_one_value
-      total_households = flood_protection_outcomes.sum(:households_at_reduced_risk)
-      errors.add(:base, "There must be at least one value in column A") if total_households.nil?
+      total_households = flood_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
+      errors.add(:base, "There must be at least one value in column A") if total_households.zero?
     end
 
     private
