@@ -11,8 +11,7 @@ module PafsCore
 
     attr_reader :funding_calculator
     attr_accessor :virus_info
-    validates :funding_calculator_file_name, presence: true
-    validates :virus_info, absence: true
+    validate :virus_free_funding_calculator_present
 
     def update(params)
       uploaded_file = step_params(params).fetch(:funding_calculator, nil)
@@ -34,13 +33,7 @@ module PafsCore
           self.funding_calculator_file_size = uploaded_file.size
           self.funding_calculator_updated_at = Time.zone.now
           self.virus_info = nil
-        rescue PafsCore::VirusFoundError => e
-          Rails.logger.error e.message
-          # TODO: we could make a better message here or in the exeception
-          self.virus_info = e.message
-        rescue PafsCore::VirusScannerError => e
-          Rails.logger.error e.message
-          # TODO: we could make a better message here or in the exeception
+        rescue PafsCore::VirusFoundError, PafsCore::VirusScannerError => e
           self.virus_info = e.message
         end
       end
@@ -76,6 +69,13 @@ module PafsCore
       end
     end
 
+    def delete_calculator
+      if funding_calculator_file_name.present?
+        storage.delete(File.join(storage_path, funding_calculator_file_name))
+        reset_file_attributes
+      end
+    end
+
   private
     def step_params(params)
       ActionController::Parameters.new(params).
@@ -83,8 +83,30 @@ module PafsCore
         permit(:funding_calculator)
     end
 
+    def reset_file_attributes
+      self.funding_calculator_file_name = nil
+      self.funding_calculator_content_type = nil
+      self.funding_calculator_file_size = nil
+      self.funding_calculator_updated_at = nil
+      self.virus_info = nil
+      project.save
+    end
+
     def storage
-      @storage ||= PafsCore::FileStorageService.new user
+      @storage ||= if Rails.env.development?
+                     PafsCore::DevelopmentFileStorageService.new user
+                   else
+                     PafsCore::FileStorageService.new user
+                   end
+    end
+
+    def virus_free_funding_calculator_present
+      if virus_info.present?
+        Rails.logger.error virus_info
+        errors.add(:base, "The file was rejected because it may contain a virus. Verify your file and try again")
+      elsif funding_calculator_file_name.blank?
+        errors.add(:base, "Select your partnership funding calculator file")
+      end
     end
   end
 end

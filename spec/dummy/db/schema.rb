@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607122314) do
+ActiveRecord::Schema.define(version: 20160623072705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,14 +55,44 @@ ActiveRecord::Schema.define(version: 20160607122314) do
 
   add_index "pafs_core_areas", ["name"], name: "index_pafs_core_areas_on_name", using: :btree
 
+  create_table "pafs_core_coastal_erosion_protection_outcomes", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "financial_year",                                             null: false
+    t.integer "households_at_reduced_risk"
+    t.integer "households_protected_from_loss_in_next_20_years"
+    t.integer "households_protected_from_loss_in_20_percent_most_deprived"
+  end
+
+  create_table "pafs_core_flood_protection_outcomes", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "financial_year",                                                 null: false
+    t.integer "households_at_reduced_risk"
+    t.integer "moved_from_very_significant_and_significant_to_moderate_or_low"
+    t.integer "households_protected_from_loss_in_20_percent_most_deprived"
+  end
+
+  create_table "pafs_core_funding_values", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "financial_year",                                 null: false
+    t.integer "fcerm_gia",                limit: 8
+    t.integer "local_levy",               limit: 8
+    t.integer "internal_drainage_boards", limit: 8
+    t.integer "public_contributions",     limit: 8
+    t.integer "private_contributions",    limit: 8
+    t.integer "other_ea_contributions",   limit: 8
+    t.integer "growth_funding",           limit: 8
+    t.integer "not_yet_identified",       limit: 8
+    t.integer "total",                    limit: 8, default: 0, null: false
+  end
+
   create_table "pafs_core_projects", force: :cascade do |t|
-    t.string   "reference_number",                                 null: false
-    t.integer  "version",                                          null: false
+    t.string   "reference_number",                                     null: false
+    t.integer  "version",                                              null: false
     t.string   "name"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.integer  "project_end_financial_year"
-    t.string   "slug",                              default: "",   null: false
+    t.string   "slug",                                  default: "",   null: false
     t.integer  "start_outline_business_case_month"
     t.integer  "start_outline_business_case_year"
     t.integer  "award_contract_month"
@@ -96,11 +126,11 @@ ActiveRecord::Schema.define(version: 20160607122314) do
     t.string   "funding_calculator_content_type"
     t.integer  "funding_calculator_file_size"
     t.datetime "funding_calculator_updated_at"
-    t.text     "project_location",                  default: [],                array: true
-    t.integer  "project_location_zoom_level",       default: 15
-    t.text     "benefit_area",                      default: "[]"
-    t.text     "benefit_area_centre",               default: [],                array: true
-    t.integer  "benefit_area_zoom_level",           default: 15
+    t.text     "project_location",                      default: [],                array: true
+    t.integer  "project_location_zoom_level",           default: 15
+    t.text     "benefit_area",                          default: "[]"
+    t.text     "benefit_area_centre",                   default: [],                array: true
+    t.integer  "benefit_area_zoom_level",               default: 15
     t.datetime "submitted_at"
     t.string   "environmental_type"
     t.integer  "flood_protection_before"
@@ -110,6 +140,20 @@ ActiveRecord::Schema.define(version: 20160607122314) do
     t.string   "urgency_reason"
     t.string   "urgency_details"
     t.string   "approach"
+    t.integer  "creator_id"
+    t.boolean  "improve_surface_or_groundwater"
+    t.float    "improve_surface_or_groundwater_amount"
+    t.boolean  "improve_river"
+    t.boolean  "improve_spa_or_sac"
+    t.boolean  "improve_sssi"
+    t.boolean  "improve_hpi"
+    t.float    "improve_habitat_amount"
+    t.float    "improve_river_amount"
+    t.boolean  "create_habitat"
+    t.float    "create_habitat_amount"
+    t.boolean  "remove_fish_barrier"
+    t.boolean  "remove_eel_barrier"
+    t.float    "fish_or_eel_amount"
   end
 
   add_index "pafs_core_projects", ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree

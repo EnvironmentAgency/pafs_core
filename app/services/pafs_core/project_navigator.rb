@@ -7,13 +7,13 @@ module PafsCore
     # NOTE: STEPS.first and STEPS.last are used to determine the start
     # and end points for the user's journey (although we can change this)
     STEPS = [:project_name,
-             # :project_reference_number,
              :project_type,
              :financial_year,
              :key_dates,
 
              :funding_sources,
-             :funding_details,
+             :funding_values,
+             :funding_values_summary, # not in nav - accessible only when no js following :funding_values
              :earliest_start,
              :earliest_date, # not in nav - accessible by choosing 'Yes' on :earliest_start
              :location,
@@ -21,12 +21,18 @@ module PafsCore
 
              :risks,
              :main_risk, # not in nav - accessible following :risks
-             :households_benefitting,
+             :flood_protection_outcomes,
+             :flood_protection_outcomes_summary,
+             :coastal_erosion_protection_outcomes,
+             :coastal_erosion_protection_outcomes_summary,
              :standard_of_protection,
              :standard_of_protection_coastal, # not in nav - follows :standard_of_protection
              :approach,
 
-             :wfd_benefits,
+             :surface_and_groundwater,
+             :surface_and_groundwater_amount, # not in nav
+             :improve_river, # not in nav
+             # :wfd_benefits,
              :habitat_outcomes,
              :additional_outcomes,
              :fish_eel_passages,
@@ -34,8 +40,8 @@ module PafsCore
              :urgency,
              :urgency_details, # not in nav - follows :urgency
 
-             :funding_calculator,
-             :summary].freeze
+             :funding_calculator
+    ].freeze
 
     # Not sure we really need this --v
     # GROUPS = {
@@ -62,7 +68,7 @@ module PafsCore
 
     attr_reader :user
 
-    def initialize(user = nil)
+    def initialize(user)
       # when instantiated from a controller the 'current_user' should
       # be passed in. This will allow us to audit actions etc. down the line.
       @user = user
@@ -74,6 +80,10 @@ module PafsCore
 
     def self.last_step
       STEPS.last
+    end
+
+    def new_blank_project
+      PafsCore::Project.new
     end
 
     def start_new_project

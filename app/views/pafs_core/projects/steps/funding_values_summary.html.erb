@@ -1,0 +1,68 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', locals: { project: @project } %>
+    </div>
+    <div class="column-two-thirds">
+      <h1 class="heading-large"><%= t('.heading') %></h1>
+      <div class="step-form">
+        <div class="form-group">
+          <div class="scroll-horz">
+            <fieldset>
+              <legend class="visuallyhidden"><%= t('.heading') %></legend>
+              <table class="funding-table-summary">
+                <thead>
+                  <tr>
+                    <th class="financial-year-column"><%= funding_value_label(:financial_year) %></th>
+                    <% @project.selected_funding_sources.each do |fs| %>
+                      <th class="data-column <%= "#{fs}-column" %>"><%= funding_value_label(fs) %></th>
+                    <% end %>
+                    <th class="data-total"><%= funding_value_label(:total) %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @project.current_funding_values.each do |fv| %>
+                    <tr>
+                      <td class="financial_year">
+                        <%= formatted_financial_year(fv.financial_year) %>
+                      </td>
+                      <% @project.selected_funding_sources.each do |fs| %>
+                        <td class="<%= funding_table_cell(fv.financial_year, fs) %>">
+                          <%= number_with_delimiter fv.send(fs) %>
+                        </td>
+                      <% end %>
+                      <td class="row-total numeric">
+                        <%= number_with_delimiter fv.total %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td><%= funding_value_label(:total) %></td>
+                    <% @project.selected_funding_sources.each do |fs| %>
+                      <td class="numeric">
+                        <%= number_with_delimiter @project.total_for(fs) %>
+                      </td>
+                    <% end %>
+                    <td class="numeric grand-total">
+                      <%= number_with_delimiter @project.grand_total %>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </fieldset>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= link_to "I want to amend these figures", pafs_core.project_step_path(id: @project.to_param, step: @project.previous_step) %>
+        </div>
+        <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+          <div class="form-group">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

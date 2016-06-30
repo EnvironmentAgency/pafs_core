@@ -34,22 +34,34 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
   describe "GET new" do
     it "renders the new template" do
       get :new
+      expect(assigns(:project)).not_to be_nil
       expect(response).to render_template("new")
     end
   end
 
   describe "POST create" do
+    before(:each) do
+      @pso = FactoryGirl.create(:pso_area, parent_id: 1, name: "PSO Essex")
+      @rma = FactoryGirl.create(:rma_area, parent_id: @pso.id)
+      @user = FactoryGirl.create(:user)
+      @user.user_areas.create(area_id: @rma.id, primary: true)
+      @nav = PafsCore::ProjectNavigator.new(@user)
+    end
+
     context "when starting within 6 years" do
       it "creates a new project" do
+        expect(subject).to receive(:project_navigator) { @nav }
         expect { post :create, yes_or_no: "yes" }.to change { PafsCore::Project.count }.by 1
       end
 
       it "assigns @project" do
+        expect(subject).to receive(:project_navigator) { @nav }
         post :create, yes_or_no: "yes"
         expect(assigns(:project).project).to eq PafsCore::Project.last
       end
 
       it "redirects to the reference number page" do
+        expect(subject).to receive(:project_navigator) { @nav }
         post :create, yes_or_no: "yes"
         expect(response).to redirect_to reference_number_project_path(PafsCore::Project.last)
       end
@@ -71,14 +83,15 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
         expect { post :create }.not_to change { PafsCore::Project.count }
       end
 
-      it "sets a flash alert message" do
-        post :create
-        expect(flash[:alert]).to eq "Please choose Yes or No"
-      end
-
       it "renders the :new template" do
         post :create
         expect(response).to render_template("new")
+      end
+
+      it "assigns @project with an error message" do
+        post :create
+        expect(assigns(:project).errors[:base]).
+          to include "Tell us if you need funding before 31 March 2021"
       end
     end
   end
@@ -117,6 +130,13 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       get :step, id: @project.to_param, step: "project_name"
       expect(response).to render_template "project_name"
     end
+
+    context "when step is disabled" do
+      it "raises a not_found error" do
+        expect { get :step, id: @project.to_param, step: "funding_values" }.
+          to raise_error ActionController::RoutingError
+      end
+    end
   end
 
   describe "PATCH save" do
@@ -138,6 +158,15 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
         patch :save, id: @project.to_param, step: "project_name",
           project_name_step: { name: "Haystack" }
         expect(response).to redirect_to project_step_path(id: @project.to_param, step: "project_type")
+      end
+
+      context "when the next step is :summary step" do
+        it "redirects to the project summary page" do
+          @project.update_attributes(funding_calculator_file_name: "peanuts.xsl")
+          patch :save, id: @project.to_param, step: "funding_calculator",
+          funding_calculator_step: { test: "Haystack" }
+          expect(response).to redirect_to project_path(id: @project.to_param)
+        end
       end
     end
 
@@ -165,7 +194,7 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       end
 
       it "jumps to the step after main_risk_step" do
-        expect(response).to redirect_to project_step_path(id: @project.to_param, step: :households_benefiting)
+        expect(response).to redirect_to project_step_path(id: @project.to_param, step: :flood_protection_outcomes)
       end
     end
   end
@@ -193,6 +222,27 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           with(data, { filename: filename, type: content_type }) { controller.render nothing: true }
 
         get :download_funding_calculator, id: @project.to_param, step: "funding_calculator"
+      end
+    end
+  end
+
+  describe "GET delete_funding_calculator" do
+    before(:each) { @project = FactoryGirl.create(:project) }
+
+    context "given a file has been stored previously" do
+      let(:navigator) { double("project_navigator") }
+      let(:step) { double("funding_calculator_step") }
+      let(:filename) { "my_upload.xls" }
+      let(:content_type) { "text/plain" }
+
+      it "deletes the funding calculator" do
+        expect(controller).to receive(:project_navigator) { navigator }
+        expect(navigator).to receive(:find_project_step).
+          with(@project.to_param, :funding_calculator) { step }
+
+        expect(step).to receive(:delete_calculator)
+
+        get :delete_funding_calculator, id: @project.to_param
       end
     end
   end

@@ -7,6 +7,10 @@ module PafsCore
     before_filter :set_cache_headers
 
   private
+    def raise_not_found
+      raise ActionController::RoutingError.new("Not Found")
+    end
+
     def set_cache_headers
       response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate, private"
       response.headers["Pragma"] = "no-cache"

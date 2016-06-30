@@ -16,20 +16,6 @@ module PafsCore
       storage.put_object(bucket: bucket_name, key: to_path, body: File.open(from_path))
     end
 
-    # dest can be a file name or IO
-    # eg
-    # t = Tempfile.new
-    # fss.download("my_file_key", t)
-    # t.rewind
-    # # ... do stuff
-    # t.close!
-    # although seems to work more reliably under rails as a file name
-    # eg
-    # t = TempFile.new
-    # fss.download("my_file_key", t.path)
-    # t.rewind
-    # # ...
-    # t.close!
     def download(file_key, dest)
       storage.get_object(bucket: bucket_name, key: file_key, response_target: dest)
     rescue Aws::S3::Errors::NoSuchKey => e

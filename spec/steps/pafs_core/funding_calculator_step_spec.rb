@@ -10,8 +10,18 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
 
     it_behaves_like "a project step"
 
-    it { is_expected.to validate_presence_of :funding_calculator_file_name }
-    it { is_expected.to validate_absence_of :virus_info }
+    it "validates that a file has been selected" do
+      subject.funding_calculator_file_name = nil
+      expect(subject.valid?).to eq false
+      expect(subject.errors[:base]).to include "Select your partnership funding calculator file"
+    end
+
+    it "validates that the file passed a virus check" do
+      subject.virus_info = "Found a nasty virus"
+      expect(subject.valid?).to eq false
+      expect(subject.errors[:base]).
+        to include "The file was rejected because it may contain a virus. Verify your file and try again"
+    end
   end
 
   describe "#update" do
@@ -155,6 +165,31 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
                             subject.funding_calculator_file_name,
                             subject.funding_calculator_content_type)
         end
+      end
+    end
+  end
+
+  describe "#delete_calculator" do
+    let(:storage) { double("storage") }
+    subject { FactoryGirl.build(:funding_calculator_step) }
+    before(:each) do
+      expect(PafsCore::FileStorageService).to receive(:new) { storage }
+    end
+
+    context "when an uploaded file exists" do
+      it "removes the file from storage" do
+        expect(storage).to receive(:delete)
+        subject.delete_calculator
+      end
+
+      it "resets the stored file attributes" do
+        expect(storage).to receive(:delete)
+        subject.delete_calculator
+        expect(subject.funding_calculator_file_name).to be_nil
+        expect(subject.funding_calculator_content_type).to be_nil
+        expect(subject.funding_calculator_file_size).to be_nil
+        expect(subject.funding_calculator_updated_at).to be_nil
+        expect(subject.virus_info).to be_nil
       end
     end
   end

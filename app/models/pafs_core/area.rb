@@ -11,32 +11,49 @@ module PafsCore
     validates_uniqueness_of :name
     validate :parentage
     validates_inclusion_of :area_type, in: AREA_TYPES
-    validate :rma_sub_type
+    validates :sub_type, presence: true, if: :rma?
 
     belongs_to :parent, class_name: "Area"
     has_many :children, class_name: "Area", foreign_key: "parent_id"
     has_many :area_projects
+    has_many :projects, through: :area_projects
 
     scope :top_level, -> { where(parent_id: nil) }
 
+    def self.ea_areas
+      where(area_type: AREA_TYPES[1])
+    end
+
+    def self.pso_areas
+      where(area_type: AREA_TYPES[2])
+    end
+
+    def self.rma_areas
+      where(area_type: AREA_TYPES[3])
+    end
+
+    def country?
+      area_type == AREA_TYPES[0]
+    end
+
+    def ea_area?
+      area_type == AREA_TYPES[1]
+    end
+
+    def pso_area?
+      area_type == AREA_TYPES[2]
+    end
+
+    def rma?
+      area_type == AREA_TYPES[3]
+    end
+
     def parentage
-      if area_type != AREA_TYPES[0] && parent_id.blank?
+      if !country? && parent_id.blank?
         errors.add(:parent_id, "can't be blank")
-      elsif area_type == AREA_TYPES[0] && parent_id.present?
+      elsif country? && parent_id.present?
         errors.add(:parent_id, "must be blank")
       end
-    end
-
-    def rma_sub_type
-      errors.add(:sub_type, "can't be blank") if area_type == AREA_TYPES[3] && sub_type.blank?
-    end
-
-    def owned_projects
-      area_projects.ownerships.map(&:project)
-    end
-
-    def projects
-      PafsCore::ProjectService.new.show_projects(self.id, self.area_type)
     end
   end
 end

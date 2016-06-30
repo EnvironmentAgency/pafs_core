@@ -1,7 +1,5 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "rails_helper"
-# require_relative "./shared_step_spec"
 
 RSpec.describe PafsCore::RisksStep, type: :model do
   describe "attributes" do
@@ -12,7 +10,7 @@ RSpec.describe PafsCore::RisksStep, type: :model do
     it "validates that at least one risk source is selected" do
       subject.fluvial_flooding = false
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "You must select at least one risk"
+      expect(subject.errors.messages[:base]).to include "Select the risks your project protects against"
     end
   end
 

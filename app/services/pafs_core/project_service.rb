@@ -3,7 +3,7 @@ module PafsCore
   class ProjectService
     attr_reader :user
 
-    def initialize(user = nil)
+    def initialize(user)
       # when instantiated from a controller the 'current_user' should
       # be passed in. This will allow us to audit actions etc. down the line.
       @user = user
@@ -14,7 +14,9 @@ module PafsCore
     end
 
     def create_project
-      PafsCore::Project.create(initial_attributes)
+      p = PafsCore::Project.create(initial_attributes)
+      p.area_projects.create(area_id: user.primary_area.id, owner: true)
+      p
     end
 
     def find_project(id)
@@ -22,8 +24,8 @@ module PafsCore
       PafsCore::Project.find_by!(slug: id.to_s.upcase)
     end
 
-    def generate_reference_number(rfcc_code = nil)
-      rfcc_code = derive_rfcc_code_from_user if rfcc_code.blank?
+    def self.generate_reference_number(rfcc_code)
+      raise ArgumentError.new("Invalid RFCC code: [#{rfcc_code}]") unless PafsCore::RFCC_CODES.include? rfcc_code
       sequence_nos = PafsCore::ReferenceCounter.next_sequence_for(rfcc_code)
       "#{rfcc_code}C501E/%03dA/%03dA" % sequence_nos
     end
@@ -33,11 +35,11 @@ module PafsCore
       PafsCore::Project.all
     end
 
-    def show_projects(area_id, area_type)
+    def all_projects_for(area)
       PafsCore::Project.find_by_sql(%{
         with recursive area_tree(id) as (
           select areas.id from pafs_core_areas areas
-          where areas.id = #{area_id}
+          where areas.id = #{area.id}
           union all
           select areas.id from pafs_core_areas areas
           join area_tree
@@ -55,23 +57,22 @@ module PafsCore
         left join pafs_core_areas owning_areas
         on owning_area_projects.area_id = owning_areas.id
         where area_projects.area_id in (select id from area_tree)
-        #{'and area_projects.owner = true' if area_type != PafsCore::Area::AREA_TYPES.last}
+        #{'and area_projects.owner = true' unless area.rma?}
       }).uniq
     end
 
   private
     def initial_attributes
       {
-        reference_number: generate_reference_number,
+        reference_number: self.class.generate_reference_number(derive_rfcc_code_from_user),
         version: 1,
-        # TODO: creator: user
+        creator: user
       }
     end
 
     def derive_rfcc_code_from_user
-      #FIXME: this is just until we have the data from the data analyst
-      # and we can look this up based on the user's area
-      PafsCore::RFCC_CODES.last
+      raise RuntimeError, "User has no RFCC area code" unless user.rfcc_code
+      user.rfcc_code
     end
   end
 end

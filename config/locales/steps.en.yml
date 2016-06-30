@@ -53,6 +53,22 @@ en:
           public_sector_example: For example, local authority, parish council, Natural England. Do not enter values
           private_sector_example: For example, community group, local business, national business, riparian land owner. Do not enter values
           ea_example: Do not enter values
+# funding values
+        funding_values:
+          heading: What is the estimated spend for each financial year?
+          lede: Spending estimates should be in pounds (£) and estimated at present day value. Future maintenance costs aren't required.
+          financial_year_label: Financial year (April to April)
+          fcerm_gia_label: Grant in Aid
+          local_levy_label: Local levy
+          internal_drainage_boards_label: Internal drainage board precepts
+          public_contributions_label: Public sector contributions
+          private_contributions_label: Private sector contributions
+          other_ea_contributions_label: Other Environment Agency contributions
+          growth_funding_label: Growth funding
+          not_yet_identified_label: Not yet identified
+          total_label: Total (£)
+        funding_values_summary:
+          heading: Confirm the estimated spend for each financial year.
 # earliest start
         earliest_start:
           heading: Could your project start sooner if FCERM grant in aid (FCERM GiA) funding was available earlier?
@@ -79,11 +95,52 @@ en:
           heading: What is the main source of risk your proposed project will protect against?
           lede: You have told us that your proposed project will protect against these risks, please select which one is the main source of risk.
         funding_calculator:
-          heading: This is a test page
-          lede: This is a placeholder while we test file handling
+          heading: Partnership funding calculator
+          lede: The partnership funding calculator generates a score for the project based on the benefits, outcomes, and contributions that it aims to deliver. The score is used to prioritise and allocate funding in each year.
+          download_heading: Download and complete the partnership funding calculator
+          download_file_html: "<span class='visually-hidden'>Download your uploaded funding calculator named </span>%{file}"
+          upload_heading: Upload the completed partnership funding calculator
+          uploaded_heading: Your uploaded partnership funding calculator
           funding_calculator_label: Funding calculator
           download_link_label: Current funding calculator
           uploaded_at_label: Uploaded on
+          delete_label_html: "Delete<span class='visually-hidden'> your uploaded funding calculator</span>"
+          filename_title: File
+          uploaded_title: Uploaded
+# flood protection outcomes
+        flood_protection_outcomes:
+          heading: How many households affected by flooding is the project likely to benefit?
+          lede: Don't include any houses built or converted after 1 January 2012.
+          financial_year_label: Financial year (April to April)
+          households_at_reduced_risk_label: How many households moved to a lower flood risk category?
+          households_moved_from_very_significant_and_significant_to_moderate_or_low_label: Of the households in A, how many moved out of the very significant or significant category to the moderate or low category?
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, how many are in the 20% most deprived areas?
+          total_label: Total
+# flood protection outcomes summary
+        flood_protection_outcomes_summary:
+          heading: Confirm the number of households affected by coastal erosion that the project will benefit
+          financial_year_label: Financial year (April to April)
+          households_at_reduced_risk_label: Households moved to a lower flood risk category
+          households_moved_from_very_significant_and_significant_to_moderate_or_low_label: Of the households in A, the households that have moved out of the very significant or significant category to the moderate or low category
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, the households that are in the 20% most deprived areas
+          total_label: Total
+# coastal erosion protection outcomes
+        coastal_erosion_protection_outcomes:
+          heading: How many households affected coastal erosion is the project likely to benefit?
+          lede: Don't include any houses built or converted after 1 January 2012.
+          financial_year_label: Financial year (April to April)
+          households_at_reduced_risk_label: How many households are at a reduced risk of coastal erosion?
+          households_protected_from_loss_in_next_20_years_label: Of the households in A, how many are protected from loss within the next 20 years?
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, how many are in the 20% most deprived areas?
+          total_label: Total
+# coastal erosion protection outcomes summary
+        coastal_erosion_protection_outcomes_summary:
+          heading: Confirm the number of households affected by coastal erosion that the project will benefit
+          financial_year_label: Financial year (April to April)
+          households_at_reduced_risk_label: Households are at a reduced risk of coastal erosion
+          households_protected_from_loss_in_next_20_years_label: Of the households in A, the households that are protected from loss within the next 20 years
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, the households that are in the 20% most deprived areas
+          total_label: Total
 # standard of protection
         standard_of_protection:
           heading: What standard of protection will your proposed project provide against flooding?
@@ -105,6 +162,12 @@ en:
           example_label: Show me examples
           example_1: Waterside has a long history of flooding from open and culverted watercourses, affecting around 100 properties in the village. This project is to develop the completed pre-feasibility into a business case, followed by detailed design and construction. Some options have already been implemented including upgrading the open watercourses. However, the restrictions caused by the culverts still need to be addressed – this will be done by upsizing the culverts.
           example_2: The coastal defences at Beachside protect approximately 5,000 properties from tidal flooding. The defences were constructed in the 1920s and are life expired. Previous breaches of the defences occurred within this length in 1977 resulting in the flooding of over 2,000 properties. The scheme aims to improve the standard of protection to these 5,000 properties by installing a new revetment, promenade and raised rear wall, together with soft landscaping works to the rear over a length of 1,800m.
+        surface_and_groundwater:
+          heading: Will the project protect or improve surface water or groundwater?
+        surface_and_groundwater_amount:
+          heading: How many kilometres of surface water or groundwater is the project likely to protect or improve?
+        improve_river:
+          heading: Will the project protect or improve a length of river or priority river habitat?
         urgency:
           heading: Is the project urgent for any of the following reasons?
         urgency_details:

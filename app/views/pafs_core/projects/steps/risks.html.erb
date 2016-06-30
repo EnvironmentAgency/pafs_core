@@ -7,10 +7,10 @@
       <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
         <%= f.error_header %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
-        <p class="lede"><%= t('.lede') %></p>
+        <p><%= t('.lede') %></p>
         <div class="step-form">
           <fieldset>
-            <legend class="visuallyhidden">Select which risks your proposed project wull protect against</legend>
+            <legend class="visuallyhidden">Select which risks your project protects against</legend>
             <%= f.form_group :base do %>
               <%= f.error_message(:base) %>
               <%= f.check_box :fluvial_flooding %>

@@ -4,23 +4,62 @@
       <%= render partial: 'shared/navigator', project: @project %>
     </div>
     <div class="column-two-thirds">
-      <h1 class="heading-large"><%= t('.heading') %></h1>
-      <p class="lede"><%= t('.lede') %></p>
-      <div class="step-form">
-        <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step), html: { multipart: true } do |f| %>
+      <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step), html: { multipart: true } do |f| %>
+        <%= f.hidden_field :funding_calculator_file_name %>
+        <%= f.error_header %>
+        <div class="step-form">
+          <h1 class="heading-large"><%= t('.heading') %></h1>
+          <p><%= t('.lede') %></p>
+          <h2 class="heading-medium"><%= t('.download_heading') %></h2>
+          <p>Download the <%= link_to t("funding_calculator_label"), t("funding_calculator_link"), rel: "external" %></p>
+          <p>To complete it, you'll need to know</p>
+          <ul class="list-bullet">
+            <li>estimated project benefits</li>
+            <li>estimated financial costs</li>
+            <li>expected outcomes</li>
+            <li>duration of benefits</li>
+          </ul>
+
+          <% if @project.funding_calculator_file_name.present? %>
+            <div class="form-group">
+              <h3 class="heading-medium" id="your-file"><%= t(".uploaded_heading") %></h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th><%= t(".filename_title") %></th>
+                    <th><%= t(".uploaded_title") %></th>
+                    <td></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <%= link_to t(".download_file_html", file: @project.funding_calculator_file_name),
+                        download_funding_calculator_project_path(@project.to_param),
+                        aria: { describedby: "your-file" } %>
+                    </td>
+                    <td><%= l @project.funding_calculator_updated_at %></td>
+                    <td>
+                      <%= link_to t(".delete_label_html"),
+                        delete_funding_calculator_project_path(@project.to_param),
+                        aria: { describedby: "your-file" } %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          <% end %>
+
           <div class="form-group">
-            <%= f.label :funding_calculator_file_name, t(".funding_calculator_label"), class: "form-label" %>
-            <% if @project.funding_calculator_file_name.present? %>
-              <div class="form-hint">
-                <p><%= t(".download_link_label") %> <%= link_to @project.funding_calculator_file_name, download_funding_calculator_project_path(@project.to_param) %><br/><%= t(".uploaded_at_label") %> <%= l @project.funding_calculator_updated_at %></p>
-              </div>
+            <h3 class="heading-medium" id="file-upload"><%= t(".upload_heading") %></h3>
+            <%= f.form_group(:base) do %>
+              <%= f.error_message(:base) %>
+              <%= f.file_field :funding_calculator, aria: { labelledby: "file-upload" } %>
             <% end %>
-            <%= f.hidden_field :funding_calculator_file_name %>
-            <%= f.file_field :funding_calculator %>
           </div>
           <%= f.submit t("save_and_continue_label"), class: 'button' %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

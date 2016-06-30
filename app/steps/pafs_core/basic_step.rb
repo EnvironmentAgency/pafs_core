@@ -50,6 +50,11 @@ module PafsCore
       self.class.name.demodulize.chomp("Step").underscore
     end
 
+    # override this to handle any setup required before being viewed
+    # This is called before rendering in the controller
+    def before_view
+    end
+
     def view_path
       "pafs_core/projects/steps/#{step_name}"
     end

@@ -1,8 +1,6 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
   class User < ActiveRecord::Base
-    # self.table_name = "users"
     validates :first_name, presence: true
     validates :last_name, presence: true
     validates_uniqueness_of :email, case_sensitive: false
@@ -10,12 +8,22 @@ module PafsCore
     has_many :user_areas
     has_many :areas, through: :user_areas
 
+    has_many :projects, foreign_key: "creator_id"
+
     def full_name
       "#{first_name} #{last_name}"
     end
 
+    def rfcc_code
+      # find the PSO area under which this user belongs
+      area = primary_area
+      if !area.ea_area?
+        area = area.parent if area.rma?
+        PafsCore::PSO_RFCC_MAP.fetch(area.name)
+      end
+    end
+
     def primary_area
-      #user_areas.includes(:area).find_by(primary: true).area
       user_areas.primary_area.first.area
     end
 

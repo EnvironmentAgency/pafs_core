@@ -1,16 +1,18 @@
-<h1 class="heading-large"><%= t(".heading", date: six_year_limit_date) %></h1>
-<div class="step-form">
-  <%= form_tag pafs_core.projects_path, method: :post do %>
+<%= pafs_form_for @project, method: :post do |f| %>
+  <%= f.error_header %>
+  <h1 class="heading-large"><%= t(".heading", date: six_year_limit_date) %></h1>
+  <div class="step-form">
     <fieldset class="inline">
       <legend class="visuallyhidden">Does your project require GiA funding before <%= six_year_limit_date %>?</legend>
-      <div class="form-group">
+      <%= f.form_group(:base) do %>
+        <%= f.error_message(:base) %>
         <label class="block-label" for="yes_or_no_yes">
           <%= radio_button_tag(:yes_or_no, "yes") %> Yes
         </label>
         <label class="block-label" for="yes_or_no_no">
           <%= radio_button_tag(:yes_or_no, "no") %> No
         </label>
-      </div>
+      <% end %>
     </fieldset>
     <div class="form-group">
       <details>
@@ -22,7 +24,7 @@
         </div>
       </details>
     </div>
-    <%= submit_tag t("save_and_continue_label"), class: 'button' %>
+    <%= f.submit t("save_and_continue_label"), class: 'button' %>
   <% end %>
 </div>
 
