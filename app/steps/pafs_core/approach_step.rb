@@ -9,7 +9,7 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params))
       if valid? && project.save
-        @step = :wfd_benefits
+        @step = :surface_and_groundwater
         true
       else
         false

@@ -52,8 +52,8 @@ module PafsCore
 
     def a_choice_has_been_made
       errors.add(:improve_river,
-                 "^Tell us if the project protects or improves a length of river"
-                ) if improve_river.nil?
+                 "^Tell us if the project protects or improves a length of river "\
+                 "or priority river habitat") if improve_river.nil?
     end
   end
 end

@@ -167,7 +167,7 @@ en:
         surface_and_groundwater_amount:
           heading: How many kilometres of surface water or groundwater is the project likely to protect or improve?
         improve_river:
-          heading: Will the project protect or improve a length of river?
+          heading: Will the project protect or improve a length of river or priority river habitat?
         improve_spa_or_sac:
           heading: Will the project protect or improve a Special Protected Area or Special Area of Conservation?
           lede: Special Protected Areas and Special Areas of Conservation are sites designated by the European Commission for the protection of birds and habitat.
@@ -180,7 +180,7 @@ en:
         improve_habitat_amount:
           heading: How many hectares of habitat is the project likely to protect or improve?
         improve_river_amount:
-          heading: How many kilometres of river is the project likely to protect or improve?
+          heading: How many kilometres of river or priority river habitat is the project likely to protect or improve?
         habitat_creation:
           heading: Will the project create habitat?
         habitat_creation_amount:

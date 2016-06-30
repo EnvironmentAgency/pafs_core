@@ -11,7 +11,8 @@ RSpec.describe PafsCore::ImproveRiverStep, type: :model do
       subject.improve_river = nil
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:improve_river]).
-        to include "^Tell us if the project protects or improves a length of river"
+        to include "^Tell us if the project protects or improves a length of river "\
+                   "or priority river habitat"
     end
   end
 

@@ -11,8 +11,8 @@ RSpec.describe PafsCore::ImproveRiverAmountStep, type: :model do
       subject.improve_river_amount = nil
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:improve_river_amount]).
-        to include "^Enter a value to show how many kilometres of river "\
-                   "the project will protect or improve."
+        to include "^Enter a value to show how many kilometres of river or priority "\
+                   "river habitat the project will protect or improve."
     end
 
     it "validates that :improve_river_amount is greater than zero" do
@@ -20,7 +20,7 @@ RSpec.describe PafsCore::ImproveRiverAmountStep, type: :model do
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:improve_river_amount]).
         to include "^Enter a value greater than zero to show how many kilometres "\
-                   "of river the project will protect or improve."
+                   "of river or priority river habitat the project will protect or improve."
     end
   end
 

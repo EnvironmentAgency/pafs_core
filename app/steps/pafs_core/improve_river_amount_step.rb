@@ -40,12 +40,13 @@ module PafsCore
     def amount_is_present_and_correct
       if improve_river_amount.blank?
         errors.add(:improve_river_amount,
-                   "^Enter a value to show how many kilometres of river "\
-                   "the project will protect or improve.")
+                   "^Enter a value to show how many kilometres of river or "\
+                   "priority river habitat the project will protect or improve.")
       elsif improve_river_amount <= 0
         errors.add(:improve_river_amount,
                    "^Enter a value greater than zero to show how many kilometres "\
-                   "of river the project will protect or improve.")
+                   "of river or priority river habitat the project will protect "\
+                   "or improve.")
       end
     end
   end
