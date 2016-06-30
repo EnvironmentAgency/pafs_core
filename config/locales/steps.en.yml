@@ -167,7 +167,30 @@ en:
         surface_and_groundwater_amount:
           heading: How many kilometres of surface water or groundwater is the project likely to protect or improve?
         improve_river:
-          heading: Will the project protect or improve a length of river or priority river habitat?
+          heading: Will the project protect or improve a length of river?
+        improve_spa_or_sac:
+          heading: Will the project protect or improve a Special Protected Area or Special Area of Conservation?
+          lede: Special Protected Areas and Special Areas of Conservation are sites designated by the European Commission for the protection of birds and habitat.
+        improve_sssi:
+          heading: Will the project protect or improve a Site of Special Scientific Interest?
+          lede: Sites of Special Scientific Interest are areas protected by law to conserve their wildlife or geology.
+        improve_hpi:
+          heading: Will the project protect or improve a Habitat of Principal Importance?
+          lede: Habitats of Principal Importance are the most threatened priority habitats needing conservation action
+        improve_habitat_amount:
+          heading: How many hectares of habitat is the project likely to protect or improve?
+        improve_river_amount:
+          heading: How many kilometres of river is the project likely to protect or improve?
+        habitat_creation:
+          heading: Will the project create habitat?
+        habitat_creation_amount:
+          heading: How many hectares of habitat is the project likely to create?
+        remove_fish_barrier:
+          heading: Will the project remove a barrier to migration for fish?
+        remove_eel_barrier:
+          heading: Will the project remove a barrier to migration for eels?
+        fish_or_eel_amount:
+          heading: How many kilometres of river is the project likely to open to fish or eel passage?
         urgency:
           heading: Is the project urgent for any of the following reasons?
         urgency_details:

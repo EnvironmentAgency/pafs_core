@@ -48,14 +48,9 @@
       <h1 class="heading-small">Environmental outcomes</h1>
       <ul>
         <%= nav_step_item(@project, :surface_and_groundwater) %>
-        <li>
-          <span class="complete-flag"></span>
-          <%= link_to "WFD benefits", "#" %>
-        </li>
-        <li>
-          <span class="complete-flag"></span>
-          <%= link_to "Environmental issues", "#" %>
-        </li>
+        <%= nav_step_item(@project, :improve_spa_or_sac) %>
+        <%= nav_step_item(@project, :habitat_creation) %>
+        <%= nav_step_item(@project, :remove_fish_barrier) %>
       </ul>
     </section>
     <section>

@@ -36,9 +36,9 @@ RSpec.describe PafsCore::SurfaceAndGroundwaterStep, type: :model do
     end
 
     context "when :improve_surface_or_groundwater is false" do
-      it "updates the next step to :habitat_improvement" do
+      it "updates the next step to :improve_spa_or_sac" do
         expect(subject.update(false_params)).to be true
-        expect(subject.step).to eq :habitat_improvement
+        expect(subject.step).to eq :improve_spa_or_sac
       end
     end
 

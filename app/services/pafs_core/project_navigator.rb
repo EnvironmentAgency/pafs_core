@@ -32,10 +32,16 @@ module PafsCore
              :surface_and_groundwater,
              :surface_and_groundwater_amount, # not in nav
              :improve_river, # not in nav
-             # :wfd_benefits,
-             :habitat_outcomes,
-             :additional_outcomes,
-             :fish_eel_passages,
+             :improve_spa_or_sac,
+             :improve_sssi, # not in nav
+             :improve_hpi, # not in nav
+             :improve_habitat_amount, # not in nav
+             :improve_river_amount, # not in nav
+             :habitat_creation,
+             :habitat_creation_amount, # not in nav
+             :remove_fish_barrier,
+             :remove_eel_barrier, # not in nav
+             :fish_or_eel_amount, # not in nav
 
              :urgency,
              :urgency_details, # not in nav - follows :urgency
