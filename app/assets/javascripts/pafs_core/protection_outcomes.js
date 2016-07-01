@@ -35,7 +35,7 @@ function ProtectionOutcomesTable(table_selector) {
 
   self.initialise = function() {
     // hook up change notifiers so that we can update totals
-    $(selector).find("input.funding-value").on("change", self.valueChanged)
+    $(selector).find("input.protection-value").on("change", self.valueChanged)
     // make hidden-totals visible
     $(selector).removeClass("hidden-totals");
 

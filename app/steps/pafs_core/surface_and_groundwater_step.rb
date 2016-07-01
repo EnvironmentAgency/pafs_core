@@ -14,7 +14,7 @@ module PafsCore
         @step = if improve_surface_or_groundwater?
                   :surface_and_groundwater_amount
                 else
-                  :habitat_improvement
+                  :improve_spa_or_sac
                 end
         true
       else
@@ -36,8 +36,7 @@ module PafsCore
       # if 'No' selected then no sub-step needed
       return true if !improve_surface_or_groundwater?
 
-      sub_step = PafsCore::SurfaceAndGroundwaterAmountStep.new(project)
-      sub_step.completed?
+      PafsCore::SurfaceAndGroundwaterAmountStep.new(project).completed?
     end
 
   private

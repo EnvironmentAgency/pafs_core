@@ -41,22 +41,22 @@ RSpec.describe PafsCore::SurfaceAndGroundwaterAmountStep, type: :model do
     let(:error_params) { make_params(-200) }
 
     it "saves the :improve_surface_or_groundwater_amount when valid" do
-      expect(subject.update(valid_params)).to be true
+      expect(subject.update(valid_params)).to eq true
       expect(subject.improve_surface_or_groundwater_amount).to eq 200
     end
 
     it "updates the next step to :improve_river after a successful update" do
-      expect(subject.update(valid_params)).to be true
-      expect(subject.step).to eq :improve_river
+      expect(subject.update(valid_params)).to eq true
+      expect(subject.step).to eq :improve_spa_or_sac
     end
 
     context "when validation fails" do
       it "returns false" do
-        expect(subject.update(error_params)).to be false
+        expect(subject.update(error_params)).to eq false
       end
 
       it "does not change the next step" do
-        expect(subject.update(error_params)).to be false
+        expect(subject.update(error_params)).to eq false
         expect(subject.step).to eq :surface_and_groundwater_amount
       end
     end

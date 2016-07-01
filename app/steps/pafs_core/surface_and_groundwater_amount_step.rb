@@ -11,7 +11,7 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params))
       if valid? && project.save
-        @step = :improve_river
+        @step = :improve_spa_or_sac
         true
       else
         false

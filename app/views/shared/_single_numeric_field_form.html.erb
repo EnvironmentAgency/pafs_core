@@ -1,0 +1,29 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', project: @project %>
+    </div>
+    <div class="column-two-thirds">
+      <div class="step-form">
+        <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+          <%= f.error_header %>
+          <h1 class="heading-large"><%= heading %></h1>
+          <% if local_assigns.has_key? :lede %>
+            <p><%= lede %></p>
+          <% end %>
+          <%= f.form_group(numeric_field) do %>
+            <%= f.error_message(numeric_field) %>
+            <%= f.number_field_without_label(numeric_field,
+                  class: "form-control form-medium", min: 0.01, step: 0.01) %>
+            <% if local_assigns.has_key? :units %>
+              <span><%= units %></span>
+            <% end %>
+          <% end %>
+          <div class="form-group">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

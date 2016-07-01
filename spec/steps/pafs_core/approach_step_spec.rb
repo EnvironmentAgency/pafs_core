@@ -40,7 +40,7 @@ RSpec.describe PafsCore::ApproachStep, type: :model do
     it "updates the next step if valid" do
       expect(subject.step).to eq :approach
       subject.update(params)
-      expect(subject.step).to eq :wfd_benefits
+      expect(subject.step).to eq :surface_and_groundwater
     end
 
     it "returns false when validation fails" do
