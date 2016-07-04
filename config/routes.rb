@@ -2,6 +2,7 @@ PafsCore::Engine.routes.draw do
   resources :projects do
     collection do
       get :pipeline
+      post :funding
     end
 
     member do
