@@ -30,67 +30,91 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
   end
 
   describe "#update" do
-    context "protecting against flooding" do
+    context "a project that does not protect households" do
       let(:params) {
-        HashWithIndifferentAccess.new(
-          { main_risk_step: {
+        HashWithIndifferentAccess.new({
+          main_risk_step: {
             main_risk: "groundwater_flooding"
           }
-        }
-        )
+        })
       }
+
       let(:error_params) {
-        HashWithIndifferentAccess.new(
-          { main_risk_step: {
+        HashWithIndifferentAccess.new({
+          main_risk_step: {
             main_risk: nil
           }
-        }
-        )
+        })
       }
 
-      it "saves the state of valid params" do
-        expect(subject.update(params)).to be true
-        expect(subject.main_risk).to eq "groundwater_flooding"
-      end
-
       it "updates the next step if valid" do
+        @project.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
+        @project.project.save
         expect(subject.step).to eq :main_risk
         subject.update(params)
-        expect(subject.step).to eq :flood_protection_outcomes
-      end
-
-      it "returns false when validation fails" do
-        expect(subject.update(error_params)).to eq false
-      end
-
-      it "does not change the next step when validation fails" do
-        expect(subject.step).to eq :main_risk
-        subject.update(error_params)
-        expect(subject.step).to eq :main_risk
+        expect(subject.step).to eq :standard_of_protection
       end
     end
-    context "protecting against coastal erosion" do
-      before(:each) do
-        @project.project.update_attributes(groundwater_flooding: false, coastal_erosion: true)
-      end
-
-      let(:params) {
-        HashWithIndifferentAccess.new(
-          { main_risk_step: {
-            main_risk: "coastal_erosion"
-          }
+    context "a project that does protect households" do
+      context "protecting against flooding" do
+        let(:params) {
+          HashWithIndifferentAccess.new({
+            main_risk_step: {
+              main_risk: "groundwater_flooding"
+            }
+          })
         }
-        )
-      }
-      it "saves the state of valid params" do
-        expect(subject.update(params)).to be true
-        expect(subject.main_risk).to eq "coastal_erosion"
-      end
+        let(:error_params) {
+          HashWithIndifferentAccess.new({
+            main_risk_step: {
+              main_risk: nil
+            }
+          })
+        }
 
-      it "updates the next step if valid" do
-        expect(subject.step).to eq :main_risk
-        subject.update(params)
-        expect(subject.step).to eq :coastal_erosion_protection_outcomes
+        it "saves the state of valid params" do
+          expect(subject.update(params)).to be true
+          expect(subject.main_risk).to eq "groundwater_flooding"
+        end
+
+        it "updates the next step if valid" do
+          expect(subject.step).to eq :main_risk
+          subject.update(params)
+          expect(subject.step).to eq :flood_protection_outcomes
+        end
+
+        it "returns false when validation fails" do
+          expect(subject.update(error_params)).to eq false
+        end
+
+        it "does not change the next step when validation fails" do
+          expect(subject.step).to eq :main_risk
+          subject.update(error_params)
+          expect(subject.step).to eq :main_risk
+        end
+      end
+      context "protecting against coastal erosion" do
+        before(:each) do
+          @project.project.update_attributes(groundwater_flooding: false, coastal_erosion: true)
+        end
+
+        let(:params) {
+          HashWithIndifferentAccess.new({
+            main_risk_step: {
+              main_risk: "coastal_erosion"
+            }
+          })
+        }
+        it "saves the state of valid params" do
+          expect(subject.update(params)).to be true
+          expect(subject.main_risk).to eq "coastal_erosion"
+        end
+
+        it "updates the next step if valid" do
+          expect(subject.step).to eq :main_risk
+          subject.update(params)
+          expect(subject.step).to eq :coastal_erosion_protection_outcomes
+        end
       end
     end
 

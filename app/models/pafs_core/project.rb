@@ -35,6 +35,10 @@ module PafsCore
       true if fluvial_flooding? || tidal_flooding? || groundwater_flooding? || surface_water_flooding?
     end
 
+    def project_protects_households?
+      project_type != "ENV_WITHOUT_HOUSEHOLDS"
+    end
+
   private
     def set_slug
       self.slug = reference_number.parameterize.upcase

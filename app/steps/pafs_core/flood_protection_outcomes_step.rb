@@ -9,6 +9,8 @@ module PafsCore
              :project_end_financial_year,
              :flooding?,
              :coastal_erosion?,
+             :project_type,
+             :project_protects_households?,
              to: :project
 
     validate :values_make_sense, :at_least_one_value
@@ -39,7 +41,7 @@ module PafsCore
     end
 
     def disabled?
-      !(flooding? && !project_end_financial_year.nil?)
+      !(flooding? && !project_end_financial_year.nil? && project_protects_households?)
     end
 
     def completed?
@@ -77,9 +79,12 @@ module PafsCore
       errors.add(:base, "C must be smaller than or equal to B") if !c_too_big.empty?
     end
 
+    def total_protected_households
+      flood_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
+    end
+
     def at_least_one_value
-      total_households = flood_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
-      errors.add(:base, "There must be at least one value in column A") if total_households.zero?
+      errors.add(:base, "There must be at least one value in column A") if total_protected_households.zero?
     end
 
     private

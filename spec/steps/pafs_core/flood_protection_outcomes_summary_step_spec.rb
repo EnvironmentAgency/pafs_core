@@ -101,6 +101,13 @@ RSpec.describe PafsCore::FloodProtectionOutcomesSummaryStep, type: :model do
     end
 
     context "when the project does protect against flooding" do
+      context "when the project does not protect any households" do
+        it "returns true" do
+          subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
+
+          expect(subject.disabled?).to eq true
+        end
+      end
       context "when the project end financial year isn't set" do
         it "should return true" do
           subject.project.project_end_financial_year = nil
