@@ -71,16 +71,11 @@ en:
           heading: Confirm the estimated spend for each financial year.
 # earliest start
         earliest_start:
-          heading: Could your project start sooner if FCERM grant in aid (FCERM GiA) funding was available earlier?
-          lede: If you could secure FCERM grant in aid (FCERM GiA) funding earlier, what is the earliest estimated date to which the total costs could be brought forward without impacting on deliverability and outcomes?
+          heading: Could the project start sooner if grant in aid funding was made available earlier?
 # earliest date
         earliest_date:
-          heading: What is the earliest date to which project costs could be brought forward?
-          lede: If you could secure FCERM grant in aid (FCERM GiA) funding earlier, what is the earliest estimated date to which the total costs could be brought forward without impacting on deliverability and outcomes?
-          month_label: Month
-          year_label: Year
-          earliest_start_label: "Earliest start"
-          example_text: For example, 3 2019
+          heading: What is the earliest date your project could start without impacting deliverability or outcomes?
+          example_text: For example, 10 2019
 # risks
         risks:
           heading: What are the risks your proposed project will protect against?
