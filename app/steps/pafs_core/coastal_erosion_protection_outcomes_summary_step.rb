@@ -7,6 +7,7 @@ module PafsCore
              :coastal_erosion_protection_outcomes=,
              :project_end_financial_year,
              :coastal_erosion?,
+             :project_type, :project_protects_households?,
              to: :project
 
     def update(params)
@@ -24,11 +25,11 @@ module PafsCore
     end
 
     def disabled?
-      !(coastal_erosion? && !project_end_financial_year.nil?)
+      !(coastal_erosion? && !project_end_financial_year.nil? && project_protects_households?)
     end
 
     def completed?
-      !!(coastal_erosion? && !current_coastal_erosion_protection_outcomes.empty?)
+      !!(coastal_erosion? && !total_protected_households.zero? && !total_for(:households_at_reduced_risk).zero?)
     end
 
     def current_coastal_erosion_protection_outcomes
@@ -40,6 +41,10 @@ module PafsCore
 
     def total_for(value)
       current_coastal_erosion_protection_outcomes.reduce(0) { |sum, cepo| sum + (cepo.send(value) || 0) }
+    end
+
+    def total_protected_households
+      coastal_erosion_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
     end
   end
 end

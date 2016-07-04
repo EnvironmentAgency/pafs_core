@@ -9,6 +9,8 @@ module PafsCore
              :coastal_erosion, :coastal_erosion?,
              :main_risk, :main_risk=,
              :flooding?,
+             :project_type,
+             :project_protects_households?,
              to: :project
 
     validate :main_risk_is_present_and_a_selected_risk
@@ -16,7 +18,9 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params))
       if valid? && project.save
-        @step = if flooding?
+        @step = if !project_protects_households?
+                  :standard_of_protection
+                elsif flooding?
                   :flood_protection_outcomes
                 else
                   :coastal_erosion_protection_outcomes

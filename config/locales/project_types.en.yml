@@ -6,4 +6,5 @@ en:
       plp: Property level protection
       brg: Bridge works
       str: Strategies
-      env: Environmental
+      env_with_households: Environmental with households
+      env_without_households: Environmental without households

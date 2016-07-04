@@ -8,6 +8,7 @@ module PafsCore
              :flooding?,
              :coastal_erosion?,
              :project_end_financial_year,
+             :project_protects_households?,
              to: :project
 
     def update(params)
@@ -29,11 +30,11 @@ module PafsCore
     end
 
     def disabled?
-      !(flooding? && !project_end_financial_year.nil?)
+      !(flooding? && !project_end_financial_year.nil? && project_protects_households?)
     end
 
     def completed?
-      !!(flooding? && !current_flood_protection_outcomes.empty?)
+      !!(flooding? && !current_flood_protection_outcomes.empty? && !total_for(:households_at_reduced_risk).zero?)
     end
 
     def current_flood_protection_outcomes
