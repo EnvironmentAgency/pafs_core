@@ -94,4 +94,13 @@ RSpec.describe PafsCore::StandardOfProtectionCoastalStep, type: :model do
       end
     end
   end
+
+  describe "#disabled?" do
+    subject { FactoryGirl.build(:standard_of_protection_coastal_step) }
+    it "should return true when the project doesn't protect households" do
+      subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
+
+      expect(subject.disabled?).to eq true
+    end
+  end
 end

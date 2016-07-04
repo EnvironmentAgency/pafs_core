@@ -9,6 +9,7 @@ module PafsCore
              :coastal_erosion?,
              :flooding?,
              :project_type,
+             :project_protects_households?,
              to: :project
     validate :values_make_sense, :at_least_one_value
 
@@ -83,10 +84,6 @@ module PafsCore
 
     def at_least_one_value
       errors.add(:base, "There must be at least one value in column A") if total_protected_households.zero?
-    end
-
-    def project_protects_households?
-      project_type != "ENV_WITHOUT_HOUSEHOLDS"
     end
 
     private
