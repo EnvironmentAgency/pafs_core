@@ -39,7 +39,44 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
     end
   end
 
+  describe "POST funding" do
+    context "when :fcerm_gia is present" do
+      it "renders the 'funding' template" do
+        post :funding, project: { fcerm_gia: true }
+        expect(response).to render_template("funding")
+      end
+
+      it "assigns the :fcerm_gia value to the project in the response" do
+        post :funding, project: { fcerm_gia: true }
+        expect(assigns(:project).fcerm_gia).to eq true
+      end
+    end
+
+    context "when :fcerm_gia is not present" do
+      it "renders the 'new' template" do
+        post :funding, project: { fcerm_gia: nil }
+        expect(response).to render_template("new")
+      end
+
+      it "assigns a new project" do
+        post :funding, project: { fcerm_gia: nil }
+        expect(assigns(:project).new_record?).to eq true
+      end
+
+      it "sets an error message" do
+        post :funding, project: { fcerm_gia: nil }
+        expect(assigns(:project).errors[:fcerm_gia]).
+          to include"^Tell us if you need Grant in Aid funding before 31 March 2021"
+      end
+    end
+  end
+
   describe "POST create" do
+    let(:params) { { project: { fcerm_gia: "true", local_levy: "false" } } }
+    let(:false_params) { { project: { fcerm_gia: "false", local_levy: "false" } } }
+    let(:no_fcerm_gia_params) { { project: { local_levy: "false" } } }
+    let(:no_local_levy_params) { { project: { fcerm_gia: "true" } } }
+
     before(:each) do
       @pso = FactoryGirl.create(:pso_area, parent_id: 1, name: "PSO Essex")
       @rma = FactoryGirl.create(:rma_area, parent_id: @pso.id)
@@ -48,50 +85,90 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       @nav = PafsCore::ProjectNavigator.new(@user)
     end
 
-    context "when starting within 6 years" do
-      it "creates a new project" do
-        expect(subject).to receive(:project_navigator) { @nav }
-        expect { post :create, yes_or_no: "yes" }.to change { PafsCore::Project.count }.by 1
+    context "when :fcerm_gia and ::local_levy are valid" do
+      context "when either :fcerm_gia or :local_levy are true" do
+        it "creates a new project" do
+          expect(subject).to receive(:project_navigator).twice { @nav }
+          expect { post :create, params }.
+            to change { PafsCore::Project.count }.by 1
+        end
+
+        it "sets the :fcerm_gia and :local_levy attributes accordingly" do
+          expect(subject).to receive(:project_navigator).twice { @nav }
+          post :create, params
+          expect(assigns(:project).project.fcerm_gia).to eq true
+          expect(assigns(:project).project.local_levy).to eq false
+        end
+
+        it "assigns @project" do
+          expect(subject).to receive(:project_navigator).twice { @nav }
+          post :create, params
+          expect(assigns(:project).project).to eq PafsCore::Project.last
+        end
+
+        it "redirects to the reference number page" do
+          expect(subject).to receive(:project_navigator).twice { @nav }
+          post :create, params
+          expect(response).to redirect_to reference_number_project_path(PafsCore::Project.last)
+        end
       end
 
-      it "assigns @project" do
-        expect(subject).to receive(:project_navigator) { @nav }
-        post :create, yes_or_no: "yes"
-        expect(assigns(:project).project).to eq PafsCore::Project.last
-      end
+      context "when :fcerm_gia and :local_levy are false" do
+        it "does not create a new project" do
+          expect { post :create, false_params }.
+            not_to change { PafsCore::Project.count }
+        end
 
-      it "redirects to the reference number page" do
-        expect(subject).to receive(:project_navigator) { @nav }
-        post :create, yes_or_no: "yes"
-        expect(response).to redirect_to reference_number_project_path(PafsCore::Project.last)
+        it "redirects to the pipeline page" do
+          post :create, false_params
+          expect(response).to redirect_to(pipeline_projects_path)
+        end
       end
     end
 
-    context "when not starting within 6 years" do
+    context "when :fcerm_gia is not present" do
       it "does not create a new project" do
-        expect { post :create, yes_or_no: "no" }.not_to change { PafsCore::Project.count }
+        expect { post :create, no_fcerm_gia_params }.
+          not_to change { PafsCore::Project.count }
       end
 
-      it "redirects to the pipeline page" do
-        post :create, yes_or_no: "no"
-        expect(response).to redirect_to(pipeline_projects_path)
-      end
-    end
-
-    context "when not specifying start" do
-      it "does not create a new project" do
-        expect { post :create }.not_to change { PafsCore::Project.count }
-      end
-
-      it "renders the :new template" do
-        post :create
+      it "renders the 'new' template" do
+        post :create, no_fcerm_gia_params
         expect(response).to render_template("new")
       end
 
-      it "assigns @project with an error message" do
-        post :create
-        expect(assigns(:project).errors[:base]).
-          to include "Tell us if you need funding before 31 March 2021"
+      it "assigns a new project" do
+        post :create, no_fcerm_gia_params
+        expect(assigns(:project).new_record?).to eq true
+      end
+
+      it "sets an error message" do
+        post :create, no_fcerm_gia_params
+        expect(assigns(:project).errors[:fcerm_gia]).
+          to include"^Tell us if you need Grant in Aid funding before 31 March 2021"
+      end
+    end
+
+    context "when :local_levy is not present" do
+      it "does not create a new project" do
+        expect { post :create, no_local_levy_params }.
+          not_to change { PafsCore::Project.count }
+      end
+
+      it "renders the 'funding' template" do
+        post :create, no_local_levy_params
+        expect(response).to render_template("funding")
+      end
+
+      it "assigns a new project" do
+        post :create, no_local_levy_params
+        expect(assigns(:project).new_record?).to eq true
+      end
+
+      it "sets an error message" do
+        post :create, no_local_levy_params
+        expect(assigns(:project).errors[:local_levy]).
+          to include"^Tell us if you need local levy funding before 31 March 2021"
       end
     end
   end

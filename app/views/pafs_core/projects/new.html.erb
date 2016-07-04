@@ -1,30 +1,22 @@
-<%= pafs_form_for @project, method: :post do |f| %>
-  <%= f.error_header %>
-  <h1 class="heading-large"><%= t(".heading", date: six_year_limit_date) %></h1>
-  <div class="step-form">
-    <fieldset class="inline">
-      <legend class="visuallyhidden">Does your project require GiA funding before <%= six_year_limit_date %>?</legend>
-      <%= f.form_group(:base) do %>
-        <%= f.error_message(:base) %>
-        <label class="block-label" for="yes_or_no_yes">
-          <%= radio_button_tag(:yes_or_no, "yes") %> Yes
-        </label>
-        <label class="block-label" for="yes_or_no_no">
-          <%= radio_button_tag(:yes_or_no, "no") %> No
-        </label>
-      <% end %>
-    </fieldset>
-    <div class="form-group">
-      <details>
-        <summary>
-          <span class="summary">My proposal is part of a wider project</span>
-        </summary>
-        <div class="panel">
-          <p>If your proposed project is part of a wider project, only include local levy or FCERM grant in aid (FCERM GiA) funding required for the specific phase covered by this proposal.</p>
-        </div>
-      </details>
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <div class="step-form">
+        <%= pafs_form_for @project, url: funding_projects_path, method: :post do |f| %>
+          <%= f.error_header %>
+          <h1 class="heading-large"><%= t(".heading", date: six_year_limit_date) %></h1>
+          <%= f.hidden_field :id %>
+          <fieldset class="inline">
+            <legend class="visuallyhidden"><%= t(".heading", date: six_year_limit_date) %></legend>
+            <%= f.radio_button_group(:fcerm_gia,
+                                     [ { value: "true", options: { label: t("yes_option") } },
+                                       { value: "false", options: { label: t("no_option") } }]) %>
+          </fieldset>
+          <div class="form-group">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
+        <% end %>
+      </div>
     </div>
-    <%= f.submit t("save_and_continue_label"), class: 'button' %>
-  <% end %>
+  </div>
 </div>
-
