@@ -46,4 +46,21 @@ RSpec.describe PafsCore::Project, type: :model do
       expect(subject.flooding?).not_to eq(true)
     end
   end
+
+  describe "#project_protects_households?" do
+    it "is expecxted to return false if the project does not protect households" do
+      subject.project_type = "ENV_WITHOUT_HOUSEHOLDS"
+
+      expect(subject.project_protects_households?).to eq false
+    end
+
+    it "is expected to return true if the project does protect households" do
+      project_types = PafsCore::PROJECT_TYPES[0...-1]
+
+      project_types.each do |pt|
+        subject.project_type = pt
+        expect(subject.project_protects_households?).to eq true
+      end
+    end
+  end
 end

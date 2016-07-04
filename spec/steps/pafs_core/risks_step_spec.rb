@@ -64,4 +64,14 @@ RSpec.describe PafsCore::RisksStep, type: :model do
       expect(subject.previous_step).to eq :map
     end
   end
+
+  describe "#disabled?" do
+    subject { FactoryGirl.build(:risks_step) }
+
+    it "should return true when the project doesn't protect households" do
+      subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
+
+      expect(subject.disabled?).to eq true
+    end
+  end
 end

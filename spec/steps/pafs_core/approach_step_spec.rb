@@ -59,4 +59,12 @@ RSpec.describe PafsCore::ApproachStep, type: :model do
       expect(subject.previous_step).to eq :standard_of_protection
     end
   end
+
+  describe "#disabled?" do
+    it "should return true when the project doesn't protect households" do
+      subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
+
+      expect(subject.disabled?).to eq true
+    end
+  end
 end

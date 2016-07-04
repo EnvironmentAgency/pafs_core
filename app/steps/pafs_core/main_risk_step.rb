@@ -18,9 +18,7 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params))
       if valid? && project.save
-        @step = if !project_protects_households?
-                  :standard_of_protection
-                elsif flooding?
+        @step = if flooding?
                   :flood_protection_outcomes
                 else
                   :coastal_erosion_protection_outcomes
@@ -47,6 +45,10 @@ module PafsCore
       r << :surface_water_flooding if surface_water_flooding?
       r << :coastal_erosion if coastal_erosion?
       r
+    end
+
+    def disabled?
+      !project_protects_households?
     end
 
   private

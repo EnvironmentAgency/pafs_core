@@ -30,31 +30,6 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
   end
 
   describe "#update" do
-    context "a project that does not protect households" do
-      let(:params) {
-        HashWithIndifferentAccess.new({
-          main_risk_step: {
-            main_risk: "groundwater_flooding"
-          }
-        })
-      }
-
-      let(:error_params) {
-        HashWithIndifferentAccess.new({
-          main_risk_step: {
-            main_risk: nil
-          }
-        })
-      }
-
-      it "updates the next step if valid" do
-        @project.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
-        @project.project.save
-        expect(subject.step).to eq :main_risk
-        subject.update(params)
-        expect(subject.step).to eq :standard_of_protection
-      end
-    end
     context "a project that does protect households" do
       context "protecting against flooding" do
         let(:params) {
@@ -128,6 +103,14 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
       it "returns a list of selected risks" do
         expect(subject.risks.count).to eq 1
       end
+    end
+  end
+
+  describe "#disabled?" do
+    it "should return true if the project does not protect households" do
+      subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
+
+      expect(subject.disabled?).to eq true
     end
   end
 end
