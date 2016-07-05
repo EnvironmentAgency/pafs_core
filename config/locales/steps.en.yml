@@ -93,7 +93,7 @@ en:
           heading: Partnership funding calculator
           lede: The partnership funding calculator generates a score for the project based on the benefits, outcomes, and contributions that it aims to deliver. The score is used to prioritise and allocate funding in each year.
           download_heading: Download and complete the partnership funding calculator
-          download_file_html: "<span class='visually-hidden'>Download your uploaded funding calculator named </span>%{file}"
+          download_file_html: "<span class='visually-hidden'>Download your funding calculator named </span>%{file}"
           upload_heading: Upload the completed partnership funding calculator
           uploaded_heading: Your uploaded partnership funding calculator
           funding_calculator_label: Funding calculator
@@ -102,6 +102,9 @@ en:
           delete_label_html: "Delete<span class='visually-hidden'> your uploaded funding calculator</span>"
           filename_title: File
           uploaded_title: Uploaded
+# funding calculator summary
+        funding_calculator_summary:
+          heading: Your uploaded partnership funding calculator
 # flood protection outcomes
         flood_protection_outcomes:
           heading: How many households affected by flooding is the project likely to benefit?
