@@ -1,0 +1,26 @@
+<% scope = "pafs_core.projects.steps.funding_calculator" %>
+<%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step), html: { multipart: true } do |f| %>
+  <%= f.hidden_field :funding_calculator_file_name %>
+  <%= f.error_header %>
+  <div class="step-form">
+    <h1 class="heading-large"><%= t('heading', scope: scope) %></h1>
+    <p><%= t('lede', scope: scope) %></p>
+    <h2 class="heading-medium"><%= t('download_heading', scope: scope) %></h2>
+    <p>Download the <%= link_to t("funding_calculator_label"), t("funding_calculator_link"), rel: "external" %></p>
+    <p>To complete it, you'll need to know</p>
+    <ul class="list-bullet">
+      <li>estimated project benefits</li>
+      <li>estimated financial costs</li>
+      <li>expected outcomes</li>
+      <li>duration of benefits</li>
+    </ul>
+    <div class="form-group">
+      <h3 class="heading-medium" id="file-upload"><%= t("upload_heading", scope: scope) %></h3>
+      <%= f.form_group(:base) do %>
+        <%= f.error_message(:base) %>
+        <%= f.file_field :funding_calculator, aria: { labelledby: "file-upload" } %>
+      <% end %>
+    </div>
+    <%= f.submit t("upload_and_continue_label"), class: 'button' %>
+  </div>
+<% end %>

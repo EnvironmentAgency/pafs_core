@@ -35,4 +35,5 @@ en:
   urgency_step_label: "Urgency details"
   urgency_details_step_label: "Urgency details"
   funding_calculator_step_label: "Funding calculator"
+  funding_calculator_summary_step_label: "Funding calculator"
   summary_step_label: "Summary"

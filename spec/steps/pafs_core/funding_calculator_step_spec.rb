@@ -43,6 +43,18 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
         { funding_calculator_step: { funding_calculator_file_name: "placeholder" }}
       )
     end
+    let(:continue_params) { { commit: "Continue" } }
+
+    context "when 'Continue' button selected" do
+      it "updates step to :summary" do
+        subject.update(continue_params)
+        expect(subject.step).to eq :summary
+      end
+
+      it "returns true" do
+        expect(subject.update(continue_params)).to eq true
+      end
+    end
 
     context "when a virus free file is selected" do
       let(:storage) { double("storage") }

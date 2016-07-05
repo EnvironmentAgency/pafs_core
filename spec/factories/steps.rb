@@ -128,5 +128,8 @@ FactoryGirl.define do
     factory :funding_calculator_step, class: PafsCore::FundingCalculatorStep do
       funding_calculator_file_name "pf_calc.xls"
     end
+
+    factory :funding_calculator_summary_step, class: PafsCore::FundingCalculatorSummaryStep do
+    end
   end
 end
