@@ -39,7 +39,6 @@ module PafsCore
     def completed?
       return false if improve_river.nil?
       return true unless improve_river?
-
       PafsCore::ImproveRiverAmountStep.new(project).completed?
     end
 

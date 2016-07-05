@@ -14,7 +14,7 @@ module PafsCore
         @step = if improve_hpi?
                   :improve_habitat_amount
                 else
-                  :improve_river
+                  :habitat_creation
                 end
         true
       else
@@ -38,11 +38,8 @@ module PafsCore
     # override BasicStep#completed? to handle earliest_date step
     def completed?
       return false if improve_hpi.nil?
-      if improve_hpi?
-        PafsCore::ImproveHabitatAmountStep.new(project).completed?
-      else
-        PafsCore::ImproveRiverStep.new(project).completed?
-      end
+      return true unless improve_hpi?
+      PafsCore::ImproveHabitatAmountStep.new(project).completed?
     end
 
   private
