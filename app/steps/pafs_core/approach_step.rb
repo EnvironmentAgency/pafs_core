@@ -2,6 +2,7 @@
 module PafsCore
   class ApproachStep < BasicStep
     delegate :approach, :approach=,
+             :project_protects_households?,
              to: :project
 
     validates :approach, presence: { message: "^Please enter a description" }
@@ -22,6 +23,10 @@ module PafsCore
 
     def step
       @step ||= :approach
+    end
+
+    def disabled?
+      !project_protects_households?
     end
 
   private

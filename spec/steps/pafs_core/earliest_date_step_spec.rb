@@ -12,37 +12,37 @@ RSpec.describe PafsCore::EarliestDateStep, type: :model do
     it "validates that :earliest_start_month is present" do
       subject.earliest_start_month = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start]).to include "Month can't be blank"
+      expect(subject.errors.messages[:earliest_start]).to include "^Tell us the earliest date the project can start"
     end
 
     it "validates that :earliest_start_month is greater than 0" do
       subject.earliest_start_month = 0
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start]).to include "Month must be in the range 1 to 12"
+      expect(subject.errors.messages[:earliest_start]).to include "^The month must be between 1 and 12"
     end
 
     it "validates that :earliest_start_month is less than 13" do
       subject.earliest_start_month = 13
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start]).to include "Month must be in the range 1 to 12"
+      expect(subject.errors.messages[:earliest_start]).to include "^The month must be between 1 and 12"
     end
 
     it "validates that :earliest_start_year is present" do
       subject.earliest_start_year = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start]).to include "Year can't be blank"
+      expect(subject.errors.messages[:earliest_start]).to include "^Tell us the earliest date the project can start"
     end
 
     it "validates that :earliest_start_year is greater than 1999" do
       subject.earliest_start_year = 1999
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start]).to include "Year must be in the range 2000 to 2099"
+      expect(subject.errors.messages[:earliest_start]).to include "^The year must be between 2000 and 2100"
     end
 
-    it "validates that :earliest_start_year is less than 2100" do
-      subject.earliest_start_year = 2100
+    it "validates that :earliest_start_year is less than or equal to 2100" do
+      subject.earliest_start_year = 2101
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:earliest_start]).to include "Year must be in the range 2000 to 2099"
+      expect(subject.errors.messages[:earliest_start]).to include "^The year must be between 2000 and 2100"
     end
   end
 

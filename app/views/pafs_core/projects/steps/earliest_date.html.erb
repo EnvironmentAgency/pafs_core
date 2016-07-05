@@ -8,10 +8,7 @@
         <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <%= f.error_header %>
           <h1 class="heading-large"><%= t('.heading') %></h1>
-          <p class="lede"><%= t('.lede') %></p>
-
           <%= f.month_and_year(:earliest_start,
-                               heading: t(".earliest_start_label"),
                                hint: t(".example_text")) %>
 
           <div class="form-group">

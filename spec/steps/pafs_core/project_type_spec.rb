@@ -24,34 +24,6 @@ RSpec.describe PafsCore::ProjectTypeStep, type: :model do
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:project_type]).to include "^Select a project type"
     end
-    context "when ENV is the selected :project_type" do
-      before(:each) { subject.project_type = "ENV" }
-
-      it "validates that :environmental_type is present" do
-        expect(subject.valid?).to be false
-        expect(subject.errors.messages[:environmental_type]).to include "^Select an environmental type"
-      end
-      it "validates that :environmental_type is a permitted value" do
-        PafsCore::ENVIRONMENTAL_TYPES.each do |et|
-          subject.environmental_type = et
-          expect(subject.valid?).to be true
-        end
-        subject.environmental_type = "BANANA"
-        expect(subject.valid?).to be false
-        expect(subject.errors.messages[:environmental_type]).to include "^Select an environmental type"
-      end
-    end
-    context "when ENV is not the selected :project_type" do
-      it "removes :environmental_type" do
-        PafsCore::PROJECT_TYPES.reject { |t| t == "ENV" }.each do |pt|
-          subject.environmental_type = PafsCore::ENVIRONMENTAL_TYPES.first
-          expect {
-            subject.update({ project_type_step: { project_type: pt } })
-          }.to change { subject.environmental_type }.to nil
-          expect(subject.valid?).to eq true
-        end
-      end
-    end
   end
 
   describe "#update" do

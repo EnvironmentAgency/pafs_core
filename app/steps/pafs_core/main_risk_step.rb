@@ -9,6 +9,8 @@ module PafsCore
              :coastal_erosion, :coastal_erosion?,
              :main_risk, :main_risk=,
              :flooding?,
+             :project_type,
+             :project_protects_households?,
              to: :project
 
     validate :main_risk_is_present_and_a_selected_risk
@@ -43,6 +45,10 @@ module PafsCore
       r << :surface_water_flooding if surface_water_flooding?
       r << :coastal_erosion if coastal_erosion?
       r
+    end
+
+    def disabled?
+      !project_protects_households?
     end
 
   private

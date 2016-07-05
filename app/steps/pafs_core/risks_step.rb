@@ -7,6 +7,7 @@ module PafsCore
              :groundwater_flooding, :groundwater_flooding=,
              :surface_water_flooding, :surface_water_flooding=,
              :coastal_erosion, :coastal_erosion=,
+             :project_protects_households?,
              to: :project
 
     validate :at_least_one_risk_is_selected
@@ -27,6 +28,10 @@ module PafsCore
 
     def step
       @step ||= :risks
+    end
+
+    def disabled?
+      !project_protects_households?
     end
 
   private

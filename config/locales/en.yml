@@ -29,7 +29,9 @@ en:
   pafs_core:
     projects:
       new:
-        heading: "Does your project proposal require local levy or FCERM grant in aid (FCERM GiA) funding before %{date}?"
+        heading: "Does the project need Grant in Aid funding before %{date}?"
+      funding:
+        heading: "Does the project need local levy funding before %{date}?"
       reference_number:
         heading: "Your project application number"
         lede: "Here is your project application number"

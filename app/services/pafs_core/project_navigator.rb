@@ -88,15 +88,15 @@ module PafsCore
       STEPS.last
     end
 
-    def new_blank_project
-      PafsCore::Project.new
+    def new_blank_project(attrs = {})
+      PafsCore::Project.new(attrs)
     end
 
-    def start_new_project
+    def start_new_project(attrs = {})
       # we will need to position a project so that it 'belongs' somewhere
       # and is 'owned' by a user.  I envisage that we would use the
       # current_user passed into the constructor to get this information.
-      project = project_service.create_project
+      project = project_service.create_project(attrs)
       Object::const_get("PafsCore::#{self.class.first_step.to_s.camelcase}Step").new project
     end
 

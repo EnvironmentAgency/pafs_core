@@ -10,14 +10,13 @@ en:
 # project type
         project_type:
           heading: What is the main type of project you are proposing?
-          def_label: Changing the current standard of service or creating a new asset (known as DEF)
-          cm_label: Reinstating the standard of service of an asset (known as CM)
-          plp_label: Property level protection withing the very significant (5% or more) flood band (known as PLP)
-          brg_label: Works to bridges that enable FCERM activities, such as widening to increase flow rates (known as BRG)
-          str_label: Strategies (known as STR)
-          env_label: Environmental projects that deliver sites of special interest (SSSI) remedies or net Biodiversity Action Plan (BAP) habitat gain (known as ENV)
-          with_households_label: with households protected
-          without_households_label: without households protected
+          def_label: Changing the current standard of service or protection of a Flood Defence asset or creating a new one
+          cm_label: Restore the standard of service of a Flood Defence asset by refurbishment or replacement
+          plp_label: Property level protection for properties within the 'very significant' flood band where there is a 5% or greater chance of flooding
+          brg_label: Work done to bridges to enable flood and coastal erosion risk management. Such as widening a bridge to increase flow rates.
+          str_label: Strategy for complex flood or coastal erosion risk situations across several interconnected areas. It shows evidence of reduced risk, future cost savings or delivery of environmental outcomes.
+          env_with_households_label: Environmental project that also benefits households
+          env_without_households_label: Environmental project that doesn't benefit any households
 # financial year
         financial_year:
           heading: What is the last financial year in which you expect your proposed project to spend any funds?
@@ -71,16 +70,11 @@ en:
           heading: Confirm the estimated spend for each financial year.
 # earliest start
         earliest_start:
-          heading: Could your project start sooner if FCERM grant in aid (FCERM GiA) funding was available earlier?
-          lede: If you could secure FCERM grant in aid (FCERM GiA) funding earlier, what is the earliest estimated date to which the total costs could be brought forward without impacting on deliverability and outcomes?
+          heading: Could the project start sooner if grant in aid funding was made available earlier?
 # earliest date
         earliest_date:
-          heading: What is the earliest date to which project costs could be brought forward?
-          lede: If you could secure FCERM grant in aid (FCERM GiA) funding earlier, what is the earliest estimated date to which the total costs could be brought forward without impacting on deliverability and outcomes?
-          month_label: Month
-          year_label: Year
-          earliest_start_label: "Earliest start"
-          example_text: For example, 3 2019
+          heading: What is the earliest date your project could start without impacting deliverability or outcomes?
+          example_text: For example, 10 2019
 # risks
         risks:
           heading: What are the risks your proposed project will protect against?
@@ -118,7 +112,7 @@ en:
           total_label: Total
 # flood protection outcomes summary
         flood_protection_outcomes_summary:
-          heading: Confirm the number of households affected by coastal erosion that the project will benefit
+          heading: Confirm the number of households affected by flooding that the project will benefit
           financial_year_label: Financial year (April to April)
           households_at_reduced_risk_label: Households moved to a lower flood risk category
           households_moved_from_very_significant_and_significant_to_moderate_or_low_label: Of the households in A, the households that have moved out of the very significant or significant category to the moderate or low category

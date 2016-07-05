@@ -16,27 +16,44 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   end
 
   def new
+    # start a new project by asking whether GiA funding is required before 31 March 2021
     @project = project_navigator.new_blank_project
-    # start a new project
-    # ask the 'start within 6 years' question
-    # @project = project_navigator.start_new_project
-    # redirect_to project_step_path(id: @project.to_param, step: @project.step)
   end
 
+  # POST
+  def funding
+    # this is 'new' part 2
+    # continue initialising a project by asking whether Local Levy is required before 31 March 2021
+    @project = project_navigator.new_blank_project(project_params)
+    if @project.fcerm_gia.nil?
+      @project.errors.add(:fcerm_gia, "^Tell us if you need Grant in Aid funding before 31 March 2021")
+      render :new
+    end
+  end
+
+  # POST
   def create
     # if the project starts within the next 6 years
     # save the new project and start the steps
-    within_six_years = params.fetch(:yes_or_no, nil)
-    if within_six_years.nil?
+    @project = project_navigator.new_blank_project(project_params)
+
+    if !@project.fcerm_gia.nil? && !@project.local_levy.nil?
+      if @project.fcerm_gia? || @project.local_levy?
+        # create project
+        @project = project_navigator.start_new_project(project_params)
+        redirect_to reference_number_project_path(@project)
+      else
+        # not a project we want to know about (yet)
+        redirect_to pipeline_projects_path
+      end
+    elsif @project.fcerm_gia.nil?
       @project = project_navigator.new_blank_project
-      @project.errors.add(:base, "Tell us if you need funding before 31 March 2021")
+      @project.errors.add(:fcerm_gia, "^Tell us if you need Grant in Aid funding before 31 March 2021")
       render :new
-    elsif within_six_years == "yes"
-      @project = project_navigator.start_new_project
-      redirect_to reference_number_project_path(@project)
-    else
-      # not a project we want to know about (yet)
-      redirect_to pipeline_projects_path
+    elsif @project.local_levy.nil?
+      @project = project_navigator.new_blank_project
+      @project.errors.add(:local_levy, "^Tell us if you need local levy funding before 31 March 2021")
+      render :funding
     end
   end
 
@@ -128,6 +145,10 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   end
 
 private
+  def project_params
+    params.require(:project).permit(:fcerm_gia, :local_levy)
+  end
+
   def project_navigator
     @project_navigator ||= PafsCore::ProjectNavigator.new current_resource
   end

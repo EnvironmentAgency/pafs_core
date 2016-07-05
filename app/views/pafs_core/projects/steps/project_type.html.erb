@@ -13,21 +13,9 @@
               <legend class="visuallyhidden">Select the type of your proposed project</legend>
               <%= f.form_group(:project_type) do %>
                 <%= f.error_message(:project_type) %>
-                <% PafsCore::PROJECT_TYPES[0...-1].each do |pt| %>
+                <% PafsCore::PROJECT_TYPES.each do |pt| %>
                   <%= f.radio_button :project_type, pt.to_s, label: t(".#{pt.downcase}_label") %>
                 <% end %>
-                <%= f.radio_button(:project_type, "ENV", label: t(".env_label"),
-                                   target: "env_type_panel") %>
-
-                <div id="env_type_panel" class="panel js-hidden">
-                  <%= f.form_group(:environmental_type) do %>
-                    <%= f.error_message(:environmental_type) %>
-                    <% PafsCore::ENVIRONMENTAL_TYPES.each do |et| %>
-                      <%= f.radio_button :environmental_type, et.to_s,
-                                          label: t(".#{et.downcase}_label") %>
-                    <% end %>
-                  <% end %>
-                </div>
               <% end %>
 
               <div class="form-group">

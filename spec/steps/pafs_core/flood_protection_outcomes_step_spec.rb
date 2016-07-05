@@ -171,6 +171,13 @@ RSpec.describe PafsCore::FloodProtectionOutcomesStep, type: :model do
 
   describe "#disabled?" do
     subject { PafsCore::FloodProtectionOutcomesStep.new @project }
+    context "when the project does not protect any households" do
+      it "returns true" do
+        subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
+
+        expect(subject.disabled?).to eq true
+      end
+    end
     context "when the project does not protect against flooding" do
       it "returns true" do
         subject.project.fluvial_flooding = false

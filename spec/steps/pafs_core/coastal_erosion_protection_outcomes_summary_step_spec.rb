@@ -54,6 +54,14 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesSummaryStep, type: :mod
   describe "#disabled?" do
     subject { PafsCore::CoastalErosionProtectionOutcomesSummaryStep.new @project }
 
+    context "when the project does not protect any households" do
+      it "returns true" do
+        subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
+
+        expect(subject.disabled?).to eq true
+      end
+    end
+
     context "when the project doesn't protect against coastal erosion" do
       it "should return true" do
         subject.project.coastal_erosion = false
