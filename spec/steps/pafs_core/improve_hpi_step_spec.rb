@@ -36,9 +36,9 @@ RSpec.describe PafsCore::ImproveHpiStep, type: :model do
     end
 
     context "when :improve_hpi is false" do
-      it "updates the next step to :improve_river" do
+      it "updates the next step to :habitat_creation" do
         expect(subject.update(false_params)).to be true
-        expect(subject.step).to eq :improve_river
+        expect(subject.step).to eq :habitat_creation
       end
     end
 
@@ -98,10 +98,7 @@ RSpec.describe PafsCore::ImproveHpiStep, type: :model do
     end
 
     context "when :improve_hpi is false" do
-      it "returns the result of sub-task #completed?" do
-        sub_step = double("sub_step")
-        expect(sub_step).to receive(:completed?) { true }
-        expect(PafsCore::ImproveRiverStep).to receive(:new) { sub_step }
+      it "returns true" do
         subject.improve_hpi = false
         expect(subject.completed?).to be true
       end
