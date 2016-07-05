@@ -1,0 +1,37 @@
+<% scope = "pafs_core.projects.steps.funding_calculator" %>
+<%= pafs_form_for @project,
+  url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+  <%= f.error_header %>
+  <div class="step-form">
+    <h1 class="heading-large" id="file-context"><%= t('.heading') %></h1>
+    <div class="form-group">
+      <table>
+        <thead>
+          <tr>
+            <th><%= t("filename_title", scope: scope) %></th>
+            <th><%= t("uploaded_title", scope: scope) %></th>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to t("download_file_html",
+                            file: project.funding_calculator_file_name,
+                            scope: scope),
+                            download_funding_calculator_project_path(project.to_param),
+                            aria: { describedby: "file-context" } %>
+            </td>
+            <td><%= l project.funding_calculator_updated_at %></td>
+            <td>
+                <%= link_to t("delete_label_html", scope: scope),
+                  delete_funding_calculator_project_path(project.to_param),
+                  aria: { describedby: "file-context" } %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <%= f.submit t("continue_label"), class: 'button' %>
+  </div>
+<% end %>

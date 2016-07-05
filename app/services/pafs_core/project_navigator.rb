@@ -46,7 +46,8 @@ module PafsCore
              :urgency,
              :urgency_details, # not in nav - follows :urgency
 
-             :funding_calculator
+             :funding_calculator,
+             :funding_calculator_summary # not in nav
     ].freeze
 
     # Not sure we really need this --v
