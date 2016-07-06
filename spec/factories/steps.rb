@@ -17,6 +17,10 @@ FactoryGirl.define do
       project_end_financial_year 2018
     end
 
+    factory :financial_year_alternative_step, class: PafsCore::FinancialYearAlternativeStep do
+      project_end_financial_year 2022
+    end
+
     factory :key_dates_step, class: PafsCore::KeyDatesStep do
       start_outline_business_case_month 2
       start_outline_business_case_year 2012

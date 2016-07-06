@@ -19,10 +19,14 @@ en:
           env_without_households_label: Environmental project that doesn't benefit any households
 # financial year
         financial_year:
-          heading: What is the last financial year in which you expect your proposed project to spend any funds?
-          lede: Do not include any financial year in which there are maintenance costs, as these costs are the responsibility of the risk management authority promoting the scheme.
-          description: A financial year runs from 1 April in one year to 31 March in the subsequent year, for example April 2017 to March 2018.
-          example_text: "For example, 2017."
+          heading: In what financial year will the project stop spending funds?
+          lede: Don't include years which include maintenance costs. Maintenance costs are the responsibility of the risk management authority.
+          next_step_link_text: The project will spend funds after March 2023
+# financial year alternative
+        financial_year_alternative:
+          heading: In what financial year will the project stop spending funds?
+          lede: Don't include years which include maintenance costs. Maintenance costs are the responsibility of the risk management authority.
+          description: Financial year starting April
 # key dates
         key_dates:
           heading: What are the estimated dates for important milestones of your proposed project?
