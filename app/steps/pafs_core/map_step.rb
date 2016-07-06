@@ -6,7 +6,7 @@ module PafsCore
     delegate :benefit_area, :benefit_area=,
              :benefit_area_zoom_level, :benefit_area_zoom_level=,
              :benefit_area_centre, :benefit_area_centre=,
-             :project_location,
+             :project_location, :project_location_zoom_level,
              to: :project
 
     validates_presence_of :benefit_area, :benefit_area_centre, :benefit_area_zoom_level

@@ -66,7 +66,7 @@ RSpec.describe PafsCore::LocationStep, type: :model do
 
     it "should return completed? correctly" do
       expect(subject.completed?).to eq(true)
-      subject.update(location_step: { project_location: "[]"} )
+      subject.update(location_step: { project_location: "[]"})
       expect(subject.completed?).to eq(false)
     end
   end

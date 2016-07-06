@@ -34,12 +34,10 @@
               data-northings=<%= map_centre[:northings] %>
               data-zoomlevel=<%= @project.project_location_zoom_level %>
               data-polygons= <%= JSON.parse(@project.benefit_area).to_json %>
-              data-marker=<%= @project.project_location.to_json %>
-              style="width: max; height: 500px;">
+              data-marker=<%= @project.project_location.to_json %>>
             </div>
           </div>
         </div>
-        <a id="export-png" class="button" download="map.png"><i class="fa fa-download"></i> Download PNG</a>
         <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <div class="form-group">
             <%= f.hidden_field :project_location %>

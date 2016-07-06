@@ -8,7 +8,7 @@
         <% map_centre = @map_centre.first %>
         <div class="grid-row">
           <div class="column-three-thirds">
-            <div class="map-button">
+            <div class="map-buttons">
               <%= button_tag "Draw Polygon", class: "button", id: "draw-polygon", disable_with: "Drawing" %>
               <%= button_tag "Select Polygon", class: "button", id: "select-polygon", disable_with: "Selecting"%>
               <%= button_tag "Delete Polygon", class: "button", id: "delete-polygon", disable_with: "Deleting" %>
@@ -18,9 +18,9 @@
               data-eastings=<%= map_centre[:eastings] %>
               data-northings=<%= map_centre[:northings] %>
               data-polygons= <%= JSON.parse(@project.benefit_area).to_json %>
-              data-zoomlevel=<%= @project.benefit_area_zoom_level %>
+              data-zoomlevel=<%= @project.benefit_area_zoom_level || @project.project_location_zoom_level %>
               data-marker=<%= @project.project_location.to_json %>
-              style="width: max; height: 500px;">
+              >
             </div>
           </div>
         </div>

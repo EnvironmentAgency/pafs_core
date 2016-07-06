@@ -6,7 +6,7 @@ var markerLayer;
 var select;
 
 function initMap() {
-  if($('#map')){
+  if($('#map')[0]){
     loadOSMap();
   }
 }
@@ -53,11 +53,11 @@ function loadOSMap()
   markerLayer = new ol.layer.Vector({
     source: markerSource,
     style: new ol.style.Style({
-      image: new ol.style.Circle({
-        radius: 7,
-        fill: new ol.style.Fill({
-          color: '#ffcc33'
-        })
+      image: new ol.style.Icon({
+        src: "<%= asset_path 'pafs_core/mappin.png' %>",
+        scale: 0.15,
+        anchor: [0.5, 1],
+        opacity: 0.9,
       })
     })
   });
@@ -90,7 +90,10 @@ function loadOSMap()
         collapsible: false,
         attribution: attribution,
       })
-    }),
+    }).extend([
+      new ol.control.ScaleLine(),
+      new ol.control.FullScreen(),
+    ]),
     target: 'map',
     projection: epsg27700Projection,
     layers: [
@@ -141,8 +144,9 @@ function loadOSMap()
     source: source,
     type: /** @type {ol.geom.GeometryType} */ (drawingType),
   });
-  osMap.addInteraction(draw);
-
+  if($('.benefit_area')[0] !== "undefined"){
+    osMap.addInteraction(draw);
+  }
 
   draw.on('drawstart', function (e) {
     if (drawingType === 'Point') {
@@ -201,21 +205,6 @@ function loadOSMap()
     $('#draw-polygon')[0].onclick = drawPolygon;
     $('#select-polygon')[0].onclick = selectPolygon;
     $('#delete-polygon')[0].onclick = deletePolygon;
-  }
-
-  var exportPNGElement = document.getElementById('export-png');
-
-  if ('download' in exportPNGElement) {
-    exportPNGElement.addEventListener('click', function() {
-      osMap.once('postcompose', function(event) {
-        var canvas = event.context.canvas;
-        exportPNGElement.href = canvas.toDataURL('image/png');
-      });
-      osMap.renderSync();
-    }, false);
-  } else {
-    var info = document.getElementById('no-download');
-    info.style.display = '';
   }
 }
 

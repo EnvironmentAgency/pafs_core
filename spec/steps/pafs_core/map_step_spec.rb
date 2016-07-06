@@ -69,7 +69,7 @@ RSpec.describe PafsCore::LocationStep, type: :model do
     subject { FactoryGirl.build(:map_step) }
 
     it "returns false with nil or empty benefit area" do
-      subject.update(map_step: { benefit_area: ""} )
+      subject.update(map_step: { benefit_area: ""})
       expect(subject.completed?).to be false
     end
 
