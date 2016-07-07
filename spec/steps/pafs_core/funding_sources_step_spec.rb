@@ -79,6 +79,30 @@ RSpec.describe PafsCore::FundingSourcesStep, type: :model do
     end
   end
 
+  describe "#completed?" do
+    subject { FactoryGirl.build(:funding_sources_step) }
+    context "when valid? and :funding_sources_visited is true" do
+      it "returns true" do
+        expect(subject.completed?).to eq true
+      end
+    end
+
+    context "when valid? and :funding_sources_visited is false" do
+      it "returns false" do
+        subject.funding_sources_visited = false
+        expect(subject.completed?).to eq false
+      end
+    end
+
+    context "when invalid?" do
+      it "returns false" do
+        subject.project.fcerm_gia = nil
+        subject.project.public_contributions = nil
+        expect(subject.completed?).to eq false
+      end
+    end
+  end
+
   describe "#previous_step" do
     subject { FactoryGirl.build(:funding_sources_step) }
 
