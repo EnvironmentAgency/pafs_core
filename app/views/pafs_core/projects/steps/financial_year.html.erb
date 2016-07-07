@@ -8,11 +8,18 @@
         <%= f.error_header %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
         <p class="lede"><%= t('.lede') %></p>
-        <p><%= t(".description") %></p>
         <div class="step-form">
-          <%= f.number_field :project_end_financial_year, in: 2017..2100, class: "form-control form-year", hint: t(".example_text") %>
-
-          <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          <div class ="form-group">
+            <% @project.financial_year_options.each do |year| %>
+              <%= f.radio_button :project_end_financial_year, year, label: "April #{year} to March #{year + 1}" %>
+            <% end %>
+          </div>
+          <div class="form-group">
+            <%= link_to t('.next_step_link_text'), project_step_path(id: @project, step: :financial_year_alternative) %>
+          </div>
+          <div class ="form-group">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
         <% end %>
       </div>
     </div>
