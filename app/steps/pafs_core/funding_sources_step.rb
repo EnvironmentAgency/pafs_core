@@ -13,6 +13,8 @@ module PafsCore
              :other_ea_contributor_names, :other_ea_contributor_names=,
              :growth_funding, :growth_funding=,
              :not_yet_identified, :not_yet_identified=,
+             :funding_sources_visited, :funding_sources_visited=,
+             :funding_sources_visited?,
              to: :project
 
     validates :public_contributor_names, presence: true, if: -> { public_contributions}
@@ -22,7 +24,7 @@ module PafsCore
 
     def update(params)
       result = false
-      assign_attributes(step_params(params))
+      assign_attributes(step_params(params).merge(funding_sources_visited: true))
       if valid?
         public_contributor_names = nil unless public_contributions?
         private_contributor_names = nil unless private_contributions?
@@ -44,6 +46,9 @@ module PafsCore
       @step ||= :funding_sources
     end
 
+    def completed?
+      funding_sources_visited? && valid?
+    end
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:funding_sources_step).permit(

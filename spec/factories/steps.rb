@@ -36,6 +36,7 @@ FactoryGirl.define do
       fcerm_gia true
       public_contributions true
       public_contributor_names "Mary, Mungo and Midge"
+      funding_sources_visited true
     end
 
     factory :earliest_start_step, class: PafsCore::EarliestStartStep do
