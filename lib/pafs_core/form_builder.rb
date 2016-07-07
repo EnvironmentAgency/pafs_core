@@ -8,9 +8,9 @@ module PafsCore
         h = heading || I18n.t(:error_heading)
         d = description || I18n.t(:error_description)
 
-        contents = [error_heading(h),
-                    error_description(d),
-                    error_list]
+        contents = [error_heading(h)]
+        contents << error_description(d) unless d.blank?
+        contents << error_list
 
         content_tag(:div, class: "error-summary", role: "group",
                     aria: { labelledby: "error-summary-heading" },
@@ -103,35 +103,6 @@ module PafsCore
       end
     end
 
-    # def month_and_year(attribute, options = {})
-    #   m_key = "#{attribute}_month".to_sym
-    #   y_key = "#{attribute}_year".to_sym
-    #
-    #   contents = [content_tag(:span, label_for(attribute, options), class: "form-label-bold")]
-    #   contents << hint_text(options.delete(:hint)) if options.include? :hint
-    #   contents << error_message(:base) if @object.errors.include? :base
-    #   contents << content_tag(:div, class: "form-date") do
-    #     safe_join([
-    #       content_tag(:div, class: "form-group form-group-month") do
-    #         safe_join([
-    #           label(m_key, I18n.t("month_label"), class: "form-label"),
-    #           number_field(m_key, in: 1..12, maxlength: 2, class: "form-control form-month")
-    #         ], "\n")
-    #       end,
-    #       content_tag(:div, class: "form-group form-group-year") do
-    #         safe_join([
-    #           label(y_key, I18n.t("year_label"), class: "form-label"),
-    #           number_field(y_key, in: 2000..2100, maxlength: 4, class: "form-control form-year")
-    #         ], "\n")
-    #       end
-    #     ], "\n")
-    #   end
-    #
-    #   form_group(:base) do
-    #     safe_join(contents, "\n")
-    #   end
-    # end
-    #
     def radio_button_group(attribute, items)
       content = []
       content << error_message(attribute) if @object.errors.include? attribute
@@ -156,13 +127,6 @@ module PafsCore
       end
 
       f
-      # if block_given?
-      #   safe_join([f, content_tag(:div,
-      #                             id: content_id("#{attribute}-#{value}"),
-      #                             class: "panel js-hidden") do
-      #                               yield
-      #                             end], "\n")
-      # end
     end
 
     def text_area(attribute, options = {})
