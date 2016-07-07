@@ -21,6 +21,7 @@ module PafsCore
 
     def find_project(id)
       # make it a case-insensitive search
+      # TODO: security check! can the user actually access this project?
       PafsCore::Project.find_by!(slug: id.to_s.upcase)
     end
 

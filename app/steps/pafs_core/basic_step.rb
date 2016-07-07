@@ -33,6 +33,10 @@ module PafsCore
       valid?
     end
 
+    def incomplete?
+      !completed?
+    end
+
     # override this in the subclass if the step could conditionally be disabled
     def disabled?
       false

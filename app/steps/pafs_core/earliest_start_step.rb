@@ -32,7 +32,7 @@ module PafsCore
     end
 
     def previous_step
-      :funding_sources
+      :funding_values
     end
 
     def step

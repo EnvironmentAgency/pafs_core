@@ -50,8 +50,8 @@ RSpec.describe PafsCore::EarliestStartStep, type: :model do
   describe "#previous_step" do
     subject { FactoryGirl.build(:earliest_start_step) }
 
-    it "should return :funding_sources" do
-      expect(subject.previous_step).to eq :funding_sources
+    it "should return :funding_values" do
+      expect(subject.previous_step).to eq :funding_values
     end
   end
 

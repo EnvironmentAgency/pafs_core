@@ -10,13 +10,19 @@ RSpec.describe PafsCore::BasicStep, type: :model do
 
   describe "#completed?" do
     it "returns true as there are no validations for a BasicStep" do
-      expect(subject.completed?).to be true
+      expect(subject.completed?).to eq true
+    end
+  end
+
+  describe "#incomplete?" do
+    it "returns the inverse of #completed?" do
+      expect(subject.incomplete?).to eq !subject.completed?
     end
   end
 
   describe "#disabled?" do
     it "returns false as a default for the subclasses" do
-      expect(subject.disabled?).to be false
+      expect(subject.disabled?).to eq false
     end
   end
 
@@ -34,11 +40,11 @@ RSpec.describe PafsCore::BasicStep, type: :model do
 
   describe "#is_current_step?" do
     it "returns true if the current step matches the step parameter" do
-      expect(subject.is_current_step?(:basic)).to be true
+      expect(subject.is_current_step?(:basic)).to eq true
     end
 
     it "returns false if the current step does not match the step parameter" do
-      expect(subject.is_current_step?(:not_this_step)).to be false
+      expect(subject.is_current_step?(:not_this_step)).to eq false
     end
   end
 

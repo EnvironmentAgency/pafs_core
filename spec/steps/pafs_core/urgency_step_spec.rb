@@ -64,8 +64,8 @@ RSpec.describe PafsCore::UrgencyStep, type: :model do
   describe "#previous_step" do
     subject { FactoryGirl.build(:urgency_step) }
 
-    it "should return :fish_eel_passages" do
-      expect(subject.previous_step).to eq :fish_eel_passages
+    it "should return :remove_fish_barrier" do
+      expect(subject.previous_step).to eq :remove_fish_barrier
     end
   end
 

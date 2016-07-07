@@ -60,8 +60,9 @@ RSpec.describe PafsCore::RisksStep, type: :model do
   describe "#previous_step" do
     subject { FactoryGirl.build(:risks_step) }
 
-    it "should return :map" do
-      expect(subject.previous_step).to eq :map
+    # TODO: this needs to be changed to :map once the map is integrated
+    it "should return :earliest_start" do
+      expect(subject.previous_step).to eq :earliest_start
     end
   end
 

@@ -25,8 +25,8 @@ RSpec.describe PafsCore::FundingCalculatorSummaryStep, type: :model do
   end
 
   describe "#previous_step" do
-    it "should return :funding_calculator" do
-      expect(subject.previous_step).to eq :funding_calculator
+    it "should return :urgency" do
+      expect(subject.previous_step).to eq :urgency
     end
   end
 

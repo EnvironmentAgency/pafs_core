@@ -83,8 +83,8 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
   describe "#previous_step" do
     subject { FactoryGirl.build(:standard_of_protection_step) }
 
-    it "should return :households_benefitting" do
-      expect(subject.previous_step).to eq :households_benefitting
+    it "should return :coastal_erosion_protection_outcomes" do
+      expect(subject.previous_step).to eq :coastal_erosion_protection_outcomes
     end
   end
 
