@@ -47,11 +47,11 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
         redirect_to pipeline_projects_path
       end
     elsif @project.fcerm_gia.nil?
-      @project = project_navigator.new_blank_project
+      @project = project_navigator.new_blank_project(project_params)
       @project.errors.add(:fcerm_gia, "^Tell us if you need Grant in Aid funding before 31 March 2021")
       render :new
     elsif @project.local_levy.nil?
-      @project = project_navigator.new_blank_project
+      @project = project_navigator.new_blank_project(project_params)
       @project.errors.add(:local_levy, "^Tell us if you need local levy funding before 31 March 2021")
       render :funding
     end

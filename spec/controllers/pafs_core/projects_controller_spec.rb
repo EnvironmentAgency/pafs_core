@@ -240,8 +240,7 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       context "when the next step is :summary step" do
         it "redirects to the project summary page" do
           @project.update_attributes(funding_calculator_file_name: "peanuts.xsl")
-          patch :save, id: @project.to_param, step: "funding_calculator",
-          funding_calculator_step: { test: "Haystack" }
+          patch :save, id: @project.to_param, step: "funding_calculator_summary"
           expect(response).to redirect_to project_path(id: @project.to_param)
         end
       end

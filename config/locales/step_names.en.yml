@@ -2,6 +2,7 @@ en:
   project_name_step_label: "Project name"
   project_type_step_label: "Type"
   financial_year_step_label: "Financial year"
+  financial_year_alternative_step_label: "Financial year alternative"
   key_dates_step_label: "Key dates"
   funding_sources_step_label: "Funding sources"
   funding_values_step_label: "Funding values"
@@ -35,4 +36,5 @@ en:
   urgency_step_label: "Urgency details"
   urgency_details_step_label: "Urgency details"
   funding_calculator_step_label: "Funding calculator"
+  funding_calculator_summary_step_label: "Funding calculator"
   summary_step_label: "Summary"

@@ -3,10 +3,9 @@
 require "rails_helper"
 # require_relative "./shared_step_spec"
 
-RSpec.describe PafsCore::FinancialYearStep, type: :model do
+RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:financial_year_step) }
-
+    subject { FactoryGirl.build(:financial_year_alternative_step) }
     it_behaves_like "a project step"
 
     it { is_expected.to validate_presence_of :project_end_financial_year }
@@ -21,7 +20,7 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
     end
 
     it "validates that :project_end_financial_year is current financial year or later" do
-      subject.project_end_financial_year = Time.current.uk_financial_year - 1
+      subject.project_end_financial_year = 2015
       current_financial_year = Time.current.uk_financial_year
       expect(subject.valid?).to be false
       expect(subject.errors[:project_end_financial_year]).to include "must be #{current_financial_year} or later"
@@ -35,9 +34,22 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:financial_year_step) }
-    let(:params) { HashWithIndifferentAccess.new({ financial_year_step: { project_end_financial_year: "2020" }})}
-    let(:error_params) { HashWithIndifferentAccess.new({ financial_year_step: { project_end_financial_year: "1983" }})}
+    subject { FactoryGirl.create(:financial_year_alternative_step) }
+    let(:params) {
+      HashWithIndifferentAccess.new({
+        financial_year_alternative_step: {
+          project_end_financial_year: "2020"
+        }
+      })
+    }
+
+    let(:error_params) {
+      HashWithIndifferentAccess.new({
+        financial_year_alternative_step: {
+          project_end_financial_year: "1983"
+        }
+      })
+    }
 
     it "saves the :project_end_financial_year if valid" do
       expect(subject.project_end_financial_year).not_to eq 2020
@@ -46,7 +58,7 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
     end
 
     it "updates the next step if valid" do
-      expect(subject.step).to eq :financial_year
+      expect(subject.step).to eq :financial_year_alternative
       subject.update(params)
       expect(subject.step).to eq :key_dates
     end
@@ -56,26 +68,27 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
     end
 
     it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :financial_year
+      expect(subject.step).to eq :financial_year_alternative
       subject.update(error_params)
-      expect(subject.step).to eq :financial_year
+      expect(subject.step).to eq :financial_year_alternative
     end
   end
 
   describe "#previous_step" do
-    subject { FactoryGirl.build(:financial_year_step) }
+    subject { FactoryGirl.build(:financial_year_alternative_step) }
 
-    it "should return :project_name" do
-      expect(subject.previous_step).to eq :project_type
+    it "should return :financial_year" do
+      expect(subject.previous_step).to eq :financial_year
     end
   end
 
-  describe "#financial_year_options" do
-    subject { FactoryGirl.build(:financial_year_step) }
+  describe "#is_current_step?" do
+    subject { FactoryGirl.build(:financial_year_alternative_step) }
 
-    it "should return the correct set of financial year options" do
-      current_financial_year = Time.current.uk_financial_year
-      expect(subject.financial_year_options).to eq current_financial_year..current_financial_year + 5
+    context "when :standard_of_protection is given" do
+      it "should return true" do
+        expect(subject.is_current_step?(:financial_year)).to eq true
+      end
     end
   end
 end

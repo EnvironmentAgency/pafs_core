@@ -1,0 +1,11 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', project: @project %>
+    </div>
+    <div class="column-two-thirds">
+      <%= render partial: "pafs_core/projects/steps/funding_calculator_summary",
+                 locals: { project: @project } %>
+    </div>
+  </div>
+</div>
