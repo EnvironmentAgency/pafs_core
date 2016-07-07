@@ -51,7 +51,7 @@ module PafsCore
     end
 
     def previous_step
-      :urgency_details
+      :urgency
     end
 
     def step

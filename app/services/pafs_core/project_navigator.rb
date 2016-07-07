@@ -2,8 +2,7 @@
 # frozen_string_literal: true
 module PafsCore
   class ProjectNavigator
-
-    # add 'pages' or 'steps' to the STEPS list
+    # add 'pages' or 'steps' to the STEPS list in order
     # NOTE: STEPS.first and STEPS.last are used to determine the start
     # and end points for the user's journey (although we can change this)
     STEPS = [:project_name,
@@ -23,9 +22,9 @@ module PafsCore
              :risks,
              :main_risk, # not in nav - accessible following :risks
              :flood_protection_outcomes,
-             :flood_protection_outcomes_summary,
+             :flood_protection_outcomes_summary, # not in nav
              :coastal_erosion_protection_outcomes,
-             :coastal_erosion_protection_outcomes_summary,
+             :coastal_erosion_protection_outcomes_summary, # not in nav
              :standard_of_protection,
              :standard_of_protection_coastal, # not in nav - follows :standard_of_protection
              :approach,
@@ -50,29 +49,6 @@ module PafsCore
              :funding_calculator,
              :funding_calculator_summary # not in nav
     ].freeze
-
-    # Not sure we really need this --v
-    # GROUPS = {
-    #   project_details: [:project_name,
-    #                     :project_details,
-    #                     :financial_year,
-    #                     :timescale],
-    #   funding: [:source_of_funding,
-    #             :funding_details,
-    #             :early_start],
-    #   location_and_type: [:location,
-    #                       :classification],
-    #   beneficiaries: [:risks,
-    #                   :number_of_households,
-    #                   :standard_of_protection,
-    #                   :outcomes],
-    #   related_programs: [:defra,
-    #                      :directives],
-    #   other: [:environmental_issues,
-    #           :higher_priority,
-    #           :funding_calculator,
-    #           :summary]
-    # }
 
     attr_reader :user
 
@@ -122,7 +98,7 @@ module PafsCore
     def self.build_project_step(project, step, user)
       # accept a step or a raw project activerecord object
       project = project.project if project.instance_of? PafsCore::BasicStep
-
+      # TODO: check that this user has permission to access this project
       Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new(project, user)
     end
 

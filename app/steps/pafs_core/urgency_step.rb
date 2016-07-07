@@ -33,7 +33,7 @@ module PafsCore
     end
 
     def previous_step
-      :fish_eel_passages
+      :remove_fish_barrier
     end
 
     def step
