@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160704105738) do
+ActiveRecord::Schema.define(version: 20160707101138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20160704105738) do
   end
 
   create_table "pafs_core_projects", force: :cascade do |t|
+<<<<<<< HEAD
     t.string   "reference_number",                                         null: false
     t.integer  "version",                                                  null: false
     t.string   "name"
@@ -93,6 +94,15 @@ ActiveRecord::Schema.define(version: 20160704105738) do
     t.datetime "updated_at",                                               null: false
     t.integer  "project_end_financial_year"
     t.string   "slug",                                  default: "",       null: false
+=======
+    t.string   "reference_number",                                      null: false
+    t.integer  "version",                                               null: false
+    t.string   "name"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.integer  "project_end_financial_year"
+    t.string   "slug",                                  default: "",    null: false
+>>>>>>> develop
     t.integer  "start_outline_business_case_month"
     t.integer  "start_outline_business_case_year"
     t.integer  "award_contract_month"
@@ -153,6 +163,7 @@ ActiveRecord::Schema.define(version: 20160704105738) do
     t.boolean  "remove_fish_barrier"
     t.boolean  "remove_eel_barrier"
     t.float    "fish_or_eel_amount"
+    t.boolean  "funding_sources_visited",               default: false
   end
 
   add_index "pafs_core_projects", ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree

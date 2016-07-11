@@ -19,7 +19,7 @@ module PafsCore
     end
 
     def previous_step
-      :households_benefitting
+      :coastal_erosion_protection_outcomes
     end
 
     def step

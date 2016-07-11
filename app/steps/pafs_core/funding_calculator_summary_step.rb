@@ -12,7 +12,7 @@ module PafsCore
     end
 
     def previous_step
-      :funding_calculator
+      :urgency
     end
 
     def step

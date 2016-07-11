@@ -209,8 +209,8 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
   describe "#previous_step" do
     subject { FactoryGirl.build(:funding_calculator_step) }
 
-    it "should return :urgency_details" do
-      expect(subject.previous_step).to eq :urgency_details
+    it "should return :urgency" do
+      expect(subject.previous_step).to eq :urgency
     end
   end
 end

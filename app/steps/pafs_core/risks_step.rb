@@ -23,7 +23,8 @@ module PafsCore
     end
 
     def previous_step
-      :map
+      # TODO: this should be :map but it isn't there yet
+      :earliest_start
     end
 
     def step
