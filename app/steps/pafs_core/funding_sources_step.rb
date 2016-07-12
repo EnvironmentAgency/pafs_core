@@ -17,9 +17,6 @@ module PafsCore
              :funding_sources_visited?,
              to: :project
 
-    validates :public_contributor_names, presence: true, if: -> { public_contributions}
-    validates :private_contributor_names, presence: true, if: -> { private_contributions}
-    validates :other_ea_contributor_names, presence: true, if: -> { other_ea_contributions}
     validate :at_least_one_funding_source_is_selected
 
     def update(params)
@@ -31,7 +28,7 @@ module PafsCore
         other_ea_contributor_names = nil unless other_ea_contributions?
 
         if project.save
-          @step = :funding_values
+          @step = next_step
           result = true
         end
       end
@@ -47,7 +44,16 @@ module PafsCore
     end
 
     def completed?
-      funding_sources_visited? && valid?
+      if funding_sources_visited? && valid?
+        step = next_step
+        if step != :funding_values
+          PafsCore::ProjectNavigator.build_project_step(project, next_step, user).completed?
+        else
+          true
+        end
+      else
+        false
+      end
     end
   private
     def step_params(params)
@@ -56,13 +62,22 @@ module PafsCore
         :local_levy,
         :internal_drainage_boards,
         :public_contributions,
-        :public_contributor_names,
         :private_contributions,
-        :private_contributor_names,
         :other_ea_contributions,
-        :other_ea_contributor_names,
         :growth_funding,
         :not_yet_identified)
+    end
+
+    def next_step
+      if public_contributions?
+        :public_contributors
+      elsif private_contributions?
+        :private_contributors
+      elsif other_ea_contributions?
+        :other_ea_contributors
+      else
+        :funding_values
+      end
     end
 
     def at_least_one_funding_source_is_selected
