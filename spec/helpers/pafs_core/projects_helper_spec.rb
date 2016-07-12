@@ -17,7 +17,29 @@ module PafsCore
 
     describe "#six_year_limit_date" do
       it "returns a string for the end of the six year limit financial year" do
-        expect(helper.six_year_limit_date).to eq Date.new(2021, 3, 31).to_s(:long_ordinal)
+        expect(helper.six_year_limit_date).to eq "31 March 2021"
+      end
+    end
+
+    describe "#str_year" do
+      context "when given a year less than zero" do
+        it "returns the string 'previous'" do
+          expect(helper.str_year(-1)).to eq "previous"
+        end
+      end
+      it "converts a year into a string" do
+        expect(helper.str_year(2016)).to eq "2016"
+      end
+    end
+
+    describe "#formatted_financial_year" do
+      context "when given a year less than zero" do
+        it "returns the string 'Previous years'" do
+          expect(helper.formatted_financial_year(-1)).to eq "Previous years"
+        end
+      end
+      it "returns the financial year range as a string" do
+        expect(helper.formatted_financial_year(2016)).to eq "2016 to 2017"
       end
     end
 
