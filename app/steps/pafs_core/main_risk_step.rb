@@ -2,14 +2,13 @@
 # frozen_string_literal: true
 module PafsCore
   class MainRiskStep < BasicStep
+    include PafsCore::Risks
     delegate :fluvial_flooding, :fluvial_flooding?,
              :tidal_flooding, :tidal_flooding?,
              :groundwater_flooding, :groundwater_flooding?,
              :surface_water_flooding, :surface_water_flooding?,
              :coastal_erosion, :coastal_erosion?,
              :main_risk, :main_risk=,
-             :flooding?,
-             :project_type,
              :project_protects_households?,
              to: :project
 
@@ -18,7 +17,7 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params))
       if valid? && project.save
-        @step = if flooding?
+        @step = if protects_against_flooding?
                   :flood_protection_outcomes
                 else
                   :coastal_erosion_protection_outcomes
@@ -35,16 +34,6 @@ module PafsCore
 
     def step
       @step ||= :main_risk
-    end
-
-    def risks
-      r = []
-      r << :fluvial_flooding if fluvial_flooding?
-      r << :tidal_flooding if tidal_flooding?
-      r << :groundwater_flooding if groundwater_flooding?
-      r << :surface_water_flooding if surface_water_flooding?
-      r << :coastal_erosion if coastal_erosion?
-      r
     end
 
     def disabled?

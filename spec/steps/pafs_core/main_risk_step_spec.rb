@@ -92,17 +92,17 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
         end
       end
     end
+  end
 
-    describe "#previous_step" do
-      it "should return :risks" do
-        expect(subject.previous_step).to eq :risks
-      end
+  describe "#previous_step" do
+    it "should return :risks" do
+      expect(subject.previous_step).to eq :risks
     end
+  end
 
-    describe "#risks" do
-      it "returns a list of selected risks" do
-        expect(subject.risks.count).to eq 1
-      end
+  describe "#selected_risks" do
+    it "returns a list of selected risks" do
+      expect(subject.selected_risks.count).to eq 1
     end
   end
 
