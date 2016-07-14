@@ -41,6 +41,13 @@ en:
     phase_banner:
       feedback: feedback
       heading_html: This is a new service – your %{href} will help us to improve it.
+  summary:
+    key_dates:
+      start_outline_business_case_label: "Outline business case start date"
+      award_contract_label: "Contract awarded"
+      start_construction_label: "Start construction"
+      ready_for_service_label: "Ready for service"
+
   activemodel:
     attributes:
       pafs_core/project_name_step:

@@ -1,0 +1,24 @@
+<article class="summary-item" aria-labelledby="risks">
+  <h2 class="heading-medium" role="heading" id="risks">Risks</h2>
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <ul class="summary-list list-bullet">
+        <% project.risks.each do |risk| %>
+          <li>
+            <%= t("#{risk}_label", scope: "pafs_core.projects.steps.risks") %>
+            <% if @project.risks.count > 1 && @project.is_main_risk?(risk) %>
+              <span class="main-risk"> - Main source of risk</span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="column-one-third">
+      <div class="change-link">
+        <%= link_to pafs_core.project_step_path(id: project.to_param, step: :risks) do -%>
+          Change<span class="visually-hidden"> the risks your proposed project will protect against</span>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</article>

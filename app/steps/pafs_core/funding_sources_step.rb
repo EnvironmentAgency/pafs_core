@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 module PafsCore
   class FundingSourcesStep < BasicStep
+    include PafsCore::FundingSources
     delegate :fcerm_gia, :fcerm_gia=,
              :local_levy, :local_levy=,
              :internal_drainage_boards, :internal_drainage_boards=,

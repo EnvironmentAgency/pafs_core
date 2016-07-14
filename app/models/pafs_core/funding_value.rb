@@ -24,7 +24,7 @@ module PafsCore
 
     private
     def update_total
-      self.total = PafsCore::FUNDING_SOURCES.reduce(0) do |tot, f|
+      self.total = PafsCore::FundingSources::FUNDING_SOURCES.reduce(0) do |tot, f|
         v = send(f)
         if v.present?
           tot + v.to_i

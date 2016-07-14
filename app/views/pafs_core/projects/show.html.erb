@@ -1,78 +1,21 @@
-<div class="govuk-box-highlight">
-  <h1 class="bold-large">Your application is ready for submission</h1>
-</div>
-<h1 class="heading-large">Check your answers before sending your application</h1>
-<p class="lede">You will not be able to submit your proposal until you have provided all required information.</p>
-<section id="project-summary">
-  <h2 class="heading-medium">Your project details</h2>
-  <table class="summary">
-    <tbody>
-      <% # Project name ########### %>
-      <tr>
-        <td>Project name</td>
-        <td><%= @project.name %></td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :project_name), aria: { label: "Change the project name" } %></td>
-      </tr>
-      <% # Project type ########### %>
-      <tr>
-        <td><%= t('project_type_step_label') %></td>
-        <td><%= @project.project_type_name %></td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :project_type), aria: { label: "Change the project type" } %></td>
-      </tr>
-      <% # financial year ########### %>
-      <tr>
-        <td>Financial year</td>
-        <td><%= @project.project_end_financial_year %></td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :financial_year), aria: { label: "Change the financial year end of the project" } %></td>
-      </tr>
-      <% # Key dates ########### %>
-      <tr>
-        <td>Key dates</td>
-        <td>
-          <ul>
-            <li><%= @project.start_outline_business_case_date %> - Gateway 1</li>
-            <li><%= @project.award_contract_date %> - Gateway 3</li>
-            <li><%= @project.start_construction_date %> - Start construction</li>
-            <li><%= @project.ready_for_service_date %> - Gateway 4</li>
-          </ul>
-        </td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :key_dates), aria: { label: "Change the key dates" } %></td>
-      </tr>
-      <% # Funding sources ########### %>
-      <tr>
-        <td>Funding sources</td>
-        <td>
-          <ol <%= "class=list-number" if @project.funding_sources.count > 1 %>>
-            <% @project.funding_sources.each do |fs| %>
-              <li><%= fs %></li>
-            <% end %>
-          </ol>
-        </td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :funding_sources), aria: { label: "Change the funding sources" } %></td>
-      </tr>
-      <% # Earliest start ########### %>
-      <tr>
-        <td>Earliest start</td>
-        <td><%= @project.early_start_date_or_no %></td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :earliest_start), aria: { label: "Change the earliest start date" } %></td>
-      </tr>
-      <% # Risks ########### %>
-      <tr>
-        <td>Risks</td>
-        <td>
-          <ul>
-            <% @project.risks.each do |risk| %>
-              <li>
-                <%= t("#{risk}_label", scope: "pafs_core.projects.steps.risks") %>
-                <% if @project.risks.count > 1 && @project.is_main_risk?(risk) %>
-                  <span class="main-risk"> - Main source</span>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </td>
-        <td><%= link_to "Change", pafs_core.project_step_path(id: @project.to_param, step: :risks), "aria-label": "Change which risks your project is protecting against" %></td>
-      </tr>
-    </tbody>
-  </table>
+<section id="project-summary" class="font-xsmall">
+  <header class="summary-heading">
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <h1 class="heading-medium"><%= @project.name %></h1>
+        <p><%= link_to "Print overview", "#" %> / <%= link_to "Download overview PDF", "#" %></p>
+      </div>
+      <div class="column-one-third">
+        <dl>
+          <dt>Project number</dt>
+          <dd><%= @project.reference_number %></dd>
+          <dt>Last submitted</dt>
+          <dd><%= @project.updated_at %></dd>
+        </dl>
+      </div>
+    </div>
+  </header>
+  <% %w[ project_name project_type financial_year key_dates funding_sources funding_values earliest_start risks].each do |item| %>
+    <%= render partial: "summary/#{item}", locals: { project: @project } %>
+  <% end %>
 </section>

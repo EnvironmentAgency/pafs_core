@@ -120,6 +120,41 @@
   }
 }
 
+.change-link {
+  text-align: right;
+  margin-right: 1em;
+}
+
+.embedded-change-link {
+  float: right;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.summary-item {
+  border-bottom: 1px solid $grey-2;
+}
+
+.summary-list {
+  li {
+    padding-bottom: 0.5em;
+  }
+}
+
+.underlined-items {
+  li:nth-child(n+2) {
+    padding-top: 0.5em;
+  }
+
+  li:nth-last-child(n+2) {
+    border-bottom: 1px solid $grey-2;
+  }
+}
+
 .confirmation-box {
   background-color: $turquoise;
   color: $white;

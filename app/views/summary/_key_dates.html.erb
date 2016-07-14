@@ -1,0 +1,73 @@
+<article class="summary-item" aria-labelledby="key-dates">
+  <h2 class="heading-medium" role="heading" id="key-dates">Important dates</h2>
+  <ol class="summary-list underlined-items">
+    <li>
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <%= t(".start_outline_business_case_label") %>
+        </div>
+        <div class="column-one-third">
+          <span class="half-width">
+            <%= project.start_outline_business_case_date %>
+          </span>
+          <span class="embedded-change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :key_dates) do -%>
+              Change<span class="visually-hidden"> the <%= t(".start_outline_business_case_label").downcase %></span>
+            <% end -%>
+          </span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <%= t(".award_contract_label") %>
+        </div>
+        <div class="column-one-third">
+          <span class="half-width">
+            <%= project.award_contract_date %>
+          </span>
+          <span class="embedded-change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :key_dates) do -%>
+              Change<span class="visually-hidden"> the <%= t(".award_contract_label").downcase %> date</span>
+            <% end -%>
+          </span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <%= t(".start_construction_label") %>
+        </div>
+        <div class="column-one-third">
+          <span class="half-width">
+            <%= project.start_construction_date %>
+          </span>
+          <span class="embedded-change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :key_dates) do -%>
+              Change<span class="visually-hidden"> the <%= t(".start_construction_label").downcase %> date</span>
+            <% end -%>
+          </span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <%= t(".ready_for_service_label") %>
+        </div>
+        <div class="column-one-third">
+          <span class="half-width">
+            <%= project.ready_for_service_date %>
+          </span>
+          <span class="embedded-change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :key_dates) do -%>
+              Change<span class="visually-hidden"> the <%= t(".ready_for_service_label").downcase %> date</span>
+            <% end -%>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ol>
+</article>

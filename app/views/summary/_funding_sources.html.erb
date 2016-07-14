@@ -1,0 +1,19 @@
+<article class="summary-item" aria-labelledby="funding-sources">
+  <h2 class="heading-medium" role="heading" id="funding-sources">Funding sources</h2>
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <ul class="summary-list list-bullet">
+        <% project.funding.each do |fs| %>
+          <li><%= fs[:name] %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="column-one-third">
+      <div class="change-link">
+        <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_sources) do -%>
+          Change<span class="visually-hidden"> the sources of funding</span>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</article>

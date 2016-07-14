@@ -25,6 +25,14 @@ module PafsCore
       end
     end
 
+    def formatted_financial_month_and_year(year)
+      if year < 0
+        t("previous_years_label")
+      else
+        "April #{year} to March #{year + 1}"
+      end
+    end
+
     def funding_table_cell(year, funding_source)
       "#{str_year(year)}-#{funding_source} numeric"
     end
@@ -81,6 +89,10 @@ module PafsCore
                                                      class: "nav-link")
         end
       end
+    end
+
+    def project_type_label(pt)
+      I18n.t("#{pt.downcase}_label", scope: "pafs_core.projects.steps.project_type")
     end
 
     def step_label(step)

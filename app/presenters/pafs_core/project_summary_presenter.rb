@@ -1,15 +1,7 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
   class ProjectSummaryPresenter < SimpleDelegator
-
-    def project_type_name
-      if project_type.present?
-        I18n.t(project_type.downcase, scope: "pafs_core.project_types")
-      else
-        ""
-      end
-    end
+    include PafsCore::FundingSources
 
     def start_outline_business_case_date
       presentable_date(:start_outline_business_case)
@@ -27,17 +19,17 @@ module PafsCore
       presentable_date(:ready_for_service)
     end
 
-    def funding_sources
-      fs = []
-      fs << "FCERM GiA" if fcerm_gia
-      fs << "Local levy" if local_levy
-      fs << "Internal drainage boards" if internal_drainage_boards
-      fs << "Public contributions" if public_contributions
-      fs << "Private contributions" if private_contributions
-      fs << "Other EA contributions" if other_ea_contributions
-      fs << "Growth funding" if growth_funding
-      fs << "Not yet identified" if not_yet_identified
-      fs
+    def earliest_start_date
+      presentable_date(:earliest_start)
+    end
+
+    def funding
+      funding = []
+      selected_funding_sources.each do |fs|
+        funding << { name: funding_source_label(fs),
+                     value: total_for(fs) }
+      end
+      funding
     end
 
     def risks
@@ -52,14 +44,6 @@ module PafsCore
 
     def is_main_risk?(risk)
       main_risk.present? && main_risk == risk.to_s
-    end
-
-    def early_start_date_or_no
-      if could_start_early?
-        presentable_date(:earliest_start)
-      else
-        "No"
-      end
     end
 
     private
