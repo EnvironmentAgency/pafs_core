@@ -25,6 +25,22 @@ RSpec.describe PafsCore::RisksStep, type: :model do
         }
       )
     }
+    let(:flood_params) {
+      HashWithIndifferentAccess.new(
+        { risks_step: {
+            groundwater_flooding: "1",
+          }
+        }
+      )
+    }
+    let(:coastal_params) {
+      HashWithIndifferentAccess.new(
+        { risks_step: {
+            coastal_erosion: "1"
+          }
+        }
+      )
+    }
     let(:error_params) {
       HashWithIndifferentAccess.new(
         { risks_step: {
@@ -40,12 +56,6 @@ RSpec.describe PafsCore::RisksStep, type: :model do
       expect(subject.coastal_erosion).to be true
     end
 
-    it "updates the next step if valid" do
-      expect(subject.step).to eq :risks
-      subject.update(params)
-      expect(subject.step).to eq :main_risk
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to eq false
     end
@@ -54,6 +64,32 @@ RSpec.describe PafsCore::RisksStep, type: :model do
       expect(subject.step).to eq :risks
       subject.update(error_params)
       expect(subject.step).to eq :risks
+    end
+
+    context "when valid? true" do
+      before(:each) { subject.fluvial_flooding = nil }
+
+      context "when multiple risks are selected" do
+        it "updates the next step to :main_risk" do
+          expect(subject.step).to eq :risks
+          subject.update(params)
+          expect(subject.step).to eq :main_risk
+        end
+      end
+      context "when a single flood risk is selected" do
+        it "updates the next step to :flood_protection_outcomes" do
+          expect(subject.step).to eq :risks
+          subject.update(flood_params)
+          expect(subject.step).to eq :flood_protection_outcomes
+        end
+      end
+      context "when only coastal erosion risk is selected" do
+        it "updates the next step to :coastal_erosion_protection_outcomes" do
+          expect(subject.step).to eq :risks
+          subject.update(coastal_params)
+          expect(subject.step).to eq :coastal_erosion_protection_outcomes
+        end
+      end
     end
   end
 

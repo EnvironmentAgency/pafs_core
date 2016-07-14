@@ -2,13 +2,11 @@
 # frozen_string_literal: true
 module PafsCore
   class FloodProtectionOutcomesStep < BasicStep
-
+    include PafsCore::Risks
     delegate :flood_protection_outcomes,
              :flood_protection_outcomes=,
              :flood_protection_outcomes_attributes=,
              :project_end_financial_year,
-             :flooding?,
-             :coastal_erosion?,
              :project_type,
              :project_protects_households?,
              to: :project
@@ -21,7 +19,7 @@ module PafsCore
       assign_attributes(step_params(params))
       if valid? && project.save
         @step = if js_enabled
-                  if coastal_erosion?
+                  if protects_against_coastal_erosion?
                     :coastal_erosion_protection_outcomes
                   else
                     :standard_of_protection
@@ -41,11 +39,7 @@ module PafsCore
     end
 
     def disabled?
-      !(flooding? && !project_end_financial_year.nil? && project_protects_households?)
-    end
-
-    def completed?
-      !!(flooding? && !current_flood_protection_outcomes.empty?)
+      !(protects_against_flooding? && !project_end_financial_year.nil? && project_protects_households?)
     end
 
     def step

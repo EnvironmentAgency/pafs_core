@@ -13,7 +13,7 @@
             <legend class="visuallyhidden">Select the main risk your proposed project wull protect against</legend>
             <%= f.hidden_field :main_risk %>
             <%= f.radio_button_group(:main_risk,
-                                     @project.risks.map do |r|
+                                     @project.selected_risks.map do |r|
                                         { value: r.to_s,
                                           options: {
                                             label: t("#{r}_label", scope: "pafs_core.projects.steps.risks")
