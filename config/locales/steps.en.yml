@@ -53,9 +53,15 @@ en:
           growth_funding_label: Growth funding
           not_yet_identified_label: Not yet identified
           list_contributors_label: List the names of potential contributors
-          public_sector_example: For example, local authority, parish council, Natural England. Do not enter values
-          private_sector_example: For example, community group, local business, national business, riparian land owner. Do not enter values
-          ea_example: Do not enter values
+        public_contributors:
+          heading: Who are the public sector contributors?
+          example_text: For example, a local authority such as Bristol City Council.
+        private_contributors:
+          heading: Who are the private sector contributors?
+          example_text: "For example, a local business such as Llanmoor Development Co. Limited."
+        other_ea_contributors:
+          heading: "What are the contributions from other Environment Agency sources?"
+          example_text: "These are Environment Agency functions or funding streams. For example, Water Framework Directive or Water Resources."
 # funding values
         funding_values:
           heading: What is the estimated spend for each financial year?
