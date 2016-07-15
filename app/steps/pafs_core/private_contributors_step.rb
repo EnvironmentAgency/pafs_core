@@ -6,7 +6,7 @@ module PafsCore
              :other_ea_contributions?,
              to: :project
 
-    validates :private_contributor_names, presence: true
+    validates :private_contributor_names, presence: { message: "^Tell us the private sector contributors." }
 
     def update(params)
       assign_attributes(step_params(params))

@@ -422,8 +422,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       end
 
       it "outputs the error message" do
-        expect(@output).to have_css("div.form-block p.error-message",
-                                    text: project.errors.full_messages_for(:public_contributor_names).first)
+        expect(@output).to have_css("div.form-block p.error-message")
       end
     end
 
