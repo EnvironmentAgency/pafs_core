@@ -5,7 +5,8 @@ module PafsCore
              :other_ea_contributor_names=,
              to: :project
 
-    validates :other_ea_contributor_names, presence: true
+    validates :other_ea_contributor_names,
+      presence: { message: "^Tell us about the contributions from other Environment Agency functions or sources." }
 
     def update(params)
       assign_attributes(step_params(params))

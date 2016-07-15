@@ -10,7 +10,7 @@ RSpec.describe PafsCore::PrivateContributorsStep, type: :model do
     it "requires :private_contributor_names to be present" do
       subject.private_contributor_names = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:private_contributor_names]).to include "can't be blank"
+      expect(subject.errors.messages[:private_contributor_names]).to include "^Tell us the private sector contributors."
     end
   end
 
