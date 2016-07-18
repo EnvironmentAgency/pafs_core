@@ -2,18 +2,8 @@
 # frozen_string_literal: true
 module PafsCore
   class FundingSourcesStep < BasicStep
-    delegate :fcerm_gia, :fcerm_gia=,
-             :local_levy, :local_levy=,
-             :internal_drainage_boards, :internal_drainage_boards=,
-             :public_contributions, :public_contributions=, :public_contributions?,
-             :public_contributor_names, :public_contributor_names=,
-             :private_contributions, :private_contributions=, :private_contributions?,
-             :private_contributor_names, :private_contributor_names=,
-             :other_ea_contributions, :other_ea_contributions=, :other_ea_contributions?,
-             :other_ea_contributor_names, :other_ea_contributor_names=,
-             :growth_funding, :growth_funding=,
-             :not_yet_identified, :not_yet_identified=,
-             :funding_sources_visited, :funding_sources_visited=,
+    include PafsCore::FundingSources
+    delegate :funding_sources_visited, :funding_sources_visited=,
              :funding_sources_visited?,
              to: :project
 

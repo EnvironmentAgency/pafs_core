@@ -41,9 +41,9 @@ module PafsCore
       label_opts = { class: error_class(attribute, "block-label") }
 
       label_opts[:data] = { target: content_id(attribute) } if block_given?
-
+      label_value = options[:label] || label_text(attribute)
       f = label(attribute, label_opts) do
-        safe_join([super(attribute, options), label_text(attribute)], "\n")
+        safe_join([super(attribute, options), label_value], "\n")
       end
 
       if block_given?

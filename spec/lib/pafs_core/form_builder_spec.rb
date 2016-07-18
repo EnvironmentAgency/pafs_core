@@ -111,7 +111,6 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       before(:each) do
         project.fcerm_gia = nil
         project.public_contributions = nil
-        project.public_contributor_names = nil
         project.valid?
         project.errors.add(:fcerm_gia, "is borked")
       end
