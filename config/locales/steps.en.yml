@@ -41,9 +41,7 @@ en:
           example_text: For example, 3 2019
 # funding sources
         funding_sources:
-          heading: What are the expected funding sources for your proposed project?
-          lede: Select all that apply.
-          example_text: Select 'Not yet identified' for any gaps in funding
+          heading: What are the expected funding sources?
           fcerm_gia_label: Flood and coastal erosion risk management grant in aid (FCERM GiA)
           local_levy_label: Local levy
           internal_drainage_boards_label: Internal drainage boards (IDB) precepts
