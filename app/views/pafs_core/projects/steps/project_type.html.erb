@@ -4,53 +4,25 @@
       <%= render partial: 'shared/navigator', project: @project %>
     </div>
     <div class="column-two-thirds">
-        <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
-          <%= f.error_header %>
-          <%= f.hidden_field :id %>
-          <h1 class="heading-large"><%= t('.heading') %></h1>
-          <div class="step-form">
-            <fieldset>
-              <legend class="visuallyhidden">Select the type of your proposed project</legend>
-              <%= f.form_group(:project_type) do %>
-                <%= f.error_message(:project_type) %>
-                <% PafsCore::PROJECT_TYPES.each do |pt| %>
-                  <%= f.radio_button :project_type, pt.to_s, label: t(".#{pt.downcase}_label") %>
-                <% end %>
+      <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+        <%= f.error_header %>
+        <%= f.hidden_field :id %>
+        <h1 class="heading-large"><%= t('.heading') %></h1>
+        <div class="step-form">
+          <fieldset>
+            <legend class="visuallyhidden">Select the type of your proposed project</legend>
+            <%= f.form_group(:project_type) do %>
+              <%= f.error_message(:project_type) %>
+              <% PafsCore::PROJECT_TYPES.each do |pt| %>
+                <%= f.radio_button :project_type, pt.to_s, label: t(".#{pt.downcase}_label") %>
               <% end %>
-
-              <div class="form-group">
-                <details role="group">
-                  <summary role="button" aria-controls="details-content-0" aria-expanded="true"><span class="summary">Help with type of project</span></summary>
-                  <div class="panel" id="details-content-0" aria-hidden="false">
-                    <h3 class="heading-medium">CM</h3>
-                    <p>Capital Maintenance. These works reinstate the Standard of Service of a Flood Defence asset in full, and preserve its design life. It returns the asset to its original design performance and does not increase or decrease the standard of service of the asset. It includes:</p>
-                    <ul class="list-bullet">
-                      <li>the refurbishment at the end of the asset’s design life</li>
-                      <li>the complete replacement at the end of the asset’s design life or</li>
-                      <li>where the cost of the work is greater than 20% of the current replacement</li>
-                      <li>cost of the asset</li>
-                    </ul>
-                    <h3 class="heading-medium">DEF</h3>
-                    <p>Works to change (usually improve) the current standard of service/protection of a Flood Defence asset or to create a new Flood Defence asset.</p>
-                    <h3 class="heading-medium">STR</h3>
-                    <p>Strategies are only required for complex flood or coastal erosion risk situations where problems and potential solutions may relate to a series of interconnecting compartments or frontages. They look to the long term in more detail than a CFMP or SMP which may recommend further development of a strategy.</p>
-                    <h3 class="heading-medium">ENV</h3>
-                    <p>Replaces the following project types:</p>
-                    <ul class="list-bullet">
-                      <li>Water Framework Directive (known as WFD)</li>
-                      <li>Sites of Special Scientific Interest (known as SSSI)</li>
-                      <li>primarily creating priority habitat in line with the England Biodiversity Strategy (known as HAB)</li>
-                      <li>providing fish or eel passage or screening (known as FISH)</li>
-                    </ul>
-                  </div>
-                </details>
-              </div>
-            </fieldset>
+            <% end %>
+          </fieldset>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
           </div>
-        <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
-</div>
 </div>
