@@ -2,10 +2,6 @@
 # frozen_string_literal: true
 module PafsCore
   module ApplicationHelper
-    def wigwam
-      true
-    end
-
     # for our form builder
     def pafs_form_for(name, *args, &block)
       options = args.extract_options!

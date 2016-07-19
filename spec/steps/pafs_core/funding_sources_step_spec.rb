@@ -12,7 +12,7 @@ RSpec.describe PafsCore::FundingSourcesStep, type: :model do
       subject.fcerm_gia = false
       subject.public_contributions = false
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "You must select at least one funding source"
+      expect(subject.errors.messages[:base]).to include "The project must have at least one funding source."
     end
   end
 
