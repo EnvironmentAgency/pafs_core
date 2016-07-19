@@ -71,7 +71,7 @@ module PafsCore
     end
 
     def at_least_one_funding_source_is_selected
-      errors.add(:base, "You must select at least one funding source") unless
+      errors.add(:base, "The project must have at least one funding source.") unless
         [fcerm_gia,
          local_levy,
          internal_drainage_boards,
