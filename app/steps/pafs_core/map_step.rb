@@ -3,7 +3,7 @@
 module PafsCore
   class MapStep < BasicStep
 
-    delegate :benefit_area, :benefit_area=,
+    delegate :benefit_area=,
              :benefit_area_zoom_level, :benefit_area_zoom_level=,
              :benefit_area_centre, :benefit_area_centre=,
              :project_location, :project_location?, :project_location_zoom_level,
@@ -25,6 +25,10 @@ module PafsCore
 
     def step
       @step ||= :map
+    end
+
+    def benefit_area
+      project.benefit_area ||= "[[[]]]"
     end
 
     def update(params)
