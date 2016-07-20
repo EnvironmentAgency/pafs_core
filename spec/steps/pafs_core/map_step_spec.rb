@@ -12,6 +12,43 @@ RSpec.describe PafsCore::MapStep, type: :model do
     it_behaves_like "a project step"
   end
 
+  describe "#benefit_area" do
+    subject { FactoryGirl.build(:map_step) }
+
+    context "when there is a defined benefit_area" do
+      it "should get the correct benefit area" do
+        expect(subject.benefit_area).to eq("[[432123, 132453], [444444, 134444], [456543, 123432]]")
+      end
+    end
+
+    context "when the benefit_area is set to nil" do
+      it "should get \"[[[]]]\"" do
+        subject.benefit_area = nil
+        expect(subject.benefit_area).to eq "[[[]]]"
+      end
+    end
+  end
+
+  describe "#benefit_area_centre" do
+    subject { FactoryGirl.build(:map_step) }
+
+    context "when the benefit_area_centre is set" do
+      it "should get the correct benefit_area_centre" do
+        expect(subject.benefit_area_centre).to eq(["404040", "212121"])
+      end
+    end
+
+    context "when the benefit_area_centre is not set" do
+      it "should get project_location instead" do
+        subject.benefit_area_centre = nil
+        subject.project.project_location = [444444, 222222]
+        subject.project.save
+
+        expect(subject.benefit_area_centre).to eq ["444444", "222222"]
+      end
+    end
+  end
+
   describe "#update" do
     subject { FactoryGirl.create(:map_step) }
     let(:params) {

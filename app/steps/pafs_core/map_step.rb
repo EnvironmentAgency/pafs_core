@@ -5,7 +5,7 @@ module PafsCore
 
     delegate :benefit_area=,
              :benefit_area_zoom_level, :benefit_area_zoom_level=,
-             :benefit_area_centre, :benefit_area_centre=,
+             :benefit_area_centre=,
              :project_location, :project_location?, :project_location_zoom_level,
              :benefit_area_file_name, :benefit_area_file_name=,
              :benefit_area_content_type, :benefit_area_content_type=,
@@ -29,6 +29,10 @@ module PafsCore
 
     def benefit_area
       project.benefit_area ||= "[[[]]]"
+    end
+
+    def benefit_area_centre
+      project.benefit_area_centre ||= project_location
     end
 
     def update(params)
