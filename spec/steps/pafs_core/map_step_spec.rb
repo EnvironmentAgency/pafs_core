@@ -34,7 +34,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
 
     context "when the benefit_area_centre is set" do
       it "should get the correct benefit_area_centre" do
-        expect(subject.benefit_area_centre).to eq(["404040", "212121"])
+        expect(subject.benefit_area_centre).to eq %w(404040 212121)
       end
     end
 
@@ -44,7 +44,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
         subject.project.project_location = [444444, 222222]
         subject.project.save
 
-        expect(subject.benefit_area_centre).to eq ["444444", "222222"]
+        expect(subject.benefit_area_centre).to eq %w(444444 222222)
       end
     end
   end
