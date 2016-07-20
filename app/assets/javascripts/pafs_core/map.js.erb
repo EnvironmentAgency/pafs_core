@@ -7,6 +7,7 @@ var select;
 
 function initMap() {
   if($('#map')[0]){
+    makeMapVisible();
     loadOSMap();
   }
 }
@@ -36,11 +37,11 @@ function loadOSMap()
     source: polygonSource,
     style: new ol.style.Style({
       fill: new ol.style.Fill({
-        color: 'rgba(255, 87, 32, 0.4)'
+        color: 'rgba(0, 0, 0, 0.3)'
       }),
       stroke: new ol.style.Stroke({
-        color: '#ffcc33',
-        width: 4
+        color: '0b0c0c',
+        width: 6
       }),
     })
   });
@@ -80,7 +81,7 @@ function loadOSMap()
     matrixIds[z] = "EPSG:27700:" + z;
   }
   var attribution = new ol.Attribution({
-    html: '&copy; <a href="http://www.ordnancesurvey.co.uk/">Ordnance Survey</a>'
+    html: 'Base maps &copy; <a href="http://www.ordnancesurvey.co.uk/">Ordnance Survey</a>'
   });
   var extent = [0,0,700000,1300000];
 
@@ -135,7 +136,7 @@ function loadOSMap()
   if (typeof($('.location')[0]) !== 'undefined') {
     drawingType = "Point";
     source = markerSource
-  } else if (typeof($('.benefit_area')[0]) !== 'undefined') {
+  } else if (typeof($('.benefit-area')[0]) !== 'undefined') {
     drawingType = "Polygon";
     source = polygonSource
   }
@@ -144,9 +145,6 @@ function loadOSMap()
     source: source,
     type: /** @type {ol.geom.GeometryType} */ (drawingType),
   });
-  if($('.benefit_area')[0] !== "undefined"){
-    osMap.addInteraction(draw);
-  }
 
   draw.on('drawstart', function (e) {
     if (drawingType === 'Point') {
@@ -175,6 +173,10 @@ function loadOSMap()
     }
   });
 
+  if (typeof($('.location')[0]) !== 'undefined') {
+    osMap.addInteraction(draw);
+  }
+
   osMap.addInteraction(modify);
 
   select = new ol.interaction.Select({
@@ -201,11 +203,15 @@ function loadOSMap()
     select.getFeatures().clear();
   }
 
-  if($('location')[0]){
+  if(typeof($('.benefit-area')[0]) !== "undefined"){
     $('#draw-polygon')[0].onclick = drawPolygon;
     $('#select-polygon')[0].onclick = selectPolygon;
     $('#delete-polygon')[0].onclick = deletePolygon;
   }
+}
+
+var makeMapVisible = function() {
+  $('.js-map').removeClass('hidden');
 }
 
 $(document).ready(initMap);

@@ -1,0 +1,24 @@
+<% map_centre = @results.first %>
+<div class="grid-row">
+  <div class="column-three-thirds">
+    <h1 class="heading-large"><%= t('.heading') %></h1>
+    <p><%= t('.description') %></p>
+    <div id="map"
+      class="location"
+      data-eastings=<%= map_centre[:eastings] %>
+      data-northings=<%= map_centre[:northings] %>
+      data-zoomlevel=<%= @project.project_location_zoom_level %>
+      data-polygons= <%= JSON.parse(@project.benefit_area).to_json %>
+      data-marker=<%= @project.project_location.to_json %>>
+    </div>
+  </div>
+</div>
+<%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+  <div class="form-group">
+    <%= link_to t(".find_another_location"), project_step_path(id: @project, step: @project.step, params: { search: "true"}) %>
+    <%= f.hidden_field :project_location %>
+    <%= f.hidden_field :project_location_zoom_level %>
+  </div>
+
+  <%= f.submit t("save_and_continue_label"), class: 'button', id: 'locationSaveButton' %>
+<% end %>

@@ -2,7 +2,10 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe PafsCore::LocationStep, type: :model do
+RSpec.describe PafsCore::MapStep, type: :model do
+  before(:all) { @tempfile = Tempfile.new }
+  after(:all) { @tempfile.close! }
+
   describe "attributes" do
     subject { FactoryGirl.build(:map_step) }
 
@@ -21,16 +24,27 @@ RSpec.describe PafsCore::LocationStep, type: :model do
       })
     }
 
+    let(:benefit_area_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, "../fixtures/map.png"))) }
+
+    let(:file_params) {
+      HashWithIndifferentAccess.new({
+        map_step: {
+          benefit_area_file: benefit_area_file
+        }
+      })
+    }
+
     let(:error_params) {
       HashWithIndifferentAccess.new({
         map_step: {
+          benefit_area: "",
           benefit_area_centre: nil,
           benefit_area_zoom_level: nil
         }
       })
     }
 
-    it "saves the :project_location when valid" do
+    it "saves the :benefit_area when benefit_area attributes are valid" do
       expect(subject.benefit_area).not_to eq "[[444444, 222222], [421212, 212121], [432123, 234432]]"
       expect(subject.benefit_area_centre).not_to eq %w(420000 230000)
       expect(subject.benefit_area_zoom_level).not_to eq 3
@@ -40,10 +54,20 @@ RSpec.describe PafsCore::LocationStep, type: :model do
       expect(subject.benefit_area_zoom_level).to eq 3
     end
 
-    it "updates the next step if valid" do
+    it "saves the benefit area file" do
+      expect(subject.update(file_params)).to be true
+    end
+
+    it "updates the next step to risk if valid and javascript enabled" do
       expect(subject.step).to eq :map
       subject.update(params)
       expect(subject.step).to eq :risks
+    end
+
+    it "updates the next step to benefit_area_file_summary if valid and file has been uploaded" do
+      expect(subject.step).to eq :map
+      subject.update(file_params)
+      expect(subject.step).to eq :benefit_area_file_summary
     end
 
     it "returns false when validation fails" do
@@ -84,6 +108,32 @@ RSpec.describe PafsCore::LocationStep, type: :model do
     it "should return true if there is no project location" do
       subject.project.update(project_location: "[]")
       expect(subject.disabled?).to be true
+    end
+  end
+
+  describe "#delete_benefit_area_file" do
+    let(:benefit_area_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, "../fixtures/map.png"))) }
+    subject { FactoryGirl.build(:map_step) }
+
+    context "when an uploaded file exists" do
+      it "removes the file from storage" do
+        subject.update(map_step: { benefit_area_file: benefit_area_file })
+        subject.delete_benefit_area_file
+      end
+
+      it "resets the stored file attributes" do
+        subject.update(map_step: { benefit_area_file: benefit_area_file })
+        expect(subject.benefit_area_file_name).not_to be_nil
+        expect(subject.benefit_area_content_type).not_to be_nil
+        expect(subject.benefit_area_file_size).not_to be_nil
+        expect(subject.benefit_area_file_updated_at).not_to be_nil
+        subject.delete_benefit_area_file
+        expect(subject.benefit_area_file_name).to be_nil
+        expect(subject.benefit_area_content_type).to be_nil
+        expect(subject.benefit_area_file_size).to be_nil
+        expect(subject.benefit_area_file_updated_at).to be_nil
+        expect(subject.virus_info).to be_nil
+      end
     end
   end
 end

@@ -208,6 +208,23 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       expect(response).to render_template "project_name"
     end
 
+    context "when getting the location step" do
+      it "gets a set of results based on a search paramater" do
+        get :step, id: @project.to_param, step: "location", q: "412121, 102121"
+        expect(assigns(:results)).to eq([{northings: "102121", eastings: "412121"}])
+      end
+    end
+
+    context "when getting the map step" do
+      it "gets the map centre based on benefit_area_centre" do
+        @project.benefit_area_centre = %w(412121 102121)
+        @project.project_location = %w(412121 102121)
+        @project.save
+        get :step, id: @project.to_param, step: "map"
+        expect(assigns(:map_centre)).to eq([{northings: "102121", eastings: "412121"}])
+      end
+    end
+
     context "when step is disabled" do
       it "raises a not_found error" do
         expect { get :step, id: @project.to_param, step: "funding_values" }.
@@ -319,6 +336,54 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
         expect(step).to receive(:delete_calculator)
 
         get :delete_funding_calculator, id: @project.to_param
+      end
+    end
+  end
+
+  describe "GET download_benefit_area_file" do
+    before(:each) { @project = FactoryGirl.create(:project) }
+
+    context "given a file has been stored previously" do
+      let(:navigator) { double("project_navigator") }
+      let(:step) { double("benefit_area_file_summary_step") }
+      let(:data) { "This is the file data" }
+      let(:filename) { "my_upload.xls" }
+      let(:content_type) { "text/plain" }
+
+      it "sends the file to the client" do
+        expect(controller).to receive(:project_navigator) { navigator }
+        expect(navigator).to receive(:find_project_step).
+          with(@project.to_param, :map) { step }
+
+        expect(step).to receive(:download) do |&block|
+          block.call(data, filename, content_type)
+        end
+
+        expect(controller).to receive(:send_data).
+          with(data, { filename: filename, type: content_type }) { controller.render nothing: true }
+
+        get :download_benefit_area_file, id: @project.to_param, step: "benefit_area_file_summary_step"
+      end
+    end
+  end
+
+  describe "GET delete_benefit_area_file" do
+    before(:each) { @project = FactoryGirl.create(:project) }
+
+    context "given a file has been stored previously" do
+      let(:navigator) { double("project_navigator") }
+      let(:step) { double("benefit_area_file_summary_step") }
+      let(:filename) { "my_upload.xls" }
+      let(:content_type) { "text/plain" }
+
+      it "deletes the funding benefit area file" do
+        expect(controller).to receive(:project_navigator) { navigator }
+        expect(navigator).to receive(:find_project_step).
+          with(@project.to_param, :map) { step }
+
+        expect(step).to receive(:delete_benefit_area_file)
+
+        get :delete_benefit_area_file, id: @project.to_param
       end
     end
   end

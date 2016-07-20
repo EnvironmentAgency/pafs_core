@@ -13,6 +13,7 @@ en:
   optional_label: "(Optional)"
   save_and_continue_label: "Save and continue"
   upload_and_continue_label: "Upload and continue"
+  confirm_and_continue_label: "Confirm and continue"
   continue_label: "Continue"
   create_a_new_project_label: "Create a new project proposal"
   back_to_home_label: "Back to home page"

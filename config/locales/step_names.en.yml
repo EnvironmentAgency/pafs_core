@@ -11,6 +11,7 @@ en:
   earliest_date_step_label: "Earliest date"
   location_step_label: "Location"
   map_step_label: "Map"
+  benefit_area_file_summary_step_label: "Benefit area file summary"
   risks_step_label: "Risks"
   main_risk_step_label: "Main risk"
   flood_protection_outcomes_step_label: "Flood protection outcomes"

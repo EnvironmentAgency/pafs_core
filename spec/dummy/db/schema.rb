@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707101138) do
+ActiveRecord::Schema.define(version: 20160711113101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,15 +86,6 @@ ActiveRecord::Schema.define(version: 20160707101138) do
   end
 
   create_table "pafs_core_projects", force: :cascade do |t|
-<<<<<<< HEAD
-    t.string   "reference_number",                                         null: false
-    t.integer  "version",                                                  null: false
-    t.string   "name"
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-    t.integer  "project_end_financial_year"
-    t.string   "slug",                                  default: "",       null: false
-=======
     t.string   "reference_number",                                      null: false
     t.integer  "version",                                               null: false
     t.string   "name"
@@ -102,7 +93,6 @@ ActiveRecord::Schema.define(version: 20160707101138) do
     t.datetime "updated_at",                                            null: false
     t.integer  "project_end_financial_year"
     t.string   "slug",                                  default: "",    null: false
->>>>>>> develop
     t.integer  "start_outline_business_case_month"
     t.integer  "start_outline_business_case_year"
     t.integer  "award_contract_month"
@@ -136,10 +126,10 @@ ActiveRecord::Schema.define(version: 20160707101138) do
     t.string   "funding_calculator_content_type"
     t.integer  "funding_calculator_file_size"
     t.datetime "funding_calculator_updated_at"
-    t.text     "project_location",                      default: [],                    array: true
+    t.text     "project_location",                                                   array: true
     t.integer  "project_location_zoom_level",           default: 15
-    t.text     "benefit_area",                          default: "[[[]]]"
-    t.text     "benefit_area_centre",                   default: [],                    array: true
+    t.text     "benefit_area"
+    t.text     "benefit_area_centre",                                                array: true
     t.integer  "benefit_area_zoom_level"
     t.datetime "submitted_at"
     t.integer  "flood_protection_before"
@@ -164,6 +154,10 @@ ActiveRecord::Schema.define(version: 20160707101138) do
     t.boolean  "remove_eel_barrier"
     t.float    "fish_or_eel_amount"
     t.boolean  "funding_sources_visited",               default: false
+    t.string   "benefit_area_file_name"
+    t.string   "benefit_area_content_type"
+    t.integer  "benefit_area_file_size"
+    t.datetime "benefit_area_file_updated_at"
   end
 
   add_index "pafs_core_projects", ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree
