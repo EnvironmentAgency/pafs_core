@@ -1,5 +1,6 @@
-PATH
-  remote: ../cumberland
+GIT
+  remote: git://github.com/kennyevil/cumberland.git
+  revision: 8d8a0f43f27ebceef1a8b87cd4213c7fbb06a476
   specs:
     cumberland (0.0.1)
       ffi-proj4 (~> 0.2)
