@@ -20,7 +20,7 @@ group :test do
   gem "codeclimate-test-reporter", require: false
 end
 
-gem 'cumberland', github: 'kennyevil/cumberland'
+gem 'cumberland', git: 'https://github.com/kennyevil/cumberland'
 gem 'rack-cors'
 
 # To use a debugger
