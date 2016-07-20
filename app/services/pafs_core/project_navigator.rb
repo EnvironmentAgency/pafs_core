@@ -12,6 +12,9 @@ module PafsCore
              :key_dates,
 
              :funding_sources,
+             :public_contributors, # not in nav
+             :private_contributors, # not in nav
+             :other_ea_contributors, # not in nav
              :funding_values,
              :funding_values_summary, # not in nav - accessible only when no js following :funding_values
              :earliest_start,

@@ -7,27 +7,14 @@
       <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
         <%= f.error_header %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
-        <p class="lede"><%= t('.lede') %></p>
-        <%= f.hint_text t('.example_text') %>
         <div class="step-form">
           <fieldset>
-            <legend class="visuallyhidden">What are the expected finding sources for your proposed project?</legend>
+            <legend class="visuallyhidden"><%= t('.heading') %></legend>
             <%= f.form_group :base do %>
               <%= f.error_message(:base) %>
-              <%= f.check_box :fcerm_gia %>
-              <%= f.check_box :local_levy %>
-              <%= f.check_box :internal_drainage_boards %>
-              <%= f.check_box :public_contributions do %>
-                <%= f.text_area :public_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".public_sector_example"), label: t(".list_contributors_label") %>
+              <% PafsCore::FundingSources::FUNDING_SOURCES.each do |fs| %>
+                <%= f.check_box fs, label: @project.funding_source_label(fs) %>
               <% end %>
-              <%= f.check_box :private_contributions do %>
-                <%= f.text_area :private_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".private_sector_example"), label: t(".list_contributors_label") %>
-              <% end %>
-              <%= f.check_box :other_ea_contributions do %>
-                <%= f.text_area :other_ea_contributor_names, class: "form-control", cols: 30, rows: 2, hint: t(".ea_example"), label: t(".list_contributors_label") %>
-              <% end %>
-              <%= f.check_box :growth_funding %>
-              <%= f.check_box :not_yet_identified %>
             <% end %>
           </fieldset>
           <div class="form-group">
@@ -38,4 +25,3 @@
     </div>
   </div>
 </div>
-

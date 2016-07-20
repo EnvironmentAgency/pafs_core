@@ -34,7 +34,7 @@ module PafsCore
     end
 
     def six_year_limit_date
-      Date.new(2021, 3, 31).to_formatted_s(:long_ordinal)
+      "31 March 2021"
     end
 
     def housing_protection_table_cell(year, thing)

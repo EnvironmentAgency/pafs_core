@@ -3,63 +3,31 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::FundingSourcesStep, type: :model do
-  describe "attributes" do
-    subject { FactoryGirl.build(:funding_sources_step) }
+  subject { FactoryGirl.build(:funding_sources_step) }
 
+  describe "attributes" do
     it_behaves_like "a project step"
 
     it "validates that at least one funding source is selected" do
       subject.fcerm_gia = false
       subject.public_contributions = false
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "You must select at least one funding source"
-    end
-
-    it "requires :public_contributor_names to be present when :public_contributions is selected" do
-      subject.public_contributions = true
-      subject.public_contributor_names = nil
-      expect(subject.valid?).to be false
-      expect(subject.errors.messages[:public_contributor_names]).to include "can't be blank"
-    end
-
-    it "requires :private_contributor_names to be present when :private_contributions is selected" do
-      subject.private_contributions = true
-      subject.private_contributor_names = nil
-      expect(subject.valid?).to be false
-      expect(subject.errors.messages[:private_contributor_names]).to include "can't be blank"
-    end
-
-    it "requires :other_ea_contributor_names to be present when :other_ea_contributions is selected" do
-      subject.other_ea_contributions = true
-      subject.other_ea_contributor_names = nil
-      expect(subject.valid?).to be false
-      expect(subject.errors.messages[:other_ea_contributor_names]).to include "can't be blank"
+      expect(subject.errors.messages[:base]).to include "The project must have at least one funding source."
     end
   end
 
   describe "#update" do
     subject { FactoryGirl.create(:funding_sources_step) }
     let(:params) {
-      HashWithIndifferentAccess.new(
-        { funding_sources_step: {
-            private_contributions: "1",
-            private_contributor_names: "Acme Corp." }
-        }
-      )
+      HashWithIndifferentAccess.new({ funding_sources_step: { growth_funding: "1" }})
     }
     let(:error_params) {
-      HashWithIndifferentAccess.new(
-        { funding_sources_step: {
-            private_contributions: "1",
-            private_contributor_names: nil }
-        }
-      )
+      HashWithIndifferentAccess.new({ funding_sources_step: { fcerm_gia: nil }})
     }
 
     it "saves the state of valid params" do
       expect(subject.update(params)).to be true
-      expect(subject.private_contributions).to be true
-      expect(subject.private_contributor_names).to eq "Acme Corp."
+      expect(subject.growth_funding).to be true
     end
 
     it "updates the next step if valid" do
@@ -80,7 +48,6 @@ RSpec.describe PafsCore::FundingSourcesStep, type: :model do
   end
 
   describe "#completed?" do
-    subject { FactoryGirl.build(:funding_sources_step) }
     context "when valid? and :funding_sources_visited is true" do
       it "returns true" do
         expect(subject.completed?).to eq true
@@ -98,6 +65,58 @@ RSpec.describe PafsCore::FundingSourcesStep, type: :model do
       it "returns false" do
         subject.project.fcerm_gia = nil
         subject.project.public_contributions = nil
+        expect(subject.completed?).to eq false
+      end
+    end
+  end
+
+  describe "#completed?" do
+    context "when valid? and :funding_sources_visited is true" do
+      context "when :public_contributions? is true" do
+        it "returns result of :public_contributors_step#completed?" do
+          subject.project.public_contributions = true
+          substep = double("public_contributors")
+          expect(substep).to receive(:completed?) { false }
+          expect(PafsCore::PublicContributorsStep).to receive(:new) { substep }
+          expect(subject.completed?).to eq false
+        end
+      end
+
+      context "when public_contributions? is false and private_contributions? is true" do
+        it "returns result of :private_contributors_step#completed?" do
+          subject.project.private_contributions = true
+          substep = double("private_contributors")
+          expect(substep).to receive(:completed?) { false }
+          expect(PafsCore::PrivateContributorsStep).to receive(:new) { substep }
+          expect(subject.completed?).to eq false
+        end
+      end
+
+      context "when :private_contributions? is false and :other_ea_contributions? is true" do
+        it "returns result of :other_ea_contributors_step#completed?" do
+          subject.project.other_ea_contributions = true
+          substep = double("other_ea_contributors")
+          expect(substep).to receive(:completed?) { false }
+          expect(PafsCore::OtherEaContributorsStep).to receive(:new) { substep }
+          expect(subject.completed?).to eq false
+        end
+      end
+
+      it "returns true" do
+        expect(subject.completed?).to eq true
+      end
+    end
+
+    context "when not valid?" do
+      it "returns false" do
+        subject.fcerm_gia = nil
+        expect(subject.completed?).to eq false
+      end
+    end
+
+    context "when valid? but :funding_sources_visited? is false" do
+      it "returns false" do
+        subject.funding_sources_visited = false
         expect(subject.completed?).to eq false
       end
     end

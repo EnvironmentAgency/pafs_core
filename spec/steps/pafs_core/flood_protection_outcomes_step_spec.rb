@@ -198,31 +198,4 @@ RSpec.describe PafsCore::FloodProtectionOutcomesStep, type: :model do
       end
     end
   end
-
-  describe "#completed?" do
-    subject { PafsCore::FloodProtectionOutcomesStep.new @project }
-
-    context "when project protects against flooding" do
-      context "when there are no current_flood_protection_outcomes" do
-        it "should return false" do
-          subject.project.flood_protection_outcomes = []
-
-          expect(subject.completed?).to eq false
-        end
-      end
-      context "when there are current_flood_protection_outcomes" do
-        it "should return true" do
-          expect(subject.completed?).to eq true
-        end
-      end
-    end
-
-    context "when project does not protect against flooding" do
-      it "should return false" do
-        subject.project.fluvial_flooding = false
-
-        expect(subject.completed?).to eq false
-      end
-    end
-  end
 end

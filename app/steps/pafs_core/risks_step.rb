@@ -1,7 +1,7 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
   class RisksStep < BasicStep
+    include PafsCore::Risks
     delegate :fluvial_flooding, :fluvial_flooding=,
              :tidal_flooding, :tidal_flooding=,
              :groundwater_flooding, :groundwater_flooding=,
@@ -15,7 +15,16 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params))
       if valid? && project.save
-        @step = :main_risk
+        @step = if selected_risks.count > 1
+                  :main_risk
+                else
+                  project.update_attributes(main_risk: selected_risks.first.to_s)
+                  if protects_against_flooding?
+                    :flood_protection_outcomes
+                  else
+                    :coastal_erosion_protection_outcomes
+                  end
+                end
         true
       else
         false
