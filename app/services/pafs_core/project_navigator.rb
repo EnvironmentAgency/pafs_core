@@ -21,6 +21,7 @@ module PafsCore
              :earliest_date, # not in nav - accessible by choosing 'Yes' on :earliest_start
              :location,
              :map,
+             :benefit_area_file_summary,
 
              :risks,
              :main_risk, # not in nav - accessible following :risks

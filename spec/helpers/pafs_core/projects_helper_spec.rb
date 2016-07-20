@@ -59,6 +59,21 @@ module PafsCore
       end
     end
 
+    describe "#location_search_results_for" do
+      it "should return the correct sentence" do
+        query = "Oxford"
+        results = ["Oxford"]
+        word = "result"
+        description = "found for"
+        response = "1 result found for <strong class=\"bold-small\">Oxford</strong>"
+
+        expect(helper.location_search_results_for(results, query, word, description)).to eq response
+
+        results.push("Whitney")
+        response = "2 results found for <strong class=\"bold-small\">Oxford</strong>"
+        expect(helper.location_search_results_for(results, query, word, description)).to eq response
+      end
+    end
     # describe "#key_date_field" do
     #   context "when the attr param ends in '_month'" do
     #     it "builds the DOM nodes for a month field"

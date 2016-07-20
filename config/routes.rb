@@ -9,6 +9,8 @@ PafsCore::Engine.routes.draw do
       get :reference_number
       get :download_funding_calculator
       get :delete_funding_calculator
+      get :download_benefit_area_file
+      get :delete_benefit_area_file
     end
   end
   resources :account_requests

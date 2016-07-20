@@ -13,6 +13,7 @@ en:
   optional_label: "(Optional)"
   save_and_continue_label: "Save and continue"
   upload_and_continue_label: "Upload and continue"
+  confirm_and_continue_label: "Confirm and continue"
   continue_label: "Continue"
   create_a_new_project_label: "Create a new project proposal"
   back_to_home_label: "Back to home page"
@@ -42,6 +43,9 @@ en:
       feedback: feedback
       heading_html: This is a new service – your %{href} will help us to improve it.
   activemodel:
+    errors:
+      messages:
+        record_invalid: "Validation failed: %{errors}"
     attributes:
       pafs_core/project_name_step:
         name: "Project name"

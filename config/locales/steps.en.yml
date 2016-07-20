@@ -83,6 +83,48 @@ en:
         earliest_date:
           heading: What is the earliest date your project could start without impacting deliverability or outcomes?
           example_text: For example, 10 2019
+# location
+        location:
+          search:
+            heading: Where is the project located?
+            description: Enter one of the following
+            place_name: a place name
+            address: address
+            post_code: post code
+            grid_reference: grid-reference
+            co_ordinate: co-ordinate
+            lat_long: latitude and longitude values
+            confirm_and_continue: Confirm and continue
+            select_location: Select location
+          results:
+            heading: Select the project location
+            description: found for
+            result: result
+            location_not_listed: The location is not listed, find another
+            select_location: Select location
+          location:
+            heading: Select the project location
+            description: found for
+            result: result
+            location_not_listed: The location is not listed, find another
+          map:
+            heading: What is the accurate location of the project?
+            description: If needed, drag the pin to move the project location marker.
+            find_another_location: Find another location
+# map
+        map:
+          map:
+            heading: What area is the project likely to protect?
+            description: Use the map to draw a rough outline around any properties and habitat that the project protects. You can draw as many separate outlines as you need, but make sure they don't overlap.
+            draw_area: Draw Area
+            select_area: Select Area
+            delete_selected_area: Delete Selected Area
+            link_to_upload_file_page: I would like another way to show what the project protects
+          upload:
+            heading: What area is the project likely to protect?
+            description: Upload an image of a map or a shapefile. Uploads should show a rough outline of properties and habitat that the project protects. You can draw as many separate outlines as you need, but make sure they don't overlap.
+            acceptable_file_formats: Acceptable file formats are jpg, png, svg and bmp. Compressed folders (such as zip or rar) that include shapefiles are acceptable too.
+            draw_outline_instead: I would like to draw an outline on a map instead
 # risks
         risks:
           heading: What are the risks your proposed project will protect against?

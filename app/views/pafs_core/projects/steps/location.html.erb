@@ -1,0 +1,21 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', project: @project %>
+    </div>
+    <div class="column-two-thirds">
+      <% if @results.size == 0 || params[:search] == "true" %>
+        <%= render partial: 'pafs_core/projects/steps/location/search' %>
+      <% elsif @results.size > 1 %>
+        <%= render partial: 'pafs_core/projects/steps/location/results', results: @results %>
+      <% elsif @results.size == 1 %>
+        <div class="js-hidden">
+          <%= render partial: 'pafs_core/projects/steps/location/location', results: @results %>
+        </div>
+        <div class="js-map hidden">
+          <%= render partial: 'pafs_core/projects/steps/location/map', results: @results %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
