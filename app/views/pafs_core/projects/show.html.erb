@@ -15,7 +15,7 @@
       </div>
     </div>
   </header>
-  <% %w[ project_name project_type financial_year key_dates funding_sources funding_values earliest_start risks].each do |item| %>
+  <% %i[ project_name project_type financial_year key_dates funding_sources funding_values earliest_start risks].each do |item| %>
     <%= render partial: "summary/#{item}", locals: { project: @project } %>
   <% end %>
 </section>

@@ -3,7 +3,7 @@
   <div class="grid-row">
     <div class="column-two-thirds">
       <ul class="summary-list list-bullet">
-        <% project.risks.each do |risk| %>
+        <% project.selected_risks.each do |risk| %>
           <li>
             <%= t("#{risk}_label", scope: "pafs_core.projects.steps.risks") %>
             <% if @project.risks.count > 1 && @project.is_main_risk?(risk) %>
