@@ -4,9 +4,10 @@ en:
       steps:
 # project name
         project_name:
-          heading: What name would you like to give your proposed project?
+          heading: What is the project's name?
+          description: The project name should be meaningful and understandable and shouldn't include abbreviations.
           project_name_label: Project name
-          example_text: For example, South Chesham River Colne Flood Alleviation Scheme Phase IV
+          example_text: Examples, South Chesham River Colne Flood Alleviation Scheme, Clacton-on-Sea Coastal Erosion Project Phase 4
 # project type
         project_type:
           heading: What type of project you are proposing?
