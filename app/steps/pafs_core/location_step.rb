@@ -4,13 +4,16 @@ module PafsCore
   class LocationStep < BasicStep
     delegate :project_location, :project_location=,
              :project_location_zoom_level, :project_location_zoom_level=,
-             :benefit_area,
              to: :project
 
     validates :project_location, presence: true
     validates :project_location_zoom_level, presence: true
     def previous_step
       :key_dates
+    end
+
+    def benefit_area
+      project.benefit_area ||= "[[[]]]"
     end
 
     def step

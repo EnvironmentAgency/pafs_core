@@ -9,6 +9,25 @@ RSpec.describe PafsCore::LocationStep, type: :model do
     it_behaves_like "a project step"
   end
 
+  describe "#benefit_area" do
+    subject { FactoryGirl.create(:location_step) }
+
+    context "with a defined benefit_area" do
+      it "should resturn the benefit_area" do
+        subject.project.benefit_area = "[[[444444,222222]]]"
+        subject.project.save
+
+        expect(subject.benefit_area).to eq "[[[444444,222222]]]"
+      end
+    end
+
+    context "when benefit_area is nil" do
+      it "should return \"[[[]]]\"" do
+        expect(subject.benefit_area).to eq "[[[]]]"
+      end
+    end
+  end
+
   describe "#update" do
     subject { FactoryGirl.create(:location_step) }
     let(:params) {
