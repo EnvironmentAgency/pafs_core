@@ -2,9 +2,9 @@ en:
   funding_sources:
     fcerm_gia: "Grant in aid"
     local_levy: "Local levy"
-    internal_drainage_boards: "Internal Drainage Boards (IDB) precepts"
     public_contributions: "Public sector contributions"
     private_contributions: "Private sector contributions"
-    other_ea_contributions: "Other Environment Agency contributions"
+    other_ea_contributions: "Contributions from other Environment Agency functions or sources"
     growth_funding: "Growth funding"
-    not_yet_identified: "Not yet identified"
+    internal_drainage_boards: "Funds recovered from an Internal Drainage Board by the Environment Agency, known as a precept"
+    not_yet_identified: "Other funding sources not yet identified"

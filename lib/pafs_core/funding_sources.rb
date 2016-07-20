@@ -3,12 +3,16 @@ module PafsCore
   module FundingSources
     FUNDING_SOURCES = [:fcerm_gia,
                        :local_levy,
-                       :internal_drainage_boards,
                        :public_contributions,
                        :private_contributions,
                        :other_ea_contributions,
                        :growth_funding,
+                       :internal_drainage_boards,
                        :not_yet_identified].freeze
+
+    FUNDING_SOURCES.each do |fs|
+      delegate fs, "#{fs}=", "#{fs}?", to: :project
+    end
 
     def current_funding_values
       funding_values.select { |fv| fv.financial_year <= project_end_financial_year }.sort_by(&:financial_year)

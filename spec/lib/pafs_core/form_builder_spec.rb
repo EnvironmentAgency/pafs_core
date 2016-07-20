@@ -110,8 +110,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       # from individual checkboxes in the app (yet anyway).
       before(:each) do
         project.fcerm_gia = nil
-        project.public_contributions = true
-        project.public_contributor_names = nil
+        project.public_contributions = nil
         project.valid?
         project.errors.add(:fcerm_gia, "is borked")
       end
@@ -396,10 +395,11 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
   end
 
   describe "#text_area" do
-    let(:project) { FactoryGirl.build :funding_sources_step }
+    let(:project) { FactoryGirl.build :public_contributors_step }
     let(:options) { { rows: "2", cols: "40" } }
 
     before(:each) do
+      project.project.public_contributions = true
       project.valid?
       allow(helper).to receive(:t) { "my label" }
       @output = builder.text_area(:public_contributor_names, options)
@@ -407,7 +407,6 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
 
     context "when the attribute has errors" do
       before(:each) do
-        project.public_contributions = true
         project.public_contributor_names = nil
         project.valid?
         @output = builder.text_area(:public_contributor_names, options)
@@ -422,8 +421,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       end
 
       it "outputs the error message" do
-        expect(@output).to have_css("div.form-block p.error-message",
-                                    text: project.errors.full_messages_for(:public_contributor_names).first)
+        expect(@output).to have_css("div.form-block p.error-message")
       end
     end
 
@@ -432,11 +430,11 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
     end
 
     it "outputs a textarea control" do
-      expect(@output).to have_css("textarea#funding_sources_public_contributor_names")
+      expect(@output).to have_css("textarea#public_contributors_public_contributor_names")
     end
 
     it "outputs a label for the attribute" do
-      expect(@output).to have_css("label[for='funding_sources_public_contributor_names']")
+      expect(@output).to have_css("label[for='public_contributors_public_contributor_names']")
     end
 
     context "when options contain a :label key" do

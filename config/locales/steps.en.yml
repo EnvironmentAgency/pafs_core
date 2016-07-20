@@ -9,7 +9,7 @@ en:
           example_text: For example, South Chesham River Colne Flood Alleviation Scheme Phase IV
 # project type
         project_type:
-          heading: What is the main type of project you are proposing?
+          heading: What type of project you are proposing?
           def_label: Changing the current standard of service or protection of a Flood Defence asset or creating a new one
           cm_label: Restore the standard of service of a Flood Defence asset by refurbishment or replacement
           plp_label: Property level protection for properties within the 'very significant' flood band where there is a 5% or greater chance of flooding
@@ -41,9 +41,7 @@ en:
           example_text: For example, 3 2019
 # funding sources
         funding_sources:
-          heading: What are the expected funding sources for your proposed project?
-          lede: Select all that apply.
-          example_text: Select 'Not yet identified' for any gaps in funding
+          heading: What are the expected funding sources?
           fcerm_gia_label: Flood and coastal erosion risk management grant in aid (FCERM GiA)
           local_levy_label: Local levy
           internal_drainage_boards_label: Internal drainage boards (IDB) precepts
@@ -53,9 +51,15 @@ en:
           growth_funding_label: Growth funding
           not_yet_identified_label: Not yet identified
           list_contributors_label: List the names of potential contributors
-          public_sector_example: For example, local authority, parish council, Natural England. Do not enter values
-          private_sector_example: For example, community group, local business, national business, riparian land owner. Do not enter values
-          ea_example: Do not enter values
+        public_contributors:
+          heading: Who are the public sector contributors?
+          example_text: For example, a local authority such as Bristol City Council.
+        private_contributors:
+          heading: Who are the private sector contributors?
+          example_text: "For example, a local business such as Llanmoor Development Co. Limited."
+        other_ea_contributors:
+          heading: "What are the contributions from other Environment Agency sources?"
+          example_text: "These are Environment Agency functions or funding streams. For example, Water Framework Directive or Water Resources."
 # funding values
         funding_values:
           heading: What is the estimated spend for each financial year?

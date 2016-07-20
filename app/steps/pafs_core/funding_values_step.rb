@@ -2,15 +2,7 @@
 module PafsCore
   class FundingValuesStep < BasicStep
     include PafsCore::FundingSources
-    delegate :fcerm_gia?,
-             :local_levy?,
-             :internal_drainage_boards?,
-             :public_contributions?,
-             :private_contributions?,
-             :other_ea_contributions?,
-             :growth_funding?,
-             :not_yet_identified?,
-             :project_end_financial_year,
+    delegate :project_end_financial_year,
              :funding_values,
              :funding_values=,
              :funding_values_attributes=,

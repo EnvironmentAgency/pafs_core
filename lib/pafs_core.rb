@@ -8,6 +8,7 @@ require "pafs_core/urgency_reasons"
 require "pafs_core/errors"
 require "pafs_core/form_builder"
 require "pafs_core/funding_sources"
+require "pafs_core/risks"
 require "core_ext/time/financial"
 
 Time.include CoreExtensions::Time::Financial
