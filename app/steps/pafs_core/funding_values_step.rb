@@ -107,7 +107,9 @@ module PafsCore
               errors.add(:base, "Values must be greater than or equal to zero") if val.to_i < 0
             end
           end
-          errors.add(:base, "Please enter a value for #{funding_source_label(fs)}") unless found
+          errors.add(
+            :base, "In the applicable year(s), tell us the estimated spend for #{funding_source_label(fs)}"
+          ) unless found
         end
       end
     end
