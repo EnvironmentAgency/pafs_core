@@ -27,7 +27,8 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
     it "validates that at least one value per column is selected" do
       subject.project.local_levy = true
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "Please enter a value for Local levy"
+      expect(subject.errors.messages[:base]).to include
+      "In the applicable year(s), tell us the estimated spend for Local levy"
     end
 
     it "validates that positive values have been entered" do
