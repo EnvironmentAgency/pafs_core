@@ -10,6 +10,10 @@ module PafsCore
              :financial_year,
              :financial_year_alternative,
              :key_dates,
+             :start_outline_business_case_date,
+             :award_contract_date,
+             :start_construction_date,
+             :ready_for_service_date,
 
              :funding_sources,
              :public_contributors, # not in nav
