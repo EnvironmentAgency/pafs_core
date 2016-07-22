@@ -22,12 +22,24 @@ FactoryGirl.define do
     end
 
     factory :key_dates_step, class: PafsCore::KeyDatesStep do
+    end
+
+    factory :start_outline_business_case_date_step, class: PafsCore::StartOutlineBusinessCaseDateStep do
       start_outline_business_case_month 2
       start_outline_business_case_year 2012
+    end
+
+    factory :award_contract_date_step, class: PafsCore::AwardContractDateStep do
       award_contract_month 4
       award_contract_year 2014
+    end
+
+    factory :start_construction_date_step, class: PafsCore::StartConstructionDateStep do
       start_construction_month 5
       start_construction_year 2015
+    end
+
+    factory :ready_for_service_date_step, class: PafsCore::ReadyForServiceDateStep do
       ready_for_service_month 9
       ready_for_service_year 2019
     end

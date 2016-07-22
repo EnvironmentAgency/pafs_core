@@ -31,12 +31,27 @@ en:
 # key dates
         key_dates:
           heading: What are the estimated dates for important milestones of your proposed project?
-          outline_business_case: When do you expect to start your outline business case (Gateway 1)?
-          gateway_2: (Gateway 2)
-          there_is_no_gateway_2: We don't need to know the estimated date for Gateway 2
-          award_the_contract: When do you expect to award the contract (Gateway 3)?
-          start_construction: When do you expect to start construction?
-          ready_for_service: When do you expect your proposed project to be ready for service (Gateway 4)?
+# start outline business case date
+        start_outline_business_case_date:
+          heading: When do you expect to start your outline business case?
+          month_label: Month
+          year_label: Year
+          example_text: For example, 3 2019
+# award contract date
+        award_contract_date:
+          heading: When do you expect to award the contract?
+          month_label: Month
+          year_label: Year
+          example_text: For example, 3 2019
+# start construction date
+        start_construction_date:
+          heading: When do you expect to start construction?
+          month_label: Month
+          year_label: Year
+          example_text: For example, 3 2019
+# ready for service date
+        ready_for_service_date:
+          heading: When do you expect your proposed project to be ready for service?
           month_label: Month
           year_label: Year
           example_text: For example, 3 2019
