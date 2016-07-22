@@ -60,7 +60,7 @@ RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
     it "updates the next step if valid" do
       expect(subject.step).to eq :financial_year_alternative
       subject.update(params)
-      expect(subject.step).to eq :key_dates
+      expect(subject.step).to eq :start_outline_business_case_date
     end
 
     it "returns false when validation fails" do

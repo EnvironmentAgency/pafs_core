@@ -10,7 +10,7 @@
         <p class="lede"><%= t('.lede') %></p>
         <p><%= t(".description") %></p>
         <div class="step-form">
-          <%= f.number_field :project_end_financial_year, in: 2017..2100, class: "form-control form-year", hint: t(".example_text") %>
+          <%= f.number_field :project_end_financial_year, in: Time.now.uk_financial_year..2100, class: "form-control form-year", hint: t(".example_text") %>
 
           <%= f.submit t("save_and_continue_label"), class: 'button' %>
         <% end %>

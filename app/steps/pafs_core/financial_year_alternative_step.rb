@@ -9,7 +9,7 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params))
       if valid? && project.save
-        @step = :key_dates
+        @step = :start_outline_business_case_date
         true
       else
         false
