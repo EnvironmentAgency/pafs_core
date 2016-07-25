@@ -32,7 +32,7 @@ module PafsCore
     end
 
     def flooding?
-      fluvial_flooding? || tidal_flooding? || groundwater_flooding? || surface_water_flooding?
+      fluvial_flooding? || tidal_flooding? || groundwater_flooding? || surface_water_flooding? || sea_flooding?
     end
 
     def project_protects_households?

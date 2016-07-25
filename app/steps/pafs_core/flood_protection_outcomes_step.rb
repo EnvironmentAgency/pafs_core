@@ -113,8 +113,7 @@ module PafsCore
     end
 
     def current_financial_year
-      date = Time.zone.today
-      date.month < 4 ? (date.year - 1) : date.year
+      Time.zone.now.uk_financial_year
     end
   end
 end

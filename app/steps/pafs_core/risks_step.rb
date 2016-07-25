@@ -6,6 +6,7 @@ module PafsCore
              :tidal_flooding, :tidal_flooding=,
              :groundwater_flooding, :groundwater_flooding=,
              :surface_water_flooding, :surface_water_flooding=,
+             :sea_flooding, :sea_flooding=,
              :coastal_erosion, :coastal_erosion=,
              :project_protects_households?,
              to: :project
@@ -51,6 +52,7 @@ module PafsCore
         :tidal_flooding,
         :groundwater_flooding,
         :surface_water_flooding,
+        :sea_flooding,
         :coastal_erosion)
     end
 
@@ -60,6 +62,7 @@ module PafsCore
          tidal_flooding,
          groundwater_flooding,
          surface_water_flooding,
+         sea_flooding,
          coastal_erosion].any?(&:present?)
     end
   end
