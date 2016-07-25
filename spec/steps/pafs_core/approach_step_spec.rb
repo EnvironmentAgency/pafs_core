@@ -10,7 +10,8 @@ RSpec.describe PafsCore::ApproachStep, type: :model do
     it "validates that :approach is present" do
       subject.approach = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:approach]).to include "^Please enter a description"
+      expect(subject.errors.messages[:approach]).to include
+      "^Tell us the work the project plans to do to achieve its outcomes."
     end
   end
 

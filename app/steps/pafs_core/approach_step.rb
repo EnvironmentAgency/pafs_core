@@ -5,7 +5,7 @@ module PafsCore
              :project_protects_households?,
              to: :project
 
-    validates :approach, presence: { message: "^Please enter a description" }
+    validates :approach, presence: { message: "^Tell us the work the project plans to do to achieve its outcomes." }
 
     def update(params)
       assign_attributes(step_params(params))

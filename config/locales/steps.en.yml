@@ -219,43 +219,56 @@ en:
           text: Normally this is the useful life of the coastal defence being built or upgraded or the time until the next major investment, whichever is sooner.
           coastal_before_example_text: For example, 20 years
           coastal_after_example_text: For example, 80 years
+# approcah
         approach:
-          heading: How will your project achieve these results?
+          heading: What work does the project plan to do to achieve its outcomes?
           example_text: Limit your answer to 700 characters or fewer
-          example_label: Show me examples
-          example_1: Waterside has a long history of flooding from open and culverted watercourses, affecting around 100 properties in the village. This project is to develop the completed pre-feasibility into a business case, followed by detailed design and construction. Some options have already been implemented including upgrading the open watercourses. However, the restrictions caused by the culverts still need to be addressed – this will be done by upsizing the culverts.
-          example_2: The coastal defences at Beachside protect approximately 5,000 properties from tidal flooding. The defences were constructed in the 1920s and are life expired. Previous breaches of the defences occurred within this length in 1977 resulting in the flooding of over 2,000 properties. The scheme aims to improve the standard of protection to these 5,000 properties by installing a new revetment, promenade and raised rear wall, together with soft landscaping works to the rear over a length of 1,800m.
+# surface and groundwater
         surface_and_groundwater:
           heading: Will the project protect or improve surface water or groundwater?
+# surface and groundwater amount
         surface_and_groundwater_amount:
           heading: How many kilometres of surface water or groundwater is the project likely to protect or improve?
+# improve river
         improve_river:
           heading: Will the project protect or improve a length of river or priority river habitat?
+# improve spa or sac
         improve_spa_or_sac:
           heading: Will the project protect or improve a Special Protected Area or Special Area of Conservation?
           lede: Special Protected Areas and Special Areas of Conservation are sites designated by the European Commission for the protection of birds and habitat.
+# improve sssi
         improve_sssi:
           heading: Will the project protect or improve a Site of Special Scientific Interest?
           lede: Sites of Special Scientific Interest are areas protected by law to conserve their wildlife or geology.
+# improve hpi
         improve_hpi:
           heading: Will the project protect or improve a Habitat of Principal Importance?
           lede: Habitats of Principal Importance are the most threatened priority habitats needing conservation action
+# improve habitat amount
         improve_habitat_amount:
           heading: How many hectares of habitat is the project likely to protect or improve?
+# improve river amount
         improve_river_amount:
           heading: How many kilometres of river or priority river habitat is the project likely to protect or improve?
+# habitat creation
         habitat_creation:
           heading: Will the project create habitat?
+# habitat creation amount
         habitat_creation_amount:
           heading: How many hectares of habitat is the project likely to create?
+# remove fish barrier
         remove_fish_barrier:
           heading: Will the project remove a barrier to migration for fish?
+# remove eel barrier
         remove_eel_barrier:
           heading: Will the project remove a barrier to migration for eels?
+# fish or eel amount
         fish_or_eel_amount:
           heading: How many kilometres of river is the project likely to open to fish or eel passage?
+# urgency
         urgency:
           heading: Is the project urgent for any of the following reasons?
+# urgency details
         urgency_details:
           heading: Why is your project urgent?
           lede: "You previously told us that your proposed project is urgent because:"
