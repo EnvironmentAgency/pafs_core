@@ -6,6 +6,5 @@ module PafsCore
                         legal_need
                         health_and_safety
                         emergency_works
-                        time_limited
-                        other ].freeze
+                        time_limited].freeze
 end

@@ -17,7 +17,8 @@ RSpec.describe PafsCore::UrgencyDetailsStep, type: :model do
     it "validates that :urgency_details is present" do
       subject.urgency_details = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:urgency_details]).to include "can't be blank"
+      expect(subject.errors.messages[:urgency_details]).to include
+      "^You told us the project is urgent due to a health and safety issue. Tell us more information about this."
     end
   end
 

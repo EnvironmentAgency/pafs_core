@@ -272,5 +272,4 @@ en:
         urgency_details:
           heading: Why is your project urgent?
           lede: "You previously told us that your proposed project is urgent because:"
-          urgency_details_label: You now need to tell us why this applies
           example_text: Limit your answer to 700 characters or fewer
