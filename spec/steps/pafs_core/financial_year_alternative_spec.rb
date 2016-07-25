@@ -8,7 +8,12 @@ RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
     subject { FactoryGirl.build(:financial_year_alternative_step) }
     it_behaves_like "a project step"
 
-    it { is_expected.to validate_presence_of :project_end_financial_year }
+    it "validates :project_end_financial_year can't be empty/falsey" do
+      subject.project_end_financial_year = nil
+      expect(subject.valid?).to be false
+      expect(subject.errors[:project_end_financial_year]).to include
+      "^Tell us the financial year when the project will stop spending funds"
+    end
 
     # validates_numericality_of doesn't seem to work with multiple qualifiers
     # in this case :only_integer, :less_than and :greater_than
@@ -23,7 +28,8 @@ RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
       subject.project_end_financial_year = 2015
       current_financial_year = Time.current.uk_financial_year
       expect(subject.valid?).to be false
-      expect(subject.errors[:project_end_financial_year]).to include "must be #{current_financial_year} or later"
+      expect(subject.errors[:project_end_financial_year]).to include
+      "^The financial year must be in the future"
     end
 
     it "validates that :project_end_financial_year is earlier than 2100" do
