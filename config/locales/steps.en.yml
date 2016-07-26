@@ -143,12 +143,13 @@ en:
             draw_outline_instead: I would like to draw an outline on a map instead
 # risks
         risks:
-          heading: What are the risks your proposed project will protect against?
+          heading: What risks will the project protect against?
           lede: Select all that apply.
-          fluvial_flooding_label: Fluvial (river) flooding
+          fluvial_flooding_label: River flooding
           tidal_flooding_label: Tidal flooding
           groundwater_flooding_label: Groundwater flooding
-          surface_water_flooding_label: Pluvial (surface water) flooding
+          surface_water_flooding_label: Surface Water flooding
+          surface_water_flooding_label: Sea Water flooding
           coastal_erosion_label: Coastal erosion
 # main risk
         main_risk:
