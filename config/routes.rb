@@ -11,6 +11,7 @@ PafsCore::Engine.routes.draw do
       get :delete_funding_calculator
       get :download_benefit_area_file
       get :delete_benefit_area_file
+      get :submit
     end
   end
   resources :account_requests

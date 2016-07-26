@@ -1,0 +1,41 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="govuk-box-highlight">
+      <h1 class="bold-large">Submission completed</h1>
+      <p>Email confirmation sent to
+        <strong class="heading-small"><%= current_resource.email %></strong>
+      </p>
+      <p>Your national project number is<br>
+        <strong class="heading-medium"><%= @project.reference_number %></strong>
+      </p>
+    </div>
+    <h2 class="heading-medium">What happens next</h2>
+    <p>We've sent your project proposal to your local area programming team. They'll consider your proposed project alongside the other local project proposals, and contact you if they need more information.</p>
+
+    <p>If you have any questions about your project proposal, contact your
+      <%= link_to "local partnership and strategic overview officer", "#" %>.
+    </p>
+
+    <h2 class="heading-medium">If you need to change your project proposal</h2>
+
+    <p>If you need to make a change to your project proposal after you've submitted it, for example because you made a mistake, you'll need to update and resubmit your project proposal before the submission deadline.</p>
+
+    <p>If you need to make a change after the submission deadline, you can still update and resubmit your project proposal but any changes won't be considered as part of the current assessment period.</p>
+
+    <p>To continue you can:</p>
+
+    <ul class="list list-bullet">
+      <li>review and update <%= link_to "existing project proposals", projects_path %></li>
+      <li>start a <%= link_to "new project proposal", new_project_path %></li>
+      <li>contact your <%= link_to "local partnership and strategic overview officer", "#" %> if you have a problem with your project proposal</li>
+    </ul>
+
+    <div class="form-group">
+      <%= link_to "Back to home page", projects_path, class: "button", role: "button" %>
+    </div>
+
+    <div class="form-group">
+      <%= link_to "What did you think of this service", "#" %> (takes 30 seconds)
+    </div>
+  </div>
+</div>
