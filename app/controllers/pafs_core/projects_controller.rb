@@ -67,6 +67,11 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   end
 
   # GET
+  def submit
+    @project = PafsCore::ProjectService.new(current_resource).find_project(params[:id])
+  end
+
+  # GET
   def step
     # edit step
     @project = project_navigator.find_project_step(params[:id], params[:step])

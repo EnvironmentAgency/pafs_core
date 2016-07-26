@@ -39,6 +39,14 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
     end
   end
 
+  describe "GET submit" do
+    it "renders the submit template" do
+      project = FactoryGirl.create(:project)
+      get :submit, id: project.to_param
+      expect(response).to render_template("submit")
+    end
+  end
+
   describe "POST funding" do
     context "when :fcerm_gia is present" do
       it "renders the 'funding' template" do
