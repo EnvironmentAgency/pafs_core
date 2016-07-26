@@ -26,7 +26,9 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
                                                         households_protected_from_loss_in_next_20_years: 50,
                                                         households_protected_from_loss_in_20_percent_most_deprived: 100)
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "C must be smaller than or equal to B"
+      expect(subject.errors.messages[:base]).to include
+      "The number of households in the 20% most deprived areas (column C) must be lower than or equal to the number of \
+      households protected from loss within the next 20 years (column B)."
     end
 
     it "validates that value B is smaller than A" do
@@ -34,7 +36,9 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
                                                         households_at_reduced_risk: 100,
                                                         households_protected_from_loss_in_next_20_years: 200)
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "B must be smaller than or equal to A"
+      expect(subject.errors.messages[:base]).to include
+      "The number of households protected from loss within the next 20 years (column B) must be lower than or equal \
+      to the number of households at a reduced risk of coastal erosion (column A)."
     end
 
     it "validates that there is at least one A value" do
@@ -44,7 +48,8 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
                                                         households_at_reduced_risk: 0)
 
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "There must be at least one value in column A"
+      expect(subject.errors.messages[:base]).to include
+      "In the applicable year(s), tell us how many households are at a reduced risk of coastal erosion."
     end
   end
 
