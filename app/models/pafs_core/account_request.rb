@@ -2,13 +2,13 @@
 # frozen_string_literal: true
 module PafsCore
   class AccountRequest < ActiveRecord::Base
-    validates :first_name, presence: true
-    validates :last_name, presence: true
-    validates :email, presence: true
+    validates :first_name, presence: { message: "^Tell us your first name." }
+    validates :last_name, presence: { message: "^Tell us your last name." }
+    validates :email, presence: { message: "^Tell us your work email address." }
     validates :email, uniqueness: true
-    validates :organisation, presence: true
-    validates :job_title, presence: true
-    validates :telephone_number, presence: true
+    validates :organisation, presence: { message: "^Tell us the organisation you work for." }
+    validates :job_title, presence: { message: "^Tell us your job title." }
+    validates :telephone_number, presence: { message: "^Tell us your telephone number." }
     before_validation :downcase_email
     before_create :generate_slug
 

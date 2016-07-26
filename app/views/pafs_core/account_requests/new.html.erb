@@ -1,5 +1,12 @@
 <h1 class="heading-large"><%= t(".heading") %></h1>
 <p class="lede"><%= t(".lede") %></p>
+<div>
+  <ul class="list list-bullet">
+    <li><%= t(".rma") %></li>
+    <li><%= t(".pso") %></li>
+    <li><%= t(".apt") %></li>
+  </ul>
+</div>
 <%= form_for @account_request do |f| %>
   <div class="form-group">
     <%= f.label :first_name, class: "form-label-bold" %>
@@ -11,7 +18,6 @@
   </div>
   <div class="form-group">
     <%= f.label :email, class: "form-label-bold" %>
-    <span class="form-hint"><%= t(".email_hint_html") %></span>
     <%= f.text_field :email, class: "form-control" %>
   </div>
   <div class="form-group">
@@ -21,12 +27,10 @@
   </div>
   <div class="form-group">
     <%= f.label :organisation, class: "form-label-bold" %>
-    <span class="form-hint"><%= t(".organisation_hint_html") %></span>
     <%= f.text_field :organisation, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :job_title, class: "form-label-bold" %>
-    <span class="form-hint"><%= t(".job_title_hint_html") %></span>
     <%= f.text_field :job_title, class: "form-control" %>
   </div>
   <details>
