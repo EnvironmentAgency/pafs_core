@@ -18,7 +18,7 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
     it "validates that at a main risk source is selected" do
       subject.main_risk = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:main_risk]).to include "^A main source of risk must be selected"
+      expect(subject.errors.messages[:main_risk]).to include "^Select the main risk the project protects against."
     end
 
     it "validates that the main risk source is one of the selected risks" do
