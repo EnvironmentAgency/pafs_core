@@ -154,7 +154,7 @@ en:
 # main risk
         main_risk:
           heading: What is the main source of risk your proposed project will protect against?
-          lede: You have told us that your proposed project will protect against these risks, please select which one is the main source of risk.
+# funding calculator
         funding_calculator:
           heading: Partnership funding calculator
           lede: The partnership funding calculator generates a score for the project based on the benefits, outcomes, and contributions that it aims to deliver. The score is used to prioritise and allocate funding in each year.

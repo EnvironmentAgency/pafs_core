@@ -5,6 +5,7 @@ module PafsCore
             :tidal_flooding?,
             :groundwater_flooding?,
             :surface_water_flooding?,
+            :sea_flooding?,
             :coastal_erosion?,
             to: :project
 
@@ -14,6 +15,7 @@ module PafsCore
       r << :tidal_flooding if tidal_flooding?
       r << :groundwater_flooding if groundwater_flooding?
       r << :surface_water_flooding if surface_water_flooding?
+      r << :sea_flooding if sea_flooding?
       r << :coastal_erosion if coastal_erosion?
       r
     end

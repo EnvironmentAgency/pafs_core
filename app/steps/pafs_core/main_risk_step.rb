@@ -7,6 +7,7 @@ module PafsCore
              :tidal_flooding, :tidal_flooding?,
              :groundwater_flooding, :groundwater_flooding?,
              :surface_water_flooding, :surface_water_flooding?,
+             :sea_flooding, :sea_flooding?,
              :coastal_erosion, :coastal_erosion?,
              :main_risk, :main_risk=,
              :project_protects_households?,
