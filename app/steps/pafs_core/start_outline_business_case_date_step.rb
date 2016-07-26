@@ -32,8 +32,10 @@ module PafsCore
 
   private
     def step_params(params)
-      ActionController::Parameters.new(params).require(:start_outline_business_case_date_step).permit(
-        :start_outline_business_case_month, :start_outline_business_case_year)
+      ActionController::Parameters
+        .new(params)
+        .require(:start_outline_business_case_date_step)
+        .permit(:start_outline_business_case_month, :start_outline_business_case_year)
     end
 
     def date_is_present_and_in_range

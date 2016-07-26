@@ -33,8 +33,8 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
           award_contract_month: "83",
           award_contract_year: "2020"
         }
-      }
-    )}
+      })
+    }
 
     let(:invalid_year_params) {
       HashWithIndifferentAccess.new({
@@ -42,8 +42,8 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
           award_contract_month: "12",
           award_contract_year: "1999"
         }
-      }
-    )}
+      })
+    }
 
     let(:invalid_date_params) {
       HashWithIndifferentAccess.new({
@@ -51,8 +51,8 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
           award_contract_month: "12",
           award_contract_year: "2011"
         }
-      }
-    )}
+      })
+    }
 
     it "saves the start outline business case fields when valid" do
       [:award_contract_month, :award_contract_year].each do |attr|

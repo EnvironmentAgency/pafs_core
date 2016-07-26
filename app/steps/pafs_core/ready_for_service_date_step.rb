@@ -75,7 +75,7 @@ module PafsCore
       errors.add(
         :ready_for_service,
         "^The date you expect the project to start achieving its benefits must be in the future"
-      ) if Date.today > dt
+      ) if Time.zone.today > dt
     end
   end
 end
