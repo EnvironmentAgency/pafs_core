@@ -149,7 +149,7 @@ en:
           tidal_flooding_label: Tidal flooding
           groundwater_flooding_label: Groundwater flooding
           surface_water_flooding_label: Surface Water flooding
-          surface_water_flooding_label: Sea Water flooding
+          sea_flooding_label: Sea flooding
           coastal_erosion_label: Coastal erosion
 # main risk
         main_risk:
