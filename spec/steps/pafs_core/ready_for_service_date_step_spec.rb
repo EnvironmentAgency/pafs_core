@@ -21,15 +21,27 @@ RSpec.describe PafsCore::ReadyForServiceDateStep, type: :model do
     let(:params) {
       HashWithIndifferentAccess.new({
         ready_for_service_date_step: {
-          ready_for_service_case_year: "2020",
+          ready_for_service_year: 5.years.from_now.year.to_s,
           ready_for_service_month: "1"
         }
       })
     }
 
-    let(:error_params) {
+    let(:invalid_month_params) {
       HashWithIndifferentAccess.new({
-        ready_for_service_date_step: { ready_for_service_month: "83" }
+        ready_for_service_date_step: { ready_for_service_month: "83", ready_for_service_year: "1999" }
+      })
+    }
+
+    let(:invalid_year_params) {
+      HashWithIndifferentAccess.new({
+        ready_for_service_date_step: { ready_for_service_month: "12", ready_for_service_year: "2000" }
+      })
+    }
+
+    let(:invalid_date_params) {
+      HashWithIndifferentAccess.new({
+        ready_for_service_date_step: { ready_for_service_month: "12", ready_for_service_year: "2013" }
       })
     }
 
@@ -48,12 +60,14 @@ RSpec.describe PafsCore::ReadyForServiceDateStep, type: :model do
     end
 
     it "returns false when validation fails" do
-      expect(subject.update(error_params)).to eq false
+      expect(subject.update(invalid_month_params)).to eq false
+      expect(subject.update(invalid_year_params)).to eq false
+      expect(subject.update(invalid_date_params)).to eq false
     end
 
     it "does not change the next step when validation fails" do
       expect(subject.step).to eq :ready_for_service_date
-      subject.update(error_params)
+      subject.update(invalid_year_params)
       expect(subject.step).to eq :ready_for_service_date
     end
   end

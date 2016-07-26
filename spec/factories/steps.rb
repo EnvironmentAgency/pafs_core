@@ -41,7 +41,7 @@ FactoryGirl.define do
 
     factory :ready_for_service_date_step, class: PafsCore::ReadyForServiceDateStep do
       ready_for_service_month 9
-      ready_for_service_year 2019
+      ready_for_service_year { 3.years.from_now.year }
     end
 
     factory :funding_sources_step, class: PafsCore::FundingSourcesStep do

@@ -41,10 +41,13 @@ module PafsCore
       y = "start_outline_business_case_year"
       mv = send(m)
       yv = send(y)
-      errors.add(:start_outline_business_case, "^Enter a valid date") unless  mv.present? &&
-                                                                              yv.present? &&
-                                                                              (1..12).cover?(mv.to_i) &&
-                                                                              (2000..2100).cover?(yv.to_i)
+      errors.add(
+        :start_outline_business_case,
+        "^Enter the date you expect to submit your outline business case for approval"
+      ) unless  mv.present? &&
+                yv.present? &&
+                (1..12).cover?(mv.to_i) &&
+                (2000..2100).cover?(yv.to_i)
     end
   end
 end

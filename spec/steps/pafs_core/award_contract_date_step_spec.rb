@@ -27,13 +27,32 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
       })
     }
 
-    let(:error_params) { HashWithIndifferentAccess.new({ award_contract_date_step: { award_contract_month: "83" }})}
+    let(:invalid_month_params) {
+      HashWithIndifferentAccess.new({
+        award_contract_date_step: {
+          award_contract_month: "83",
+          award_contract_year: "2020"
+        }
+      }
+    )}
 
-    before(:each) do
-      project.start_outline_business_case_month = 2
-      project.start_outline_business_case_year = 2012
-      project.save
-    end
+    let(:invalid_year_params) {
+      HashWithIndifferentAccess.new({
+        award_contract_date_step: {
+          award_contract_month: "12",
+          award_contract_year: "1999"
+        }
+      }
+    )}
+
+    let(:invalid_date_params) {
+      HashWithIndifferentAccess.new({
+        award_contract_date_step: {
+          award_contract_month: "12",
+          award_contract_year: "2011"
+        }
+      }
+    )}
 
     it "saves the start outline business case fields when valid" do
       [:award_contract_month, :award_contract_year].each do |attr|
@@ -50,12 +69,14 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
     end
 
     it "returns false when validation fails" do
-      expect(subject.update(error_params)).to eq false
+      expect(subject.update(invalid_month_params)).to eq false
+      expect(subject.update(invalid_year_params)).to eq false
+      expect(subject.update(invalid_date_params)).to eq false
     end
 
     it "does not change the next step when validation fails" do
       expect(subject.step).to eq :award_contract_date
-      subject.update(error_params)
+      subject.update(invalid_year_params)
       expect(subject.step).to eq :award_contract_date
     end
   end

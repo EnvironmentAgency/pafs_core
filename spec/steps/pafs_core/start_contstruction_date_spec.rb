@@ -27,9 +27,30 @@ RSpec.describe PafsCore::StartConstructionDateStep, type: :model do
       })
     }
 
-    let(:error_params) {
+    let(:invalid_month_params) {
       HashWithIndifferentAccess.new({
-        start_construction_date_step: { start_construction_month: "83" }
+        start_construction_date_step: {
+          start_construction_month: "83",
+          start_construction_year: "2020"
+        }
+      })
+    }
+
+    let(:invalid_year_params) {
+      HashWithIndifferentAccess.new({
+        start_construction_date_step: {
+          start_construction_month: "12",
+          start_construction_year: "1999"
+        }
+      })
+    }
+
+    let(:invalid_date_params) {
+      HashWithIndifferentAccess.new({
+        start_construction_date_step: {
+          start_construction_month: "12",
+          start_construction_year: "2011"
+        }
       })
     }
 
@@ -48,12 +69,14 @@ RSpec.describe PafsCore::StartConstructionDateStep, type: :model do
     end
 
     it "returns false when validation fails" do
-      expect(subject.update(error_params)).to eq false
+      expect(subject.update(invalid_month_params)).to eq false
+      expect(subject.update(invalid_year_params)).to eq false
+      expect(subject.update(invalid_date_params)).to eq false
     end
 
     it "does not change the next step when validation fails" do
       expect(subject.step).to eq :start_construction_date
-      subject.update(error_params)
+      subject.update(invalid_year_params)
       expect(subject.step).to eq :start_construction_date
     end
   end

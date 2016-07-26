@@ -47,7 +47,11 @@ module PafsCore
       dt1 = Date.new(start_outline_business_case_year, start_outline_business_case_month, 1)
       dt2 = Date.new(award_contract_year, award_contract_month, 1)
 
-      errors.add(:award_contract, "can't be earlier than the start of the outline business case date") if dt1 > dt2
+      errors.add(
+        :award_contract,
+        "^You expect to submit your outline business case for approval on #{dt1.month} #{dt1.year}. \
+        The date you expect to award the project's main contract must come after this."
+      ) if dt1 > dt2
     end
 
     def date_is_present_and_in_range
@@ -55,10 +59,13 @@ module PafsCore
       y = "award_contract_year"
       mv = send(m)
       yv = send(y)
-      errors.add(:award_contract, "^Enter a valid date") unless mv.present? &&
-                                                                yv.present? &&
-                                                                (1..12).cover?(mv.to_i) &&
-                                                                (2000..2100).cover?(yv.to_i)
+      errors.add(
+        :award_contract,
+        "^Enter the date you expect to award the project's main contract"
+      ) unless mv.present? &&
+               yv.present? &&
+               (1..12).cover?(mv.to_i) &&
+               (2000..2100).cover?(yv.to_i)
     end
   end
 end

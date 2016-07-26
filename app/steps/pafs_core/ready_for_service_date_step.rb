@@ -41,13 +41,18 @@ module PafsCore
       date_is_present_and_in_range
       return if errors.any?
       ready_for_service_after_start_construction
+      date_is_in_future
     end
 
     def ready_for_service_after_start_construction
       dt1 = Date.new(start_construction_year, start_construction_month, 1)
       dt2 = Date.new(ready_for_service_year, ready_for_service_month, 1)
 
-      errors.add(:ready_for_service, "can't be earlier than award of contract date") if dt1 > dt2
+      errors.add(
+        :ready_for_service,
+        "You expect to start the work on #{dt1.month} #{dt1.year}. \
+        The date you expect the project to start achieving its benefits must come after this."
+      ) if dt1 > dt2
     end
 
     def date_is_present_and_in_range
@@ -55,10 +60,22 @@ module PafsCore
       y = "ready_for_service_year"
       mv = send(m)
       yv = send(y)
-      errors.add(:ready_for_service, "^Enter a valid date") unless mv.present? &&
-                                                                   yv.present? &&
-                                                                   (1..12).cover?(mv.to_i) &&
-                                                                   (2000..2100).cover?(yv.to_i)
+      errors.add(
+        :ready_for_service,
+        "^Enter the date you expect the project to start achieving its benefits"
+      ) unless mv.present? &&
+               yv.present? &&
+               (1..12).cover?(mv.to_i) &&
+               (2000..2100).cover?(yv.to_i)
+    end
+
+    def date_is_in_future
+      dt = Date.new(ready_for_service_year, ready_for_service_month, 1)
+
+      errors.add(
+        :ready_for_service,
+        "^The date you expect the project to start achieving its benefits must be in the future"
+      ) if Date.today > dt
     end
   end
 end
