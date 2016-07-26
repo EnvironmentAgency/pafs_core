@@ -11,7 +11,7 @@ module PafsCore
              :project_protects_households?,
              to: :project
 
-    validate :values_make_sense, :at_least_one_value
+    validate :at_least_one_value, :values_make_sense
 
     def update(params)
       js_enabled = !!params.fetch(:js_enabled, false)
@@ -69,8 +69,19 @@ module PafsCore
         b_too_big.push fpo.id if a < b
         c_too_big.push fpo.id if b < c
       end
-      errors.add(:base, "B must be smaller than or equal to A") if !b_too_big.empty?
-      errors.add(:base, "C must be smaller than or equal to B") if !c_too_big.empty?
+      errors.add(
+        :base,
+        "The number of households moved from very significant or significant to\
+        the moderate or low flood risk category (column B) must be lower than or equal\
+        to the number of households moved to a lower flood risk category (column A)."
+      ) if !b_too_big.empty?
+
+      errors.add(
+        :base,
+        "The number of households in the 20% most deprived areas (column C) must be lower than or equal \
+        to the number of households moved from very significant \
+        or significant to the moderate or low flood risk category (column B)."
+      ) if !c_too_big.empty?
     end
 
     def total_protected_households
@@ -78,7 +89,11 @@ module PafsCore
     end
 
     def at_least_one_value
-      errors.add(:base, "There must be at least one value in column A") if total_protected_households.zero?
+      errors.add(
+        :base,
+        "In the applicable year(s), tell us how many households moved to a lower flood\
+        risk category (column A)."
+      ) if total_protected_households.zero?
     end
 
     private
