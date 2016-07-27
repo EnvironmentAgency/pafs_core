@@ -1,15 +1,7 @@
-<h1 class="heading-large">Your proposed project doesn't require local levy or FCERM grant in aid (FCERM GiA) funding before <%= six_year_limit_date %></h1>
-<p class="lede">This service is currently only available online for projects that require funding before <%= six_year_limit_date %>.</p>
-<h2 class="heading-medium">What happens next</h2>
-<p>You can't continue with your project proposal online. You need to register your project in the FCERM programme to raise awareness that you'll need FCERM grant in aid (FCERM GiA) funding in future.</p>
-<h3 class="heading-medium">You need to:</h3>
-<ul class="list-bullet">
-  <li>download the <%= link_to t("fcerm_form_label"), t("fcerm_form_link"), rel: "external", target: "_blank" %></li>
-  <li>complete phase 1 of the form</li>
-  <li>email it to your <%= strategic_officer_link %>
-</ul>
-<p class="headroom">You can estimate how much funding you might get with the partnership funding score estimator in the project proposal form.</p>
-<p>You’ll need to send in a full application when your project is ready. Your local partnership and strategic overview officer will agree a deadline for this with you.</p>
-<div class="form-group headroom">
-  <%= link_to t("back_to_home_label"), pafs_core.projects_path, class: "button", role: "button" %>
-</div>
+<h1 class="heading-large">This service is only available for projects that need sunding before <%= six_year_limit_date %></h1>
+<p>If you'd like to submit a project that needs funding after 31 March 2021, download the <%= link_to t("fcerm_form_label"), t("fcerm_form_link"), rel: "external", target: "_blank" %>.</p>
+<p>Complete part 1 of the form and email it to your local partnership and strategic overview officer.</p>
+<p>You can submit the full application at a later date</p>
+<p>
+  <%= link_to t("back_to_start_label"), pafs_core.projects_path, class: "button", role: "button" %>
+</p>
