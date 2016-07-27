@@ -9,7 +9,7 @@ RSpec.describe PafsCore::ProjectNameStep, type: :model do
 
     it_behaves_like "a project step"
 
-    it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_presence_of(:name).with_message("^Tell us the project name") }
   end
 
   describe "#update" do

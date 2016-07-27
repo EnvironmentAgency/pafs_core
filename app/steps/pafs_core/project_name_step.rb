@@ -4,7 +4,7 @@ module PafsCore
   class ProjectNameStep < BasicStep
     delegate :name, :name=, to: :project
 
-    validates :name, presence: true
+    validates :name, presence: { message: "^Tell us the project name" }
 
     def update(params)
       assign_attributes(step_params(params))
