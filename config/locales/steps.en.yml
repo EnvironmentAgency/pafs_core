@@ -124,8 +124,8 @@ en:
             result: result
             location_not_listed: The location is not listed, find another
           map:
-            heading: What is the accurate location of the project?
-            description: If needed, drag the pin to move the project location marker.
+            heading: Confirm the project location
+            description: If needed, move the marker to better represent the location of the project.
             find_another_location: Find another location
 # map
         map:
