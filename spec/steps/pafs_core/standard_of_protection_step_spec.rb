@@ -10,32 +10,8 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
     it "validates that :flood_protection_before is present" do
       subject.flood_protection_before = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:flood_protection_before]).to include "can't be blank"
-    end
-
-    it "validates that :flood_protection_before is in the range 0-100" do
-      [-1, 101].each do |num|
-        subject.flood_protection_before = num
-        expect(subject.valid?).to be false
-        expect(subject.errors.messages[:flood_protection_before]).
-          to include "must be a percentage value in the range 0 to 100"
-      end
-    end
-
-    it "validates that :flood_protection_after is present" do
-      subject.flood_protection_after = nil
-      expect(subject.valid?).to be false
-      expect(subject.errors.messages[:flood_protection_after]).
-        to include "can't be blank"
-    end
-
-    it "validates that :flood_protection_after is in the range 0-100" do
-      [-1, 101].each do |num|
-        subject.flood_protection_after = num
-        expect(subject.valid?).to be false
-        expect(subject.errors.messages[:flood_protection_after]).
-          to include "must be a percentage value in the range 0 to 100"
-      end
+      expect(subject.errors.messages[:flood_protection_before]).to include
+      "^Select the option that shows the current risk of flooding to the area likely to benefit from the project."
     end
   end
 
@@ -44,29 +20,28 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
     let(:params) do
       HashWithIndifferentAccess.new({
         standard_of_protection_step: {
-          flood_protection_before: "35",
-          flood_protection_after: "11"
+          flood_protection_before: "0",
         }
       })
     end
     let(:error_params) do
       HashWithIndifferentAccess.new({
         standard_of_protection_step: {
-          flood_protection_after: "2011"
+          flood_protection_before: "2011"
         }
       })
     end
 
-    it "saves the :project_type when valid" do
-      expect(subject.flood_protection_before).not_to eq 35
+    it "saves the :flood_protection_before when valid" do
+      expect(subject.flood_protection_before).not_to eq 0
       expect(subject.update(params)).to be true
-      expect(subject.flood_protection_before).to eq 35
+      expect(subject.flood_protection_before).to eq 0
     end
 
     it "updates the next step if valid" do
       expect(subject.step).to eq :standard_of_protection
       subject.update(params)
-      expect(subject.step).to eq :standard_of_protection_coastal
+      expect(subject.step).to eq :standard_of_protection_after
     end
 
     it "returns false when validation fails" do
@@ -83,8 +58,17 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
   describe "#previous_step" do
     subject { FactoryGirl.build(:standard_of_protection_step) }
 
-    it "should return :coastal_erosion_protection_outcomes" do
-      expect(subject.previous_step).to eq :coastal_erosion_protection_outcomes
+    context "when the project protects against coastal erosion" do
+      it "should return :coastal_erosion_protection_outcomes" do
+        subject.project.coastal_erosion = true && subject.project.save
+        expect(subject.previous_step).to eq :coastal_erosion_protection_outcomes
+      end
+    end
+
+    context "when the project doesn't protect against coastal erosion" do
+      it "should return :flood_protection_outcomes" do
+        expect(subject.previous_step).to eq :flood_protection_outcomes
+      end
     end
   end
 
@@ -101,13 +85,13 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
     context "when step is valid" do
       context "when the coastal sub-step is invalid" do
         it "returns false" do
+          subject.project.coastal_erosion = true && subject.project.save
           expect(subject.completed?).to eq false
         end
       end
 
       context "when the coastal sub-step is valid" do
         it "returns true" do
-          subject.project.update_attributes FactoryGirl.attributes_for(:standard_of_protection_coastal_step)
           expect(subject.completed?).to be true
         end
       end
@@ -121,6 +105,16 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
       subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
 
       expect(subject.disabled?).to eq true
+    end
+  end
+
+  describe "#standard_of_protection_options" do
+    subject { FactoryGirl.build(:standard_of_protection_step) }
+
+    it "should return an array of options" do
+      array_of_options = [:very_significant, :significant, :moderate, :low]
+
+      expect(subject.standard_of_protection_options).to eq array_of_options
     end
   end
 end

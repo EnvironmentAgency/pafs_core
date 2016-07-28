@@ -74,6 +74,25 @@ module PafsCore
         expect(helper.location_search_results_for(results, query, word, description)).to eq response
       end
     end
+
+    describe "#standard_of_protection_label" do
+      it "should return the correct label" do
+        option = :very_significant
+        label = "<span class=\"bold-xsmall\">Very significant</span><div>5% or greater in any given year</div>"
+        expect(helper.standard_of_protection_label(option)).to eq label
+      end
+    end
+
+    describe "#search_result_label" do
+      let(:search_string) { "The search" }
+      let(:result) { {eastings: 201212, northings: 121212} }
+
+      it "should return the correct string result" do
+        expect(helper.search_result_label(nil, result)).to eq "201212,121212"
+
+        expect(helper.search_result_label(search_string, result)).to eq "The search"
+      end
+    end
     # describe "#key_date_field" do
     #   context "when the attr param ends in '_month'" do
     #     it "builds the DOM nodes for a month field"
