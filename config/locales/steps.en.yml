@@ -42,19 +42,19 @@ en:
           heading: When do you expect to award the contract?
           month_label: Month
           year_label: Year
-          example_text: For example, 3 2019
+          example_text: For example, 1 2020
 # start construction date
         start_construction_date:
           heading: When do you expect to start construction?
           month_label: Month
           year_label: Year
-          example_text: For example, 3 2019
+          example_text: For example, 3 2020
 # ready for service date
         ready_for_service_date:
           heading: When do you expect your proposed project to be ready for service?
           month_label: Month
           year_label: Year
-          example_text: For example, 3 2019
+          example_text: For example, 9 2021
 # funding sources
         funding_sources:
           heading: What are the expected funding sources?
