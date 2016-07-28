@@ -1,0 +1,11 @@
+en:
+  pafs_core:
+    standard_of_protection:
+      very_significant_label: Very significant
+      very_significant_description: 5% or greater in any given year
+      significant_label: Significant
+      significant_description: 1.33% to 4.99% in any given year
+      moderate_label: Moderate
+      moderate_description: 0.51% to 1.32% in any given year
+      low_label: Low
+      low_description: 0.5% or lower in any given year

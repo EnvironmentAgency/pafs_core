@@ -34,7 +34,9 @@ module PafsCore
              :coastal_erosion_protection_outcomes,
              :coastal_erosion_protection_outcomes_summary, # not in nav
              :standard_of_protection,
+             :standard_of_protection_after, # not in nav - follows :standard_of_protection
              :standard_of_protection_coastal, # not in nav - follows :standard_of_protection
+             :standard_of_protection_coastal_after, # not in nav - follows :standard_of_protection
              :approach,
 
              :surface_and_groundwater,

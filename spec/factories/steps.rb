@@ -94,13 +94,19 @@ FactoryGirl.define do
     end
 
     factory :standard_of_protection_step, class: PafsCore::StandardOfProtectionStep do
-      flood_protection_before 66
-      flood_protection_after 23
+      flood_protection_before 1
+    end
+
+    factory :standard_of_protection_after_step, class: PafsCore::StandardOfProtectionAfterStep do
+      flood_protection_after 2
     end
 
     factory :standard_of_protection_coastal_step, class: PafsCore::StandardOfProtectionCoastalStep do
-      coastal_protection_before 10
-      coastal_protection_after 30
+      coastal_protection_before 0
+    end
+
+    factory :standard_of_protection_coastal_after_step, class: PafsCore::StandardOfProtectionCoastalAfterStep do
+      coastal_protection_after 3
     end
 
     factory :approach_step, class: PafsCore::ApproachStep do

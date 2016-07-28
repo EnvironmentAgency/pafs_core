@@ -95,6 +95,26 @@ module PafsCore
       ].join(" ").html_safe
     end
 
+    def standard_of_protection_label(option)
+      [
+        content_tag(
+          :span,
+          I18n.t(
+            "#{option}_label",
+            scope: "pafs_core.standard_of_protection"
+          ),
+          class: "bold-xsmall"
+        ),
+        content_tag(
+          :div,
+          I18n.t(
+            "#{option}_description",
+            scope: "pafs_core.standard_of_protection"
+          )
+        )
+      ].join("").html_safe
+    end
+
     def search_result_label(search_string, result)
       if search_string != nil
         search_string

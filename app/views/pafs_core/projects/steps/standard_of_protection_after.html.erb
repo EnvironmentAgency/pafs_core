@@ -8,9 +8,8 @@
         <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <%= f.error_header %>
           <h1 class="heading-large"><%= t('.heading') %></h1>
-          <p><%= t(".description") %></p>
           <% @project.standard_of_protection_options.each_with_index do |option, index| %>
-            <%= f.radio_button :coastal_protection_before, index, label: t(".#{option}_label") %>
+            <%= f.radio_button :flood_protection_after, index, label: standard_of_protection_label(option) %>
           <% end %>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>

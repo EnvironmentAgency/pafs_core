@@ -10,7 +10,7 @@
           <h1 class="heading-large"><%= t('.heading') %></h1>
           <p><%= t(".description") %></p>
           <% @project.standard_of_protection_options.each_with_index do |option, index| %>
-            <%= f.radio_button :coastal_protection_before, index, label: t(".#{option}_label") %>
+            <%= f.radio_button :coastal_protection_after, index, label: t(".#{option}_label") %>
           <% end %>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>

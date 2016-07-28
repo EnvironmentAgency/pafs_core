@@ -207,20 +207,27 @@ en:
           total_label: Total
 # standard of protection
         standard_of_protection:
-          heading: What standard of protection will your proposed project provide against flooding?
-          lede: This is the risk of the area protected by your proposed project flooding, over a 100 year period.
-          aep_text: This is also known as the annual exceedance probability (AEP).
-          example_text: For example, a 2% (1 in 50) standard of protection means that the area is likely to flood - on average - once every 50 years
-          flood_before_example_text: For example, 45%
-          flood_after_example_text: For example, 15%
+          heading: In the area likely to benefit from the project, what is the current flood risk?
+# standard of protection after
+        standard_of_protection:
+          heading: What will the flood risk be once the project is complete?
 # standard of protection coastal
         standard_of_protection_coastal:
-          heading: What standard of protection will your proposed project provide against coastal erosion?
-          lede: This is the additional number of years of potential occupancy of properties protected by your proposed project.
-          text: Normally this is the useful life of the coastal defence being built or upgraded or the time until the next major investment, whichever is sooner.
-          coastal_before_example_text: For example, 20 years
-          coastal_after_example_text: For example, 80 years
-# approcah
+          heading: How soon will coastal erosion affect the area likely to benefit from the project?
+          description: This could be the length of time before the current protection fails. Or the length of time before land is significantly changed by erosion.
+          less_than_one_year_label: Less than 1 year
+          one_to_four_years_label: 1 to 4 years
+          five_to_nine_years_label: 5 to 9 years
+          ten_years_or_more_label: 10 years or more
+# standard of protection coastal after
+        standard_of_protection_coastal_after:
+          heading: When the project is complete, how soon will coastal erosion affect the area?
+          description: This could be the length of time before the new protection fails. Or the length of time before land is significantly changed by erosion.
+          less_than_ten_years_label: Less than 10 years
+          ten_to_nineteen_years_label: 10 to 19 years
+          twenty_to_fortynine_years_label: 20 to 49 years
+          fifty_years_or_more_label: 50 years or more
+# approach
         approach:
           heading: What work does the project plan to do to achieve its outcomes?
           example_text: Limit your answer to 700 characters or fewer
