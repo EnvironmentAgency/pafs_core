@@ -39,7 +39,7 @@ en:
           example_text: For example, 3 2019
 # award contract date
         award_contract_date:
-          heading: When do you expect to award the contract?
+          heading: When do you expect to award the project's main contract?
           month_label: Month
           year_label: Year
           example_text: For example, 1 2020
