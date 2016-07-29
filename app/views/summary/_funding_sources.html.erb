@@ -1,19 +1,49 @@
 <article class="summary-item" aria-labelledby="funding-sources">
-  <h2 class="heading-medium" role="heading" id="funding-sources">Funding sources</h2>
-  <div class="grid-row">
-    <div class="column-two-thirds">
-      <ul class="summary-list list-bullet">
-        <% project.funding.each do |fs| %>
-          <li><%= fs[:name] %></li>
-        <% end %>
-      </ul>
-    </div>
-    <div class="column-one-third">
-      <div class="change-link">
-        <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_sources) do -%>
-          Change<span class="visually-hidden"> the sources of funding</span>
-        <% end -%>
+  <% if project.funding_sources_started? %>
+    <h2 class="heading-medium" role="heading" id="funding-sources">Funding sources and spending</h2>
+    <div class="grid-row">
+      <div class="column-three-quarters">
+        <ul class="summary-list underlined-items">
+          <li>
+            <div class="grid-row">
+              <div class="column-three-quarters"><h3 class="column-heading-small">Funding source</h3></div>
+              <div class="column-one-quarter align-right">
+                <h3 class="column-heading-small">Estimated spend</h3>
+              </div>
+            </div>
+          </li>
+          <% project.funding.each do |f| %>
+            <li>
+              <div class="grid-row">
+                <div class="column-three-quarters"><%= f[:name] %></div>
+                <div class="column-one-quarter align-right">
+                  £<%= number_with_delimiter f[:value] %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="column-one-quarter">
+        <div class="change-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_sources) do -%>
+            Change<span class="visually-hidden"> the sources of funding</span>
+          <% end -%>
+        </div>
       </div>
     </div>
-  </div>
+  <% else %>
+    <div class="grid-row add-row">
+      <div class="column-three-quarters">
+        <h2 class="heading-medium" role="heading" id="funding-sources">Funding sources and spending</h2>
+      </div>
+      <div class="column-one-quarter">
+        <div class="add-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_sources) do -%>
+            Add<span class="visually-hidden"> the funding sources and spending details</span>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </article>

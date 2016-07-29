@@ -3,42 +3,10 @@
 module PafsCore
   class MainRiskStep < BasicStep
     include PafsCore::Risks
-    delegate :fluvial_flooding, :fluvial_flooding?,
-             :tidal_flooding, :tidal_flooding?,
-             :groundwater_flooding, :groundwater_flooding?,
-             :surface_water_flooding, :surface_water_flooding?,
-             :coastal_erosion, :coastal_erosion?,
-             :main_risk, :main_risk=,
-             :project_protects_households?,
+    delegate :project_protects_households?,
              to: :project
 
     validate :main_risk_is_present_and_a_selected_risk
-
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = if protects_against_flooding?
-                  :flood_protection_outcomes
-                else
-                  :coastal_erosion_protection_outcomes
-                end
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :risks
-    end
-
-    def step
-      @step ||= :main_risk
-    end
-
-    def disabled?
-      !project_protects_households?
-    end
 
   private
     def step_params(params)

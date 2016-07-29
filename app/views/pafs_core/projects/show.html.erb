@@ -1,21 +1,33 @@
 <section id="project-summary" class="font-xsmall">
   <header class="summary-heading">
     <div class="grid-row">
-      <div class="column-two-thirds">
-        <h1 class="heading-medium"><%= @project.name %></h1>
-        <p><%= link_to "Print overview", "#" %> / <%= link_to "Download overview PDF", "#" %></p>
-      </div>
-      <div class="column-one-third">
+      <div class="column-one-quarter">
         <dl>
           <dt>Project number</dt>
           <dd><%= @project.reference_number %></dd>
-          <dt>Last submitted</dt>
-          <dd><%= @project.updated_at %></dd>
         </dl>
+      </div>
+      <div class="column-one-quarter">
+        <dl>
+          <dt>Last updated</dt>
+          <dd><%= format_date @project.updated_at %></dd>
+        </dl>
+      </div>
+      <div class="column-one-quarter">
+        <dl>
+          <dt>Last submitted</dt>
+          <dd><%= @project.submission_date %></dd>
+        </dl>
+      </div>
+      <div class="column-one-quarter">
+        <ul>
+          <li><%= link_to "Print overview", "#" %></li>
+          <li><%= link_to "Download overview PDF", "#" %></li>
+        </ul>
       </div>
     </div>
   </header>
-  <% %i[ project_name project_type financial_year key_dates funding_sources funding_values earliest_start risks].each do |item| %>
+  <% %i[ project_name project_type financial_year key_dates funding_sources earliest_start risks approach environmental_outcomes urgency].each do |item| %>
     <%= render partial: "summary/#{item}", locals: { project: @project } %>
   <% end %>
 </section>

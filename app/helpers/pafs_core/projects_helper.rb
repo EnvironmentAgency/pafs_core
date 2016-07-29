@@ -9,6 +9,10 @@ module PafsCore
       t("#{fv}_label", scope: "pafs_core.projects.steps.funding_values")
     end
 
+    def class_for_summary_list(underline_all)
+      "summary-list underlined-#{underline_all ? 'all-' : ''}items"
+    end
+
     def str_year(year)
       if year < 0
         "previous"
@@ -89,6 +93,11 @@ module PafsCore
                                                      class: "nav-link")
         end
       end
+    end
+
+    def format_date(dt)
+      return "" if dt.nil?
+      dt.strftime("%-d %B %Y")
     end
 
     def project_type_label(pt)

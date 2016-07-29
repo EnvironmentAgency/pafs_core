@@ -1,29 +1,13 @@
 # frozen_string_literal: true
 module PafsCore
   class HabitatCreationStep < BasicStep
-    delegate :create_habitat,
-      :create_habitat=,
-      :create_habitat?,
-      to: :project
+    include PafsCore::EnvironmentalOutcomes
 
     validate :a_choice_has_been_made
 
     def update(params)
       assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = if create_habitat?
-                  :habitat_creation_amount
-                else
-                  :remove_fish_barrier
-                end
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :improve_spa_or_sac
+      valid? && project.save
     end
 
     def step

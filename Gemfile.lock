@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/tonyheadford/dibble
+  revision: a3ddfbbd28e05ea4cc4965a4ef876c7b84de64c9
+  branch: develop
+  specs:
+    dibble (0.1.0)
+
 PATH
   remote: .
   specs:
@@ -215,6 +222,7 @@ DEPENDENCIES
   capybara
   codeclimate-test-reporter
   database_cleaner
+  dibble (~> 0.1)!
   dotenv
   factory_girl_rails (~> 4.0)
   guard-rspec

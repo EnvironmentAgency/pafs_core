@@ -10,6 +10,10 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
+gem "dibble", "~> 0.1",
+  git: "https://github.com/tonyheadford/dibble",
+  branch: "develop"
+
 group :development, :test do
   gem 'byebug'
   gem 'pry'
@@ -19,6 +23,3 @@ end
 group :test do
   gem "codeclimate-test-reporter", require: false
 end
-
-# To use a debugger
-# gem 'byebug', group: [:development, :test]

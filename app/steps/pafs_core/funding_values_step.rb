@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module PafsCore
   class FundingValuesStep < BasicStep
-    include PafsCore::FundingSources
+    include PafsCore::FundingSources, PafsCore::FinancialYear
     delegate :project_end_financial_year,
              :funding_values,
              :funding_values=,
@@ -11,37 +11,15 @@ module PafsCore
     validate :at_least_one_value_per_column_entered
 
     def update(params)
-      # if javascript is not enabled then we need to show the totals
-      # as the next page after successfully saving
-      js_enabled = !!params.fetch(:js_enabled, false)
-      result = false
       clean_unselected_funding_sources
-
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = if js_enabled
-                  :earliest_start
-                else
-                  :funding_values_summary
-                end
-        result = true
-      end
-      result
-    end
-
-    def previous_step
-      :funding_sources
-    end
-
-    def step
-      @step ||= :funding_values
+      super
     end
 
     # overridden to conditionally enable access to this page
-    def disabled?
-      # we need the project end financial year and at least one funding source
-      project_end_financial_year.nil? || selected_funding_sources.empty?
-    end
+    # def disabled?
+    #   # we need the project end financial year and at least one funding source
+    #   project_end_financial_year.nil? || selected_funding_sources.empty?
+    # end
 
     # override to allow us to set up the funding_values if needed
     def before_view
@@ -56,7 +34,7 @@ module PafsCore
           :id,
           :financial_year,
           :total
-        ].concat(PafsCore::FundingSources::FUNDING_SOURCES)
+        ].concat(FUNDING_SOURCES)
       )
     end
 
@@ -85,11 +63,6 @@ module PafsCore
 
     def build_missing_year(year)
       funding_values.build(financial_year: year) unless funding_values.exists?(financial_year: year)
-    end
-
-    def current_financial_year
-      date = Time.zone.today
-      date.month < 4 ? (date.year - 1) : date.year
     end
 
     def at_least_one_value_per_column_entered

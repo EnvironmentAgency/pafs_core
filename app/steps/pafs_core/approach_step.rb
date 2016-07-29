@@ -7,28 +7,10 @@ module PafsCore
 
     validates :approach, presence: { message: "^Please enter a description" }
 
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :surface_and_groundwater
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :standard_of_protection
-    end
-
-    def step
-      @step ||= :approach
-    end
-
-    def disabled?
-      !project_protects_households?
-    end
-
+    # def disabled?
+    #   !project_protects_households?
+    # end
+    #
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:approach_step).permit(:approach)

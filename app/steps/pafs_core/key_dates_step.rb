@@ -13,24 +13,6 @@ module PafsCore
 
     validate :key_dates_are_present_and_correct
 
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :funding_sources
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :financial_year
-    end
-
-    def step
-      @step ||= :key_dates
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:key_dates_step).permit(

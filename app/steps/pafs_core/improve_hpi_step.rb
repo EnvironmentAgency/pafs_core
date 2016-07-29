@@ -1,41 +1,20 @@
 # frozen_string_literal: true
 module PafsCore
   class ImproveHpiStep < BasicStep
-    delegate :improve_hpi,
-      :improve_hpi=,
-      :improve_hpi?,
-      to: :project
+    include PafsCore::EnvironmentalOutcomes
 
     validate :a_choice_has_been_made
 
     def update(params)
       assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = if improve_hpi?
-                  :improve_habitat_amount
-                else
-                  :habitat_creation
-                end
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :surface_and_groundwater
+      valid? && project.save
     end
 
     def step
       @step ||= :improve_hpi
     end
 
-    # overridden to show this step as part of the 'improve_spa_or_sac' step
-    def is_current_step?(a_step)
-      a_step.to_sym == :improve_spa_or_sac
-    end
-
-    # override BasicStep#completed? to handle earliest_date step
+    # override BasicStep#completed?
     def completed?
       return false if improve_hpi.nil?
       return true unless improve_hpi?

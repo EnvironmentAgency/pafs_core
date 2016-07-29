@@ -1,33 +1,17 @@
 # frozen_string_literal: true
 module PafsCore
   class FishOrEelAmountStep < BasicStep
-    delegate :fish_or_eel_amount,
-             :fish_or_eel_amount=,
-             to: :project
+    include PafsCore::EnvironmentalOutcomes
 
     validate :amount_is_present_and_correct
 
     def update(params)
       assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :urgency
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :habitat_creation
+      valid? && project.save
     end
 
     def step
       @step ||= :fish_or_eel_amount
-    end
-
-    # overridden to show this step as part of the 'surface_and_groundwater' step
-    def is_current_step?(a_step)
-      a_step.to_sym == :remove_fish_barrier
     end
 
   private

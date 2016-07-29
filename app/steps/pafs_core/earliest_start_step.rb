@@ -7,20 +7,6 @@ module PafsCore
 
     validate :a_choice_has_been_made
 
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = if could_start_early?
-                  :earliest_date
-                else
-                  :location
-                end
-        true
-      else
-        false
-      end
-    end
-
     # override BasicStep#completed? to handle earliest_date step
     def completed?
       return false if could_start_early.nil?
@@ -29,14 +15,6 @@ module PafsCore
 
       sub_step = PafsCore::EarliestDateStep.new(project)
       sub_step.completed?
-    end
-
-    def previous_step
-      :funding_values
-    end
-
-    def step
-      @step ||= :earliest_start
     end
 
   private
