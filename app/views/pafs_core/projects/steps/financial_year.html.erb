@@ -7,7 +7,7 @@
       <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
         <%= f.error_header %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
-        <p class="lede"><%= t('.lede') %></p>
+        <p class><%= t('.lede') %></p>
         <div class="step-form">
           <div class ="form-group">
             <% @project.financial_year_options.each do |year| %>

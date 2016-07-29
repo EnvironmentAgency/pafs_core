@@ -7,7 +7,7 @@
       <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
         <%= f.error_header %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
-        <p class="lede"><%= t('.lede') %></p>
+        <p><%= t('.lede') %></p>
         <p><%= t(".description") %></p>
         <div class="step-form">
           <%= f.number_field :project_end_financial_year, in: Time.now.uk_financial_year..2100, class: "form-control form-year", hint: t(".example_text") %>

@@ -12,7 +12,7 @@ en:
     account_requests:
       new:
         heading: "Request an account"
-        lede: "You can request an account if you work for"
+        description: "You can request an account if you work for"
         rma: "a risk management authority"
         pso: "a partnership and strategic overview team"
         apt: "an area programming team"
