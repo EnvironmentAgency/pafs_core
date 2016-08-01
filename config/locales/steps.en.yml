@@ -45,7 +45,7 @@ en:
           example_text: For example, 1 2020
 # start construction date
         start_construction_date:
-          heading: When do you expect to start construction?
+          heading: When do you expect to start the work?
           month_label: Month
           year_label: Year
           example_text: For example, 3 2020
