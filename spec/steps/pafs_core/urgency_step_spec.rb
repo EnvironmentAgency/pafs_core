@@ -10,8 +10,8 @@ RSpec.describe PafsCore::UrgencyStep, type: :model do
     it "validates that :urgency_reason is present" do
       subject.urgency_reason = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:urgency_reason]).to
-      include "^If your project is urgent, select a reason. If it isn't urgent, select the first option."
+      expect(subject.errors.messages[:urgency_reason]).to include
+      "^If your project is urgent, select a reason. If it isn't urgent, select the first option."
     end
 
     it "validates that the selected :urgency_reason is valid" do
@@ -21,8 +21,8 @@ RSpec.describe PafsCore::UrgencyStep, type: :model do
       end
       subject.urgency_reason = "wigwam_peanut"
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:urgency_reason]).to
-      include "^If your project is urgent, select a reason. If it isn't urgent, select the first option."
+      expect(subject.errors.messages[:urgency_reason]).to include
+      "^If your project is urgent, select a reason. If it isn't urgent, select the first option."
     end
   end
 
