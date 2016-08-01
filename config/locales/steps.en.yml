@@ -46,12 +46,13 @@ en:
 # start construction date
         start_construction_date:
           heading: When do you expect to start the work?
+          description: This could be construction, carrying out studies or creating a strategy.
           month_label: Month
           year_label: Year
           example_text: For example, 3 2020
 # ready for service date
         ready_for_service_date:
-          heading: When do you expect your proposed project to be ready for service?
+          heading: When do you expect the project to start achieving its benefits?
           month_label: Month
           year_label: Year
           example_text: For example, 9 2021

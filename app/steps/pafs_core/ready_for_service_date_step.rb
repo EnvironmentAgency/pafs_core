@@ -50,7 +50,7 @@ module PafsCore
 
       errors.add(
         :ready_for_service,
-        "You expect to start the work on #{dt1.month} #{dt1.year}. \
+        "^You expect to start the work on #{dt1.month} #{dt1.year}. \
         The date you expect the project to start achieving its benefits must come after this."
       ) if dt1 > dt2
     end
