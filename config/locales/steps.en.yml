@@ -80,7 +80,7 @@ en:
 # funding values
         funding_values:
           heading: What is the estimated spend for each financial year?
-          lede: Spending estimates should be in pounds (£) and estimated at present day value. Future maintenance costs aren't required.
+          lede: Spending estimates should be in pounds (£) and estimated at current prices. Future maintenance costs aren't required.
           financial_year_label: Financial year (April to April)
           fcerm_gia_label: Grant in Aid
           local_levy_label: Local levy
