@@ -8,12 +8,20 @@ module PafsCore
     validates :email, format: {
       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
       on: :create,
-      message: "^Provide a valid work email address."
+      message: "^Enter a valid work email address."
     }
     validates :email, uniqueness: true
     validates :organisation, presence: { message: "^Tell us the organisation you work for." }
     validates :job_title, presence: { message: "^Tell us your job title." }
     validates :telephone_number, presence: { message: "^Tell us your telephone number." }
+    validates :telephone_number, format: {
+      with: /(?x)\A(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|
+        (?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|
+        (?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))
+        (?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?\z/,
+      on: :create,
+      message: "^Enter a valid telephone number"
+    }
     before_validation :downcase_email
     before_create :generate_slug
 
