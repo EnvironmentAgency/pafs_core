@@ -2,11 +2,11 @@ en:
   pafs_core:
     urgency_reasons:
       not_urgent_label: The project is not urgent
-      statutory_need_label: There is a business critical statutory need
-      legal_need_label: There is a business critical legal need
-      health_and_safety_label: There is a health and safety issue
-      emergency_works_label: There is as an emergency
-      time_limited_label: There is a specific aspect of the project that has a time limit
+      statutory_need_label: Business critical statutory need
+      legal_need_label: Business critical legal need
+      health_and_safety_label: Health and safety issue
+      emergency_works_label: Work needs to be carried out as an emergency
+      time_limited_label: A specific aspect of the project is time limited
     urgency_details:
       statutory_need_label: What is the business critical statutory need?
       statutory_need_error: ^You told us the project is urgent due to a business critical statutory need. Tell us more information about this.
