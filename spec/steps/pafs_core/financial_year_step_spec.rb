@@ -21,8 +21,8 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
     it "validates the numericality of :project_end_financial_year" do
       subject.project_end_financial_year = "abc"
       expect(subject.valid?).to be false
-      expect(subject.project_end_financial_year).to eq(0)
-      expect(subject.errors[:project_end_financial_year]).not_to be_nil
+      expect(subject.errors[:project_end_financial_year]).to include
+      "^The financial year must be valid. For example, 2020."
     end
 
     it "validates that :project_end_financial_year is current financial year or later" do

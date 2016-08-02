@@ -13,6 +13,7 @@
             <% @project.financial_year_options.each do |year| %>
               <%= f.radio_button :project_end_financial_year, year, label: "April #{year} to March #{year + 1}" %>
             <% end %>
+            <input as="hidden" selected="selected" class="hidden" value="" checked="checked" name="financial_year_step[project_end_financial_year]" id="financial_year_step_project_end_financial_year_" type="radio">
           </div>
           <div class="form-group">
             <%= link_to t('.next_step_link_text'), project_step_path(id: @project, step: :financial_year_alternative) %>
