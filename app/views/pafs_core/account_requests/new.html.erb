@@ -10,20 +10,10 @@
 <%= pafs_form_for @account_request do |f| %>
   <div class="form-group">
     <%= f.text_field :first_name, class: "form-control" %>
-  </div>
-  <div class="form-group">
     <%= f.text_field :last_name, class: "form-control" %>
-  </div>
-  <div class="form-group">
     <%= f.text_field :email, class: "form-control" %>
-  </div>
-  <div class="form-group">
     <%= f.text_field :telephone_number, class: "form-control", hint: t(".telephone_number_hint_html") %>
-  </div>
-  <div class="form-group">
     <%= f.text_field :organisation, class: "form-control" %>
-  </div>
-  <div class="form-group">
     <%= f.text_field :job_title, class: "form-control" %>
   </div>
   <%= f.submit t(".submit_label"), class: 'button' %>
