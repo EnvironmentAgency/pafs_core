@@ -14,7 +14,8 @@ module PafsCore
     validates :flood_protection_before, numericality: {
       only_integer: true,
       greater_than_or_equal_to: 0,
-      less_than_or_equal_to: 3
+      less_than_or_equal_to: 3,
+      allow_blank: true
     }
 
     # flood protection levels are stored as integers that correlate to

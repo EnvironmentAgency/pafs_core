@@ -42,7 +42,10 @@ module PafsCore
     def project_end_financial_year_is_present_and_correct
       v = project_end_financial_year
       if v.blank?
-        errors.add(:project_end_financial_year, "^Tell us the financial year when the project will stop spending funds")
+        errors.add(
+          :project_end_financial_year,
+          "^Tell us the financial year when the project will stop spending funds."
+        )
       elsif v.to_s =~ /\A\d{4}\z/
         n = v.to_i
         if n < current_financial_year

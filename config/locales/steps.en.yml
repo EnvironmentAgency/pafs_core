@@ -210,7 +210,7 @@ en:
         standard_of_protection:
           heading: In the area likely to benefit from the project, what is the current flood risk?
 # standard of protection after
-        standard_of_protection:
+        standard_of_protection_after:
           heading: What will the flood risk be once the project is complete?
 # standard of protection coastal
         standard_of_protection_coastal:

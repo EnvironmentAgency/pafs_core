@@ -42,7 +42,7 @@ module PafsCore
       if v.blank? || v.zero? || v.nil?
         errors.add(
           :project_end_financial_year,
-          "^Select a financial year that tells us when the project will stop spending funds."
+          "^Tell us the financial year when the project will stop spending funds."
         )
       elsif v.to_s =~ /\A\d{4}\z/
         n = v.to_i

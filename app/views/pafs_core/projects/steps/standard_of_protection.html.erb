@@ -11,6 +11,7 @@
           <% @project.standard_of_protection_options.each_with_index do |option, index| %>
             <%= f.radio_button :flood_protection_before, index, label: standard_of_protection_label(option) %>
           <% end %>
+          <input as="hidden" selected="selected" class="hidden" value="" checked="checked" name="standard_of_protection_step[flood_protection_before]" id="standard_of_protection_step_flood_protection_before_" type="radio">
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
           </div>
