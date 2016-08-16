@@ -5,22 +5,6 @@ module PafsCore
 
     validate :a_choice_has_been_made
 
-    def update(params)
-      assign_attributes(step_params(params))
-      valid? && project.save
-    end
-
-    def step
-      @step ||= :improve_hpi
-    end
-
-    # override BasicStep#completed?
-    def completed?
-      return false if improve_hpi.nil?
-      return true unless improve_hpi?
-      PafsCore::ImproveHabitatAmountStep.new(project).completed?
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).

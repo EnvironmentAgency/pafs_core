@@ -5,23 +5,6 @@ module PafsCore
 
     validate :a_choice_has_been_made
 
-    def update(params)
-      assign_attributes(step_params(params))
-      valid? && project.save
-    end
-
-    def step
-      @step ||= :remove_eel_barrier
-    end
-
-    # override BasicStep#completed? to handle earliest_date step
-    def completed?
-      return false if remove_eel_barrier.nil?
-      return true unless remove_fish_barrier? || remove_eel_barrier?
-
-      PafsCore::FishOrEelAmountStep.new(project).completed?
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).

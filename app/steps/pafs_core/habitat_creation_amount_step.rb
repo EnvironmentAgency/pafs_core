@@ -5,15 +5,6 @@ module PafsCore
 
     validate :amount_is_present_and_correct
 
-    def update(params)
-      assign_attributes(step_params(params))
-      valid? && project.save
-    end
-
-    def step
-      @step ||= :habitat_creation_amount
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).

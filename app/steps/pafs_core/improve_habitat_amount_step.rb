@@ -5,21 +5,6 @@ module PafsCore
 
     validate :amount_is_present_and_correct
 
-    def update(params)
-      assign_attributes(step_params(params))
-      valid? && project.save
-    end
-
-    def step
-      @step ||= :improve_habitat_amount
-    end
-
-    # override BasicStep#completed? to handle earliest_date step
-    def completed?
-      return false unless valid?
-      PafsCore::ImproveRiverStep.new(project).completed?
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).

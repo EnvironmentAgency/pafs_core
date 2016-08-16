@@ -15,12 +15,6 @@ module PafsCore
       super
     end
 
-    # overridden to conditionally enable access to this page
-    # def disabled?
-    #   # we need the project end financial year and at least one funding source
-    #   project_end_financial_year.nil? || selected_funding_sources.empty?
-    # end
-
     # override to allow us to set up the funding_values if needed
     def before_view
       setup_funding_values

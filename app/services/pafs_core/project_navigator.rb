@@ -131,7 +131,7 @@ module PafsCore
         s.add :urgency_details, if: :urgent?
         s.add :summary_12
 
-        s.add :funding_calculator
+        s.add :funding_calculator, unless: ->(p) { p.funding_calculator_file_name.present? }
         s.add :funding_calculator_summary
         s.add :summary_13
       end

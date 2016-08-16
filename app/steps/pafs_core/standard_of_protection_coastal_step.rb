@@ -8,33 +8,6 @@ module PafsCore
 
     validate :coastal_protection_levels_are_present_and_correct
 
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :approach
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :standard_of_protection
-    end
-
-    def step
-      @step ||= :standard_of_protection_coastal
-    end
-
-    # overridden to show this step as part of the 'standard of protection' step
-    def is_current_step?(a_step)
-      a_step.to_sym == :standard_of_protection
-    end
-
-    def disabled?
-      !project_protects_households?
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:standard_of_protection_coastal_step).

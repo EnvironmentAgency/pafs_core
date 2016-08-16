@@ -2,6 +2,9 @@
 @import 'typography';
 @import 'colours';
 
+$icon-outline-colour: rgba(11,12,12,0.1);
+$icon-shadow-colour: rgba(0,0,0,0.4);
+
 .column-three-quarters {
   @include grid-column(3 / 4);
 }
@@ -38,6 +41,50 @@
     tbody td:last-child, th:last-child {
       display: none;
     }
+  }
+}
+
+.attachment {
+  .attachment-thumb {
+    float: left;
+    margin-top: 5px;
+    margin-right: 2em;
+    padding-bottom: 15px;
+    position: relative;
+
+    img {
+      background-color: $white;
+      box-shadow: 0 2px 2px $icon-shadow-colour;
+      height: 140px;
+      outline: 5px solid $icon-outline-colour;
+      width: 99px;
+    }
+  }
+  .attachment-details {
+    .title {
+      @include core-19;
+    }
+    a {
+      font-size: inherit;
+    }
+  }
+}
+
+.metadata {
+  margin-bottom: 1em;
+
+  dd {
+    display: inline;
+    margin: 0;
+
+    &:after {
+      display: block;
+      content: '';
+    }
+  }
+
+  dt {
+    display: inline-block;
   }
 }
 

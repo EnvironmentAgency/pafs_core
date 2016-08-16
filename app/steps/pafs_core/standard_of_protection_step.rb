@@ -8,34 +8,6 @@ module PafsCore
 
     validate :flood_protection_levels_are_present_and_correct
 
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :standard_of_protection_coastal
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :coastal_erosion_protection_outcomes
-    end
-
-    def step
-      @step ||= :standard_of_protection
-    end
-
-    # override BasicStep#completed? to handle standard_of_protection_coastal sub-step
-    def completed?
-      return false unless valid?
-      PafsCore::StandardOfProtectionCoastalStep.new(project).completed?
-    end
-
-    def disabled?
-      !project_protects_households?
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:standard_of_protection_step).

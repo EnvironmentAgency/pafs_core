@@ -8,14 +8,6 @@ module PafsCore
              to: :project
     validate :values_make_sense, :at_least_one_value
 
-    # def disabled?
-    #   !(coastal_erosion? && !project_end_financial_year.nil? && project_protects_households?)
-    # end
-    #
-    # def completed?
-    #   !!(coastal_erosion? && !total_protected_households.zero?)
-    # end
-
     def before_view
       setup_coastal_erosion_protection_outcomes
     end

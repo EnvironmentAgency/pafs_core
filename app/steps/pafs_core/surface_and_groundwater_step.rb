@@ -8,15 +8,6 @@ module PafsCore
 
     validate :a_choice_has_been_made
 
-    # override BasicStep#completed? to handle earliest_date step
-    def completed?
-      return false if improve_surface_or_groundwater.nil?
-      # if 'No' selected then no sub-step needed
-      return true if !improve_surface_or_groundwater?
-
-      PafsCore::SurfaceAndGroundwaterAmountStep.new(project).completed?
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).

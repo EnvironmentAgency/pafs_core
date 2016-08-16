@@ -27,7 +27,7 @@
       </div>
     </div>
   </header>
-  <% %i[ project_name project_type financial_year key_dates funding_sources earliest_start risks approach environmental_outcomes urgency].each do |item| %>
+  <% @project.articles.each do |item| %>
     <%= render partial: "summary/#{item}", locals: { project: @project } %>
   <% end %>
 </section>

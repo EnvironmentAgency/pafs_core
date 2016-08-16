@@ -17,10 +17,6 @@ module PafsCore
       end
     end
 
-    # def disabled?
-    #   !project_protects_households?
-    # end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:risks_step).permit(

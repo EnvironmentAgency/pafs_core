@@ -5,17 +5,6 @@ module PafsCore
 
     validate :a_choice_has_been_made
 
-    # override BasicStep#completed? to handle earliest_date step
-    # def completed?
-    #   return false if improve_sssi.nil?
-    #
-    #   if improve_sssi?
-    #     PafsCore::ImproveHabitatAmountStep.new(project).completed?
-    #   else
-    #     PafsCore::ImproveHpiStep.new(project).completed?
-    #   end
-    # end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).

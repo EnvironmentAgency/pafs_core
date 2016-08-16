@@ -22,18 +22,6 @@ module PafsCore
       result
     end
 
-    # def completed?
-    #   if funding_sources_visited? && valid?
-    #     step = next_step
-    #     if step != :funding_values
-    #       PafsCore::ProjectNavigator.build_project_step(project, next_step, user).completed?
-    #     else
-    #       true
-    #     end
-    #   else
-    #     false
-    #   end
-    # end
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:funding_sources_step).permit(

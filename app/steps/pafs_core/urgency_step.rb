@@ -5,18 +5,6 @@ module PafsCore
 
     validate :urgency_reason_is_present_and_correct
 
-    # override BasicStep#completed? to handle earliest_date step
-    # def completed?
-    #   return false unless valid?
-    #
-    #   if urgent?
-    #     sub_step = PafsCore::UrgencyDetailsStep.new(project)
-    #     sub_step.completed?
-    #   else
-    #     true
-    #   end
-    # end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:urgency_step).permit(:urgency_reason)

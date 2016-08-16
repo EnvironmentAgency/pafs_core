@@ -141,8 +141,26 @@ module PafsCore
       total_ce_for(:households_protected_from_loss_in_20_percent_most_deprived)
     end
 
+    def funding_calculator_uploaded?
+      funding_calculator_file_name.present?
+    end
+
     def summary_label(id)
       I18n.t(id.to_s, scope: "pafs_core.summary")
+    end
+
+    def articles
+      [:project_name,
+       :project_type,
+       :financial_year,
+       :key_dates,
+       :funding_sources,
+       :earliest_start,
+       :risks,
+       :approach,
+       :environmental_outcomes,
+       :urgency,
+       :funding_calculator]
     end
 
     private
