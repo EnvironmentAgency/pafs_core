@@ -2,8 +2,8 @@
 @import 'typography';
 @import 'colours';
 
-$icon-outline-colour: rgba(11,12,12,0.1);
-$icon-shadow-colour: rgba(0,0,0,0.4);
+$icon-outline-colour: rgba(11, 12, 12, 0.1);
+$icon-shadow-colour: rgba(0, 0, 0, 0.4);
 
 .column-three-quarters {
   @include grid-column(3 / 4);
@@ -47,8 +47,8 @@ $icon-shadow-colour: rgba(0,0,0,0.4);
 .attachment {
   .attachment-thumb {
     float: left;
-    margin-top: 5px;
     margin-right: 2em;
+    margin-top: 5px;
     padding-bottom: 15px;
     position: relative;
 
@@ -60,10 +60,12 @@ $icon-shadow-colour: rgba(0,0,0,0.4);
       width: 99px;
     }
   }
+
   .attachment-details {
     .title {
       @include core-19;
     }
+
     a {
       font-size: inherit;
     }
@@ -77,9 +79,9 @@ $icon-shadow-colour: rgba(0,0,0,0.4);
     display: inline;
     margin: 0;
 
-    &:after {
-      display: block;
+    &::after {
       content: '';
+      display: block;
     }
   }
 

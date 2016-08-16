@@ -11,7 +11,6 @@ PATH
     pafs_core (0.0.2)
       aws-sdk (~> 2)
       clamav-client (~> 3.0)
-      friendly_mime (~> 1)
       rails (~> 4.2.5.1)
 
 GEM
@@ -88,7 +87,6 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.10)
     formatador (0.2.5)
-    friendly_mime (1.0.2)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     guard (2.13.0)
