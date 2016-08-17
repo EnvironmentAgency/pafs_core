@@ -14,6 +14,8 @@ require "rspec/rails"
 #require "capybara/rspec"
 require "factory_girl_rails"
 require "shoulda-matchers"
+require "vcr"
+require "webmock/rspec"
 require "spec_helper"
 
 Rails.backtrace_cleaner.remove_silencers!
@@ -93,3 +95,11 @@ RSpec.configure do |config|
     PafsCore::ReferenceCounter.seed_counters
   end
 end
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  config.hook_into :webmock
+  config.configure_rspec_metadata!
+end
+
+WebMock.disable_net_connect!(allow_localhost: true)

@@ -20,6 +20,11 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     @project = project_navigator.new_blank_project
   end
 
+  def spreadsheet
+    @projects = project_navigator.search(params)
+    @projects = @projects.joins(:funding_values)
+  end
+
   # POST
   def funding
     # this is 'new' part 2

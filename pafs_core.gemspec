@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
   s.add_dependency "cumberland"
   s.add_dependency "clamav-client", "~> 3.0"
   s.add_dependency "aws-sdk", "~> 2"
+  s.add_dependency "axlsx"
+  s.add_dependency "axlsx_rails"
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "factory_girl_rails", "~> 4.0"
@@ -31,5 +33,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "overcommit"
+  s.add_development_dependency "vcr", "~> 3.0"
+  s.add_development_dependency "webmock", "~> 1.24"
   # s.add_development_dependency "ffaker"
 end

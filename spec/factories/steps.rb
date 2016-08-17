@@ -79,13 +79,13 @@ FactoryGirl.define do
     end
 
     factory :location_step, class: PafsCore::LocationStep do
-      project_location [404040, 212121]
+      project_location [457733, 221751]
       project_location_zoom_level 15
     end
 
     factory :map_step, class: PafsCore::MapStep do
       benefit_area "[[432123, 132453], [444444, 134444], [456543, 123432]]"
-      benefit_area_centre [404040, 212121]
+      benefit_area_centre [457733, 221751]
       benefit_area_zoom_level 23
       benefit_area_file_name "map.png"
     end

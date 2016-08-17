@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <% @projects.first.attributes.each do |k,v| %>
+      <th><%= k %></th>
+    <% end %>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <% project.attributes.each do |k,v| %>
+          <td><%= v %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

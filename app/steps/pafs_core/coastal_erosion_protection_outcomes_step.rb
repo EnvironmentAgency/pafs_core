@@ -119,7 +119,7 @@ module PafsCore
       #   previous years
       #   current financial year to :project_end_financial_year
       years = [-1]
-      years.concat((current_financial_year..project_end_financial_year).to_a)
+      years.concat((2015..project_end_financial_year).to_a)
       years.each { |y| build_missing_year(y) }
     end
 
@@ -127,11 +127,6 @@ module PafsCore
       if !coastal_erosion_protection_outcomes.exists?(financial_year: year)
         coastal_erosion_protection_outcomes.build(financial_year: year)
       end
-    end
-
-    def current_financial_year
-      date = Time.zone.today
-      date.month < 4 ? (date.year - 1) : date.year
     end
   end
 end

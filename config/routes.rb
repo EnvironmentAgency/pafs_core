@@ -3,6 +3,7 @@ PafsCore::Engine.routes.draw do
     collection do
       get :pipeline
       post :funding
+      get :spreadsheet
     end
 
     member do

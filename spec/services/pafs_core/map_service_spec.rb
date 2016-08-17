@@ -9,7 +9,7 @@ RSpec.describe PafsCore::MapService do
     let(:project) { FactoryGirl.create(:location_step) }
     it "should return a valid result" do
       result = subject.find("", project.project_location)
-      expect(result).to eq([{eastings: "404040", northings: "212121"}])
+      expect(result).to eq([{eastings: "457733", northings: "221751"}])
     end
   end
 end

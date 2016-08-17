@@ -48,6 +48,8 @@ PreCommit:
 
   YamlSyntax:
     enabled: true
+    exclude:
+      - 'spec/fixtures/vcr_cassettes/**/*'
 
   TrailingWhitespace:
     enabled: true
@@ -56,7 +58,7 @@ PreCommit:
       - '**/*.md'
       - '**/*.markdown'
       - '**/spec/fixtures/attachments/**/*'
-      - '**/spec/cassettes/**/*'
+      - '**/spec/fixtures/vcr_cassettes/**/*'
 
   RailsSchemaUpToDate:
     enabled: false
