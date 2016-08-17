@@ -9,28 +9,6 @@ module PafsCore
 
     validate :date_is_present_and_correct
 
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :ready_for_service_date
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :award_contract_date
-    end
-
-    def step
-      @step ||= :start_construction_date
-    end
-
-    def is_current_step?(a_step)
-      a_step.to_sym == :key_dates
-    end
-
   private
     def step_params(params)
       ActionController::Parameters

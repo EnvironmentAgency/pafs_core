@@ -76,7 +76,10 @@ module PafsCore
         s.add :map
         s.add :summary_4
 
-        s.add :key_dates
+        s.add :start_outline_business_case_date
+        s.add :award_contract_date
+        s.add :start_construction_date
+        s.add :ready_for_service_date
         s.add :summary_5
 
         s.add :funding_sources
