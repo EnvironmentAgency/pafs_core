@@ -6,6 +6,7 @@ module PafsCore
       :tidal_flooding,
       :groundwater_flooding,
       :surface_water_flooding,
+      :sea_flooding,
       :coastal_erosion
     ].freeze
 
