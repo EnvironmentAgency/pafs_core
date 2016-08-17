@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/tonyheadford/dibble
-  revision: a3ddfbbd28e05ea4cc4965a4ef876c7b84de64c9
+  revision: 06fe3d0811b6f601607b2b9aa61f6c3f8b4965a1
   branch: develop
   specs:
     dibble (0.1.0)
@@ -18,7 +18,6 @@ PATH
     pafs_core (0.0.2)
       aws-sdk (~> 2)
       clamav-client (~> 3.0)
-      cumberland
       rails (~> 4.2.5.1)
 
 GEM
