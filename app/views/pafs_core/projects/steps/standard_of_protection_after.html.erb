@@ -1,0 +1,23 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <%= render partial: 'shared/navigator', project: @project %>
+    </div>
+    <div class="column-two-thirds">
+      <div class="step-form">
+        <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+          <%= f.error_header %>
+          <h1 class="heading-large"><%= t('.heading') %></h1>
+          <% @project.standard_of_protection_options.each_with_index do |option, index| %>
+            <%= f.radio_button :flood_protection_after, index, label: standard_of_protection_label(option) %>
+          <% end %>
+          <input as="hidden" selected="selected" class="hidden" value="" checked="checked" name="standard_of_protection_after_step[flood_protection_after]" id="standard_of_protection_after_step_flood_protection_after_" type="radio">
+          <div class="form-group">
+          <div class="form-group">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

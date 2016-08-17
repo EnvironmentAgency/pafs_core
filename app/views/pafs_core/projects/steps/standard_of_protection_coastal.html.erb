@@ -5,22 +5,12 @@
         <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <%= f.error_header %>
           <h1 class="heading-large"><%= t('.heading') %></h1>
-          <p class="lede"><%= t('.lede') %></p>
-          <p><%= t(".text") %></p>
-
-          <%= f.number_field(:coastal_protection_before,
-                             hint: t(".coastal_before_example_text"),
-                             after: "years",
-                             class: "form-control form-narrow",
-                             in: 0..100,
-                             maxlength: 3) %>
-          <%= f.number_field(:coastal_protection_after,
-                             hint: t(".coastal_after_example_text"),
-                             after: "years",
-                             class: "form-control form-narrow",
-                             in: 0..100,
-                             maxlength: 3) %>
-
+          <p><%= t(".description") %></p>
+          <% @project.standard_of_protection_options.each_with_index do |option, index| %>
+            <%= f.radio_button :coastal_protection_before, index, label: t(".#{option}_label") %>
+          <% end %>
+          <input as="hidden" selected="selected" class="hidden" value="" checked="checked" name="standard_of_protection_coastal_step[coastal_protection_before]" id="standard_of_protection_coastal_step_coastal_protection_before_" type="radio">
+          <div class="form-group">
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
           </div>

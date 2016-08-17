@@ -31,3 +31,4 @@
     <%= render partial: "summary/#{item}", locals: { project: @project } %>
   <% end %>
 </section>
+<%= link_to t("submit_project_label"), submit_project_path(id: @project.to_param), class: "button" %>

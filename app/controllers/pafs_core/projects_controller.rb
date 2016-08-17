@@ -63,13 +63,34 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
 
   # GET
   def reference_number
-    @project = navigator.find_project_step(params[:id], PafsCore::ProjectNavigator.first_step)
+    @project = navigator.find_project_step(params[:id], navigator.first_step)
+  end
+
+  # GET
+  def submit
+    @project = PafsCore::ProjectService.new(current_resource).find_project(params[:id])
   end
 
   # GET
   def step
     # edit step
     @project = navigator.find_project_step(params[:id], params[:step])
+
+    # TODO: move this into before_view for the appropriate steps
+    # This is necessary for the map to be set on the location step
+    if params[:step] == "location"
+      @results = PafsCore::MapService.new
+                                     .find(
+                                       params[:q],
+                                       @project.project_location
+                                     )
+    elsif params[:step] == "map"
+      @map_centre = PafsCore::MapService.new
+                                        .find(
+                                          @project.benefit_area_centre.join(","),
+                                          @project.project_location
+                                        )
+    end
     # we want to go to the page in the process requested in the
     # params[:step] part of the URL and display the appropriate form
     if @project.disabled?
@@ -116,6 +137,21 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     @project = navigator.find_project_step(params[:id], :funding_calculator)
     @project.delete_calculator
     redirect_to project_step_path(id: @project.to_param, step: :funding_calculator)
+  end
+
+  # GET
+  def download_benefit_area_file
+    @project = navigator.find_project_step(params[:id], :map)
+    @project.download do |data, filename, content_type|
+      send_data(data, filename: filename, type: content_type)
+    end
+  end
+
+  # GET
+  def delete_benefit_area_file
+    @project = navigator.find_project_step(params[:id], :map)
+    @project.delete_benefit_area_file
+    redirect_to project_step_path(id: @project.to_param, step: :map)
   end
 
 private

@@ -4,9 +4,10 @@ en:
       steps:
 # project name
         project_name:
-          heading: What name would you like to give your proposed project?
+          heading: What is the project's name?
+          description: The project name should be meaningful and understandable and shouldn't include abbreviations.
           project_name_label: Project name
-          example_text: For example, South Chesham River Colne Flood Alleviation Scheme Phase IV
+          example_text: Examples, South Chesham River Colne Flood Alleviation Scheme, Clacton-on-Sea Coastal Erosion Project Phase 4
 # project type
         project_type:
           heading: What type of project you are proposing?
@@ -30,15 +31,31 @@ en:
 # key dates
         key_dates:
           heading: What are the estimated dates for important milestones of your proposed project?
-          outline_business_case: When do you expect to start your outline business case (Gateway 1)?
-          gateway_2: (Gateway 2)
-          there_is_no_gateway_2: We don't need to know the estimated date for Gateway 2
-          award_the_contract: When do you expect to award the contract (Gateway 3)?
-          start_construction: When do you expect to start construction?
-          ready_for_service: When do you expect your proposed project to be ready for service (Gateway 4)?
+# start outline business case date
+        start_outline_business_case_date:
+          heading: When do you expect to start your outline business case?
           month_label: Month
           year_label: Year
           example_text: For example, 3 2019
+# award contract date
+        award_contract_date:
+          heading: When do you expect to award the project's main contract?
+          month_label: Month
+          year_label: Year
+          example_text: For example, 1 2020
+# start construction date
+        start_construction_date:
+          heading: When do you expect to start the work?
+          description: This could be construction, carrying out studies or creating a strategy.
+          month_label: Month
+          year_label: Year
+          example_text: For example, 3 2020
+# ready for service date
+        ready_for_service_date:
+          heading: When do you expect the project to start achieving its benefits?
+          month_label: Month
+          year_label: Year
+          example_text: For example, 9 2021
 # funding sources
         funding_sources:
           heading: What are the expected funding sources?
@@ -63,7 +80,7 @@ en:
 # funding values
         funding_values:
           heading: What is the estimated spend for each financial year?
-          lede: Spending estimates should be in pounds (£) and estimated at present day value. Future maintenance costs aren't required.
+          lede: Spending estimates should be in pounds (£) and estimated at current prices. Future maintenance costs aren't required.
           financial_year_label: Financial year (April to April)
           fcerm_gia_label: Grant in Aid
           local_levy_label: Local levy
@@ -83,19 +100,62 @@ en:
         earliest_date:
           heading: What is the earliest date your project could start without impacting deliverability or outcomes?
           example_text: For example, 10 2019
+# location
+        location:
+          search:
+            heading: Where is the project located?
+            description: Enter one of the following
+            place_name: a place name
+            address: address
+            post_code: post code
+            grid_reference: grid-reference
+            co_ordinate: co-ordinate
+            lat_long: latitude and longitude values
+            confirm_and_continue: Confirm and continue
+            select_location: Select location
+          results:
+            heading: Select the project location
+            description: found for
+            result: result
+            location_not_listed: The location is not listed, find another
+            select_location: Select location
+          location:
+            heading: Select the project location
+            description: found for
+            result: result
+            location_not_listed: The location is not listed, find another
+          map:
+            heading: Confirm the project location
+            description: If needed, move the marker to better represent the location of the project.
+            find_another_location: Find another location
+# map
+        map:
+          map:
+            heading: What area is the project likely to protect?
+            description: Use the map to draw a rough outline around any properties and habitat that the project protects. You can draw as many separate outlines as you need, but make sure they don't overlap.
+            draw_area: Draw Area
+            select_area: Select Area
+            delete_selected_area: Delete Selected Area
+            link_to_upload_file_page: I would like another way to show what the project protects
+          upload:
+            heading: What area is the project likely to protect?
+            description: Upload an image of a map or a shapefile. Uploads should show a rough outline of properties and habitat that the project protects. You can draw as many separate outlines as you need, but make sure they don't overlap.
+            acceptable_file_formats: Acceptable file formats are jpg, png, svg and bmp. Compressed folders (such as zip or rar) that include shapefiles are acceptable too.
+            draw_outline_instead: I would like to draw an outline on a map instead
 # risks
         risks:
-          heading: What are the risks your proposed project will protect against?
+          heading: What risks will the project protect against?
           lede: Select all that apply.
-          fluvial_flooding_label: Fluvial (river) flooding
+          fluvial_flooding_label: River flooding
           tidal_flooding_label: Tidal flooding
           groundwater_flooding_label: Groundwater flooding
-          surface_water_flooding_label: Pluvial (surface water) flooding
+          surface_water_flooding_label: Surface Water flooding
+          sea_flooding_label: Sea flooding
           coastal_erosion_label: Coastal erosion
 # main risk
         main_risk:
           heading: What is the main source of risk your proposed project will protect against?
-          lede: You have told us that your proposed project will protect against these risks, please select which one is the main source of risk.
+# funding calculator
         funding_calculator:
           heading: Partnership funding calculator
           lede: The partnership funding calculator generates a score for the project based on the benefits, outcomes, and contributions that it aims to deliver. The score is used to prioritise and allocate funding in each year.
@@ -148,58 +208,77 @@ en:
           total_label: Total
 # standard of protection
         standard_of_protection:
-          heading: What standard of protection will your proposed project provide against flooding?
-          lede: This is the risk of the area protected by your proposed project flooding, over a 100 year period.
-          aep_text: This is also known as the annual exceedance probability (AEP).
-          example_text: For example, a 2% (1 in 50) standard of protection means that the area is likely to flood - on average - once every 50 years
-          flood_before_example_text: For example, 45%
-          flood_after_example_text: For example, 15%
+          heading: In the area likely to benefit from the project, what is the current flood risk?
+# standard of protection after
+        standard_of_protection_after:
+          heading: What will the flood risk be once the project is complete?
 # standard of protection coastal
         standard_of_protection_coastal:
-          heading: What standard of protection will your proposed project provide against coastal erosion?
-          lede: This is the additional number of years of potential occupancy of properties protected by your proposed project.
-          text: Normally this is the useful life of the coastal defence being built or upgraded or the time until the next major investment, whichever is sooner.
-          coastal_before_example_text: For example, 20 years
-          coastal_after_example_text: For example, 80 years
+          heading: How soon will coastal erosion affect the area likely to benefit from the project?
+          description: This could be the length of time before the current protection fails. Or the length of time before land is significantly changed by erosion.
+          less_than_one_year_label: Less than 1 year
+          one_to_four_years_label: 1 to 4 years
+          five_to_nine_years_label: 5 to 9 years
+          ten_years_or_more_label: 10 years or more
+# standard of protection coastal after
+        standard_of_protection_coastal_after:
+          heading: When the project is complete, how soon will coastal erosion affect the area?
+          description: This could be the length of time before the new protection fails. Or the length of time before land is significantly changed by erosion.
+          less_than_ten_years_label: Less than 10 years
+          ten_to_nineteen_years_label: 10 to 19 years
+          twenty_to_fortynine_years_label: 20 to 49 years
+          fifty_years_or_more_label: 50 years or more
+# approach
         approach:
-          heading: How will your project achieve these results?
+          heading: What work does the project plan to do to achieve its outcomes?
           example_text: Limit your answer to 700 characters or fewer
-          example_label: Show me examples
-          example_1: Waterside has a long history of flooding from open and culverted watercourses, affecting around 100 properties in the village. This project is to develop the completed pre-feasibility into a business case, followed by detailed design and construction. Some options have already been implemented including upgrading the open watercourses. However, the restrictions caused by the culverts still need to be addressed – this will be done by upsizing the culverts.
-          example_2: The coastal defences at Beachside protect approximately 5,000 properties from tidal flooding. The defences were constructed in the 1920s and are life expired. Previous breaches of the defences occurred within this length in 1977 resulting in the flooding of over 2,000 properties. The scheme aims to improve the standard of protection to these 5,000 properties by installing a new revetment, promenade and raised rear wall, together with soft landscaping works to the rear over a length of 1,800m.
+# surface and groundwater
         surface_and_groundwater:
           heading: Will the project protect or improve surface water or groundwater?
+# surface and groundwater amount
         surface_and_groundwater_amount:
           heading: How many kilometres of surface water or groundwater is the project likely to protect or improve?
+# improve river
         improve_river:
           heading: Will the project protect or improve a length of river or priority river habitat?
+# improve spa or sac
         improve_spa_or_sac:
           heading: Will the project protect or improve a Special Protected Area or Special Area of Conservation?
           lede: Special Protected Areas and Special Areas of Conservation are sites designated by the European Commission for the protection of birds and habitat.
+# improve sssi
         improve_sssi:
           heading: Will the project protect or improve a Site of Special Scientific Interest?
           lede: Sites of Special Scientific Interest are areas protected by law to conserve their wildlife or geology.
+# improve hpi
         improve_hpi:
           heading: Will the project protect or improve a Habitat of Principal Importance?
           lede: Habitats of Principal Importance are the most threatened priority habitats needing conservation action
+# improve habitat amount
         improve_habitat_amount:
           heading: How many hectares of habitat is the project likely to protect or improve?
+# improve river amount
         improve_river_amount:
           heading: How many kilometres of river or priority river habitat is the project likely to protect or improve?
+# habitat creation
         habitat_creation:
           heading: Will the project create habitat?
+# habitat creation amount
         habitat_creation_amount:
           heading: How many hectares of habitat is the project likely to create?
+# remove fish barrier
         remove_fish_barrier:
           heading: Will the project remove a barrier to migration for fish?
+# remove eel barrier
         remove_eel_barrier:
           heading: Will the project remove a barrier to migration for eels?
+# fish or eel amount
         fish_or_eel_amount:
           heading: How many kilometres of river is the project likely to open to fish or eel passage?
+# urgency
         urgency:
           heading: Is the project urgent for any of the following reasons?
+# urgency details
         urgency_details:
           heading: Why is your project urgent?
           lede: "You previously told us that your proposed project is urgent because:"
-          urgency_details_label: You now need to tell us why this applies
           example_text: Limit your answer to 700 characters or fewer

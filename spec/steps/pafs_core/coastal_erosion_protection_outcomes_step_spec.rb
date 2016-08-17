@@ -26,7 +26,9 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
                                                         households_protected_from_loss_in_next_20_years: 50,
                                                         households_protected_from_loss_in_20_percent_most_deprived: 100)
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "C must be smaller than or equal to B"
+      expect(subject.errors.messages[:base]).to include
+      "The number of households in the 20% most deprived areas (column C) must be lower than or equal to the number of \
+      households protected from loss within the next 20 years (column B)."
     end
 
     it "validates that value B is smaller than A" do
@@ -34,7 +36,9 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
                                                         households_at_reduced_risk: 100,
                                                         households_protected_from_loss_in_next_20_years: 200)
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "B must be smaller than or equal to A"
+      expect(subject.errors.messages[:base]).to include
+      "The number of households protected from loss within the next 20 years (column B) must be lower than or equal \
+      to the number of households at a reduced risk of coastal erosion (column A)."
     end
 
     it "validates that there is at least one A value" do
@@ -44,7 +48,8 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
                                                         households_at_reduced_risk: 0)
 
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "There must be at least one value in column A"
+      expect(subject.errors.messages[:base]).to include
+      "In the applicable year(s), tell us how many households are at a reduced risk of coastal erosion."
     end
   end
 
@@ -87,12 +92,6 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
       it "does not save the changes" do
         expect { subject.update(error_params) }.not_to change { subject.coastal_erosion_protection_outcomes.count }
       end
-
-      it "does not change the next step when validation fails" do
-        expect(subject.step).to eq :coastal_erosion_protection_outcomes
-        subject.update(error_params)
-        expect(subject.step).to eq :coastal_erosion_protection_outcomes
-      end
     end
 
     context "when params are valid" do
@@ -107,24 +106,6 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
 
       it "returns true" do
         expect(subject.update(params)).to eq true
-      end
-
-      context "when js_enabled param is set" do
-        it "updates the next step to :coastal_erosion_protection_outcomes" do
-          params[:js_enabled] = "1"
-          @project.coastal_erosion = true
-          expect(subject.step).to eq :coastal_erosion_protection_outcomes
-          subject.update(params)
-          expect(subject.step).to eq :standard_of_protection
-        end
-      end
-
-      context "when js_enabled param is not set" do
-        it "updates the next step to :flood_protection_outcomes_summary" do
-          expect(subject.step).to eq :coastal_erosion_protection_outcomes
-          subject.update(params)
-          expect(subject.step).to eq :coastal_erosion_protection_outcomes_summary
-        end
       end
     end
   end
@@ -141,23 +122,6 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
     end
   end
 
-  describe "#previous_step" do
-    subject { PafsCore::CoastalErosionProtectionOutcomesStep.new @project }
-
-    context "when project protects against flooding" do
-      it "should return :flood_protection_outcomes" do
-        subject.project.fluvial_flooding = true
-        expect(subject.previous_step).to eq :flood_protection_outcomes
-      end
-    end
-
-    context "when project doesn't protect against flooding" do
-      it "should return :risks" do
-        expect(subject.previous_step).to eq :risks
-      end
-    end
-  end
-
   describe "#before_view" do
     subject { PafsCore::CoastalErosionProtectionOutcomesStep.new @project }
     it "builds coastal_erosion_protection_outcome records for any missing years" do
@@ -165,63 +129,6 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
       # funding_values records run until 2019
       # so expect 3 placeholders to be built for 2020, 2021 and 2022
       expect { subject.before_view }.to change { subject.coastal_erosion_protection_outcomes.length }.by(6)
-    end
-  end
-
-  describe "#disabled?" do
-    subject { PafsCore::CoastalErosionProtectionOutcomesStep.new @project }
-    context "when the project does not protect any households" do
-      it "returns true" do
-        subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
-
-        expect(subject.disabled?).to eq true
-      end
-    end
-    context "when the project does not protect against coastal erosion" do
-      it "returns true" do
-        subject.project.coastal_erosion = false
-        expect(subject.disabled?).to eq true
-      end
-    end
-    context "when the project does protect against coastal erosion" do
-      context "when there is no project end financial year" do
-        it "returns true" do
-          subject.project.project_end_financial_year = nil
-          expect(subject.disabled?).to eq true
-        end
-      end
-      context "when project end financial year is set" do
-        it "returns false" do
-          expect(subject.disabled?).to eq false
-        end
-      end
-    end
-  end
-
-  describe "#completed?" do
-    subject { PafsCore::CoastalErosionProtectionOutcomesStep.new @project }
-
-    context "when project protects against coastal erosion" do
-      context "when there are no current_coastal_erosion_protection_outcomes" do
-        it "should return false" do
-          subject.project.coastal_erosion_protection_outcomes = []
-
-          expect(subject.completed?).to eq false
-        end
-      end
-      context "when there are current_coastal_erosion_protection_outcomes" do
-        it "should return true" do
-          expect(subject.completed?).to eq true
-        end
-      end
-    end
-
-    context "when project does not protect against coastal erosion" do
-      it "should return false" do
-        subject.project.coastal_erosion = false
-
-        expect(subject.completed?).to eq false
-      end
     end
   end
 end

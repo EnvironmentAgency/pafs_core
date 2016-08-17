@@ -1,4 +1,3 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
   class MainRiskStep < BasicStep
@@ -18,7 +17,7 @@ module PafsCore
         m = main_risk
         errors.add(:main_risk, "must be one of the selected risks") unless self.respond_to?(m) && self.send(m) == true
       else
-        errors.add(:main_risk, "^A main source of risk must be selected")
+        errors.add(:main_risk, "^Select the main risk the project protects against.")
       end
     end
   end

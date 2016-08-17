@@ -6,5 +6,15 @@ en:
       legal_need_label: Business critical legal need
       health_and_safety_label: Health and safety issue
       emergency_works_label: Work needs to be carried out as an emergency
-      time_limited_label: A specific aspect of the project is time-limited
-      other_label: There is a different reason why the project is urgent
+      time_limited_label: A specific aspect of the project is time limited
+    urgency_details:
+      statutory_need_label: What is the business critical statutory need?
+      statutory_need_error: ^You told us the project is urgent due to a business critical statutory need. Tell us more information about this.
+      legal_need_label: What is the business critical legal need?
+      legal_need_error: ^You told us the project is urgent due to a business critical legal need. Tell us more information about this.
+      health_and_safety_label: What is the health and safety issue?
+      health_and_safety_error: ^You told us the project is urgent due to a health and safety issue. Tell us more information about this.
+      emergency_works_label: What is the emergency?
+      emergency_works_error: ^You told us the project is urgent due to an emergency. Tell us more information about this.
+      time_limited_label: What is the specific aspect of the project that has a time limit?
+      time_limited_error: ^You told us the project is urgent due to a specific aspect of the project that has a time limit. Tell us more information about this.

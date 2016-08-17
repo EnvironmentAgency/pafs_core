@@ -13,8 +13,10 @@ require "pafs_core/environmental_outcomes"
 require "pafs_core/financial_year"
 require "pafs_core/outcomes"
 require "core_ext/time/financial"
+require "core_ext/date/financial"
 
 Time.include CoreExtensions::Time::Financial
+Date.include CoreExtensions::Date::Financial
 
 module PafsCore
 end

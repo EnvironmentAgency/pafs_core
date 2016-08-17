@@ -2,17 +2,13 @@
   <div class="grid-row">
     <div class="column-two-thirds">
       <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
-        <%= f.error_header %>
+        <%= f.error_header t("error_heading"), "" %>
         <%= f.hidden_field :id %>
-        <h1 class="heading-large"><%= t('.heading') %></h1>
-        <p class="lede"><%= t('.lede',) %></p>
-        <ul class="list list-bullet">
-          <li><%= urgency_reason_text(@project.urgency_reason) %></li>
-        </ul>
+        <h1 class="heading-large"><%= I18n.t("#{@project.urgency_reason}_label", scope: "pafs_core.urgency_details") %></h1>
         <div class="step-form">
           <fieldset>
             <legend class="visuallyhidden">Explain why your project is urgent</legend>
-            <%= f.text_area :urgency_details, class: "form-control form-wide", cols: 30, rows: 10, hint: t(".example_text"), label: t(".urgency_details_label") %>
+            <%= f.text_area :urgency_details, class: "form-control form-wide", cols: 30, rows: 10, hint: t(".example_text"), label: :none %>
           </fieldset>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>

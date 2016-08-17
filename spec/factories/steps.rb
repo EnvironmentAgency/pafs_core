@@ -22,14 +22,26 @@ FactoryGirl.define do
     end
 
     factory :key_dates_step, class: PafsCore::KeyDatesStep do
+    end
+
+    factory :start_outline_business_case_date_step, class: PafsCore::StartOutlineBusinessCaseDateStep do
       start_outline_business_case_month 2
       start_outline_business_case_year 2012
+    end
+
+    factory :award_contract_date_step, class: PafsCore::AwardContractDateStep do
       award_contract_month 4
       award_contract_year 2014
+    end
+
+    factory :start_construction_date_step, class: PafsCore::StartConstructionDateStep do
       start_construction_month 5
       start_construction_year 2015
+    end
+
+    factory :ready_for_service_date_step, class: PafsCore::ReadyForServiceDateStep do
       ready_for_service_month 9
-      ready_for_service_year 2019
+      ready_for_service_year { 3.years.from_now.year }
     end
 
     factory :funding_sources_step, class: PafsCore::FundingSourcesStep do
@@ -66,14 +78,35 @@ FactoryGirl.define do
       main_risk "fluvial_flooding"
     end
 
+    factory :location_step, class: PafsCore::LocationStep do
+      project_location [404040, 212121]
+      project_location_zoom_level 15
+    end
+
+    factory :map_step, class: PafsCore::MapStep do
+      benefit_area "[[432123, 132453], [444444, 134444], [456543, 123432]]"
+      benefit_area_centre [404040, 212121]
+      benefit_area_zoom_level 23
+      benefit_area_file_name "map.png"
+    end
+
+    factory :benefit_area_file_summary_step, class: PafsCore::BenefitAreaFileSummaryStep do
+    end
+
     factory :standard_of_protection_step, class: PafsCore::StandardOfProtectionStep do
-      flood_protection_before 66
-      flood_protection_after 23
+      flood_protection_before 1
+    end
+
+    factory :standard_of_protection_after_step, class: PafsCore::StandardOfProtectionAfterStep do
+      flood_protection_after 2
     end
 
     factory :standard_of_protection_coastal_step, class: PafsCore::StandardOfProtectionCoastalStep do
-      coastal_protection_before 10
-      coastal_protection_after 30
+      coastal_protection_before 0
+    end
+
+    factory :standard_of_protection_coastal_after_step, class: PafsCore::StandardOfProtectionCoastalAfterStep do
+      coastal_protection_after 3
     end
 
     factory :approach_step, class: PafsCore::ApproachStep do

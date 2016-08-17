@@ -43,30 +43,39 @@ module PafsCore
       end
     end
 
-    # describe "#nav_step_item" do
-    #   it "builds the navigation DOM nodes for the given project step" do
-    #     project = FactoryGirl.create(:project_name_step)
-    #     view.class.send(:define_method, :current_resource) { nil }
-    #     expect(helper.nav_step_item(project, :project_name)).to include("selected")
-    #   end
-    # end
+    describe "#location_search_results_for" do
+      it "should return the correct sentence" do
+        query = "Oxford"
+        results = ["Oxford"]
+        word = "result"
+        description = "found for"
+        response = "1 result found for <strong class=\"bold-small\">Oxford</strong>"
 
-    describe "#step_label" do
-      it "returns the I18n value for the given label" do
-        PafsCore::ProjectNavigator::STEPS.each do |step|
-          expect(helper.step_label(step)).to eq I18n.t("#{step}_step_label")
-        end
+        expect(helper.location_search_results_for(results, query, word, description)).to eq response
+
+        results.push("Whitney")
+        response = "2 results found for <strong class=\"bold-small\">Oxford</strong>"
+        expect(helper.location_search_results_for(results, query, word, description)).to eq response
       end
     end
 
-    # describe "#key_date_field" do
-    #   context "when the attr param ends in '_month'" do
-    #     it "builds the DOM nodes for a month field"
-    #   end
-    #
-    #   context "when the attr param ends in '_year'" do
-    #     it "builds the DOM nodes for a year field"
-    #   end
-    # end
+    describe "#standard_of_protection_label" do
+      it "should return the correct label" do
+        option = :very_significant
+        label = "<span class=\"bold-xsmall\">Very significant</span><div>5% or greater in any given year</div>"
+        expect(helper.standard_of_protection_label(option)).to eq label
+      end
+    end
+
+    describe "#search_result_label" do
+      let(:search_string) { "The search" }
+      let(:result) { {eastings: 201212, northings: 121212} }
+
+      it "should return the correct string result" do
+        expect(helper.search_result_label(nil, result)).to eq "201212,121212"
+
+        expect(helper.search_result_label(search_string, result)).to eq "The search"
+      end
+    end
   end
 end

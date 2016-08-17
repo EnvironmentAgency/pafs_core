@@ -3,11 +3,6 @@ class PafsCore::BootstrapsController < PafsCore::ApplicationController
   # NOTE: this should be added via a decorator in consuming qpp if needed
   # before_action :authenticate_user!
 
-  def show
-    # project summary page
-    @project = PafsCore::ProjectSummaryPresenter.new navigator.find(params[:id])
-  end
-
   def new
     # bootstrap a new project by asking:
     # whether GiA funding is required before 31 March 2021

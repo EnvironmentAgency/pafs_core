@@ -5,17 +5,8 @@
         <%= pafs_form_for @project, url: { action: "save", id: @project.to_param, step: @project.step } do |f| %>
         <%= f.error_header %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
+        <p><%= t('.description') %></p>
         <div class="step-form">
-          <div class="form-group">
-            <p class="lede">This is the name by which the project will be known in the programmes published on the Environment Agency website, and in other publications.</p>
-            <h2 class="heading-medium">The project name should:</h2>
-            <ul class="list-bullet">
-              <li>refer to the location (for example, town) and the river (if applicable)</li>
-              <li>refer to the nature of the work (for example Flood Alleviation Scheme)</li>
-              <li>refer to the project phase or period (if applicable)</li>
-              <li>be in plain English and not contain any abbreviations</li>
-            </ul>
-          </div>
           <%= f.text_field :name, class: "form-control form-wide", hint: t(".example_text") %>
           <%= f.submit t("save_and_continue_label"), class: 'button' %>
         <% end %>

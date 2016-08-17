@@ -23,3 +23,6 @@ end
 group :test do
   gem "codeclimate-test-reporter", require: false
 end
+
+gem 'cumberland', git: 'https://github.com/kennyevil/cumberland'
+gem 'rack-cors'

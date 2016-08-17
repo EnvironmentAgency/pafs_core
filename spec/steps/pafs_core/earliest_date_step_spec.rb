@@ -46,15 +46,6 @@ RSpec.describe PafsCore::EarliestDateStep, type: :model do
     end
   end
 
-  describe "#is_current_step?" do
-    subject { FactoryGirl.build(:earliest_date_step) }
-    context "as a sub-step of :earliest_start" do
-      it "returns true when passed :earliest_start" do
-        expect(subject.is_current_step?(:earliest_start)).to eq true
-      end
-    end
-  end
-
   describe "#update" do
     subject { FactoryGirl.create(:earliest_date_step) }
     let(:valid_params) {
@@ -74,26 +65,8 @@ RSpec.describe PafsCore::EarliestDateStep, type: :model do
       expect(subject.earliest_start_year).to eq 2016
     end
 
-    it "updates the next step to :location after a successful update" do
-      expect(subject.update(valid_params)).to be true
-      expect(subject.step).to eq :location
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to be false
-    end
-
-    it "does not change the next step when validation fails" do
-      expect(subject.update(error_params)).to be false
-      expect(subject.step).to eq :earliest_date
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:earliest_date_step) }
-
-    it "should return :earliest_start" do
-      expect(subject.previous_step).to eq :earliest_start
     end
   end
 end

@@ -2,32 +2,42 @@
 module PafsCore
   class StandardOfProtectionStep < BasicStep
     delegate :flood_protection_before, :flood_protection_before=,
-             :flood_protection_after, :flood_protection_after=,
-             :project_protects_households?,
+             :project_protects_households?, :coastal_erosion?,
              to: :project
 
-    validate :flood_protection_levels_are_present_and_correct
+    validates :flood_protection_before, presence: {
+      message:
+      "^Select the option that shows the current risk of flooding to the area \
+      likely to benefit from the project."
+    }
+
+    validates :flood_protection_before, numericality: {
+      only_integer: true,
+      greater_than_or_equal_to: 0,
+      less_than_or_equal_to: 3,
+      allow_blank: true
+    }
+
+    # flood protection levels are stored as integers that correlate to
+    # the category of risk of flooding
+    # 0 - Very significant
+    # 1 - Significant
+    # 2 - Moderate
+    # 3 - Low
+
+    def standard_of_protection_options
+      [
+        :very_significant,
+        :significant,
+        :moderate,
+        :low,
+      ].freeze
+    end
 
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:standard_of_protection_step).
         permit(:flood_protection_before, :flood_protection_after)
-    end
-
-    def flood_protection_levels_are_present_and_correct
-      [:flood_protection_before, :flood_protection_after].each { |f| validate_percentage(f) }
-    end
-
-    def validate_percentage(f)
-      v = send(f)
-      if v.blank?
-        errors.add(f, "can't be blank")
-      else
-        pc = v.to_i
-        if pc < 0 || pc > 100 || (pc.to_s != v.to_s)
-          errors.add(f, "must be a percentage value in the range 0 to 100")
-        end
-      end
     end
   end
 end

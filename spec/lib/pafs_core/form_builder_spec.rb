@@ -44,6 +44,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       it "displays a link for each error" do
         project.errors.keys.each do |k|
           project.errors.full_messages_for(k).each_with_index do |msg, i|
+            msg = msg.split("^")[1] if msg =~ /\^/
             expect(@output).to have_css("li a[href='##{project.step}-#{k}-error-#{i}']",
                                         text: msg)
           end
@@ -388,6 +389,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
 
       it "outputs the error messages" do
         project.errors.full_messages_for(:name).each do |msg|
+          msg = msg.split("^")[1] if msg =~ /\^/
           expect(@output).to have_css("p.error-message", text: msg)
         end
       end

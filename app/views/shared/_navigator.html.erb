@@ -10,7 +10,7 @@
         <%= nav_step_item(@project, :project_name) %>
         <%= nav_step_item(@project, :project_type) %>
         <%= nav_step_item(@project, :financial_year) %>
-        <%= nav_step_item(@project, :key_dates) %>
+        <%= nav_step_item(@project, :start_outline_business_case_date) %>
       </ul>
     </section>
     <section>
@@ -25,12 +25,10 @@
       <h1 class="heading-small">Location</h1>
       <ul>
         <li>
-          <span class="complete-flag"></span>
-          <%= link_to "Location", "#" %>
+          <%= nav_step_item(@project, :location) %>
         </li>
         <li>
-          <span class="complete-flag"></span>
-          <%= link_to "Map", "#" %>
+          <%= nav_step_item(@project, :map) %>
         </li>
       </ul>
     </section>

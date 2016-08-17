@@ -1,14 +1,17 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "rails_helper"
-# require_relative "./shared_step_spec"
 
 RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
   describe "attributes" do
     subject { FactoryGirl.build(:financial_year_alternative_step) }
     it_behaves_like "a project step"
 
-    it { is_expected.to validate_presence_of :project_end_financial_year }
+    it "validates :project_end_financial_year can't be empty/falsey" do
+      subject.project_end_financial_year = nil
+      expect(subject.valid?).to be false
+      expect(subject.errors[:project_end_financial_year]).to include
+      "^Tell us the financial year when the project will stop spending funds"
+    end
 
     # validates_numericality_of doesn't seem to work with multiple qualifiers
     # in this case :only_integer, :less_than and :greater_than
@@ -23,7 +26,8 @@ RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
       subject.project_end_financial_year = 2015
       current_financial_year = Time.current.uk_financial_year
       expect(subject.valid?).to be false
-      expect(subject.errors[:project_end_financial_year]).to include "must be #{current_financial_year} or later"
+      expect(subject.errors[:project_end_financial_year]).to include
+      "^The financial year must be in the future"
     end
 
     it "validates that :project_end_financial_year is earlier than 2100" do
@@ -57,38 +61,8 @@ RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
       expect(subject.project_end_financial_year).to eq 2020
     end
 
-    it "updates the next step if valid" do
-      expect(subject.step).to eq :financial_year_alternative
-      subject.update(params)
-      expect(subject.step).to eq :key_dates
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to eq false
-    end
-
-    it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :financial_year_alternative
-      subject.update(error_params)
-      expect(subject.step).to eq :financial_year_alternative
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:financial_year_alternative_step) }
-
-    it "should return :financial_year" do
-      expect(subject.previous_step).to eq :financial_year
-    end
-  end
-
-  describe "#is_current_step?" do
-    subject { FactoryGirl.build(:financial_year_alternative_step) }
-
-    context "when :standard_of_protection is given" do
-      it "should return true" do
-        expect(subject.is_current_step?(:financial_year)).to eq true
-      end
     end
   end
 end

@@ -27,7 +27,8 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
     it "validates that at least one value per column is selected" do
       subject.project.local_levy = true
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "Please enter a value for Local levy"
+      expect(subject.errors.messages[:base]).to include
+      "In the applicable year(s), tell us the estimated spend for Local levy"
     end
 
     it "validates that positive values have been entered" do
@@ -77,12 +78,6 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
       it "does not save the changes" do
         expect { subject.update(error_params) }.not_to change { subject.funding_values.count }
       end
-
-      it "does not change the next step when validation fails" do
-        expect(subject.step).to eq :funding_values
-        subject.update(error_params)
-        expect(subject.step).to eq :funding_values
-      end
     end
 
     context "when params are valid" do
@@ -94,23 +89,6 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
 
       it "returns true" do
         expect(subject.update(params)).to eq true
-      end
-
-      context "when js_enabled param is set" do
-        it "updates the next step to :earliest_start" do
-          params[:js_enabled] = "1"
-          expect(subject.step).to eq :funding_values
-          subject.update(params)
-          expect(subject.step).to eq :earliest_start
-        end
-      end
-
-      context "when js_enabled param is not set" do
-        it "updates the next step to :funding_values_summary" do
-          expect(subject.step).to eq :funding_values
-          subject.update(params)
-          expect(subject.step).to eq :funding_values_summary
-        end
       end
     end
 
@@ -150,13 +128,6 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
     end
   end
 
-  describe "#previous_step" do
-    subject { PafsCore::FundingValuesStep.new @project }
-    it "should return :funding_sources" do
-      expect(subject.previous_step).to eq :funding_sources
-    end
-  end
-
   describe "#before_view" do
     subject { PafsCore::FundingValuesStep.new @project }
     it "builds funding_value records for any missing years" do
@@ -164,27 +135,6 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
       # funding_values records run until 2019
       # so expect 3 placeholders to be built for 2020, 2021 and 2022
       expect { subject.before_view }.to change { subject.funding_values.length }.by(3)
-    end
-  end
-
-  describe "#disabled?" do
-    subject { PafsCore::FundingValuesStep.new @project }
-    context "when there is no project end financial year" do
-      it "returns true" do
-        subject.project.project_end_financial_year = nil
-        expect(subject.disabled?).to eq true
-      end
-    end
-    context "when there are no funding sources" do
-      it "returns true" do
-        subject.project.fcerm_gia = false
-        expect(subject.disabled?).to eq true
-      end
-    end
-    context "when funding sources and project end financial year are set" do
-      it "returns false" do
-        expect(subject.disabled?).to eq false
-      end
     end
   end
 end

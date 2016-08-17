@@ -1,0 +1,34 @@
+<% if @map_centre.size == 1 %>
+  <% map_centre = @map_centre.first %>
+  <div class="grid-row">
+    <h1 class="heading-large"><%= t('.heading') %></h1>
+    <p><%= t(".description") %></p>
+    <div class="form-group">
+      <div class="map-buttons">
+        <%= button_tag t(".draw_area"), class: "button", id: "draw-polygon", disable_with: "Drawing" %>
+        <%= button_tag t(".select_area"), class: "button", id: "select-polygon", disable_with: "Selecting"%>
+        <%= button_tag t(".delete_selected_area"), class: "button", id: "delete-polygon", disable_with: "Deleting" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div id="map"
+        class="benefit-area"
+        data-eastings=<%= map_centre[:eastings] %>
+        data-northings=<%= map_centre[:northings] %>
+        data-polygons= <%= JSON.parse(@project.benefit_area).to_json %>
+        data-zoomlevel=<%= @project.benefit_area_zoom_level || @project.project_location_zoom_level %>
+        data-marker=<%= @project.project_location.to_json %>
+      >
+      </div>
+    </div>
+  </div>
+  <%= form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+    <div class="form-group">
+      <%= f.hidden_field :benefit_area, value: @project.benefit_area.to_json %>
+      <%= f.hidden_field :benefit_area_centre %>
+      <%= f.hidden_field :benefit_area_zoom_level %>
+      <%= f.submit t("save_and_continue_label"), class: 'button', id: 'benefitAreaSaveButton' %>
+    </div>
+  <% end %>
+  <%= link_to t(".link_to_upload_file_page"), project_step_path(id: @project.to_param, step: @project.step, upload_file: "1") %>
+<% end %>

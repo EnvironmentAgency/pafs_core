@@ -10,7 +10,7 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params))
       if valid?
-        main_risk = selected_risks.first.to_s if selected_risks.count == 1
+        self.main_risk = selected_risks.first.to_s if selected_risks.count == 1
         project.save
       else
         false
@@ -24,6 +24,7 @@ module PafsCore
         :tidal_flooding,
         :groundwater_flooding,
         :surface_water_flooding,
+        :sea_flooding,
         :coastal_erosion)
     end
 

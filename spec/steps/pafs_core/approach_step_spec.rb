@@ -10,7 +10,8 @@ RSpec.describe PafsCore::ApproachStep, type: :model do
     it "validates that :approach is present" do
       subject.approach = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:approach]).to include "^Please enter a description"
+      expect(subject.errors.messages[:approach]).to include
+      "^Tell us the work the project plans to do to achieve its outcomes."
     end
   end
 
@@ -37,34 +38,8 @@ RSpec.describe PafsCore::ApproachStep, type: :model do
       expect(subject.approach).to eq "Wigwam on toast"
     end
 
-    it "updates the next step if valid" do
-      expect(subject.step).to eq :approach
-      subject.update(params)
-      expect(subject.step).to eq :surface_and_groundwater
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to eq false
-    end
-
-    it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :approach
-      subject.update(error_params)
-      expect(subject.step).to eq :approach
-    end
-  end
-
-  describe "#previous_step" do
-    it "should return :urgency" do
-      expect(subject.previous_step).to eq :standard_of_protection
-    end
-  end
-
-  describe "#disabled?" do
-    it "should return true when the project doesn't protect households" do
-      subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
-
-      expect(subject.disabled?).to eq true
     end
   end
 end

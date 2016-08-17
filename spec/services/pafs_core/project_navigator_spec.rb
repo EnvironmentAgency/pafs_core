@@ -11,15 +11,15 @@ RSpec.describe PafsCore::ProjectNavigator do
   end
   subject { PafsCore::ProjectNavigator.new @user }
 
-  describe ".first_step" do
+  describe "#first_step" do
     it "returns the identifier of first step in the journey" do
-      expect(described_class.first_step).to eq(described_class::STEPS.first)
+      expect(subject.first_step).to eq :project_name
     end
   end
 
-  describe ".last_step" do
+  describe "#last_step" do
     it "returns the identifier of last step in the journey" do
-      expect(described_class.last_step).to eq(described_class::STEPS.last)
+      expect(subject.last_step).to eq :summary_13
     end
   end
 
@@ -34,13 +34,13 @@ RSpec.describe PafsCore::ProjectNavigator do
   describe "#find_project_step" do
     let(:project) { subject.start_new_project }
     it "finds a project by :reference_number wrapped in the requested :step of the process" do
-      p = subject.find_project_step(project.to_param, described_class.last_step)
+      p = subject.find_project_step(project.to_param, subject.first_step)
       expect(p).to respond_to :reference_number
-      expect(p.step).to eq(described_class.last_step)
+      expect(p.step).to eq(subject.first_step)
     end
 
     it "raises ActiveRecord::RecordNotFound for an invalid :reference_number" do
-      expect { subject.find_project_step("123", described_class.last_step) }.
+      expect { subject.find_project_step("123", subject.first_step) }.
         to raise_error(ActiveRecord::RecordNotFound)
     end
 
@@ -50,22 +50,22 @@ RSpec.describe PafsCore::ProjectNavigator do
     end
   end
 
-  describe ".build_project_step" do
+  describe "#build_project_step" do
     let(:raw_project) { FactoryGirl.build(:project) }
     let(:project_step) { subject.start_new_project }
     let(:user) { FactoryGirl.build(:user) }
 
     it "wraps a project record with the requested :step" do
       expect(raw_project).to be_a PafsCore::Project
-      p = described_class.build_project_step(raw_project, described_class.first_step, user)
+      p = subject.build_project_step(raw_project, subject.first_step, user)
       expect(p).to be_a PafsCore::BasicStep
-      expect(p.step).to eq(described_class.first_step)
+      expect(p.step).to eq(subject.first_step)
     end
 
     it "re-wraps an existing project step with the requested :step" do
-      expect(project_step.step).to eq(described_class.first_step)
-      p = described_class.build_project_step(project_step, described_class.last_step, user)
-      expect(p.step).to eq(described_class.last_step)
+      expect(project_step.step).to eq(subject.first_step)
+      p = subject.build_project_step(project_step, :project_type, user)
+      expect(p.step).to eq(:project_type)
     end
   end
 end

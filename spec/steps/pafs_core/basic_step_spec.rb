@@ -38,16 +38,6 @@ RSpec.describe PafsCore::BasicStep, type: :model do
     end
   end
 
-  describe "#is_current_step?" do
-    it "returns true if the current step matches the step parameter" do
-      expect(subject.is_current_step?(:basic)).to eq true
-    end
-
-    it "returns false if the current step does not match the step parameter" do
-      expect(subject.is_current_step?(:not_this_step)).to eq false
-    end
-  end
-
   describe "#save!" do
     subject { FactoryGirl.build(:basic_step) }
 

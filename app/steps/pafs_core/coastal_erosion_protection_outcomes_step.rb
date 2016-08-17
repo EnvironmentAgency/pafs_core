@@ -6,7 +6,7 @@ module PafsCore
     delegate :project_type,
              :project_protects_households?,
              to: :project
-    validate :values_make_sense, :at_least_one_value
+    validate :at_least_one_value, :values_make_sense
 
     def before_view
       setup_coastal_erosion_protection_outcomes
@@ -24,12 +24,24 @@ module PafsCore
         b_too_big.push cepo.id if a < b
         c_too_big.push cepo.id if b < c
       end
-      errors.add(:base, "B must be smaller than or equal to A") if !b_too_big.empty?
-      errors.add(:base, "C must be smaller than or equal to B") if !c_too_big.empty?
+      errors.add(
+        :base,
+        "The number of households protected from loss within the next 20 years (column B) must be lower \
+        than or equal to the number of households at a reduced risk of coastal erosion (column A)."
+      ) if !b_too_big.empty?
+
+      errors.add(
+        :base,
+        "The number of households in the 20% most deprived areas (column C) must be lower than or \
+        equal to the number of households protected from loss within the next 20 years (column B)."
+      ) if !c_too_big.empty?
     end
 
     def at_least_one_value
-      errors.add(:base, "There must be at least one value in column A") if total_protected_households.zero?
+      errors.add(
+        :base,
+        "In the applicable year(s), tell us how many households are at a reduced risk of coastal erosion (column A)."
+      ) if total_protected_households.zero?
     end
 
     def total_protected_households
