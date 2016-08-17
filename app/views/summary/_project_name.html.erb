@@ -1,0 +1,15 @@
+<article class="summary-item" aria-labelledby="project-name">
+  <h2 class="heading-medium" role="heading" id="project-name">Project name</h2>
+  <div class="grid-row">
+    <div class="column-three-quarters">
+      <p><%= project.name %></p>
+    </div>
+    <div class="column-one-quarter">
+      <div class="change-link">
+        <%= link_to pafs_core.project_step_path(id: project.to_param, step: :project_name) do -%>
+          Change<span class="visually-hidden"> the project name</span>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</article>

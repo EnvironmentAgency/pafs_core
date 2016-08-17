@@ -1,22 +1,20 @@
 <div class="step-container">
   <div class="grid-row">
-    <div class="column-one-third">
-      <%= render partial: 'shared/navigator', project: @project %>
-    </div>
     <div class="column-two-thirds">
-      <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+      <%= pafs_form_for @project, url: { action: "save", id: @project.to_param, step: @project.step } do |f| %>
         <%= f.error_header %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
-        <p class><%= t('.lede') %></p>
+        <p><%= t('.lede') %></p>
         <div class="step-form">
           <div class ="form-group">
+            <%= f.hidden_field :id %>
             <% @project.financial_year_options.each do |year| %>
               <%= f.radio_button :project_end_financial_year, year, label: "April #{year} to March #{year + 1}" %>
             <% end %>
             <input as="hidden" selected="selected" class="hidden" value="" checked="checked" name="financial_year_step[project_end_financial_year]" id="financial_year_step_project_end_financial_year_" type="radio">
           </div>
           <div class="form-group">
-            <%= link_to t('.next_step_link_text'), project_step_path(id: @project, step: :financial_year_alternative) %>
+            <%= link_to t('.next_step_link_text'), action: "step", id: @project, step: :financial_year_alternative %>
           </div>
           <div class ="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>

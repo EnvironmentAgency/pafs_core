@@ -33,39 +33,8 @@ RSpec.describe PafsCore::FishOrEelAmountStep, type: :model do
       expect(subject.fish_or_eel_amount).to eq 205.25
     end
 
-    it "updates the next step to :urgency" do
-      expect(subject.update(valid_params)).to be true
-      expect(subject.step).to eq :urgency
-    end
-
-    context "when validation fails" do
-      it "returns false" do
-        expect(subject.update(error_params)).to be false
-      end
-
-      it "does not change the next step" do
-        expect(subject.update(error_params)).to be false
-        expect(subject.step).to eq :fish_or_eel_amount
-      end
-    end
-  end
-
-  describe "#is_current_step?" do
-    context "when given :remove_fish_barrier" do
-      it "returns true" do
-        expect(subject.is_current_step?(:remove_fish_barrier)).to eq true
-      end
-    end
-    context "when not given :remove_fish_barrier" do
-      it "returns false" do
-        expect(subject.is_current_step?(:broccoli)).to eq false
-      end
-    end
-  end
-
-  describe "#previous_step" do
-    it "should return :habitat_creation" do
-      expect(subject.previous_step).to eq :habitat_creation
+    it "returns false when validation fails" do
+      expect(subject.update(error_params)).to be false
     end
   end
 

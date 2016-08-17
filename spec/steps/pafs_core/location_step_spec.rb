@@ -55,38 +55,8 @@ RSpec.describe PafsCore::LocationStep, type: :model do
       expect(subject.project_location_zoom_level).to eq 19
     end
 
-    it "updates the next step if valid" do
-      expect(subject.step).to eq :location
-      subject.update(params)
-      expect(subject.step).to eq :map
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to eq false
-    end
-
-    it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :location
-      subject.update(error_params)
-      expect(subject.step).to eq :location
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:location_step) }
-
-    it "should return :key_dates" do
-      expect(subject.previous_step).to eq :key_dates
-    end
-  end
-
-  describe "#completed?" do
-    subject { FactoryGirl.create(:location_step) }
-
-    it "should return completed? correctly" do
-      expect(subject.completed?).to eq(true)
-      subject.update(location_step: { project_location: "[]"})
-      expect(subject.completed?).to eq(false)
     end
   end
 end

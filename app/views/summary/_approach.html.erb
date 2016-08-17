@@ -1,0 +1,30 @@
+<article class="summary-item" aria-labelledby="approach">
+  <% if project.approach.present? %>
+    <h2 class="heading-medium" role="heading" id="approach"><%= project.summary_label(:approach_title) %></h2>
+    <div class="grid-row">
+      <div class="column-three-quarters">
+        <%= simple_format project.approach %>
+      </div>
+      <div class="column-one-quarter">
+        <div class="change-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :approach) do -%>
+            Change<span class="visually-hidden"> <%= project.summary_label(:approach_title).downcase %></span>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="grid-row add-row">
+      <div class="column-three-quarters">
+        <h2 class="heading-medium" role="heading" id="approach"><%= project.summary_label(:approach_title) %></h2>
+      </div>
+      <div class="column-one-quarter">
+        <div class="add-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :approach) do -%>
+            Add<span class="visually-hidden"> <%= project.summary_label(:approach_title).downcase %></span>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</article>

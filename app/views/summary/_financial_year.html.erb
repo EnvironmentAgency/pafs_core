@@ -1,0 +1,15 @@
+<article class="summary-item" aria-labelledby="financial-year">
+  <h2 class="heading-medium" role="heading" id="financial-year">Last financial year the project will spend funds</h2>
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <p><%= formatted_financial_month_and_year project.project_end_financial_year %></p>
+    </div>
+    <div class="column-one-third">
+      <div class="change-link">
+        <%= link_to pafs_core.project_step_path(id: project.to_param, step: :financial_year) do -%>
+          Change<span class="visually-hidden"> the last financial year the project will spend funds</span>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</article>

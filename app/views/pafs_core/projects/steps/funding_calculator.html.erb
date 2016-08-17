@@ -1,8 +1,5 @@
 <div class="step-container">
   <div class="grid-row">
-    <div class="column-one-third">
-      <%= render partial: 'shared/navigator', project: @project %>
-    </div>
     <div class="column-two-thirds">
       <%
         partial = if @project.funding_calculator_file_name.present?

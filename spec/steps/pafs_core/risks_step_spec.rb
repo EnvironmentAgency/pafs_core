@@ -60,55 +60,12 @@ RSpec.describe PafsCore::RisksStep, type: :model do
       expect(subject.update(error_params)).to eq false
     end
 
-    it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :risks
-      subject.update(error_params)
-      expect(subject.step).to eq :risks
-    end
-
-    context "when valid? true" do
-      before(:each) { subject.fluvial_flooding = nil }
-
-      context "when multiple risks are selected" do
-        it "updates the next step to :main_risk" do
-          expect(subject.step).to eq :risks
-          subject.update(params)
-          expect(subject.step).to eq :main_risk
-        end
+    context "when only a single risk is selected" do
+      it "auto sets the main risk" do
+        subject.fluvial_flooding = nil
+        expect { subject.update(flood_params) }.
+          to change { subject.project.main_risk }.to "groundwater_flooding"
       end
-      context "when a single flood risk is selected" do
-        it "updates the next step to :flood_protection_outcomes" do
-          expect(subject.step).to eq :risks
-          subject.update(flood_params)
-          expect(subject.step).to eq :flood_protection_outcomes
-        end
-      end
-      context "when only coastal erosion risk is selected" do
-        it "updates the next step to :coastal_erosion_protection_outcomes" do
-          expect(subject.step).to eq :risks
-          subject.update(coastal_params)
-          expect(subject.step).to eq :coastal_erosion_protection_outcomes
-        end
-      end
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:risks_step) }
-
-    # TODO: this needs to be changed to :map once the map is integrated
-    it "should return :earliest_start" do
-      expect(subject.previous_step).to eq :earliest_start
-    end
-  end
-
-  describe "#disabled?" do
-    subject { FactoryGirl.build(:risks_step) }
-
-    it "should return true when the project doesn't protect households" do
-      subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
-
-      expect(subject.disabled?).to eq true
     end
   end
 end

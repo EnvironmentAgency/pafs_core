@@ -25,28 +25,6 @@ module PafsCore
     # 2 - Moderate
     # 3 - Low
 
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :standard_of_protection_after
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      if coastal_erosion?
-        :coastal_erosion_protection_outcomes
-      else
-        :flood_protection_outcomes
-      end
-    end
-
-    def step
-      @step ||= :standard_of_protection
-    end
-
     def standard_of_protection_options
       [
         :very_significant,
@@ -54,20 +32,6 @@ module PafsCore
         :moderate,
         :low,
       ].freeze
-    end
-
-    # override BasicStep#completed? to handle standard_of_protection_coastal sub-step
-    def completed?
-      if coastal_erosion?
-        return false unless valid?
-        PafsCore::StandardOfProtectionCoastalStep.new(project).completed?
-      else
-        valid?
-      end
-    end
-
-    def disabled?
-      !project_protects_households?
     end
 
   private

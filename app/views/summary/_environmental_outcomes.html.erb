@@ -1,0 +1,85 @@
+<article class="summary-item" aria-labelledby="environmental-outcomes">
+  <% if project.environmental_outcomes_started? %>
+    <h2 class="heading-medium" role="heading" id="environmental-outcomes">
+      <%= project.summary_label(:environmental_outcomes_title) %>
+    </h2>
+    <div class="grid-row">
+      <div class="column-three-quarters">
+        <ul class="summary-list underlined-items">
+          <li>
+            <div class="grid-row">
+              <div class="column-three-quarters">
+                <%= project.summary_label(:surface_and_groundwater_amount) %>
+              </div>
+              <div class="column-one-quarter align-right">
+                <%= project.surface_and_groundwater_size %>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="grid-row">
+              <div class="column-three-quarters">
+                <%= project.summary_label(:improve_habitat_amount) %>
+              </div>
+              <div class="column-one-quarter align-right">
+                <%= project.improve_habitat_size %>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="grid-row">
+              <div class="column-three-quarters">
+                <%= project.summary_label(:improve_river_amount) %>
+              </div>
+              <div class="column-one-quarter align-right">
+                <%= project.improve_river_size %>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="grid-row">
+              <div class="column-three-quarters">
+                <%= project.summary_label(:create_habitat_amount) %>
+              </div>
+              <div class="column-one-quarter align-right">
+                <%= project.create_habitat_size %>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="grid-row">
+              <div class="column-three-quarters">
+                <%= project.summary_label(:fish_or_eel_amount) %>
+              </div>
+              <div class="column-one-quarter align-right">
+                <%= project.fish_or_eel_passage_size %>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="column-one-quarter">
+        <div class="change-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :surface_and_groundwater) do -%>
+            Change<span class="visually-hidden"> the <%= project.summary_label(:surface_and_groundwater_amount).downcase %></span>
+        <% end -%>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="grid-row add-row">
+      <div class="column-three-quarters">
+        <h2 class="heading-medium" role="heading" id="environmental-outcomes">
+          <%= project.summary_label(:environmental_outcomes_title) %>
+        </h2>
+      </div>
+      <div class="column-one-quarter">
+        <div class="add-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :surface_and_groundwater) do -%>
+            Add<span class="visually-hidden"> <%= project.summary_label(:environmental_outcomes_title) %></span>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</article>

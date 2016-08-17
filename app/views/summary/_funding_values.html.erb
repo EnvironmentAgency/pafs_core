@@ -1,0 +1,37 @@
+<article class="summary-item" aria-labelledby="funding-values">
+  <% if project.funding_values_started? %>
+    <h2 class="heading-medium" role="heading" id="funding-values">Funding values</h2>
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <ul class="summary-list underlined-items">
+          <% project.funding.each do |f| %>
+            <li>
+              <span class="half-width"><%= f[:name] %></span>
+              <span class="pull-right">£<%= number_with_delimiter f[:value] %></span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="column-one-third">
+        <div class="change-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_values) do -%>
+            Change<span class="visually-hidden"> the funding values</span>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="grid-row add-row">
+      <div class="column-three-quarters">
+        <h2 class="heading-medium" role="heading" id="funding-values">Funding values</h2>
+      </div>
+      <div class="column-one-quarter">
+        <div class="add-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_values) do -%>
+            Add<span class="visually-hidden"> the funding values</span>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</article>

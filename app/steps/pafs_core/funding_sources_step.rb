@@ -17,34 +17,11 @@ module PafsCore
         private_contributor_names = nil unless private_contributions?
         other_ea_contributor_names = nil unless other_ea_contributions?
 
-        if project.save
-          @step = next_step
-          result = true
-        end
+        result = project.save
       end
       result
     end
 
-    def previous_step
-      :key_dates
-    end
-
-    def step
-      @step ||= :funding_sources
-    end
-
-    def completed?
-      if funding_sources_visited? && valid?
-        step = next_step
-        if step != :funding_values
-          PafsCore::ProjectNavigator.build_project_step(project, next_step, user).completed?
-        else
-          true
-        end
-      else
-        false
-      end
-    end
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:funding_sources_step).permit(

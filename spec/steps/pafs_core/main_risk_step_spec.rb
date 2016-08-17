@@ -52,20 +52,8 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
           expect(subject.main_risk).to eq "groundwater_flooding"
         end
 
-        it "updates the next step if valid" do
-          expect(subject.step).to eq :main_risk
-          subject.update(params)
-          expect(subject.step).to eq :flood_protection_outcomes
-        end
-
         it "returns false when validation fails" do
           expect(subject.update(error_params)).to eq false
-        end
-
-        it "does not change the next step when validation fails" do
-          expect(subject.step).to eq :main_risk
-          subject.update(error_params)
-          expect(subject.step).to eq :main_risk
         end
       end
       context "protecting against coastal erosion" do
@@ -84,33 +72,13 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
           expect(subject.update(params)).to be true
           expect(subject.main_risk).to eq "coastal_erosion"
         end
-
-        it "updates the next step if valid" do
-          expect(subject.step).to eq :main_risk
-          subject.update(params)
-          expect(subject.step).to eq :coastal_erosion_protection_outcomes
-        end
       end
-    end
-  end
-
-  describe "#previous_step" do
-    it "should return :risks" do
-      expect(subject.previous_step).to eq :risks
     end
   end
 
   describe "#selected_risks" do
     it "returns a list of selected risks" do
       expect(subject.selected_risks.count).to eq 1
-    end
-  end
-
-  describe "#disabled?" do
-    it "should return true if the project does not protect households" do
-      subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
-
-      expect(subject.disabled?).to eq true
     end
   end
 end

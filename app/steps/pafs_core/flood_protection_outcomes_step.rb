@@ -1,63 +1,19 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
   class FloodProtectionOutcomesStep < BasicStep
-    include PafsCore::Risks
-    delegate :flood_protection_outcomes,
-             :flood_protection_outcomes=,
-             :flood_protection_outcomes_attributes=,
-             :project_end_financial_year,
+    include PafsCore::Outcomes, PafsCore::Risks, PafsCore::FinancialYear
+    delegate :project_end_financial_year,
              :project_type,
              :project_protects_households?,
              to: :project
 
     validate :at_least_one_value, :values_make_sense
 
-    def update(params)
-      js_enabled = !!params.fetch(:js_enabled, false)
-
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = if js_enabled
-                  if protects_against_coastal_erosion?
-                    :coastal_erosion_protection_outcomes
-                  else
-                    :standard_of_protection
-                  end
-                else
-                  :flood_protection_outcomes_summary
-                end
-
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :risks
-    end
-
-    def disabled?
-      !(protects_against_flooding? && !project_end_financial_year.nil? && project_protects_households?)
-    end
-
-    def step
-      @step ||= :flood_protection_outcomes
-    end
-
-    def current_flood_protection_outcomes
-      fpos = flood_protection_outcomes.select { |fpo| fpo.financial_year <= project_end_financial_year}
-      fpos.sort_by(&:financial_year)
-
-      # if this is a db query we lose inputted data when there are errors
-      # and we send the user back to fix it
-    end
-
     def before_view
       setup_flood_protection_outcomes
     end
 
+    private
     def values_make_sense
       b_too_big = []
       c_too_big = []
@@ -84,10 +40,6 @@ module PafsCore
       ) if !c_too_big.empty?
     end
 
-    def total_protected_households
-      flood_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
-    end
-
     def at_least_one_value
       errors.add(
         :base,
@@ -96,7 +48,10 @@ module PafsCore
       ) if total_protected_households.zero?
     end
 
-    private
+    def total_protected_households
+      flood_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
+    end
+
     def step_params(params)
       ActionController::Parameters.new(params)
                                   .require(:flood_protection_outcomes_step)
@@ -125,10 +80,6 @@ module PafsCore
       if !flood_protection_outcomes.exists?(financial_year: year)
         flood_protection_outcomes.build(financial_year: year)
       end
-    end
-
-    def current_financial_year
-      Time.zone.now.uk_financial_year
     end
   end
 end

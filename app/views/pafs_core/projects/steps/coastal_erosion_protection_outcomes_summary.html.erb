@@ -1,8 +1,5 @@
 <div class="step-container">
   <div class="grid-row">
-    <div class="column-one-third">
-      <%= render partial: 'shared/navigator', locals: { project: @project } %>
-    </div>
     <div class="column-two-thirds">
       <h1 class="heading-large"><%= t('.heading') %></h1>
       <div class="step-form">
@@ -47,13 +44,13 @@
                   <tr>
                     <td><%= funding_value_label(:total) %></td>
                     <td class="numeric">
-                      <%= number_with_delimiter @project.total_for(:households_at_reduced_risk) %>
+                      <%= number_with_delimiter @project.total_ce_for(:households_at_reduced_risk) %>
                     </td>
                     <td class="numeric">
-                      <%= number_with_delimiter @project.total_for(:households_protected_from_loss_in_next_20_years) %>
+                      <%= number_with_delimiter @project.total_ce_for(:households_protected_from_loss_in_next_20_years) %>
                     </td>
                     <td class="numeric">
-                      <%= number_with_delimiter @project.total_for(:households_protected_from_loss_in_20_percent_most_deprived) %>
+                      <%= number_with_delimiter @project.total_ce_for(:households_protected_from_loss_in_20_percent_most_deprived) %>
                     </td>
                   </tr>
                 </tfoot>
@@ -62,7 +59,7 @@
           </div>
         </div>
         <div class="form-group">
-          <%= link_to "I want to amend these figures", pafs_core.project_step_path(id: @project.to_param, step: @project.previous_step) %>
+          <%= link_to "I want to amend these figures", pafs_core.project_step_path(id: @project.to_param, step: :coastal_erosion_protection_outcomes) %>
         </div>
         <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <div class="form-group">

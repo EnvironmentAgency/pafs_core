@@ -1,28 +1,9 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
   class FinancialYearStep < BasicStep
-    delegate :project_end_financial_year, :project_end_financial_year=, to: :project
+    include PafsCore::FinancialYear
 
     validate :project_end_financial_year_is_present_and_correct
-
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :start_outline_business_case_date
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :project_type
-    end
-
-    def step
-      @step ||= :financial_year
-    end
 
     def financial_year_options
       current_financial_year..current_financial_year + 5

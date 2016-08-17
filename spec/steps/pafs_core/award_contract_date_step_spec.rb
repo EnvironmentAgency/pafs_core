@@ -62,38 +62,10 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
       end
     end
 
-    it "updates the next step if valid" do
-      expect(subject.step).to eq :award_contract_date
-      subject.update(params)
-      expect(subject.step).to eq :start_construction_date
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(invalid_month_params)).to eq false
       expect(subject.update(invalid_year_params)).to eq false
       expect(subject.update(invalid_date_params)).to eq false
-    end
-
-    it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :award_contract_date
-      subject.update(invalid_year_params)
-      expect(subject.step).to eq :award_contract_date
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:award_contract_date_step) }
-
-    it "should return :start_outline_business_case_date" do
-      expect(subject.previous_step).to eq :start_outline_business_case_date
-    end
-  end
-
-  describe "#is_current_step?" do
-    subject { FactoryGirl.build(:award_contract_date_step) }
-
-    it "should return true for :key_dates" do
-      expect(subject.is_current_step?(:key_dates)).to eq true
     end
   end
 end

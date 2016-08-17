@@ -9,29 +9,6 @@ module PafsCore
 
     validate :earliest_start_date_is_present_and_correct
 
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :location
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :earliest_start
-    end
-
-    def step
-      @step ||= :earliest_date
-    end
-
-    # overridden to show this step as part of the 'earliest start' step
-    def is_current_step?(a_step)
-      a_step.to_sym == :earliest_start
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:earliest_date_step).permit(

@@ -1,7 +1,5 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "rails_helper"
-# require_relative "./shared_step_spec"
 
 RSpec.describe PafsCore::FinancialYearStep, type: :model do
   describe "attributes" do
@@ -52,28 +50,8 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
       expect(subject.project_end_financial_year).to eq 2020
     end
 
-    it "updates the next step if valid" do
-      expect(subject.step).to eq :financial_year
-      subject.update(params)
-      expect(subject.step).to eq :start_outline_business_case_date
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to eq false
-    end
-
-    it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :financial_year
-      subject.update(error_params)
-      expect(subject.step).to eq :financial_year
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:financial_year_step) }
-
-    it "should return :project_name" do
-      expect(subject.previous_step).to eq :project_type
     end
   end
 

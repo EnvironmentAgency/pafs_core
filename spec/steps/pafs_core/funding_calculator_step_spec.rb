@@ -46,11 +46,6 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     let(:continue_params) { { commit: "Continue" } }
 
     context "when 'Continue' button selected" do
-      it "updates step to :summary" do
-        subject.update(continue_params)
-        expect(subject.step).to eq :summary
-      end
-
       it "returns true" do
         expect(subject.update(continue_params)).to eq true
       end
@@ -74,10 +69,6 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
         expect(subject.funding_calculator_content_type).to eq content_type
         expect(subject.funding_calculator_file_size).to eq @tempfile.size
         expect(subject.funding_calculator_updated_at).to be_within(1.second).of(Time.zone.now)
-      end
-
-      it "points to the next step in the chain" do
-        expect { subject.update(params) }.to change { subject.step }
       end
 
       it "returns true" do
@@ -116,10 +107,6 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
       it "returns false" do
         expect(subject.update(params)).to eq false
       end
-
-      it "does not change the next step" do
-        expect { subject.update(params) }.not_to change { subject.step }
-      end
     end
 
     context "when a virus scanner issue prevented the file from being scanned" do
@@ -137,10 +124,6 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
 
       it "returns false" do
         expect(subject.update(params)).to eq false
-      end
-
-      it "does not change the next step" do
-        expect { subject.update(params) }.not_to change { subject.step }
       end
     end
   end
@@ -203,14 +186,6 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
         expect(subject.funding_calculator_updated_at).to be_nil
         expect(subject.virus_info).to be_nil
       end
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:funding_calculator_step) }
-
-    it "should return :urgency" do
-      expect(subject.previous_step).to eq :urgency
     end
   end
 end

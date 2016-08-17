@@ -33,39 +33,10 @@ RSpec.describe PafsCore::ImproveRiverAmountStep, type: :model do
       expect(subject.improve_river_amount).to eq 5.25
     end
 
-    it "updates the next step to :improve_river" do
-      expect(subject.update(valid_params)).to be true
-      expect(subject.step).to eq :habitat_creation
-    end
-
     context "when validation fails" do
       it "returns false" do
         expect(subject.update(error_params)).to be false
       end
-
-      it "does not change the next step" do
-        expect(subject.update(error_params)).to be false
-        expect(subject.step).to eq :improve_river_amount
-      end
-    end
-  end
-
-  describe "#is_current_step?" do
-    context "when given :improve_spa_or_sac" do
-      it "returns true" do
-        expect(subject.is_current_step?(:improve_spa_or_sac)).to eq true
-      end
-    end
-    context "when not given :improve_spa_or_sac" do
-      it "returns false" do
-        expect(subject.is_current_step?(:broccoli)).to eq false
-      end
-    end
-  end
-
-  describe "#previous_step" do
-    it "should return :surface_and_groundwater" do
-      expect(subject.previous_step).to eq :surface_and_groundwater
     end
   end
 

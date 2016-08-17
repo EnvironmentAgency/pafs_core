@@ -1,10 +1,5 @@
 <div class="step-container">
   <div class="grid-row">
-    <% unless local_assigns.has_key? :no_nav %>
-      <div class="column-one-third">
-        <%= render partial: 'shared/navigator', project: @project %>
-      </div>
-    <% end %>
     <div class="column-two-thirds">
       <div class="step-form">
         <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
