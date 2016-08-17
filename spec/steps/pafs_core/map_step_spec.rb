@@ -95,56 +95,8 @@ RSpec.describe PafsCore::MapStep, type: :model do
       expect(subject.update(file_params)).to be true
     end
 
-    it "updates the next step to risk if valid and javascript enabled" do
-      expect(subject.step).to eq :map
-      subject.update(params)
-      expect(subject.step).to eq :risks
-    end
-
-    it "updates the next step to benefit_area_file_summary if valid and file has been uploaded" do
-      expect(subject.step).to eq :map
-      subject.update(file_params)
-      expect(subject.step).to eq :benefit_area_file_summary
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to eq false
-    end
-
-    it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :map
-      subject.update(error_params)
-      expect(subject.step).to eq :map
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:map_step) }
-
-    it "should return :key_dates" do
-      expect(subject.previous_step).to eq :location
-    end
-  end
-
-  describe "#completed?" do
-    subject { FactoryGirl.build(:map_step) }
-
-    it "returns false with nil or empty benefit area" do
-      subject.update(map_step: { benefit_area: ""})
-      expect(subject.completed?).to be false
-    end
-
-    it "returns true with defined benefit_area" do
-      expect(subject.completed?).to be true
-    end
-  end
-
-  describe "#disabled?" do
-    subject { FactoryGirl.build(:map_step) }
-
-    it "should return true if there is no project location" do
-      subject.project.update(project_location: "[]")
-      expect(subject.disabled?).to be true
     end
   end
 

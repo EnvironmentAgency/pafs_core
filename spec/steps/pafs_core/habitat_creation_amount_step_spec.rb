@@ -33,39 +33,10 @@ RSpec.describe PafsCore::HabitatCreationAmountStep, type: :model do
       expect(subject.create_habitat_amount).to eq 205.25
     end
 
-    it "updates the next step to :remove_fish_barrier" do
-      expect(subject.update(valid_params)).to be true
-      expect(subject.step).to eq :remove_fish_barrier
-    end
-
     context "when validation fails" do
       it "returns false" do
         expect(subject.update(error_params)).to be false
       end
-
-      it "does not change the next step" do
-        expect(subject.update(error_params)).to be false
-        expect(subject.step).to eq :habitat_creation_amount
-      end
-    end
-  end
-
-  describe "#is_current_step?" do
-    context "when given :habitat_creation" do
-      it "returns true" do
-        expect(subject.is_current_step?(:habitat_creation)).to eq true
-      end
-    end
-    context "when not given :habitat_creation" do
-      it "returns false" do
-        expect(subject.is_current_step?(:broccoli)).to eq false
-      end
-    end
-  end
-
-  describe "#previous_step" do
-    it "should return :improve_spa_or_sac" do
-      expect(subject.previous_step).to eq :improve_spa_or_sac
     end
   end
 

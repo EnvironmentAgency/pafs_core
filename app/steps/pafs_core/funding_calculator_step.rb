@@ -15,7 +15,6 @@ module PafsCore
 
     def update(params)
       if params.fetch(:commit, nil) == "Continue"
-        @step = :summary
         true
       else
         uploaded_file = step_params(params).fetch(:funding_calculator, nil)
@@ -41,21 +40,8 @@ module PafsCore
             self.virus_info = e.message
           end
         end
-        if valid? && project.save
-          @step = :funding_calculator_summary
-          true
-        else
-          false
-        end
+        valid? && project.save
       end
-    end
-
-    def previous_step
-      :urgency
-    end
-
-    def step
-      @step ||= :funding_calculator
     end
 
     def download

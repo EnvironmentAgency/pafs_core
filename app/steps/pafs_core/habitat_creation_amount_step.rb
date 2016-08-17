@@ -1,34 +1,9 @@
 # frozen_string_literal: true
 module PafsCore
   class HabitatCreationAmountStep < BasicStep
-    delegate :create_habitat_amount,
-             :create_habitat_amount=,
-             to: :project
+    include PafsCore::EnvironmentalOutcomes
 
     validate :amount_is_present_and_correct
-
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :remove_fish_barrier
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :improve_spa_or_sac
-    end
-
-    def step
-      @step ||= :habitat_creation_amount
-    end
-
-    # overridden to show this step as part of the 'habitat_creation' step
-    def is_current_step?(a_step)
-      a_step.to_sym == :habitat_creation
-    end
 
   private
     def step_params(params)

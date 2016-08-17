@@ -1,8 +1,5 @@
 <div class="step-container">
   <div class="grid-row">
-    <div class="column-one-third">
-      <%= render partial: 'shared/navigator', locals: { project: project } %>
-    </div>
     <div class="column-two-thirds">
       <%= pafs_form_for project, url: save_project_step_path(id: project.to_param, step: project.step) do |f| %>
         <%= f.error_header %>

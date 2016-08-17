@@ -23,10 +23,8 @@ RSpec.describe PafsCore::FundingValuesSummaryStep, type: :model do
   describe "#update" do
     subject { PafsCore::FundingValuesSummaryStep.new @project }
 
-    it "updates the next step to :earliest_start" do
-      expect(subject.step).to eq :funding_values_summary
-      subject.update({})
-      expect(subject.step).to eq :earliest_start
+    it "returns true" do
+      expect(subject.update({})).to eq true
     end
   end
 
@@ -35,13 +33,6 @@ RSpec.describe PafsCore::FundingValuesSummaryStep, type: :model do
 
     it "returns which funding_sources have been selected" do
       expect(subject.selected_funding_sources).to eq [:fcerm_gia]
-    end
-  end
-
-  describe "#previous_step" do
-    subject { PafsCore::FundingValuesSummaryStep.new @project }
-    it "should return :funding_values" do
-      expect(subject.previous_step).to eq :funding_values
     end
   end
 
@@ -54,27 +45,6 @@ RSpec.describe PafsCore::FundingValuesSummaryStep, type: :model do
       subject.project.save
       subject.project.reload
       expect(subject.current_funding_values).not_to include outside_values
-    end
-  end
-
-  describe "#disabled?" do
-    subject { PafsCore::FundingValuesSummaryStep.new @project }
-    context "when there is no project end financial year" do
-      it "returns true" do
-        subject.project.project_end_financial_year = nil
-        expect(subject.disabled?).to eq true
-      end
-    end
-    context "when there are no funding sources" do
-      it "returns true" do
-        subject.project.fcerm_gia = false
-        expect(subject.disabled?).to eq true
-      end
-    end
-    context "when funding sources and project end financial year are set" do
-      it "returns false" do
-        expect(subject.disabled?).to eq false
-      end
     end
   end
 

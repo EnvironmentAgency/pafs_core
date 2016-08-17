@@ -45,32 +45,8 @@ RSpec.describe PafsCore::UrgencyDetailsStep, type: :model do
       expect(subject.urgency_details).to eq "Hamster, peas and chips"
     end
 
-    it "updates the next step if valid" do
-      expect(subject.step).to eq :urgency_details
-      subject.update(params)
-      expect(subject.step).to eq :funding_calculator
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to eq false
-    end
-
-    it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :urgency_details
-      subject.update(error_params)
-      expect(subject.step).to eq :urgency_details
-    end
-  end
-
-  describe "#previous_step" do
-    it "should return :urgency" do
-      expect(subject.previous_step).to eq :urgency
-    end
-  end
-
-  describe "#is_current_step?" do
-    it "returns true in response to :urgency" do
-      expect(subject.is_current_step?(:urgency)).to eq true
     end
   end
 end

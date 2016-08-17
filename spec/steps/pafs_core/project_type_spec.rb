@@ -37,28 +37,8 @@ RSpec.describe PafsCore::ProjectTypeStep, type: :model do
       expect(subject.project_type).to eq "STR"
     end
 
-    it "updates the next step if valid" do
-      expect(subject.step).to eq :project_type
-      subject.update(params)
-      expect(subject.step).to eq :financial_year
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to eq false
-    end
-
-    it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :project_type
-      subject.update(error_params)
-      expect(subject.step).to eq :project_type
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:project_type_step) }
-
-    it "should return :project_name" do
-      expect(subject.previous_step).to eq :project_name
     end
   end
 end

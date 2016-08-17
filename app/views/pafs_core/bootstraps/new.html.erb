@@ -2,7 +2,7 @@
   <div class="grid-row">
     <div class="column-two-thirds">
       <div class="step-form">
-        <%= pafs_form_for @project, url: funding_projects_path, method: :post do |f| %>
+        <%= pafs_form_for @project, url: funding_bootstraps_path, method: :post do |f| %>
           <%= f.error_header %>
           <h1 class="heading-large"><%= t(".heading", date: six_year_limit_date) %></h1>
           <%= f.hidden_field :id %>

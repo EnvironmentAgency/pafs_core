@@ -5,6 +5,13 @@ GIT
     cumberland (0.0.1)
       ffi-proj4 (~> 0.2)
 
+GIT
+  remote: https://github.com/tonyheadford/dibble
+  revision: 06fe3d0811b6f601607b2b9aa61f6c3f8b4965a1
+  branch: develop
+  specs:
+    dibble (0.1.0)
+
 PATH
   remote: .
   specs:
@@ -13,7 +20,6 @@ PATH
       axlsx
       axlsx_rails
       clamav-client (~> 3.0)
-      cumberland
       rails (~> 4.2.5.1)
 
 GEM
@@ -56,6 +62,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (6.0.3)
+<<<<<<< HEAD
     aws-sdk (2.5.0)
       aws-sdk-resources (= 2.5.0)
     aws-sdk-core (2.5.0)
@@ -69,6 +76,14 @@ GEM
     axlsx_rails (0.5.0)
       actionpack (>= 3.1)
       axlsx (>= 2.0.1)
+=======
+    aws-sdk (2.5.3)
+      aws-sdk-resources (= 2.5.3)
+    aws-sdk-core (2.5.3)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.5.3)
+      aws-sdk-core (= 2.5.3)
+>>>>>>> develop
     builder (3.2.2)
     byebug (8.2.4)
     capybara (2.7.0)
@@ -247,6 +262,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   cumberland!
   database_cleaner
+  dibble (~> 0.1)!
   dotenv
   factory_girl_rails (~> 4.0)
   guard-rspec

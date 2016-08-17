@@ -39,47 +39,8 @@ RSpec.describe PafsCore::StandardOfProtectionCoastalAfterStep, type: :model do
       expect(subject.coastal_protection_after).to eq 0
     end
 
-    it "updates the next step if valid" do
-      expect(subject.step).to eq :standard_of_protection_coastal_after
-      subject.update(params)
-      expect(subject.step).to eq :approach
-    end
-
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to eq false
-    end
-
-    it "does not change the next step when validation fails" do
-      expect(subject.step).to eq :standard_of_protection_coastal_after
-      subject.update(error_params)
-      expect(subject.step).to eq :standard_of_protection_coastal_after
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:standard_of_protection_coastal_after_step) }
-
-    it "should return :standard_of_protection_coastal" do
-      expect(subject.previous_step).to eq :standard_of_protection_coastal
-    end
-  end
-
-  describe "#is_current_step?" do
-    subject { FactoryGirl.build(:standard_of_protection_coastal_after_step) }
-
-    context "when :standard_of_protection is given" do
-      it "should return true" do
-        expect(subject.is_current_step?(:standard_of_protection)).to eq true
-      end
-    end
-  end
-
-  describe "#disabled?" do
-    subject { FactoryGirl.build(:standard_of_protection_coastal_after_step) }
-    it "should return true when the project doesn't protect households" do
-      subject.project.project_type = "ENV_WITHOUT_HOUSEHOLDS"
-
-      expect(subject.disabled?).to eq true
     end
   end
 

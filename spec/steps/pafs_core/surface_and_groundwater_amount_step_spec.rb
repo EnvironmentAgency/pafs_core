@@ -26,15 +26,6 @@ RSpec.describe PafsCore::SurfaceAndGroundwaterAmountStep, type: :model do
     end
   end
 
-  describe "#is_current_step?" do
-    subject { FactoryGirl.build(:surface_and_groundwater_amount_step) }
-    context "when passed :surface_and_groundwater" do
-      it "returns true" do
-        expect(subject.is_current_step?(:surface_and_groundwater)).to eq true
-      end
-    end
-  end
-
   describe "#update" do
     subject { FactoryGirl.build(:surface_and_groundwater_amount_step) }
     let(:valid_params) { make_params(200) }
@@ -45,28 +36,10 @@ RSpec.describe PafsCore::SurfaceAndGroundwaterAmountStep, type: :model do
       expect(subject.improve_surface_or_groundwater_amount).to eq 200
     end
 
-    it "updates the next step to :improve_river after a successful update" do
-      expect(subject.update(valid_params)).to eq true
-      expect(subject.step).to eq :improve_spa_or_sac
-    end
-
     context "when validation fails" do
       it "returns false" do
         expect(subject.update(error_params)).to eq false
       end
-
-      it "does not change the next step" do
-        expect(subject.update(error_params)).to eq false
-        expect(subject.step).to eq :surface_and_groundwater_amount
-      end
-    end
-  end
-
-  describe "#previous_step" do
-    subject { FactoryGirl.build(:surface_and_groundwater_amount_step) }
-
-    it "should return :surface_and_groundwater" do
-      expect(subject.previous_step).to eq :surface_and_groundwater
     end
   end
 

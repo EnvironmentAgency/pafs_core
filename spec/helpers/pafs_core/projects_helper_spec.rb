@@ -43,22 +43,6 @@ module PafsCore
       end
     end
 
-    # describe "#nav_step_item" do
-    #   it "builds the navigation DOM nodes for the given project step" do
-    #     project = FactoryGirl.create(:project_name_step)
-    #     view.class.send(:define_method, :current_resource) { nil }
-    #     expect(helper.nav_step_item(project, :project_name)).to include("selected")
-    #   end
-    # end
-
-    describe "#step_label" do
-      it "returns the I18n value for the given label" do
-        PafsCore::ProjectNavigator::STEPS.each do |step|
-          expect(helper.step_label(step)).to eq I18n.t("#{step}_step_label")
-        end
-      end
-    end
-
     describe "#location_search_results_for" do
       it "should return the correct sentence" do
         query = "Oxford"
@@ -93,14 +77,5 @@ module PafsCore
         expect(helper.search_result_label(search_string, result)).to eq "The search"
       end
     end
-    # describe "#key_date_field" do
-    #   context "when the attr param ends in '_month'" do
-    #     it "builds the DOM nodes for a month field"
-    #   end
-    #
-    #   context "when the attr param ends in '_year'" do
-    #     it "builds the DOM nodes for a year field"
-    #   end
-    # end
   end
 end

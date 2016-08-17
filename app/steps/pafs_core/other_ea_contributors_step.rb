@@ -8,29 +8,6 @@ module PafsCore
     validates :other_ea_contributor_names,
       presence: { message: "^Tell us about the contributions from other Environment Agency functions or sources." }
 
-    def update(params)
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = :funding_values
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      :key_dates
-    end
-
-    def step
-      @step ||= :other_ea_contributors
-    end
-
-    # overridden to show this step as part of the 'funding_sources' step
-    def is_current_step?(a_step)
-      a_step.to_sym == :funding_sources
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).

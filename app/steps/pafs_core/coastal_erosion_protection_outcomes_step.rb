@@ -2,67 +2,17 @@
 # frozen_string_literal: true
 module PafsCore
   class CoastalErosionProtectionOutcomesStep < BasicStep
-    delegate :project_end_financial_year,
-             :coastal_erosion_protection_outcomes,
-             :coastal_erosion_protection_outcomes=,
-             :coastal_erosion_protection_outcomes_attributes=,
-             :coastal_erosion?,
-             :flooding?,
-             :project_type,
+    include PafsCore::Risks, PafsCore::Outcomes, PafsCore::FinancialYear
+    delegate :project_type,
              :project_protects_households?,
              to: :project
     validate :at_least_one_value, :values_make_sense
-
-    def update(params)
-      # if javascript is not enabled then we need to show the totals
-      # as the next page after successfully saving
-      js_enabled = !!params.fetch(:js_enabled, false)
-      result = false
-
-      assign_attributes(step_params(params))
-      if valid? && project.save
-        @step = if js_enabled
-                  :standard_of_protection
-                else
-                  :coastal_erosion_protection_outcomes_summary
-                end
-        true
-      else
-        false
-      end
-    end
-
-    def previous_step
-      if flooding?
-        :flood_protection_outcomes
-      else
-        :risks
-      end
-    end
-
-    def step
-      @step ||= :coastal_erosion_protection_outcomes
-    end
-
-    def disabled?
-      !(coastal_erosion? && !project_end_financial_year.nil? && project_protects_households?)
-    end
-
-    def completed?
-      !!(coastal_erosion? && !total_protected_households.zero?)
-    end
-
-    def current_coastal_erosion_protection_outcomes
-      cepos = coastal_erosion_protection_outcomes.select { |cepo| cepo.financial_year <= project_end_financial_year}
-      cepos.sort_by(&:financial_year)
-      # if this is a db query we lose inputted data when there are errors
-      # and we send the user back to fix it
-    end
 
     def before_view
       setup_coastal_erosion_protection_outcomes
     end
 
+    private
     def values_make_sense
       b_too_big = []
       c_too_big = []
@@ -87,10 +37,6 @@ module PafsCore
       ) if !c_too_big.empty?
     end
 
-    def total_protected_households
-      coastal_erosion_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
-    end
-
     def at_least_one_value
       errors.add(
         :base,
@@ -98,7 +44,10 @@ module PafsCore
       ) if total_protected_households.zero?
     end
 
-    private
+    def total_protected_households
+      coastal_erosion_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
+    end
+
     def step_params(params)
       ActionController::Parameters.new(params)
                                   .require(:coastal_erosion_protection_outcomes_step)

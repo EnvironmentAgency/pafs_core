@@ -31,11 +31,12 @@ en:
   funding_calculator_label: "partnership funding calculator"
   surface_water_description: "Surface waters are rivers, lakes, estuaries and stretches of coastal water. Groundwater is water found underground in cracks and spaces in soil, sand and rock."
   pafs_core:
-    projects:
+    bootstraps:
       new:
         heading: "Does the project need Grant in Aid funding before %{date}?"
       funding:
         heading: "Does the project need local levy funding before %{date}?"
+    projects:
       reference_number:
         heading: "Your project application number"
         lede: "Here is your project application number"
@@ -44,6 +45,13 @@ en:
     phase_banner:
       feedback: feedback
       heading_html: This is a new service – your %{href} will help us to improve it.
+  summary:
+    key_dates:
+      start_outline_business_case_label: "Outline business case start date"
+      award_contract_label: "Contract awarded"
+      start_construction_label: "Start construction"
+      ready_for_service_label: "Ready for service"
+
   activemodel:
     errors:
       messages:

@@ -9,6 +9,10 @@ module PafsCore
       t("#{fv}_label", scope: "pafs_core.projects.steps.funding_values")
     end
 
+    def class_for_summary_list(underline_all)
+      "summary-list underlined-#{underline_all ? 'all-' : ''}items"
+    end
+
     def str_year(year)
       if year < 0
         "previous"
@@ -22,6 +26,14 @@ module PafsCore
         t("previous_years_label")
       else
         "#{year} to #{year + 1}"
+      end
+    end
+
+    def formatted_financial_month_and_year(year)
+      if year < 0
+        t("previous_years_label")
+      else
+        "April #{year} to March #{year + 1}"
       end
     end
 
@@ -50,41 +62,13 @@ module PafsCore
       I18n.t("#{reason}_label", scope: "pafs_core.urgency_reasons")
     end
 
-    def nav_step_item(project, step)
-      nav_step = PafsCore::ProjectNavigator.build_project_step(project.project, step, current_resource)
-      previous_step = PafsCore::ProjectNavigator.build_project_step(project.project,
-        nav_step.previous_step, current_resource) unless
-          step == ProjectNavigator.first_step
-
-      # walk back to the last step that hasn't been conditionally disabled
-      while previous_step && previous_step.disabled? do
-        previous_step = PafsCore::ProjectNavigator.build_project_step(project.project,
-          previous_step.previous_step, current_resource)
-      end
-
-      content_tag(:li) do
-        concat(content_tag(:span, class: "complete-flag") do
-          icon("check") if nav_step.completed?
-        end)
-        if (previous_step && previous_step.incomplete?) || nav_step.disabled?
-          concat(content_tag(:span, class: "inactive") do
-            step_label(step)
-          end)
-        elsif project.is_current_step?(step)
-          concat(content_tag(:span, class: "selected") do
-            step_label(step)
-          end)
-        else
-          concat link_to(step_label(step),
-                         pafs_core.project_step_path(id: nav_step.to_param,
-                                                     step: nav_step.step),
-                                                     class: "nav-link")
-        end
-      end
+    def format_date(dt)
+      return "" if dt.nil?
+      dt.strftime("%-d %B %Y")
     end
 
-    def step_label(step)
-      t("#{step}_step_label")
+    def project_type_label(pt)
+      I18n.t("#{pt.downcase}_label", scope: "pafs_core.projects.steps.project_type")
     end
 
     def location_search_results_for(results, query, word, description)

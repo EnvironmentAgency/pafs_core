@@ -4,7 +4,8 @@ module PafsCore
   class BasicStep
     include ActiveModel::Model, ActiveRecord::AttributeAssignment
 
-    attr_reader :project, :user
+    attr_reader :project, :user, :javascript_enabled
+    alias :javascript_enabled? :javascript_enabled
 
     delegate  :id,
               :reference_number,
@@ -18,6 +19,13 @@ module PafsCore
     def initialize(model, user = nil)
       @project = model
       @user = user
+      @javascript_enabled = false
+    end
+
+    def update(params)
+      @javascript_enabled = !!params.fetch(:js_enabled, false)
+      assign_attributes(step_params(params))
+      valid? && project.save
     end
 
     def save!(*)
@@ -37,21 +45,25 @@ module PafsCore
       !completed?
     end
 
+    # def javascript_enabled?
+    #   @javascript_enabled
+    # end
+
+    def javascript_disabled?
+      !javascript_enabled?
+    end
+
     # override this in the subclass if the step could conditionally be disabled
     def disabled?
       false
     end
 
-    # override this in the subclass for multi-step processes
-    # This asks whether the supplied step is the one that is represented by
-    # the subclass. This is used by the navigator to highlight the current
-    # active task in the list
-    def is_current_step?(a_step)
-      step_name.to_sym == a_step.to_sym
-    end
-
     def step_name
       self.class.name.demodulize.chomp("Step").underscore
+    end
+
+    def step
+      step_name.to_sym
     end
 
     # override this to handle any setup required before being viewed
@@ -60,7 +72,7 @@ module PafsCore
     end
 
     def view_path
-      "pafs_core/projects/steps/#{step_name}"
+      "pafs_core/projects/steps/#{step}"
     end
   end
 end
