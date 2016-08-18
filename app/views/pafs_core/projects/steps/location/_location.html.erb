@@ -1,9 +1,9 @@
 <h1 class="heading-large"><%= t('.heading') %></h1>
-<p><%= location_search_results_for(@results, params[:q], t(".result"), t(".description")) %> <%= %></p>
+<p><%= location_search_results_for(results, params[:q], t(".result"), t(".description")) %> <%= %></p>
 <ul>
   <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
     <div class="form-group">
-      <% result = @results.first %>
+      <% result = results.first %>
       <li>
         <%= f.radio_button :project_location, result, label: search_result_label(params[:q], result) %>
       </li>

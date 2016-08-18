@@ -9,7 +9,7 @@ module PafsCore
 
     validate :at_least_one_value, :values_make_sense
 
-    def before_view
+    def before_view(params)
       setup_flood_protection_outcomes
     end
 

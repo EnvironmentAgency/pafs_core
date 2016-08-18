@@ -10,7 +10,7 @@ PafsCore::Engine.routes.draw do
       get :pipeline
     end
     member do
-      get :reference_number
+      # get :reference_number
       get :download_funding_calculator
       get :delete_funding_calculator
       get :download_benefit_area_file

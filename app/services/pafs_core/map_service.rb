@@ -5,7 +5,7 @@ require "cumberland"
 module PafsCore
   class MapService
     def find(string, project_location)
-      string = project_location.join(",") if ["", nil].include?(string)
+      string = project_location.join(",") if string.blank?
       Cumberland.get_location(string)
     end
   end

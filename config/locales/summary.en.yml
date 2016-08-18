@@ -1,6 +1,8 @@
 en:
   pafs_core:
     summary:
+      location_title: "Location"
+      map_link: "See this location on a map"
       flooding_outcome_title: "Households affected by flooding that benefit from the project"
       flooding_outcome_a: "Households moved to a lower flood risk category"
       flooding_outcome_b: "Of the households in A, households that have moved out of the very significant or significant category to the moderate or low category"
