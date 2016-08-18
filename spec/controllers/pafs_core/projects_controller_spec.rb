@@ -46,20 +46,20 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
     end
   end
 
-  describe "GET reference_number" do
-    before(:each) do
-      @project = FactoryGirl.create(:project)
-      get :reference_number, id: @project.to_param
-    end
-
-    it "renders the reference_number template" do
-      expect(response).to render_template("reference_number")
-    end
-
-    it "assigns @project to the first step" do
-      expect(assigns(:project)).to be_instance_of PafsCore::ProjectNameStep
-    end
-  end
+  # describe "GET reference_number" do
+  #   before(:each) do
+  #     @project = FactoryGirl.create(:project)
+  #     get :reference_number, id: @project.to_param
+  #   end
+  #
+  #   it "renders the reference_number template" do
+  #     expect(response).to render_template("reference_number")
+  #   end
+  #
+  #   it "assigns @project to the first step" do
+  #     expect(assigns(:project)).to be_instance_of PafsCore::ProjectNameStep
+  #   end
+  # end
 
   describe "GET step" do
     before(:each) { @project = FactoryGirl.create(:project) }
@@ -74,22 +74,22 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       expect(response).to render_template "project_name"
     end
 
-    context "when getting the location step" do
-      it "gets a set of results based on a search paramater" do
-        get :step, id: @project.to_param, step: "location", q: "412121, 102121"
-        expect(assigns(:results)).to eq([{northings: "102121", eastings: "412121"}])
-      end
-    end
-
-    context "when getting the map step" do
-      it "gets the map centre based on benefit_area_centre" do
-        @project.benefit_area_centre = %w(412121 102121)
-        @project.project_location = %w(412121 102121)
-        @project.save
-        get :step, id: @project.to_param, step: "map"
-        expect(assigns(:map_centre)).to eq([{northings: "102121", eastings: "412121"}])
-      end
-    end
+    # context "when getting the location step" do
+    #   it "gets a set of results based on a search paramater" do
+    #     get :step, id: @project.to_param, step: "location", q: "412121, 102121"
+    #     expect(assigns(:results)).to eq([{northings: "102121", eastings: "412121"}])
+    #   end
+    # end
+    #
+    # context "when getting the map step" do
+    #   it "gets the map centre based on benefit_area_centre" do
+    #     @project.benefit_area_centre = %w(412121 102121)
+    #     @project.project_location = %w(412121 102121)
+    #     @project.save
+    #     get :step, id: @project.to_param, step: "map"
+    #     expect(assigns(:map_centre)).to eq([{northings: "102121", eastings: "412121"}])
+    #   end
+    # end
 
     # context "when step is disabled" do
     #   it "raises a not_found error" do

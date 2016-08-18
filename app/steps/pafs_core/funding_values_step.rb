@@ -16,7 +16,7 @@ module PafsCore
     end
 
     # override to allow us to set up the funding_values if needed
-    def before_view
+    def before_view(params)
       setup_funding_values
     end
 

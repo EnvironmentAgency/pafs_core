@@ -1,0 +1,34 @@
+<article class="summary-item" aria-labelledby="location">
+  <% if project.location_set? %>
+    <h2 class="heading-medium" role="heading" id="location"><%= project.summary_label(:location_title) %></h2>
+    <div class="grid-row">
+      <div class="column-three-quarters">
+        <p>Placeholder for location name</p>
+        <p>The nearest postcode is (placeholder)</p>
+        <p>
+          <%= link_to project.summary_label(:map_link), pafs_core.project_step_path(id: project.to_param, step: :map) %>
+        </p>
+      </div>
+      <div class="column-one-quarter">
+        <div class="change-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :location, search: true) do -%>
+            Change<span class="visually-hidden"> <%= project.summary_label(:location_title).downcase %></span>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="grid-row add-row">
+      <div class="column-three-quarters">
+        <h2 class="heading-medium" role="heading" id="location"><%= project.summary_label(:location_title) %></h2>
+      </div>
+      <div class="column-one-quarter">
+        <div class="add-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :location) do -%>
+            Add<span class="visually-hidden"> <%= project.summary_label(:location_title).downcase %></span>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</article>

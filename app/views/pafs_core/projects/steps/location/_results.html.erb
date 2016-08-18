@@ -1,9 +1,9 @@
 <h1 class="heading-large"><%= t('.heading') %></h1>
-<p><%= location_search_results_for(@results, params[:q], t(".result"), t(".description")) %> <%= %></p>
+<p><%= location_search_results_for(results, params[:q], t(".result"), t(".description")) %> <%= %></p>
 <ul>
   <%= pafs_form_for '', method: :get do |f| %>
     <div class="form-group">
-      <% @results.each do |result| %>
+      <% results.each do |result| %>
         <li>
           <%= f.radio_button :q, result[:address].html_safe, label: result[:address].html_safe %>
         </li>

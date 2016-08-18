@@ -33,7 +33,7 @@ module PafsCore
 
     def search(options = {})
       #FIXME: just returning all projects while we're scaffolding
-      PafsCore::Project.all
+      PafsCore::Project.all.order(updated_at: :desc)
     end
 
     def all_projects_for(area)

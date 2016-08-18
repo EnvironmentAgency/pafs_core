@@ -4,6 +4,10 @@ module PafsCore
     include PafsCore::FundingSources, PafsCore::Risks, PafsCore::Outcomes,
       PafsCore::Urgency
 
+    def location_set?
+      project_location.present?
+    end
+
     def start_outline_business_case_date
       presentable_date(:start_outline_business_case)
     end
@@ -153,6 +157,7 @@ module PafsCore
       [:project_name,
        :project_type,
        :financial_year,
+       :location,
        :key_dates,
        :funding_sources,
        :earliest_start,
