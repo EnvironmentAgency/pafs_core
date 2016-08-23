@@ -4,11 +4,15 @@
       <div class="step-form">
         <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <%= f.error_header %>
+          <%= f.hidden_field :id %>
           <h1 class="heading-large"><%= t('.heading') %></h1>
-          <% @project.standard_of_protection_options.each_with_index do |option, index| %>
-            <%= f.radio_button :flood_protection_before, index, label: standard_of_protection_label(option) %>
+          <%= f.form_group(:flood_protection_before) do %>
+            <%= f.error_message(:flood_protection_before) %>
+            <% @project.flood_risk_options.each_with_index do |option, index| %>
+              <%= f.radio_button :flood_protection_before, index,
+                label: compound_standard_of_protection_label(option) %>
+            <% end %>
           <% end %>
-          <input as="hidden" selected="selected" class="hidden" value="" checked="checked" name="standard_of_protection_step[flood_protection_before]" id="standard_of_protection_step_flood_protection_before_" type="radio">
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
           </div>

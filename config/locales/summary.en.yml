@@ -1,6 +1,11 @@
 en:
   pafs_core:
     summary:
+      standard_of_protection_title: "Standard of protection"
+      flood_risk_before: "Current flood risk"
+      flood_risk_after: "Flood risk when the project completes"
+      coastal_protection_before: "Length of time before coastal erosion affects the area that is likely to benefit from the project"
+      coastal_protection_after: "Length of time before coastal erosion affects the area, when the project is complete"
       location_title: "Location"
       map_link: "See this location on a map"
       flooding_outcome_title: "Households affected by flooding that benefit from the project"

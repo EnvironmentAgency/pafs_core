@@ -4,13 +4,16 @@
       <div class="step-form">
         <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <%= f.error_header %>
+          <%= f.hidden_field :id %>
           <h1 class="heading-large"><%= t('.heading') %></h1>
           <p><%= t(".description") %></p>
-          <% @project.standard_of_protection_options.each_with_index do |option, index| %>
-            <%= f.radio_button :coastal_protection_before, index, label: t(".#{option}_label") %>
+          <%= f.form_group(:coastal_protection_before) do %>
+            <%= f.error_message(:coastal_protection_before) %>
+            <% @project.coastal_erosion_before_options.each_with_index do |option, index| %>
+              <%= f.radio_button :coastal_protection_before, index,
+                label: @project.standard_of_protection_label(option) %>
+            <% end %>
           <% end %>
-          <input as="hidden" selected="selected" class="hidden" value="" checked="checked" name="standard_of_protection_coastal_step[coastal_protection_before]" id="standard_of_protection_coastal_step_coastal_protection_before_" type="radio">
-          <div class="form-group">
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
           </div>

@@ -1,0 +1,19 @@
+en:
+  pafs_core:
+    standard_of_protection:
+      less_than_one_year: "Less than 1 year"
+      one_to_four_years: "1 to 4 years"
+      five_to_nine_years: "5 to 9 years"
+      ten_years_or_more: "10 years or more"
+      less_than_ten_years: "Less than 10 years"
+      ten_to_nineteen_years: "10 to 19 years"
+      twenty_to_fortynine_years: "20 to 49 years"
+      fifty_years_or_more: "50 years or more"
+      very_significant: Very significant
+      very_significant_description: 5% or greater in any given year
+      significant: Significant
+      significant_description: 1.33% to 4.99% in any given year
+      moderate: Moderate
+      moderate_description: 0.51% to 1.32% in any given year
+      low: Low
+      low_description: 0.5% or lower in any given year

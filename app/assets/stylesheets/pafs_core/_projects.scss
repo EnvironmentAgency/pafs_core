@@ -28,6 +28,15 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   overflow-x: auto;
 }
 
+.with-seperator {
+  border-bottom: 1px solid $grey-2;
+  margin-bottom: 0.5em;
+}
+
+.pushed-up {
+  margin-top: -0.5em;
+}
+
 .funding-table-summary .data-column {
   text-align: right;
 }
@@ -175,7 +184,9 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 }
 
 .change-link {
+  margin-bottom: 1em;
   margin-right: 1em;
+  margin-top: 0.5em;
   text-align: right;
 
   @include media(mobile) {
@@ -273,7 +284,8 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 
 .summary-list {
   li {
-    padding-bottom: 0.5em;
+    margin-top: 0.5em;
+    padding-bottom: 0.75em;
   }
 }
 

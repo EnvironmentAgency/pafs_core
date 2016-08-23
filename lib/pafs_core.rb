@@ -1,4 +1,3 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "pafs_core/engine"
 require "pafs_core/configuration"
@@ -9,6 +8,7 @@ require "pafs_core/errors"
 require "pafs_core/form_builder"
 require "pafs_core/funding_sources"
 require "pafs_core/risks"
+require "pafs_core/standard_of_protection"
 require "pafs_core/environmental_outcomes"
 require "pafs_core/financial_year"
 require "pafs_core/outcomes"

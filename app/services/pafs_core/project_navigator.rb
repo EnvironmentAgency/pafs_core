@@ -74,6 +74,7 @@ module PafsCore
 
         s.add :location
         s.add :map
+        s.add :benefit_area_file_summary, if: ->(p) { p.benefit_area_file_name.present? }
         s.add :summary_4
 
         s.add :start_outline_business_case_date
@@ -107,8 +108,15 @@ module PafsCore
           if: ->(p) { p.protects_against_coastal_erosion? && p.javascript_disabled? }
         s.add :summary_8
 
-        s.add :standard_of_protection_flooding, if: :protects_against_flooding?
+        s.add :standard_of_protection, if: :protects_against_flooding?
+        s.add :standard_of_protection_after
+        s.add :summary_91,
+          unless: ->(p) {
+            p.protects_against_coastal_erosion? &&
+              (p.coastal_protection_before.nil? || p.coastal_protection_after.nil?)
+          }
         s.add :standard_of_protection_coastal, if: :protects_against_coastal_erosion?
+        s.add :standard_of_protection_coastal_after
         s.add :summary_9
 
         s.add :approach
