@@ -2,7 +2,11 @@
 module PafsCore
   class ProjectSummaryPresenter < SimpleDelegator
     include PafsCore::FundingSources, PafsCore::Risks, PafsCore::Outcomes,
-      PafsCore::Urgency
+      PafsCore::Urgency, PafsCore::StandardOfProtection
+
+    def location_set?
+      project_location.present?
+    end
 
     def start_outline_business_case_date
       presentable_date(:start_outline_business_case)
@@ -41,6 +45,53 @@ module PafsCore
 
     def risks_started?
       selected_risks.count > 0
+    end
+
+    def standard_of_protection_started?
+      flood_protection_before.present? || flood_protection_after.present? ||
+        coastal_protection_before.present? || coastal_protection_after.present?
+    end
+
+    def standard_of_protection_step
+      if protects_against_flooding?
+        :standard_of_protection
+      elsif protects_against_coastal_erosion?
+        :standard_of_protection_coastal
+      else
+        raise "Risks not set prior to standard of protection"
+      end
+    end
+
+    def flood_protection_before_percentage
+      if flood_protection_before.present?
+        standard_of_protection_label(flood_risk_options[flood_protection_before])
+      else
+        not_provided
+      end
+    end
+
+    def flood_protection_after_percentage
+      if flood_protection_after.present?
+        standard_of_protection_label(flood_risk_options[flood_protection_after])
+      else
+        not_provided
+      end
+    end
+
+    def coastal_protection_before_years
+      if coastal_protection_before.present?
+        standard_of_protection_label(coastal_erosion_before_options[coastal_protection_before])
+      else
+        not_provided
+      end
+    end
+
+    def coastal_protection_after_years
+      if coastal_protection_after.present?
+        standard_of_protection_label(coastal_erosion_after_options[coastal_protection_after])
+      else
+        not_provided
+      end
     end
 
     def flood_protection_outcomes_entered?
@@ -150,17 +201,14 @@ module PafsCore
     end
 
     def articles
-      [:project_name,
-       :project_type,
-       :financial_year,
-       :key_dates,
-       :funding_sources,
-       :earliest_start,
-       :risks,
-       :approach,
-       :environmental_outcomes,
-       :urgency,
-       :funding_calculator]
+      list = all_articles.dup
+
+      if project_protects_households?
+        list.delete(:standard_of_protection) unless risks_started?
+      else
+        list = list - [:risks, :standard_of_protection]
+      end
+      list
     end
 
     private
@@ -168,8 +216,32 @@ module PafsCore
       __getobj__
     end
 
+    def all_articles
+      [:project_name,
+       :project_type,
+       :financial_year,
+       :location,
+       :key_dates,
+       :funding_sources,
+       :earliest_start,
+       :risks,
+       :standard_of_protection,
+       :approach,
+       :environmental_outcomes,
+       :urgency,
+       :funding_calculator].freeze
+    end
+
     def not_provided
       "<em>Not provided</em>".html_safe
+    end
+
+    def suffix_or_not_provided(v, suffix)
+      if v.present?
+        "#{v}#{suffix}"
+      else
+        not_provided
+      end
     end
 
     def presentable_date(name)

@@ -20,20 +20,7 @@ module PafsCore
     #validate :presence_of_file_or_area
 
     def update
-      @step = :risks
       true
-    end
-
-    def previous_step
-      :map
-    end
-
-    def step
-      @step ||= :benefit_area_file_summary
-    end
-
-    def is_current_step?(a_step)
-      a_step.to_sym == :map
     end
   end
 end

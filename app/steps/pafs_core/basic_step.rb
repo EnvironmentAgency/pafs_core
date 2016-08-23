@@ -68,7 +68,7 @@ module PafsCore
 
     # override this to handle any setup required before being viewed
     # This is called before rendering in the controller
-    def before_view
+    def before_view(params)
     end
 
     def view_path

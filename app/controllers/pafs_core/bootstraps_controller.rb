@@ -60,7 +60,7 @@ class PafsCore::BootstrapsController < PafsCore::ApplicationController
       raise_not_found
     else
       # give the step the opportunity to do any tasks prior to being viewed
-      @project.before_view
+      @project.before_view(params)
       # render the step
       render @project.view_path
     end

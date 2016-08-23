@@ -14,18 +14,10 @@ module PafsCore
              :benefit_area?, :benefit_area_file_name?, :storage_path,
              to: :project
 
-    attr_reader :benefit_area_file
+    attr_reader :benefit_area_file, :map_centre
     attr_accessor :virus_info
 
     validate :presence_of_file_or_area, :virus_free_benefit_area_file_present
-
-    def previous_step
-      :location
-    end
-
-    def step
-      @step ||= :map
-    end
 
     def benefit_area
       project.benefit_area ||= "[[[]]]"
@@ -45,16 +37,17 @@ module PafsCore
         sp[:benefit_area_zoom_level] = sp[:benefit_area_zoom_level].to_i
         assign_attributes(sp)
       end
-      if valid? && project.save
-        @step = if sp[:benefit_area_file]
-                  :benefit_area_file_summary
-                else
-                  :risks
-                end
-        true
-      else
-        false
-      end
+      valid? && project.save
+      # if valid? && project.save
+      #   @step = if sp[:benefit_area_file]
+      #             :benefit_area_file_summary
+      #           else
+      #             :risks
+      #           end
+      #   true
+      # else
+      #   false
+      # end
     end
 
     #def completed?
@@ -85,6 +78,14 @@ module PafsCore
         storage.delete(File.join(storage_path, benefit_area_file_name))
         reset_file_attributes
       end
+    end
+
+    def before_view(params)
+      @map_centre = PafsCore::MapService.new
+                                        .find(
+                                          benefit_area_centre.join(","),
+                                          project_location
+                                        )
     end
 
     private

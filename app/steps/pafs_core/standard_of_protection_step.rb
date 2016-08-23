@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 module PafsCore
   class StandardOfProtectionStep < BasicStep
-    delegate :flood_protection_before, :flood_protection_before=,
-             :project_protects_households?, :coastal_erosion?,
-             to: :project
+    include PafsCore::Risks, PafsCore::StandardOfProtection
 
     validates :flood_protection_before, presence: {
       message:
@@ -17,22 +15,6 @@ module PafsCore
       less_than_or_equal_to: 3,
       allow_blank: true
     }
-
-    # flood protection levels are stored as integers that correlate to
-    # the category of risk of flooding
-    # 0 - Very significant
-    # 1 - Significant
-    # 2 - Moderate
-    # 3 - Low
-
-    def standard_of_protection_options
-      [
-        :very_significant,
-        :significant,
-        :moderate,
-        :low,
-      ].freeze
-    end
 
   private
     def step_params(params)
