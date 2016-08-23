@@ -28,7 +28,6 @@ module PafsCore
 
     def update(params)
       sp = step_params(params)
-
       sp[:project_location] = JSON.parse(sp[:project_location]) if sp[:project_location] != nil
       sp[:project_location_zoom_level] = sp[:project_location_zoom_level].to_i
       assign_attributes(sp)

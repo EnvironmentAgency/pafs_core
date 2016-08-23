@@ -43,13 +43,13 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
     end
   end
 
-  describe "#standard_of_protection_options" do
+  describe "#flood_risk_options" do
     subject { FactoryGirl.build(:standard_of_protection_step) }
 
     it "should return an array of options" do
       array_of_options = [:very_significant, :significant, :moderate, :low]
 
-      expect(subject.standard_of_protection_options).to eq array_of_options
+      expect(subject.flood_risk_options).to eq array_of_options
     end
   end
 end

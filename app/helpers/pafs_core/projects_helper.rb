@@ -79,15 +79,15 @@ module PafsCore
       ].join(" ").html_safe
     end
 
-    def standard_of_protection_label(option)
+    def compound_standard_of_protection_label(option)
       [
         content_tag(
           :span,
           I18n.t(
-            "#{option}_label",
+            option,
             scope: "pafs_core.standard_of_protection"
           ),
-          class: "bold-xsmall"
+          class: "bold-small"
         ),
         content_tag(
           :div,

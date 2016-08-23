@@ -44,13 +44,13 @@ RSpec.describe PafsCore::StandardOfProtectionCoastalStep, type: :model do
     end
   end
 
-  describe "#standard_of_protection_options" do
+  describe "#coastal_erosion_before_options" do
     subject { FactoryGirl.build(:standard_of_protection_coastal_step) }
 
     it "should return an array of options" do
       array_of_options = [:less_than_one_year, :one_to_four_years, :five_to_nine_years, :ten_years_or_more]
 
-      expect(subject.standard_of_protection_options).to eq array_of_options
+      expect(subject.coastal_erosion_before_options).to eq array_of_options
     end
   end
 end
