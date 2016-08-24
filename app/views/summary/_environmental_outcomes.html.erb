@@ -76,7 +76,7 @@
       <div class="column-one-quarter">
         <div class="add-link">
           <%= link_to pafs_core.project_step_path(id: project.to_param, step: :surface_and_groundwater) do -%>
-            Add<span class="visually-hidden"> <%= project.summary_label(:environmental_outcomes_title) %></span>
+            Add<span class="visually-hidden"> <%= project.summary_label(:environmental_outcomes_title).downcase %></span>
           <% end -%>
         </div>
       </div>

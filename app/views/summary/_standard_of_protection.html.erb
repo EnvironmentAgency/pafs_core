@@ -4,7 +4,7 @@
       <%= project.summary_label(:standard_of_protection_title) -%>
     </h2>
     <% if project.protects_against_flooding? %>
-      <div class="with-seperator pushed-up">
+      <div class="<%= flood_class_for_sop(project) %> pushed-up">
       <div class="grid-row">
         <div class="column-three-quarters">
           <ul class="summary-list underlined-items">
