@@ -2,7 +2,8 @@
 module PafsCore
   class ProjectSummaryPresenter < SimpleDelegator
     include PafsCore::FundingSources, PafsCore::Risks, PafsCore::Outcomes,
-      PafsCore::Urgency, PafsCore::StandardOfProtection
+      PafsCore::Urgency, PafsCore::StandardOfProtection,
+      PafsCore::EnvironmentalOutcomes
 
     def location_set?
       project_location.present?
@@ -115,33 +116,39 @@ module PafsCore
     end
 
     def improve_habitat_size
-      return ha(0) unless !!improve_spa_or_sac.nil? || improve_spa_or_sac? || improve_sssi? || improve_hpi?
-      ha(improve_habitat_amount)
+      if improves_habitat?
+        ha(improve_habitat_amount)
+      else
+        ha(0)
+      end
     end
 
     def improve_river_size
-      return km(0) unless !!improve_river.nil? || improve_river?
+      return km(0) unless improve_river.nil? || improve_river?
       km(improve_river_amount)
     end
 
     def create_habitat_size
-      return ha(0) unless !!create_habitat.nil? || create_habitat?
+      return ha(0) unless create_habitat.nil? || create_habitat?
       ha(create_habitat_amount)
     end
 
     def fish_or_eel_passage_size
-      return km(0) unless !!remove_fish_barrier.nil? || remove_fish_barrier? || remove_eel_barrier?
-      km(fish_or_eel_amount)
+      if removes_fish_or_eel_barrier?
+        km(fish_or_eel_amount)
+      else
+        km(0)
+      end
     end
 
     def km(n)
-      return not_provided if n.nil?
-      "#{n} kilometres"
+      return not_provided if n.blank?
+      "#{squish_int_float(n)} kilometres"
     end
 
     def ha(n)
-      return not_provided if n.nil?
-      "#{n} hectares"
+      return not_provided if n.blank?
+      "#{squish_int_float(n)} hectares"
     end
 
     def funding
@@ -201,19 +208,24 @@ module PafsCore
     end
 
     def articles
-      list = all_articles.dup
-
       if project_protects_households?
-        list.delete(:standard_of_protection) unless risks_started?
+        if risks_started?
+          all_articles
+        else
+          all_articles - [:standard_of_protection]
+        end
       else
-        list = list - [:risks, :standard_of_protection]
+        all_articles - [:risks, :standard_of_protection]
       end
-      list
     end
 
     private
     def project
       __getobj__
+    end
+
+    def squish_int_float(v)
+      (v.to_int if v.is_a?(Float) && v % 1 == 0) || v
     end
 
     def all_articles
@@ -234,14 +246,6 @@ module PafsCore
 
     def not_provided
       "<em>Not provided</em>".html_safe
-    end
-
-    def suffix_or_not_provided(v, suffix)
-      if v.present?
-        "#{v}#{suffix}"
-      else
-        not_provided
-      end
     end
 
     def presentable_date(name)
