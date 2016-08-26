@@ -8,6 +8,19 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     # dashboard page
     # (filterable) list of projects
     @projects = navigator.search(params)
+    @csv = PafsCore::SpreadsheetBuilderService.new.generate_csv(@projects)
+    @xlsx = PafsCore::SpreadsheetBuilderService.new.generate_xlsx(@projects)
+    respond_to do |format|
+      format.html
+
+      format.csv do
+        send_data @csv, type: "text/csv", filename: "projects#{Time.zone.now}.csv"
+      end
+
+      format.xlsx do
+        send_data @xlsx.to_stream.read, type: "application/xlsx", filename: "projects#{Time.zone.now}.xlsx"
+      end
+    end
   end
 
   def show

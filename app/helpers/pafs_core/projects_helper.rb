@@ -13,6 +13,14 @@ module PafsCore
       "summary-list underlined-#{underline_all ? 'all-' : ''}items"
     end
 
+    def flood_class_for_sop(p)
+      if p.protects_against_coastal_erosion?
+        " with-seperator"
+      else
+        ""
+      end
+    end
+
     def str_year(year)
       if year < 0
         "previous"

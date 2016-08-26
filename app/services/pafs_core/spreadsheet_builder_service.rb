@@ -4,6 +4,8 @@
 module PafsCore
   class SpreadsheetBuilderService
     require "csv"
+    require "axlsx"
+    include PafsCore::StandardOfProtection
 
     NEXT_FINANCIAL_YEAR = 1.year.from_now.uk_financial_year
 
@@ -13,9 +15,21 @@ module PafsCore
       create_csv(processed_records)
     end
 
-    def get_records(projects)
-      project_ids = projects.map(&:id)
+    def generate_xlsx(projects)
+      records = get_records(projects)
+      processed_records = process_records(records)
+      create_xlsx(processed_records)
+    end
 
+    def project_ids(projects)
+      if projects.empty?
+        "NULL"
+      else
+        projects.map(&:id).join(",")
+      end
+    end
+
+    def get_records(projects)
       sql = "SELECT #{PafsCore::SQL_COLUMNS_FOR_SPREADSHEET.join(',')},
       a.name AS area_name, a.area_type AS area_type, a.sub_type AS area_sub_type,
       a2.name AS parent_area_name, a2.area_type AS parent_area_type,
@@ -62,10 +76,10 @@ module PafsCore
         FROM (SELECT * FROM pafs_core_coastal_erosion_protection_outcomes) as coastal_outcomes
         GROUP BY pid) as cepo
       ON p.id = cepo.pid
-      WHERE p.id IN (#{project_ids.join(',')})
+      WHERE p.id IN (#{project_ids(projects)})
       AND ap.owner = true"
 
-      records_array = ActiveRecord::Base.connection.execute(sql).to_a
+      records = ActiveRecord::Base.connection.execute(sql).to_a
     end
 
     def process_records(records)
@@ -83,13 +97,18 @@ module PafsCore
       processed_record = {}
       straightforward_data = extract_straightforward_data(record)
       processed_record.merge!(straightforward_data)
+      processed_record.merge!(process_flood_protection(record))
+      processed_record.merge!(process_coastal_protection(record))
+      processed_record[:remove_fish_or_eel_barrier] = remove_fish_or_eel_barrier?(record)
       processed_record[:rfcc] = rfcc_name(record["reference_number"])
+      processed_record[:coastal_group] = add_coastal_group(record)
+      processed_record[:improve_sssi_sac_or_spa] = improve_sac_or_sssi?(record)
       processed_record.merge!(add_lead_rma(record))
       processed_record.merge!(process_geo_data(record))
       processed_record.merge!(process_funding_totals(record))
       processed_record.merge!(process_households_totals(record))
       processed_record.merge!(process_funding_six_year_totals(record))
-      processed_record.merge!(process_households_six_year_totals(record))
+      processed_record[:households_six_year_total] = process_households_six_year_totals(record)
       processed_record.merge!(year_by_year_breakdowns(record))
       processed_record.merge!(households_year_by_year_breakdowns(record))
       processed_record.merge!(process_future_funding_totals(record))
@@ -103,34 +122,64 @@ module PafsCore
         reference_number
         project_type
         approach
-        urgency_reason
-        flood_protection_before
-        flood_protection_after
-        coastal_protection_before
-        coastal_protection_after
-        main_risk region
-        parliamentary_consituency
-        improve_surface_or_groundwater
+        region
+        parliamentary_constituency
         improve_surface_or_groundwater_amount
-        improve_river
-        improve_spa_or_sac
-        improve_sssi
-        improve_hpi
         improve_habitat_amount
         improve_river_amount
         create_habitat
         create_habitat_amount
-        remove_fish_barrier
-        remove_eel_barrier
         fish_or_eel_amount
       )
+
+      risk_urgency_keys = %w(urgency_reason main_risk)
+
       extracted_data = {}
 
       keys.each do |key|
         extracted_data[key.to_sym] = record[key]
       end
 
+      risk_urgency_keys.each do |key|
+        extracted_data[key.to_sym] = record[key].to_s.humanize
+      end
+
       extracted_data
+    end
+
+    def remove_fish_or_eel_barrier?(record)
+      record["remove_eel_barrier"] == "t" || record["remove_fish_barrier"] == "t"
+    end
+
+    def improve_sac_or_sssi?(record)
+      record["improve_sssi"] == "t" || record["improve_spa_or_sac"] == "t"
+    end
+
+    def process_flood_protection(record)
+      keys = %w(flood_protection_before flood_protection_after)
+      flood_protection = {}
+      keys.each do |key|
+        sop = 999
+        sop = record[key].to_i if !record[key].nil?
+        flood_protection[key.to_sym] = flood_risk_options.fetch(sop, nil)
+      end
+
+      flood_protection.each { |k, v| flood_protection[k] = standard_of_protection_label(v) unless v.nil? }
+      flood_protection
+    end
+
+    def process_coastal_protection(record)
+      keys = %w(coastal_protection_before coastal_protection_after)
+      protection = {}
+      cpa = 999
+      cpb = 999
+      cpb = record["coastal_protection_before"].to_i
+      cpa = record["coastal_protection_after"].to_i
+      protection[:coastal_protection_before] = coastal_erosion_before_options.fetch(cpb, nil)
+      protection[:coastal_protection_after] = coastal_erosion_after_options.fetch(cpa, nil)
+
+      protection.each { |k, v| protection[k] = standard_of_protection_label(v) unless v.nil? }
+      protection
     end
 
     def rfcc_name(project_number)
@@ -138,9 +187,34 @@ module PafsCore
       PafsCore::RFCC_CODE_NAMES_MAP.fetch(rfcc_code)
     end
 
+    def add_coastal_group(record)
+      coastal_group = nil
+      if coastal?(record)
+        pso_area = get_pso_area(record)
+        coastal_group = PafsCore::PSO_TO_COASTAL_GROUP_MAP.fetch(pso_area, nil)
+      end
+
+      coastal_group
+    end
+
+    def coastal?(record)
+      coastal_types = %w(coastal_erosion sea_flooding tidal_flooding)
+      coastal = false
+      coastal_types.each { |c| coastal = true if record[c] == "t"}
+      coastal
+    end
+
+    def get_pso_area(record)
+      pso_area =  if record["area_type"] == "PSO Area"
+                    record["area_name"]
+                  else
+                    record["parent_area_name"]
+                  end
+    end
+
     def add_lead_rma(record)
-      lead_rma = ""
-      lead_rma_type = ""
+      lead_rma = nil
+      lead_rma_type = nil
       if record["area_type"] == "RMA"
         lead_rma = record["area_name"]
         lead_rma_type = record["area_sub_type"]
@@ -151,14 +225,14 @@ module PafsCore
 
     def process_geo_data(record)
       location = record["project_location"].scan(/\d+/).map(&:to_i)
-      grid_ref = ""
+      grid_ref = nil
       grid_ref = Cumberland.get_grid_reference_from_coordinates(location[0], location[1]) if location.size == 2
       ea_area = if record["parent_area_type"] == "EA Area"
                   record["parent_area_name"]
                 else
                   record["grandparent_area_name"]
                 end
-      {grid_ref: grid_ref, ea_area: ea_area}
+      { grid_ref: grid_ref, ea_area: ea_area, project_location: location }
     end
 
     def process_funding_totals(record)
@@ -200,18 +274,30 @@ module PafsCore
       array = JSON.parse(array)
       total = 0
       array.each { |e| total += e["f2"].to_i }
+      total = nil if total.zero?
       total
     end
 
     def process_funding_six_year_totals(record)
       totals_hash = {}
-      funding_sources = %w(gia levy idb public private ea growth nyi total)
+      funding_sources = %w(gia total)
       funding_sources.each do |fs|
-        total = nil
         total = process_six_year_total(record["#{fs}_list"]) if record["#{fs}_list"].present?
         symbol = "#{fs}_six_year_total".to_sym
         totals_hash[symbol] = total
       end
+
+      other_funding_sources = %w(public private ea)
+
+      combined_total = 0
+      other_funding_sources.each do |ofs|
+        if record["#{ofs}_list"].present?
+          total = process_six_year_total(record["#{ofs}_list"])
+          combined_total += total.to_i
+        end
+      end
+      combined_total = nil if combined_total.zero?
+      totals_hash[:contributions_six_year_total] = combined_total
 
       totals_hash
     end
@@ -219,29 +305,23 @@ module PafsCore
     def process_households_six_year_totals(record)
       keys = %w(
         flood_households
-        flood_households_moved
-        flood_most_deprived
         coastal_households
-        coastal_households_protected
-        coastal_most_deprived
       )
 
-      totals_hash = {}
+      total = 0
 
       keys.each do |key|
-        total = nil
-        total = process_six_year_total(record[key]) if record[key].present?
-        symbol = "#{key}_six_year_total".to_sym
-        totals_hash[symbol] = total
+        total += process_six_year_total(record[key]) if record[key].present?
       end
 
-      totals_hash
+      total = nil if total.zero?
+      total
     end
 
     def process_six_year_total(array)
       array = JSON.parse(array)
       total = 0
-      array.each { |e| total += e["f2"].to_i if e["f1"].to_i < 2022 }
+      array.each { |e| total += e["f2"].to_i if e["f1"].to_i < 2021 }
       total
     end
 
@@ -272,10 +352,10 @@ module PafsCore
       breakdowns = {}
 
       keys.each do |key|
-        if record[key].present?
-          breakdown = year_by_year_breakdown(record[key], key)
-          breakdowns.merge!(breakdown)
-        end
+        households = record.fetch(key)
+        households = "[{\"f1\": -1, \"f2\": 0 }]" if households.nil?
+        breakdown = year_by_year_breakdown(households, key)
+        breakdowns.merge!(breakdown)
       end
 
       breakdowns
@@ -289,8 +369,8 @@ module PafsCore
 
       (2015..2027).each do |year|
         sym = "#{type}_#{year}".to_sym
-        breakdown[sym] = 0
-        year_amount = array.select { |e| e["f1"] == year }
+        breakdown[sym] = nil
+        year_amount = array.select { |e| e["f1"].to_i == year }
         breakdown[sym] = year_amount.first["f2"] if !year_amount.empty?
       end
 
@@ -298,27 +378,28 @@ module PafsCore
     end
 
     def process_future_funding_totals(record)
-      funding_sources = %w(gia levy total)
+      funding_sources = %w(gia total)
 
       totals = {}
 
       funding_sources.each do |fs|
         if record["#{fs}_list"].present?
           total = process_future_totals(record["#{fs}_list"])
-          symbol = "#{fs}_2017_2021_total".to_sym
+          symbol = "#{fs}_future_total".to_sym
           totals[symbol] = total
         end
       end
 
-      other_funding_sources = %w(idb public private ea growth nyi)
+      other_funding_sources = %w(public private ea)
 
       combined_total = 0
       other_funding_sources.each do |ofs|
         if record["#{ofs}_list"].present?
           total = process_future_totals(record["#{ofs}_list"])
-          combined_total += total
+          combined_total += total.to_i
         end
       end
+      combined_total = nil if combined_total.zero?
       totals[:future_contributions_total] = combined_total
 
       totals
@@ -330,9 +411,10 @@ module PafsCore
       total = 0
 
       keys.each do |key|
-        total += process_future_totals(record[key]) if record[key].present?
+        total += process_future_totals(record[key]).to_i if record[key].present?
       end
 
+      total = nil if total.zero?
       { future_households_total: total }
     end
 
@@ -342,11 +424,11 @@ module PafsCore
 
       total = 0
       (NEXT_FINANCIAL_YEAR..2021).each do |year|
-        year_amount = array.select { |e| e["f1"] == year }
+        year_amount = array.select { |e| e["f1"].to_i == year }
         total += year_amount.first["f2"].to_i if !year_amount.empty?
       end
 
-      total
+      total = nil if total.zero?
     end
 
     def process_dates(record)
@@ -371,15 +453,51 @@ module PafsCore
       dates
     end
 
-    def create_csv(records)
-      file_path = [Rails.root.to_s, "tmp"].join("/")
+    def column_order
+      PafsCore::SPREADSHEET_COLUMN_ORDER
+    end
 
-      CSV.open("#{file_path}/file.csv", "wb") do |csv|
-        csv << records.first.keys
+    def column_headers
+      headers = []
+      column_order.each do |column|
+        header = PafsCore::SPREADSHEET_COLUMN_HEADERS.fetch(column, "~#{column} missing ~")
+        headers << header
+      end
+
+      headers
+    end
+
+    def create_csv(records)
+      CSV.generate do |csv|
+        csv << column_headers
         records.each do |record|
-          csv << record.values
+          row = []
+          column_order.each do |column|
+            row << record.fetch(column, nil)
+          end
+          csv << row
         end
       end
+    end
+
+    def create_xlsx(records)
+      xl = Axlsx::Package.new
+
+      xl.workbook do |wb|
+        wb.add_worksheet do |ws|
+          ws.add_row(column_headers)
+          records.each do |record|
+            row = []
+            column_order.each do |column|
+              row << record.fetch(column, nil)
+            end
+
+            ws.add_row(row)
+          end
+        end
+      end
+
+      xl
     end
   end
 end

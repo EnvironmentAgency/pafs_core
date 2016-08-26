@@ -7,6 +7,14 @@
     <%= link_to t('create_a_new_project_label'), pafs_core.new_bootstrap_path, class: "button" %>
   </div>
 
+  <div>
+    <%= link_to 'Download excel file', projects_path(:xlsx) %>
+  </div>
+
+  <div>
+    <%= link_to 'Download CSV', projects_path(:csv) %>
+  </div>
+
   <section>
     <h2 class="heading-medium">Your project proposals</h2>
     <table class="dashboard">

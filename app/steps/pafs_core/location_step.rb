@@ -12,32 +12,21 @@ module PafsCore
     validates :project_location, presence: true
     validates :project_location_zoom_level, presence: true
 
-    def previous_step
-      :key_dates
+    def project_location
+      project.project_location || []
     end
 
     def benefit_area
       project.benefit_area ||= "[[[]]]"
     end
 
-    def step
-      @step ||= :location
-    end
-
     def update(params)
       sp = step_params(params)
       sp[:project_location] = JSON.parse(sp[:project_location]) if sp[:project_location] != nil
       sp[:project_location_zoom_level] = sp[:project_location_zoom_level].to_i
+      sp.merge!(extra_geo_data(sp[:project_location])) if !sp[:project_location].nil?
       assign_attributes(sp)
-
-      if valid? && project.save
-        extra_geo_data = PafsCore::MapService.new.get_extra_geo_data(sp[:project_location])
-        project.update(extra_geo_data)
-      end
-    end
-
-    def completed?
-      valid? && self.project_location != []
+      valid? && project.save
     end
 
     def before_view(params)
@@ -55,6 +44,10 @@ module PafsCore
                                   .permit(
                                     :project_location,
                                     :project_location_zoom_level)
+    end
+
+    def extra_geo_data(location)
+      PafsCore::MapService.new.get_extra_geo_data(location)
     end
   end
 end

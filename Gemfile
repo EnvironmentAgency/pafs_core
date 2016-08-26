@@ -26,3 +26,5 @@ end
 
 gem 'cumberland', git: 'https://github.com/kennyevil/cumberland'
 gem 'rack-cors'
+gem 'axlsx'
+gem 'axlsx_rails'
