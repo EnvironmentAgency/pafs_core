@@ -67,6 +67,16 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
       height: 140px;
       outline: 5px solid $icon-outline-colour;
       width: 99px;
+
+      @include media(tablet) {
+        height: 93px;
+        width: 66px;
+      }
+
+      @include media(mobile) {
+        height: 70px;
+        width: 49px;
+      }
     }
   }
 
