@@ -3,7 +3,6 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::SpreadsheetBuilderService do
-  #let(:country) { FactoryGirl.create(:country, :with_full_hierarchy_and_projects) }
   subject { PafsCore::SpreadsheetBuilderService.new }
 
   before(:each) do

@@ -2,8 +2,10 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
-  before(:all) { @tempfile = Tempfile.new }
-  after(:all) { @tempfile.close! }
+  before(:all) do
+    file_path = [Rails.root, "..", "fixtures", "calculator.xlsx"].join("/")
+    @tempfile = File.open(file_path)
+  end
 
   describe "attributes" do
     subject { FactoryGirl.build(:funding_calculator_step) }

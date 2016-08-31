@@ -66,13 +66,13 @@ GEM
       jmespath (~> 1.0)
     aws-sdk-resources (2.5.3)
       aws-sdk-core (= 2.5.3)
-    axlsx (2.0.1)
+    axlsx (2.1.0.pre)
       htmlentities (~> 4.3.1)
       nokogiri (>= 1.4.1)
-      rubyzip (~> 1.0.0)
-    axlsx_rails (0.5.0)
-      actionpack (>= 3.1)
-      axlsx (>= 2.0.1)
+      rubyzip (~> 1.1.7)
+    axlsx_rails (0.1.5)
+      axlsx
+      rails (>= 3.1)
     builder (3.2.2)
     byebug (8.2.4)
     capybara (2.7.0)
@@ -191,6 +191,9 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    roo (2.4.0)
+      nokogiri (~> 1)
+      rubyzip (~> 1.1, < 2.0.0)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -212,7 +215,7 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    rubyzip (1.0.0)
+    rubyzip (1.1.7)
     safe_yaml (1.0.4)
     shellany (0.0.1)
     shoulda-matchers (3.1.1)
@@ -246,7 +249,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  axlsx
+  axlsx (~> 2.1.0.pre)
   axlsx_rails
   byebug
   capybara
@@ -263,6 +266,7 @@ DEPENDENCIES
   pry
   pry-rails
   rack-cors
+  roo (~> 2.4.0)
   rspec-rails
   shoulda-matchers (~> 3.1)
   simplecov
