@@ -23,7 +23,7 @@
           <tr>
             <td><%= link_to project.reference_number, pafs_core.project_path(project), class: "project-link" %></td>
             <td><%= project.name %></td>
-            <td>To do</td>
+            <td><%= project.owner.name unless project.owner.blank? %></td>
             <td><%= l(project.submitted_at) if project.submitted_at %></td>
           </tr>
         <% end %>

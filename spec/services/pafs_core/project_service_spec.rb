@@ -117,6 +117,68 @@ RSpec.describe PafsCore::ProjectService do
     end
   end
 
+  describe "#area_ids_for_user" do
+    let(:country) { FactoryGirl.create(:country, :with_full_hierarchy) }
+    let(:ea_area_1) { country.children.first }
+    let(:ea_area_2) { country.children.second }
+    let(:pso_area_1) { ea_area_1.children.first }
+    let(:pso_area_2) { ea_area_1.children.second }
+    let(:pso_area_3) { ea_area_2.children.first }
+    let(:pso_area_4) { ea_area_2.children.second }
+    let(:rma_area_1) { pso_area_1.children.first }
+    let(:rma_area_2) { pso_area_1.children.second }
+    let(:rma_area_3) { pso_area_2.children.first }
+    let(:rma_area_4) { pso_area_2.children.second }
+    let(:rma_area_5) { pso_area_3.children.first }
+    let(:rma_area_6) { pso_area_3.children.second }
+    let(:rma_area_7) { pso_area_4.children.first }
+    let(:rma_area_8) { pso_area_4.children.second }
+
+    context "as a country" do
+      it "should return the area :ids in my tree" do
+        @user.user_areas.first.update_attributes(area_id: country.id)
+        @user.touch
+        areas = [country.id,
+                 ea_area_1.id, ea_area_2.id,
+                 pso_area_1.id, pso_area_2.id, pso_area_3.id, pso_area_4.id,
+                 rma_area_1.id, rma_area_2.id, rma_area_3.id, rma_area_4.id,
+                 rma_area_5.id, rma_area_6.id, rma_area_7.id, rma_area_8.id]
+
+        expect(subject.area_ids_for_user(@user)).to eq areas
+      end
+    end
+
+    context "as an EA area" do
+      it "should return the area :ids in my sub-tree" do
+        @user.user_areas.first.update_attributes(area_id: ea_area_1.id)
+        @user.touch
+        areas = [ea_area_1.id,
+                 pso_area_1.id, pso_area_2.id,
+                 rma_area_1.id, rma_area_2.id, rma_area_3.id, rma_area_4.id]
+        expect(subject.area_ids_for_user(@user)).to eq areas
+      end
+    end
+
+    context "as a PSO area" do
+      it "should return the area :ids in my sub-tree" do
+        @user.user_areas.first.update_attributes(area_id: pso_area_1.id)
+        @user.touch
+        areas = [pso_area_1.id,
+                 rma_area_1.id, rma_area_2.id]
+        expect(subject.area_ids_for_user(@user)).to eq areas
+      end
+    end
+
+    context "as an RMA area" do
+      it "should return the area :ids in my sub-tree" do
+        @user.user_areas.first.update_attributes(area_id: rma_area_1.id)
+        @user.touch
+        areas = [rma_area_1.id]
+        expect(subject.area_ids_for_user(@user)).to eq areas
+      end
+    end
+  end
+
   describe ".generate_reference_number" do
     it "returns a reference number in the correct format" do
       PafsCore::RFCC_CODES.each do |rfcc_code|

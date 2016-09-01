@@ -4,11 +4,20 @@ require "rails_helper"
 RSpec.describe PafsCore::ProjectsController, type: :controller do
   routes { PafsCore::Engine.routes }
 
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    @country = FactoryGirl.create(:country, :with_full_hierarchy)
+    @area = PafsCore::Area.last
+    @user.user_areas.create(area_id: @area.id, primary: true)
+    @project = PafsCore::Project.last
+    allow(subject).to receive(:current_resource) { @user }
+  end
+
   describe "GET index" do
     it "assigns @projects" do
-      project = FactoryGirl.create(:project)
+      # project = FactoryGirl.create(:project)
       get :index
-      expect(assigns(:projects)).to eq([project])
+      expect(assigns(:projects)).to eq([@project])
     end
 
     it "renders the index template" do
@@ -18,8 +27,6 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
   end
 
   describe "GET show" do
-    before(:each) { @project = FactoryGirl.create(:project) }
-
     it "assigns @project" do
       get :show, id: @project.to_param
       expect(assigns(:project)).to eq(@project)
@@ -33,8 +40,7 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
 
   describe "GET submit" do
     it "renders the submit template" do
-      project = FactoryGirl.create(:project)
-      get :submit, id: project.to_param
+      get :submit, id: @project.to_param
       expect(response).to render_template("submit")
     end
   end
@@ -62,8 +68,6 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
   # end
 
   describe "GET step" do
-    before(:each) { @project = FactoryGirl.create(:project) }
-
     it "assigns @project with the appropriate step class" do
       get :step, id: @project.to_param, step: "project_name"
       expect(assigns(:project)).to be_instance_of PafsCore::ProjectNameStep
@@ -100,8 +104,6 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
   end
 
   describe "PATCH save" do
-    before(:each) { @project = FactoryGirl.create(:project) }
-
     it "assigns @project with appropriate step class" do
       get :step, id: @project.to_param, step: "risks"
       expect(assigns(:project)).to be_instance_of PafsCore::RisksStep
@@ -137,8 +139,6 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
   end
 
   describe "GET download_funding_calculator" do
-    before(:each) { @project = FactoryGirl.create(:project) }
-
     context "given a file has been stored previously" do
       let(:navigator) { double("navigator") }
       let(:step) { double("funding_calculator_step") }
@@ -164,8 +164,6 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
   end
 
   describe "GET delete_funding_calculator" do
-    before(:each) { @project = FactoryGirl.create(:project) }
-
     context "given a file has been stored previously" do
       let(:navigator) { double("navigator") }
       let(:step) { double("funding_calculator_step") }
@@ -185,8 +183,6 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
   end
 
   describe "GET download_benefit_area_file" do
-    before(:each) { @project = FactoryGirl.create(:project) }
-
     context "given a file has been stored previously" do
       let(:navigator) { double("navigator") }
       let(:step) { double("benefit_area_file_summary_step") }
@@ -212,8 +208,6 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
   end
 
   describe "GET delete_benefit_area_file" do
-    before(:each) { @project = FactoryGirl.create(:project) }
-
     context "given a file has been stored previously" do
       let(:navigator) { double("navigator") }
       let(:step) { double("benefit_area_file_summary_step") }

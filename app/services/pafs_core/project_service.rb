@@ -22,7 +22,11 @@ module PafsCore
     def find_project(id)
       # make it a case-insensitive search
       # TODO: security check! can the user actually access this project?
-      PafsCore::Project.find_by!(slug: id.to_s.upcase)
+      # PafsCore::Project.find_by!(slug: id.to_s.upcase)
+      PafsCore::Project.where(slug: id.to_s.upcase).
+        joins(:area_projects).
+        merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user))).
+        first!
     end
 
     def self.generate_reference_number(rfcc_code)
@@ -33,7 +37,12 @@ module PafsCore
 
     def search(options = {})
       #FIXME: just returning all projects while we're scaffolding
-      PafsCore::Project.all.order(updated_at: :desc)
+      areas = area_ids_for_user(user)
+      PafsCore::Project.
+        joins(:area_projects).
+        merge(PafsCore::AreaProject.where(area_id: areas)).
+        order(updated_at: :desc)
+      # PafsCore::Project.all.order(updated_at: :desc)
     end
 
     def all_projects_for(area)
@@ -59,6 +68,46 @@ module PafsCore
         on owning_area_projects.area_id = owning_areas.id
         where area_projects.area_id in (select id from area_tree)
         #{'and area_projects.owner = true' unless area.rma?}
+      }).uniq
+    end
+
+    # return an array containing the :ids of all areas the user should see
+    # we could potentially cache this list at login or something
+    def area_ids_for_user(user)
+      Rails.cache.fetch("user/#{user.id}-#{user.updated_at}/areas",
+                        expires_in: 1.hour) do
+        PafsCore::Area.find_by_sql(%{
+          with recursive user_area_tree as (
+            ( select a.id from pafs_core_areas a join pafs_core_user_areas ua on
+              (a.id = ua.area_id) where ua.user_id = #{user.id}
+            )
+            union
+            (
+              select a.id from pafs_core_areas a join user_area_tree uat on (a.parent_id = uat.id)
+            )
+          )
+          select id from user_area_tree
+        }).map(&:id).uniq
+      end
+    end
+
+    def projects_for_user(user)
+      PafsCore::Project.find_by_sql(%{
+        with recursive user_area_tree as (
+          ( select a.id from pafs_core_areas a join pafs_core_user_areas ua on
+            (a.id = ua.area_id) where ua.user_id = #{user.id}
+          )
+          union
+          (
+            select a.id from pafs_core_areas a join user_area_tree uat on (a.parent_id = uat.id)
+          )
+        )
+        select * from pafs_core_projects p
+        join pafs_core_area_projects ap on (ap.project_id = p.id)
+        where ap.area_id in
+        (
+          select uat.id from user_area_tree uat
+        )
       }).uniq
     end
 

@@ -56,22 +56,17 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 .attachment {
   .attachment-thumb {
     float: left;
-    margin-right: 2em;
-    margin-top: 5px;
-    padding-bottom: 15px;
+    margin-right: 1.5em;
+    margin-top: 0.3em;
+    padding-bottom: 1em;
     position: relative;
 
     img {
       background-color: $white;
       box-shadow: 0 2px 2px $icon-shadow-colour;
-      height: 140px;
+      height: 93px; //140px
       outline: 5px solid $icon-outline-colour;
-      width: 99px;
-
-      @include media(tablet) {
-        height: 93px;
-        width: 66px;
-      }
+      width: 66px; //99px
 
       @include media(mobile) {
         height: 70px;
