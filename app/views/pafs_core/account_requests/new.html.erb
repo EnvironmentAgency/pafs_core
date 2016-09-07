@@ -8,6 +8,7 @@
   </ul>
 </div>
 <%= pafs_form_for @account_request do |f| %>
+  <%= f.error_header %>
   <div class="form-group">
     <%= f.text_field :first_name, class: "form-control" %>
     <%= f.text_field :last_name, class: "form-control" %>

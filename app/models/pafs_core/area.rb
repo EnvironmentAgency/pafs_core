@@ -1,4 +1,3 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
   class Area < ActiveRecord::Base
@@ -19,6 +18,10 @@ module PafsCore
     has_many :projects, through: :area_projects
 
     scope :top_level, -> { where(parent_id: nil) }
+
+    def self.country
+      find_by(area_type: AREA_TYPES[0])
+    end
 
     def self.ea_areas
       where(area_type: AREA_TYPES[1])

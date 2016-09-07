@@ -9,7 +9,7 @@ module PafsCore
       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
       on: :create,
       message: "^Enter a valid work email address."
-    }
+    }, allow_blank: true
     validates :email, uniqueness: true
     validates :organisation, presence: { message: "^Tell us the organisation you work for." }
     validates :job_title, presence: { message: "^Tell us your job title." }
@@ -21,7 +21,7 @@ module PafsCore
         (?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?\z/,
       on: :create,
       message: "^Enter a valid telephone number"
-    }
+    }, allow_blank: true
     before_validation :downcase_email
     before_create :generate_slug
 
