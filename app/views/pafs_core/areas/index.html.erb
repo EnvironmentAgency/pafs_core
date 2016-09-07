@@ -1,0 +1,18 @@
+<table class="table">
+  <tr>
+    <th>Type</th>
+    <th>Name</th>
+  </tr>
+  <tbody>
+    <% @areas.each do |area| %>
+      <tr>
+        <td>
+          <%= area.area_type %>
+        </td>
+        <td>
+          <%= link_to area.name, pafs_core.area_path(area) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
