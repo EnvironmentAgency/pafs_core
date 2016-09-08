@@ -31,7 +31,16 @@
     <%= render partial: "summary/#{item}", locals: { project: @project } %>
   <% end %>
 </section>
-<p>
-  <%= link_to t("submit_project_label"),
-    submit_project_path(id: @project.to_param), class: "button" %>
-</p>
+<section aria-labelledby="submission">
+  <h2 class="heading-medium" role="heading" id="submission">
+    <%= @project.summary_label(:submission_title) %>
+  </h2>
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <p><%= @project.summary_label(:submission_notice) %></p>
+      <%= render partial: "summary/data_notice", locals: { project: @project } %>
+      <%= link_to t("submit_project_label"),
+        submit_project_path(id: @project.to_param), class: "button submit-proposal" %>
+    </div>
+  </div>
+</section>
