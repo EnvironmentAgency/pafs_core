@@ -1,4 +1,5 @@
 <% map_centre = results.first %>
+<% content_for :page_title, make_page_title(t("location_confirmation", scope: "page_titles")) %>
 <div class="grid-row">
   <div class="column-three-thirds">
     <h1 class="heading-large"><%= t('.heading') %></h1>
