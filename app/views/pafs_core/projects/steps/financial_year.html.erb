@@ -13,7 +13,10 @@
             <% end %>
           </div>
           <div class="form-group">
-            <%= link_to t('.next_step_link_text'), action: "step", id: @project, step: :financial_year_alternative %>
+            <%= link_to t('.next_step_link_text', year: @project.financial_year_options.last + 1),
+              action: "step",
+              id: @project,
+              step: :financial_year_alternative %>
           </div>
           <div class ="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>

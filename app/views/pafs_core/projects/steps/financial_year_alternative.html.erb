@@ -5,9 +5,12 @@
         <%= f.error_header %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
         <p><%= t('.lede') %></p>
-        <p><%= t(".description") %></p>
         <div class="step-form">
-          <%= f.number_field :project_end_financial_year, in: Time.now.uk_financial_year..2100, class: "form-control form-year", hint: t(".example_text") %>
+          <%= f.number_field :project_end_financial_year,
+            in: Time.now.uk_financial_year..2100,
+            class: "form-control form-year",
+            label: t(".financial_year_label"),
+            label_class: "form-label" %>
 
           <%= f.submit t("save_and_continue_label"), class: 'button' %>
         <% end %>
