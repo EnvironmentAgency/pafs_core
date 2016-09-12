@@ -154,7 +154,7 @@ en:
           coastal_erosion_label: Coastal erosion
 # main risk
         main_risk:
-          heading: What is the main source of risk your proposed project will protect against?
+          heading: What is the main source of risk your project will protect against?
 # funding calculator
         funding_calculator:
           heading: Partnership funding calculator
