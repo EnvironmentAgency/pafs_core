@@ -1,3 +1,8 @@
+<% last_year = @project.financial_year_options.last + 1 %>
+<% content_for :page_title,
+    make_page_title(t("financial_year_alternative",
+                      year: last_year,
+                      scope: "page_titles")) %>
 <div class="step-container">
   <div class="grid-row">
     <div class="column-two-thirds">
