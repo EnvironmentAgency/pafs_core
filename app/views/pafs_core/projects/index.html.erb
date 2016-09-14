@@ -1,5 +1,6 @@
+<% content_for :page_title, make_page_title("Your proposals") %>
 <div id="dashboard">
-  <h1 class="heading-large">Your project proposals</h1>
+  <h1 class="heading-large">Your proposals</h1>
 
   <p>Submission deadline for 2018 to 2019 is <span class="bold-small">31 July 2017.</small></p>
 
@@ -16,7 +17,7 @@
   </div>
 
   <section>
-    <h2 class="heading-medium">Your project proposals</h2>
+    <h2 class="heading-medium">Your proposals</h2>
     <table class="dashboard">
       <thead>
         <tr>
@@ -31,7 +32,7 @@
           <tr>
             <td><%= link_to project.reference_number, pafs_core.project_path(project), class: "project-link" %></td>
             <td><%= project.name %></td>
-            <td>To do</td>
+            <td><%= project.owner.name unless project.owner.blank? %></td>
             <td><%= l(project.submitted_at) if project.submitted_at %></td>
           </tr>
         <% end %>

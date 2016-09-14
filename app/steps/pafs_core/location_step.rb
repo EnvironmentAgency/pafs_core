@@ -37,6 +37,14 @@ module PafsCore
                                      )
     end
 
+    def before_view(params)
+      @results = PafsCore::MapService.new
+                                     .find(
+                                       params[:q],
+                                       project_location || []
+                                     )
+    end
+
   private
     def step_params(params)
       ActionController::Parameters.new(params)

@@ -21,6 +21,12 @@ PafsCore::Engine.routes.draw do
   end
   resources :account_requests
 
+  resources :areas, only: [:index, :show] do
+    member do
+      get :set_user
+    end
+  end
+
   get 'bootstrap/:id/:step' => 'bootstraps#step', as: :bootstrap_step
   patch 'bootstrap/:id/:step' => 'bootstraps#save', as: :save_bootstrap_step
   get 'projects/:id/:step' => 'projects#step', as: :project_step

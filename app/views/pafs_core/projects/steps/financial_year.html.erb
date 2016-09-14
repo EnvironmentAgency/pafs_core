@@ -1,3 +1,8 @@
+<% last_year = @project.financial_year_options.last + 1 %>
+<% content_for :page_title,
+    make_page_title(t("financial_year",
+                      year: last_year,
+                      scope: "page_titles")) %>
 <div class="step-container">
   <div class="grid-row">
     <div class="column-two-thirds">
@@ -11,10 +16,12 @@
             <% @project.financial_year_options.each do |year| %>
               <%= f.radio_button :project_end_financial_year, year, label: "April #{year} to March #{year + 1}" %>
             <% end %>
-            <input as="hidden" selected="selected" class="hidden" value="" checked="checked" name="financial_year_step[project_end_financial_year]" id="financial_year_step_project_end_financial_year_" type="radio">
           </div>
           <div class="form-group">
-            <%= link_to t('.next_step_link_text'), action: "step", id: @project, step: :financial_year_alternative %>
+            <%= link_to t('.next_step_link_text', year: last_year),
+              action: "step",
+              id: @project,
+              step: :financial_year_alternative %>
           </div>
           <div class ="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>

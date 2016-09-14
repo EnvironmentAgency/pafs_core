@@ -1,3 +1,8 @@
+<% last_year = @project.financial_year_options.last + 1 %>
+<% content_for :page_title,
+    make_page_title(t("financial_year_alternative",
+                      year: last_year,
+                      scope: "page_titles")) %>
 <div class="step-container">
   <div class="grid-row">
     <div class="column-two-thirds">
@@ -5,9 +10,12 @@
         <%= f.error_header %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
         <p><%= t('.lede') %></p>
-        <p><%= t(".description") %></p>
         <div class="step-form">
-          <%= f.number_field :project_end_financial_year, in: Time.now.uk_financial_year..2100, class: "form-control form-year", hint: t(".example_text") %>
+          <%= f.number_field :project_end_financial_year,
+            in: Time.now.uk_financial_year..2100,
+            class: "form-control form-year",
+            label: t(".financial_year_label"),
+            label_class: "form-label" %>
 
           <%= f.submit t("save_and_continue_label"), class: 'button' %>
         <% end %>

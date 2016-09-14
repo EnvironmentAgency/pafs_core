@@ -22,12 +22,12 @@ en:
         financial_year:
           heading: In what financial year will the project stop spending funds?
           lede: Don't include years which include maintenance costs. Maintenance costs are the responsibility of the risk management authority.
-          next_step_link_text: The project will spend funds after March 2023
+          next_step_link_text: "The project will spend funds after March %{year}"
 # financial year alternative
         financial_year_alternative:
           heading: In what financial year will the project stop spending funds?
           lede: Don't include years which include maintenance costs. Maintenance costs are the responsibility of the risk management authority.
-          description: Financial year starting April
+          financial_year_label: Financial year starting April
 # key dates
         key_dates:
           heading: What are the estimated dates for important milestones of your proposed project?
@@ -154,7 +154,7 @@ en:
           coastal_erosion_label: Coastal erosion
 # main risk
         main_risk:
-          heading: What is the main source of risk your proposed project will protect against?
+          heading: What is the main source of risk your project will protect against?
 # funding calculator
         funding_calculator:
           heading: Partnership funding calculator

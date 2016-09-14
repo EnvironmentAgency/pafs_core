@@ -1,23 +1,24 @@
+<% content_for :page_title, make_page_title(t("proposal_submitted", scope: "page_titles")) %>
 <div class="step-container">
   <div class="grid-row">
     <div class="column-two-thirds">
       <div class="govuk-box-highlight">
-        <h1 class="bold-large">Project proposal submitted</h1>
+        <h1 class="bold-large">Proposal submitted</h1>
         <p>Your national project number is<br>
           <strong class="heading-medium"><%= @project.reference_number %></strong>
         </p>
       </div>
       <p>We sent a confirmation email to <strong class="heading-small"><%= current_resource.email %></strong></p>
-      <p>If you have any questions about your project, contact your
-        <%= link_to t("strategic_officer_label"), t("strategic_officer_link") %>.
+      <p>If you have any questions about your proposal, contact your
+        <%= link_to t("strategic_officer_label"), t("strategic_officer_link"), target: "_blank" %>.
         You'll need to quote the national project number.
       </p>
       <h2 class="heading-medium">What happens next?</h2>
-      <p>We've sent your project proposal to your local area programming team for consideration. They'll contact you if they need more information.</p>
+      <p>We've sent your proposal to your local area programming team for consideration. They'll contact you if they need more information.</p>
 
-      <h2 class="heading-medium">If you need to change your project proposal</h2>
+      <h2 class="heading-medium">If you need to change your proposal</h2>
 
-      <p>You can make changes to the project at any time using the <%= link_to "'view project proposals'", projects_path %></p>
+      <p>You can make changes to the proposal at any time using the <%= link_to "view proposals", projects_path %> link</p>
 
       <p>
         Changes made before the submission deadline will be considered for the
@@ -31,7 +32,7 @@
       </p>
 
       <div class="form-group">
-      <%= link_to "View project proposals", projects_path, class: "button", role: "button" %>
+      <%= link_to "View proposals", projects_path, class: "button", role: "button" %>
       </div>
 
       <div class="form-group">
