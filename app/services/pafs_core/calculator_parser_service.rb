@@ -36,11 +36,7 @@ module PafsCore
     end
 
     def binary_value(value)
-      if value.downcase == "yes"
-        true
-      else
-        false
-      end
+      value.casecmp("yes") == 0
     end
   end
 end

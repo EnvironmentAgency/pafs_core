@@ -95,14 +95,12 @@ module PafsCore
 
     def process_record(record)
       processed_record = {}
-      straightforward_data = extract_straightforward_data(record)
-      processed_record.merge!(straightforward_data)
+      processed_record.merge!(extract_straightforward_data(record))
+      processed_record.merge!(process_pv_whole_life_figures(record))
       processed_record.merge!(process_flood_protection(record))
       processed_record.merge!(process_coastal_protection(record))
-      processed_record[:remove_fish_or_eel_barrier] = remove_fish_or_eel_barrier?(record)
       processed_record[:rfcc] = rfcc_name(record["reference_number"])
       processed_record[:coastal_group] = add_coastal_group(record)
-      processed_record[:improve_sssi_sac_or_spa] = improve_sac_or_sssi?(record)
       processed_record.merge!(add_lead_rma(record))
       processed_record.merge!(process_geo_data(record))
       processed_record.merge!(process_funding_totals(record))
@@ -114,6 +112,8 @@ module PafsCore
       processed_record.merge!(process_future_funding_totals(record))
       processed_record.merge!(process_future_household_totals(record))
       processed_record.merge!(process_dates(record))
+      processed_record.merge!(process_binary_values(record))
+      processed_record.merge!(process_extraneous_columns)
     end
 
     def extract_straightforward_data(record)
@@ -125,14 +125,25 @@ module PafsCore
         region
         parliamentary_constituency
         improve_surface_or_groundwater_amount
-        improve_habitat_amount
-        improve_river_amount
         create_habitat
-        create_habitat_amount
-        fish_or_eel_amount
+        public_contributor_names
+        private_contributor_names
+        other_ea_contributor_names
       )
 
       risk_urgency_keys = %w(urgency_reason main_risk)
+
+      numerical_keys = %w(
+        raw_partnership_funding_score
+        adjusted_partnership_funding_score
+        fish_or_eel_amount
+        create_habitat_amount
+        improve_river_amount
+        improve_habitat_amount
+        hectares_of_net_water_intertidal_habitat_created
+        hectares_of_net_water_dependent_habitat_created
+        kilometres_of_protected_river_improved
+      )
 
       extracted_data = {}
 
@@ -144,15 +155,54 @@ module PafsCore
         extracted_data[key.to_sym] = record[key].to_s.humanize
       end
 
+      numerical_keys.each do |key|
+        extracted_data[key.to_sym] = record[key].to_f
+      end
+
+      extracted_data[:duration_of_benefits] = record["duration_of_benefits"].to_i
+
       extracted_data
     end
 
+    def process_pv_whole_life_figures(record)
+      pv_whole_life_benefits = record["pv_whole_life_benefits"].to_f
+      pv_whole_life_costs = record["pv_whole_life_costs"].to_f
+      pv_whole_life_benefit_cost_ratio = pv_whole_life_benefits / pv_whole_life_costs
+
+      {
+        pv_whole_life_benefits: pv_whole_life_benefits,
+        pv_whole_life_costs: pv_whole_life_costs,
+        pv_whole_life_benefit_cost_ratio: pv_whole_life_benefit_cost_ratio
+      }
+    end
+
+    def process_binary_values(record)
+      binary_hash = {}
+      binary_hash[:remove_fish_or_eel_barrier] = remove_fish_or_eel_barrier?(record)
+      binary_hash[:improve_sac_or_sssi] = improve_sac_or_sssi?(record)
+      binary_hash[:strategic_approach] = strategic_approach?(record)
+
+      binary_hash
+    end
+
     def remove_fish_or_eel_barrier?(record)
-      record["remove_eel_barrier"] == "t" || record["remove_fish_barrier"] == "t"
+      process_binary_value(record["remove_eel_barrier"] == "t" || record["remove_fish_barrier"] == "t")
     end
 
     def improve_sac_or_sssi?(record)
-      record["improve_sssi"] == "t" || record["improve_spa_or_sac"] == "t"
+      process_binary_value(record["improve_sssi"] == "t" || record["improve_spa_or_sac"] == "t")
+    end
+
+    def strategic_approach?(record)
+      process_binary_value(record["strategic_approach"] == "t")
+    end
+
+    def process_binary_value(value)
+      if value == true
+        "Yes"
+      else
+        "No"
+      end
     end
 
     def process_flood_protection(record)
@@ -453,6 +503,18 @@ module PafsCore
       dates
     end
 
+    def outdated_columns
+      PafsCore::SPREADSHEET_UNUSED_COLUMNS
+    end
+
+    def process_extraneous_columns
+      extraneous_data = {}
+
+      outdated_columns.each { |column| extraneous_data[column] = "xx" }
+
+      extraneous_data
+    end
+
     def column_order
       PafsCore::SPREADSHEET_COLUMN_ORDER
     end
@@ -480,20 +542,411 @@ module PafsCore
       end
     end
 
+    def project_years
+      [
+        "Pre Yr0",
+        "Pre Yr0.1",
+        "Pre Yr0.2",
+        "Year 1",
+        "Year 2",
+        "Year 3",
+        "Year 4",
+        "Year 5",
+        "Year 6",
+        "Year 7",
+        "Year 8",
+        "Year 9",
+        "Year 10",
+        "Year 11 on"
+      ].freeze
+    end
+
+    def blank_row
+      row = {}
+      ("A".."Z").to_a.each { |letter| row[letter.to_sym] = "" }
+      ("A".."L").to_a.each do |alpha|
+        ("A".."Z").to_a.each do |beta|
+          key = (alpha + beta).to_sym
+          row[key] = ""
+        end
+      end
+
+      %I(LY LZ).each { |k| row.delete(k) }
+
+      row
+    end
+
+    def default_styles(ws)
+      style_row = blank_row
+
+      style_row.each do |k, _v|
+        style_row[k] = ws.styles.add_style(
+          border: {
+            style: :thin,
+            color: "FFFFFFFF"
+          },
+          alignment: {
+            wrap_text: true
+          }
+        )
+      end
+
+      style_row
+    end
+
+    def default_style_with_border(ws)
+      style_row = blank_row
+
+      style_row.each do |k, _v|
+        style_row[k] = ws.styles.add_style(
+          border: {
+            style: :thin,
+            color: "FF000000",
+            alignment: {
+              wrap_text: true
+            }
+          }
+        )
+      end
+
+      style_row
+    end
+
+    def default_header_style(ws)
+      style_row = blank_row
+
+      style_row.each do |k, _v|
+        style_row[k] = ws.styles.add_style(
+          border: {
+            style: :thin,
+            color: "FF000000"
+          },
+          b: true,
+          alignment: {
+            horizontal: :center,
+            vertical: :center,
+            wrap_text: true
+          }
+        )
+      end
+
+      style_row
+    end
+
+    def first_row
+      row = blank_row
+      row[:A] = "FCRM1 - Medium Term Plan"
+
+      row.values.to_a
+    end
+
+    def first_row_styles(ws)
+      style_row = default_styles(ws)
+
+      style_row[:A] = ws.styles.add_style(
+        bg_color: "FF000000",
+        fg_color: "00FFFFFF",
+        sz: 20,
+        b: true,
+        alignment: {
+          vertical: :center
+        }
+      )
+
+      style_row.values.to_a
+    end
+
+    def second_row_custom_info
+      PafsCore::SpreadsheetCustomStyles::SECOND_ROW
+    end
+
+    def second_row
+      row = blank_row
+
+      second_row_custom_info.each { |k, v| row[k] = v[:title] }
+
+      row.values.to_a
+    end
+
+    def second_row_styles(ws)
+      style_row = default_styles(ws)
+
+      second_row_custom_info.each do |k, v|
+        style_row[k] = ws.styles.add_style(
+          bg_color: v[:bg_color],
+          fg_color: "FF000000",
+          sz: 20,
+          b: true,
+          alignment: {
+            vertical: :center
+          },
+          border: {
+            style: :thin,
+            color: "66000000"
+          }
+        )
+      end
+
+      style_row.values.to_a
+    end
+
+    def third_row
+      row = blank_row
+      cells = %I(BH BV CJ CX DL DZ EN FB FP GD GR HF HT IH JJ JX KL)
+
+      cells.each { |cell| row[cell] = "15/16 - 20/21 programme" }
+
+      row.values.to_a
+    end
+
+    def third_row_styles(ws)
+      style_row = default_styles(ws)
+      cells = %I(BH BV CJ CX DL DZ EN FB FP GD GR HF HT IH JJ JX KL)
+      border_cells = %I(BN CB CP DD DR EF ET FH FV GJ GY HL IA IN JP KD KR)
+
+      cells.each do |cell|
+        style_row[cell] = ws.styles.add_style(
+          bg_color: "FFFFFF1A",
+          border: {
+            style: :thick,
+            color: "66000000",
+            edges: [:top, :left, :right]
+          }
+        )
+      end
+
+      border_cells.each do |cell|
+        style_row[cell] = ws.styles.add_style(
+          fg_color: "FFFFFFFF",
+          border: {
+            style: :thin,
+            color: "66000000",
+            edges: [:left]
+          }
+        )
+      end
+
+      style_row.values.to_a
+    end
+
+    def fourth_row
+      row = blank_row
+
+      fourth_row_custom.each { |k, v| row[k] = v[:title] }
+
+      row.values.to_a
+    end
+
+    def fourth_row_custom
+      PafsCore::SpreadsheetCustomStyles::FOURTH_ROW
+    end
+
+    def fourth_row_styles(ws)
+      style_row = default_styles(ws)
+
+      fourth_row_custom.each do |k, v|
+        style_row[k] = ws.styles.add_style(
+          bg_color: v[:bg_color],
+          fg_color: "FF000000",
+          b: true,
+          sz: 10,
+          alignment: {
+            vertical: :center,
+            horizontal: :center
+          },
+          border: {
+            style: :thin,
+            color: "FFFFFFFF"
+          }
+        )
+      end
+
+      style_row.values.to_a
+    end
+
+    def fifth_row
+      row = []
+      40.times { row << "" }
+      18.times { row << "TOTAL" }
+      18.times { row << project_years && row.flatten! }
+      9.times { row << "" }
+      row << "17/18-20/21"
+      3.times { row << "" }
+      row << "Rolling 6 year programme"
+
+      row
+    end
+
+    def dark_yellow_cells
+      %I(BJ BX CL CZ DN EB EP FD FR GF GT HH HV IJ IX JL JZ KN)
+    end
+
+    def light_yellow_cells
+      %I(
+        BK BL BM BN BO
+        BY BZ CA CB CC
+        CM CN CO CP CQ
+        DA DB DC DD DE
+        DO DP DQ DR DS
+        EC ED EE EF EG
+        EQ ER ES ET EU
+        FE FF FG FH FI
+        FS FT FU FV FW
+        GG GH GI GJ GK
+        GU GV GW GX GY
+        HI HJ HK HL HM
+        HW HX HY HZ IA
+        IK IL IM IN IO
+        IY IZ JA JB JC
+        KA KB KC KD KE
+        KO KP KQ KR KS
+      )
+    end
+
+    def grey_cells
+      %I(LH LL)
+    end
+
+    def fifth_row_styles(ws)
+      style_row = default_style_with_border(ws)
+
+      dark_yellow_cells.each do |cell|
+        style_row[cell] = ws.styles.add_style(
+          bg_color: "FFFFFF1A",
+          border: {
+            style: :thin,
+            color: "66000000"
+          }
+        )
+      end
+
+      light_yellow_cells.each do |cell|
+        style_row[cell] = ws.styles.add_style(
+          bg_color: "FFFFFFB3",
+          border: {
+            style: :thin,
+            color: "66000000"
+          }
+        )
+      end
+
+      grey_cells.each do |cell|
+        style_row[cell] = ws.styles.add_style(
+          bg_color: "AA404040",
+          fg_color: "FF000000",
+          sz: 20,
+          b: true,
+          alignment: {
+            vertical: :center
+          },
+          border: {
+            style: :thin,
+            color: "66000000"
+          }
+        )
+      end
+
+      style_row.values.to_a
+    end
+
+    def column_header_styles(ws)
+      style_row = default_header_style(ws)
+
+      dark_yellow_cells.each do |cell|
+        style_row[cell] = ws.styles.add_style(
+          bg_color: "FFFFFF1A",
+          border: {
+            style: :thin,
+            color: "66000000"
+          },
+          alignment: {
+            horizontal: :center,
+            vertical: :center,
+            wrap_text: true
+          },
+          b: true
+        )
+      end
+
+      light_yellow_cells.each do |cell|
+        style_row[cell] = ws.styles.add_style(
+          bg_color: "FFFFFFB3",
+          border: {
+            style: :thin,
+            color: "66000000"
+          },
+          alignment: {
+            horizontal: :center,
+            vertical: :center,
+            wrap_text: true
+          },
+          b: true
+        )
+      end
+
+      style_row.values.to_a
+    end
+
+    def cells_to_be_merged
+      %w(
+        A3:AJ3 AK3:AN3 AO3:GB3 GC3:KX3 KY3:LG3 LH3:LO3 LP3:LU3
+        A6:E7 F6:J7 K6:N7 O6:S7 T6:AA7 AB6:AH7 AI6:AJ7 AK6:AN7 AO6:BF6
+        BG6:BT6 BU6:CH6 CI6:CV6 CW6:DJ6 DK6:DX6 DY6:EL6 EM6:EZ6 FA6:FN6
+        FO6:GB6 GC6:GP6 GQ6:HD6 HE6:HR6 HS6:IF6 IG6:IT6 IU6:JH6 JI6:JV6
+        JW6:KJ6 KK6:KX6 KY6:LG7 LH6:LO6 LP6:LU7
+        BH5:BM5 BV5:CA5 CJ5:CO5 CX5:DC5 DL5:DQ5 DZ5:EE5 EN5:ES5
+        FB5:FG5 FP5:FW5 GD5:GI5 GR5:GW5 HF5:HK5 HT5:HY5 IH5:IN5
+        IV5:JA5 JJ5:JO5 JX5:KC5 KL5:KQ5
+        LH7:LK7 LL7:LO7
+      )
+    end
+
     def create_xlsx(records)
       xl = Axlsx::Package.new
 
       xl.workbook do |wb|
+        wb.date1904 = true
         wb.add_worksheet do |ws|
-          ws.add_row(column_headers)
+          ws.name = "FCRM1"
+          ws.sheet_view.show_grid_lines = false
+          ws.add_row(first_row, height: 30, style: first_row_styles(ws))
+          ws.add_row(blank_row.values.to_a, height: 10, style: default_styles(ws).values.to_a)
+          ws.add_row(second_row, height: 40, style: second_row_styles(ws))
+          ws.add_row(blank_row.values.to_a, height: 10, style: default_styles(ws).values.to_a)
+          ws.add_row(third_row, height: 30, style: third_row_styles(ws))
+          ws.add_row(fourth_row, height: 80, style: fourth_row_styles(ws))
+          ws.add_row(fifth_row, height: 30, style: fifth_row_styles(ws))
+
+          default_cell_style = {border: { style: :thin, color: "66000000"}}
+          standard_cell = ws.styles.add_style(default_cell_style)
+          date_cell = ws.styles.add_style(default_cell_style.merge(format_code: "dd/mm/yyyy"))
+          percentage_cell = ws.styles.add_style(default_cell_style.merge(num_fmt: Axlsx::NUM_FMT_PERCENT))
+
+          ws.add_row(
+            column_headers,
+            height: 100,
+            style: column_header_styles(ws),
+            widths: [100, *([30] * 335)]
+          )
+
           records.each do |record|
             row = []
             column_order.each do |column|
               row << record.fetch(column, nil)
             end
 
-            ws.add_row(row)
+            ws.add_row(
+              row,
+              style: [
+                *([standard_cell] * 28),
+                *([percentage_cell] * 2),
+                *([standard_cell] * 5),
+                *([date_cell] * 5),
+                *([standard_cell] * 296)
+              ])
           end
+
+          cells_to_be_merged.each { |set| ws.merge_cells(set) }
         end
       end
 

@@ -69,5 +69,17 @@ module PafsCore
     coastal_households
     coastal_households_protected
     coastal_most_deprived
+    strategic_approach
+    raw_partnership_funding_score
+    adjusted_partnership_funding_score
+    pv_whole_life_costs
+    pv_whole_life_benefits
+    duration_of_benefits
+    hectares_of_net_water_dependent_habitat_created
+    hectares_of_net_water_intertidal_habitat_created
+    kilometres_of_protected_river_improved
+    public_contributor_names
+    private_contributor_names
+    other_ea_contributor_names
   ).freeze
 end

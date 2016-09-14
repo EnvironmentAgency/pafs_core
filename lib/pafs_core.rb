@@ -17,6 +17,7 @@ require "pafs_core/outcomes"
 require "pafs_core/sql_columns_for_spreadsheet"
 require "pafs_core/spreadsheet_column_headers"
 require "pafs_core/spreadsheet_column_order"
+require "pafs_core/spreadsheet_custom_styles"
 require "core_ext/time/financial"
 require "core_ext/date/financial"
 

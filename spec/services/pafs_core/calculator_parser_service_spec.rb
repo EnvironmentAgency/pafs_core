@@ -36,7 +36,7 @@ RSpec.describe PafsCore::CalculatorParserService do
       expect(subject.binary_value("YeS")).to eq true
       expect(subject.binary_value("No")).to eq false
 
-      random_string = (0...10).map { ('a'..'z').to_a[rand(26)] }.join
+      random_string = (0...10).map { ("a".."z").to_a[rand(26)] }.join
       expect(subject.binary_value(random_string)).to eq false
     end
   end
