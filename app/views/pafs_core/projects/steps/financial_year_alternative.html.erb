@@ -14,6 +14,7 @@
           <%= f.number_field :project_end_financial_year,
             in: Time.now.uk_financial_year..2100,
             class: "form-control form-year",
+            hint: t(".example_text"),
             label: t(".financial_year_label"),
             label_class: "form-label" %>
 

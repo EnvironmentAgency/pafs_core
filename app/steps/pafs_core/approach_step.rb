@@ -5,7 +5,9 @@ module PafsCore
              :project_protects_households?,
              to: :project
 
-    validates :approach, presence: { message: "^Tell us the work the project plans to do to achieve its outcomes." }
+    validates :approach, presence: {
+      message: "^Tell us about the work the project plans to do to achieve " \
+      "its outcomes." }
 
   private
     def step_params(params)

@@ -30,7 +30,7 @@ module PafsCore
       errors.add(
         :award_contract,
         "^You expect to submit your outline business case for approval on #{dt1.month} #{dt1.year}. \
-        The date you expect to award the project's main contract must come after this."
+        The date you expect to award the project's main contract must come after this date."
       ) if dt1 > dt2
     end
 

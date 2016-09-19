@@ -12,11 +12,7 @@ en:
     account_requests:
       new:
         heading: "Request an account"
-        description: "You can request an account if you work for"
-        rma: "a risk management authority"
-        pso: "a partnership and strategic overview team"
-        apt: "an area programming team"
-        telephone_number_hint_html: "We may use this to verify your account request"
+        description: "You can request an account if you work for a risk management authority or an Environment Agency team. We will use the information you provide to verify your request for an account."
         terms_and_conditions_label: "Read our standard data notice"
         accept_terms_and_conditions_label: "I accept the standard data notice"
         submit_label: "Request an account"
