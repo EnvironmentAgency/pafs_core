@@ -7,33 +7,34 @@ en:
           heading: What is the project's name?
           description: The project name should be meaningful and understandable and shouldn't include abbreviations.
           project_name_label: Project name
-          example_text: Examples, South Chesham River Colne Flood Alleviation Scheme, Clacton-on-Sea Coastal Erosion Project Phase 4
+          example_text: For example, South Chesham River Colne Flood Alleviation Scheme or Clacton-on-Sea Coastal Erosion Project Phase 4
 # project type
         project_type:
           heading: What type of project you are proposing?
-          def_label: Changing the current standard of service or protection of a Flood Defence asset or creating a new one
-          cm_label: Restore the standard of service of a Flood Defence asset by refurbishment or replacement
+          def_label: Changing the current standard of service or protection of a flood or coastal erosion risk management asset or creating a new one
+          cm_label: Restore the standard of service of a flood or coastal erosion risk management asset by refurbishment or replacement
           plp_label: Property level protection for properties within the 'very significant' flood band where there is a 5% or greater chance of flooding
-          brg_label: Work done to bridges to enable flood and coastal erosion risk management. Such as widening a bridge to increase flow rates.
-          str_label: Strategy for complex flood or coastal erosion risk situations across several interconnected areas. It shows evidence of reduced risk, future cost savings or delivery of environmental outcomes.
+          brg_label: Work done to bridges to enable flood and coastal erosion risk management
+          str_label: Strategy for complex flood or coastal erosion risk situations across several interconnected areas
           env_with_households_label: Environmental project that also benefits households
           env_without_households_label: Environmental project that doesn't benefit any households
 # financial year
         financial_year:
           heading: In what financial year will the project stop spending funds?
-          lede: Don't include years which include maintenance costs. Maintenance costs are the responsibility of the risk management authority.
+          lede: Don't include years which include maintenance costs.
           next_step_link_text: "The project will spend funds after March %{year}"
 # financial year alternative
         financial_year_alternative:
           heading: In what financial year will the project stop spending funds?
-          lede: Don't include years which include maintenance costs. Maintenance costs are the responsibility of the risk management authority.
+          lede: Don't include years which include maintenance costs.
           financial_year_label: Financial year starting April
+          example_text: For example, 2029
 # key dates
         key_dates:
           heading: What are the estimated dates for important milestones of your proposed project?
 # start outline business case date
         start_outline_business_case_date:
-          heading: When do you expect to start your outline business case?
+          heading: When do you expect to start the project's outline business case?
           month_label: Month
           year_label: Year
           example_text: For example, 3 2019
@@ -59,21 +60,22 @@ en:
 # funding sources
         funding_sources:
           heading: What are the expected funding sources?
-          fcerm_gia_label: Flood and coastal erosion risk management grant in aid (FCERM GiA)
-          local_levy_label: Local levy
-          internal_drainage_boards_label: Internal drainage boards (IDB) precepts
-          public_contributions_label: Public sector contributions
-          private_contributions_label: Private sector contributions
-          other_ea_contributions_label: Other Environment Agency contributions
-          growth_funding_label: Growth funding
-          not_yet_identified_label: Not yet identified
-          list_contributors_label: List the names of potential contributors
+          lede: Select all that apply.
+          # fcerm_gia_label: Flood and coastal erosion risk management grant in aid (FCERM GiA)
+          # local_levy_label: Local levy
+          # internal_drainage_boards_label: Internal drainage boards (IDB) precepts
+          # public_contributions_label: Public sector contributions
+          # private_contributions_label: Private sector contributions
+          # other_ea_contributions_label: Other Environment Agency contributions
+          # growth_funding_label: Growth funding
+          # not_yet_identified_label: Not yet identified
+          # list_contributors_label: List the names of potential contributors
         public_contributors:
-          heading: Who are the public sector contributors?
+          heading: Who are the expected public sector contributors?
           example_text: For example, a local authority such as Bristol City Council.
         private_contributors:
-          heading: Who are the private sector contributors?
-          example_text: "For example, a local business such as Llanmoor Development Co. Limited."
+          heading: Who are the expected private sector contributors?
+          example_text: "For example, a local business such as Llanmoor Development Company."
         other_ea_contributors:
           heading: "What are the contributions from other Environment Agency sources?"
           example_text: "These are Environment Agency functions or funding streams. For example, Water Framework Directive or Water Resources."
@@ -81,7 +83,7 @@ en:
         funding_values:
           heading: What is the estimated spend for each financial year?
           lede: Spending estimates should be in pounds (£) and estimated at current prices. Future maintenance costs aren't required.
-          financial_year_label: Financial year (April to April)
+          financial_year_label: Financial year (April to March)
           fcerm_gia_label: Grant in Aid
           local_levy_label: Local levy
           internal_drainage_boards_label: Internal drainage board precepts
@@ -98,19 +100,14 @@ en:
           heading: Could the project start sooner if grant in aid funding was made available earlier?
 # earliest date
         earliest_date:
-          heading: What is the earliest date your project could start without impacting deliverability or outcomes?
+          heading: What is the earliest date the project could start without impacting deliverables or outcomes?
           example_text: For example, 10 2019
 # location
         location:
           search:
             heading: Where is the project located?
-            description: Enter one of the following
-            place_name: a place name
-            address: address
-            post_code: post code
-            grid_reference: grid-reference
-            co_ordinate: co-ordinate
-            lat_long: latitude and longitude values
+            example_text: "For example, an address, postcode or National Grid Reference"
+            search_label: "Search"
             confirm_and_continue: Confirm and continue
             select_location: Select location
           results:
@@ -149,20 +146,20 @@ en:
           fluvial_flooding_label: River flooding
           tidal_flooding_label: Tidal flooding
           groundwater_flooding_label: Groundwater flooding
-          surface_water_flooding_label: Surface Water flooding
+          surface_water_flooding_label: Surface water flooding
           sea_flooding_label: Sea flooding
           coastal_erosion_label: Coastal erosion
 # main risk
         main_risk:
-          heading: What is the main source of risk your project will protect against?
+          heading: What is the main source of risk the project will protect against?
 # funding calculator
         funding_calculator:
           heading: Partnership funding calculator
-          lede: The partnership funding calculator generates a score for the project based on the benefits, outcomes, and contributions that it aims to deliver. The score is used to prioritise and allocate funding in each year.
+          lede: The partnership funding calculator generates a score for the project based on the benefits and outcomes that it aims to deliver and any contributions that it will raise. This score is used to prioritise and allocate funding in each year.
           download_heading: Download and complete the partnership funding calculator
           download_file_html: "<span class='visually-hidden'>Download your funding calculator named </span>%{file}"
           upload_heading: Upload the completed partnership funding calculator
-          uploaded_heading: Your uploaded partnership funding calculator
+          uploaded_heading: The uploaded partnership funding calculator
           funding_calculator_label: Funding calculator
           download_link_label: Current funding calculator
           uploaded_at_label: Uploaded on
@@ -171,37 +168,37 @@ en:
           uploaded_title: Uploaded
 # funding calculator summary
         funding_calculator_summary:
-          heading: Your uploaded partnership funding calculator
+          heading: The uploaded partnership funding calculator
 # flood protection outcomes
         flood_protection_outcomes:
           heading: How many households affected by flooding is the project likely to benefit?
-          lede: Don't include any houses built or converted after 1 January 2012.
-          financial_year_label: Financial year (April to April)
-          households_at_reduced_risk_label: How many households moved to a lower flood risk category?
-          households_moved_from_very_significant_and_significant_to_moderate_or_low_label: Of the households in A, how many moved out of the very significant or significant category to the moderate or low category?
-          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, how many are in the 20% most deprived areas?
+          lede: Don't include houses built or converted after 1 January 2012.
+          financial_year_label: Financial year (April to March)
+          households_at_reduced_risk_label: How many households will move to a lower flood risk category?
+          households_moved_from_very_significant_and_significant_to_moderate_or_low_label: Of the households in column A, how many will move out of the very significant or significant category to the moderate or low category?
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in column B, how many are in the 20% most deprived areas?
           total_label: Total
 # flood protection outcomes summary
         flood_protection_outcomes_summary:
           heading: Confirm the number of households affected by flooding that the project will benefit
-          financial_year_label: Financial year (April to April)
+          financial_year_label: Financial year (April to March)
           households_at_reduced_risk_label: Households moved to a lower flood risk category
-          households_moved_from_very_significant_and_significant_to_moderate_or_low_label: Of the households in A, the households that have moved out of the very significant or significant category to the moderate or low category
-          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, the households that are in the 20% most deprived areas
+          households_moved_from_very_significant_and_significant_to_moderate_or_low_label: Of the households in column A, the households that have moved out of the very significant or significant category to the moderate or low category
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in column B, the households that are in the 20% most deprived areas
           total_label: Total
 # coastal erosion protection outcomes
         coastal_erosion_protection_outcomes:
           heading: How many households affected coastal erosion is the project likely to benefit?
-          lede: Don't include any houses built or converted after 1 January 2012.
-          financial_year_label: Financial year (April to April)
-          households_at_reduced_risk_label: How many households are at a reduced risk of coastal erosion?
-          households_protected_from_loss_in_next_20_years_label: Of the households in A, how many are protected from loss within the next 20 years?
-          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, how many are in the 20% most deprived areas?
+          lede: Don't include houses built or converted after 1 January 2012.
+          financial_year_label: Financial year (April to March)
+          households_at_reduced_risk_label: How many households will be at a reduced risk of coastal erosion?
+          households_protected_from_loss_in_next_20_years_label: Of the households in column A, how many will be protected from loss within the next 20 years?
+          households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in column B, how many are in the 20% most deprived areas?
           total_label: Total
 # coastal erosion protection outcomes summary
         coastal_erosion_protection_outcomes_summary:
           heading: Confirm the number of households affected by coastal erosion that the project will benefit
-          financial_year_label: Financial year (April to April)
+          financial_year_label: Financial year (April to March)
           households_at_reduced_risk_label: Households are at a reduced risk of coastal erosion
           households_protected_from_loss_in_next_20_years_label: Of the households in A, the households that are protected from loss within the next 20 years
           households_protected_from_loss_in_20_percent_most_deprived_label: Of the households in B, the households that are in the 20% most deprived areas
@@ -252,7 +249,7 @@ en:
 # improve hpi
         improve_hpi:
           heading: Will the project protect or improve a Habitat of Principal Importance?
-          lede: Habitats of Principal Importance are the most threatened priority habitats needing conservation action
+          lede: Habitats of Principal Importance are the most threatened priority habitats needing conservation action.
 # improve habitat amount
         improve_habitat_amount:
           heading: How many hectares of habitat is the project likely to protect or improve?

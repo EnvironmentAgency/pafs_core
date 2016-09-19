@@ -53,6 +53,16 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   }
 }
 
+.list-intro {
+  margin-bottom: 0.4em;
+}
+
+.spaced-list {
+  li {
+    padding-bottom: 0.3em;
+  }
+}
+
 .attachment {
   .attachment-thumb {
     float: left;

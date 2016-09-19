@@ -30,7 +30,7 @@ module PafsCore
       errors.add(
         :start_construction,
         "^You expect to award the project's main contract on #{dt1.month} #{dt1.year}. \
-        The date you expect to start the work must come after this"
+        The date you expect to start the work must come after this date."
       ) if dt1 > dt2
     end
 
