@@ -23,19 +23,11 @@ module PafsCore
 
     def update(params)
       sp = step_params(params)
-      sp[:project_location] = JSON.parse(sp[:project_location]) if sp[:project_location] != nil
+      sp[:project_location] = JSON.parse(sp[:project_location]) unless empty_project_location?(sp[:project_location])
       sp[:project_location_zoom_level] = sp[:project_location_zoom_level].to_i
       sp.merge!(extra_geo_data(sp[:project_location])) if !sp[:project_location].nil?
       assign_attributes(sp)
       valid? && project.save
-    end
-
-    def before_view(params)
-      @results = PafsCore::MapService.new
-                                     .find(
-                                       params[:q],
-                                       project_location || []
-                                     )
     end
 
     def before_view(params)
@@ -53,6 +45,10 @@ module PafsCore
                                   .permit(
                                     :project_location,
                                     :project_location_zoom_level)
+    end
+
+    def empty_project_location?(project_location)
+      project_location.nil? || project_location.to_s.empty?
     end
 
     def extra_geo_data(location)
