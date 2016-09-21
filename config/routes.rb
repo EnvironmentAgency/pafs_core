@@ -6,6 +6,10 @@ PafsCore::Engine.routes.draw do
     end
   end
 
+  namespace :projects do
+    resources :downloads, only: :index
+  end
+
   resources :projects do
     collection do
       get :pipeline
@@ -19,6 +23,7 @@ PafsCore::Engine.routes.draw do
       get :submit
     end
   end
+
   resources :account_requests
 
   resources :areas, only: [:index, :show] do

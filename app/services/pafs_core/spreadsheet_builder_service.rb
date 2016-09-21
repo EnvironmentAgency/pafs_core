@@ -123,6 +123,7 @@ module PafsCore
         project_type
         approach
         region
+        county
         parliamentary_constituency
         improve_surface_or_groundwater_amount
         create_habitat
@@ -533,6 +534,9 @@ module PafsCore
       CSV.generate do |csv|
         csv << column_headers
         records.each do |record|
+          %I(raw_partnership_funding_score adjusted_partnership_funding_score).each do |score|
+            record[score] = record[score] * 100
+          end
           row = []
           column_order.each do |column|
             row << record.fetch(column, nil)

@@ -42,6 +42,8 @@ module PafsCore
       fields.each do |field|
         h[field.to_sym] = postcode_data[field]
       end
+
+      h[:county] = postcode_data["admin_county"]
       h
     end
   end

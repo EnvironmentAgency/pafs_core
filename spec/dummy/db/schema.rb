@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160831121112) do
+ActiveRecord::Schema.define(version: 20160921100902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(version: 20160831121112) do
     t.float    "hectares_of_net_water_dependent_habitat_created"
     t.float    "hectares_of_net_water_intertidal_habitat_created"
     t.float    "kilometres_of_protected_river_improved"
+    t.string   "county"
   end
 
   add_index "pafs_core_projects", ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree

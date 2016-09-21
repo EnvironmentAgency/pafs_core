@@ -6,6 +6,7 @@ module PafsCore
     reference_number
     project_end_financial_year
     region
+    county
     parliamentary_constituency
     start_outline_business_case_month
     start_outline_business_case_year

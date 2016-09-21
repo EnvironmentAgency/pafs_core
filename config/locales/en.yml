@@ -16,6 +16,7 @@ en:
   confirm_and_continue_label: "Confirm and continue"
   continue_label: "Continue"
   create_a_new_project_label: "Create a new proposal"
+  download_all_proposals_label: "Download all proposals"
   back_to_home_label: "Back to home page"
   back_to_start_label: "Back to start page"
   overview_link: "Project overview"

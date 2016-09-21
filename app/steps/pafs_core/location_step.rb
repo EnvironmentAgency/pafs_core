@@ -4,6 +4,7 @@ module PafsCore
     delegate :project_location=,
              :project_location_zoom_level, :project_location_zoom_level=,
              :region, :region=,
+             :county, :county=,
              :parliamentary_constituency, :parliamentary_constituency=,
              to: :project
 
