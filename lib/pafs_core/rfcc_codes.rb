@@ -1,20 +1,24 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
-  # RFCC codes
-  # AC – Anglian Central
-  # AE – Anglian Eastern
-  # AN – Anglian Northern
-  # NO – Northumbria
-  # NW – North West
-  # SO – Southern
-  # SN – Severn & Wye
-  # SW – Southwest
-  # TH – Thames
-  # TR – Trent
-  # WX – Wessex
-  # YO – Yorkshire
   RFCC_CODES = %w[ AC AE AN NO NW SN SO SW TH TR WX YO ].freeze
+
+  # map RFCC codes to names
+
+  RFCC_CODE_NAMES_MAP = {
+    "AC" => "Anglian Central",
+    "AE" => "Anglian Eastern",
+    "AN" => "Anglian Northern",
+    "NO" => "Northumbria",
+    "NW" => "North West",
+    "SO" => "Southern",
+    "SN" => "Severn & Wye",
+    "SW" => "Southwest",
+    "TH" => "Thames",
+    "TR" => "Trent",
+    "WX" => "Wessex",
+    "YO" => "Yorkshire",
+  }.freeze
 
   # map PSO areas to RFCC codes
   PSO_RFCC_MAP = {

@@ -20,7 +20,7 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       expect(assigns(:projects)).to eq([@project])
     end
 
-    it "renders the index template" do
+    it "renders the index template for html responses" do
       get :index
       expect(response).to render_template("index")
     end

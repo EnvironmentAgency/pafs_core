@@ -14,10 +14,10 @@ RSpec.describe PafsCore::LocationStep, type: :model do
 
     context "with a defined benefit_area" do
       it "should resturn the benefit_area" do
-        subject.project.benefit_area = "[[[444444,222222]]]"
+        subject.project.benefit_area = "[[[457736,221754]]]"
         subject.project.save
 
-        expect(subject.benefit_area).to eq "[[[444444,222222]]]"
+        expect(subject.benefit_area).to eq "[[[457736,221754]]]"
       end
     end
 
@@ -28,12 +28,12 @@ RSpec.describe PafsCore::LocationStep, type: :model do
     end
   end
 
-  describe "#update" do
+  describe "#update", :vcr do
     subject { FactoryGirl.create(:location_step) }
     let(:params) {
       HashWithIndifferentAccess.new({
         location_step: {
-          project_location: "[\"444444\", \"222222\"]",
+          project_location: "[\"457736\", \"221754\"]",
           project_location_zoom_level: 19
         }
       })
@@ -48,10 +48,10 @@ RSpec.describe PafsCore::LocationStep, type: :model do
     }
 
     it "saves the :project_location when valid" do
-      expect(subject.project_location).not_to eq %w(444444 222222)
+      expect(subject.project_location).not_to eq %w(457736 221754)
       expect(subject.project_location_zoom_level).not_to eq 19
       expect(subject.update(params)).to be true
-      expect(subject.project_location).to eq %w(444444 222222)
+      expect(subject.project_location).to eq %w(457736 221754)
       expect(subject.project_location_zoom_level).to eq 19
     end
 

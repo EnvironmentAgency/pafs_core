@@ -1,0 +1,57 @@
+<% #content_for :page_title, make_page_title("Download all projects") %>
+
+<h1 class="heading-large">Download all projects</h1>
+
+<p class="text">All <%= content_tag(:span, @projects.size, class: "bold-small") %> projects available for download</p>
+
+<div class="grid-row">
+  <div class="column-third">
+    <h1 class="heading-medium">Downloads</h1>
+  </div>
+  <div class="column-two-thirds project-downloads">
+    <section class="projects-download-link">
+      <div class="attachment">
+        <div class="attachment-thumb">
+          <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.projects_downloads_path(:xlsx), class: "thumbnail" %>
+        </div>
+        <div class="attachment-details">
+          <%= link_to "#{@projects.size} project proposals (Excel document)", pafs_core.projects_downloads_path(:xlsx), class: "font-medium" %>
+          <p class="font-xsmall">MS Excel Spreadsheet</p>
+          <p class="font-xsmall">
+            This is formatted in the same way as the old spreadsheet and includes all
+            <%= @projects.size %> of your projects.
+          </p>
+          <p class="font-xsmall">
+            Also available as <%= link_to "Comma Separated Values file", pafs_core.projects_downloads_path(:csv) %>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="projects-download-link">
+      <div class="attachment">
+        <div class="attachment-thumb">
+          <%= link_to image_tag("pafs_core/pub-cover-zip.png"), "#", class: "thumbnail" %>
+        </div>
+        <div class="attachment-details">
+          <%= link_to "#{@projects.size} project benefit area files", "#", class: "font-medium" %>
+          <p class="font-xsmall">
+            Compressed folder (zip file) containing SHP files for all <%= @projects.size %> of your projects
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="projects-download-link">
+      <div class="attachment">
+        <div class="attachment-thumb">
+          <%= link_to image_tag("pafs_core/pub-cover-zip.png"), "#", class: "thumbnail" %>
+        </div>
+        <div class="attachment-details">
+          <%= link_to "#{@projects.size} Project Funding calculator files", "#", class: "font-medium" %>
+          <p class="font-xsmall">
+            Compressed folder (zip file) containing PF Calculators for all <%= @projects.size %> of your projects
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

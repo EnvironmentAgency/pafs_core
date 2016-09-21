@@ -3,6 +3,9 @@ module PafsCore
   class LocationStep < BasicStep
     delegate :project_location=,
              :project_location_zoom_level, :project_location_zoom_level=,
+             :region, :region=,
+             :county, :county=,
+             :parliamentary_constituency, :parliamentary_constituency=,
              to: :project
 
     attr_reader :results
@@ -14,28 +17,17 @@ module PafsCore
       project.project_location || []
     end
 
-    def previous_step
-      :key_dates
-    end
-
     def benefit_area
       project.benefit_area ||= "[[[]]]"
     end
 
-    def step
-      @step ||= :location
-    end
-
     def update(params)
       sp = step_params(params)
-      sp[:project_location] = JSON.parse(sp[:project_location]) if sp[:project_location] != nil
+      sp[:project_location] = JSON.parse(sp[:project_location]) unless empty_project_location?(sp[:project_location])
       sp[:project_location_zoom_level] = sp[:project_location_zoom_level].to_i
+      sp.merge!(extra_geo_data(sp[:project_location])) if !sp[:project_location].nil?
       assign_attributes(sp)
       valid? && project.save
-    end
-
-    def completed?
-      valid? && self.project_location != []
     end
 
     def before_view(params)
@@ -50,7 +42,17 @@ module PafsCore
     def step_params(params)
       ActionController::Parameters.new(params)
                                   .require(:location_step)
-                                  .permit(:project_location, :project_location_zoom_level)
+                                  .permit(
+                                    :project_location,
+                                    :project_location_zoom_level)
+    end
+
+    def empty_project_location?(project_location)
+      project_location.nil? || project_location.to_s.empty?
+    end
+
+    def extra_geo_data(location)
+      PafsCore::MapService.new.get_extra_geo_data(location)
     end
   end
 end

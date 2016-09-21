@@ -128,7 +128,7 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
       # project_end_financial_year = 2022
       # funding_values records run until 2019
       # so expect 3 placeholders to be built for 2020, 2021 and 2022
-      expect { subject.before_view({}) }.to change { subject.coastal_erosion_protection_outcomes.length }.by(6)
+      expect { subject.before_view({}) }.to change { subject.coastal_erosion_protection_outcomes.length }.by(7)
     end
   end
 end

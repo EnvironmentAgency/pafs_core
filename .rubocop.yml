@@ -24,6 +24,7 @@ AllCops:
     # left as is
     - 'spec/spec_helper.rb'
     - 'spec/dummy/**/*'
+    - 'spec/fixtures/vcr_casettes/**/*'
 
 inherit_from:
   - rubocop/gds-ruby-styleguide.yml
@@ -97,3 +98,4 @@ LineLength:
     - 'spec/factories/*.rb'
     - 'spec/features/*_spec.rb'
     - 'spec/routing/**/*_spec.rb'
+    - 'spec/fixtures/*'

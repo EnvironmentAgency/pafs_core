@@ -1,19 +1,22 @@
-<% content_for :page_title, make_page_title("Your proposals") %>
+<% content_for :page_title, make_page_title("Your project proposals") %>
 <div id="dashboard">
-  <h1 class="heading-large">Your proposals</h1>
+  <h1 class="heading-large">Your project proposals</h1>
 
-  <p>Submission deadline for 2018 to 2019 is <span class="bold-small">31 July 2017.</small></p>
+  <p>Submission deadline for 2018 to 2019 funding is <span class="bold-small">31 July 2017.</small></p>
 
   <div>
     <%= link_to t('create_a_new_project_label'), pafs_core.new_bootstrap_path, class: "button" %>
   </div>
 
+  <div class="download-proposals-link">
+    <%= link_to t('download_all_proposals_label'), pafs_core.projects_downloads_path %>
+  </div>
+
   <section>
-    <h2 class="heading-medium">Your proposals</h2>
     <table class="dashboard">
       <thead>
         <tr>
-          <th scope="col">National project number</th>
+          <th scope="col" class="project-number">National project number</th>
           <th scope="col">Project name</th>
           <th scope="col">Risk management authority</th>
           <th scope="col">Last submitted</th>

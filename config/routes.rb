@@ -2,7 +2,12 @@ PafsCore::Engine.routes.draw do
   resources :bootstraps do
     collection do
       post :funding
+      get :spreadsheet
     end
+  end
+
+  namespace :projects do
+    resources :downloads, only: :index
   end
 
   resources :projects do
@@ -18,6 +23,7 @@ PafsCore::Engine.routes.draw do
       get :submit
     end
   end
+
   resources :account_requests
 
   resources :areas, only: [:index, :show] do

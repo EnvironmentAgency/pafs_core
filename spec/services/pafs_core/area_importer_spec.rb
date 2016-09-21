@@ -1,7 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "rails_helper"
-require "pry"
 
 RSpec.describe PafsCore::AreaImporter do
   describe "#import" do

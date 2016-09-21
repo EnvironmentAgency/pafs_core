@@ -72,7 +72,7 @@ module PafsCore
       #   previous years
       #   current financial year to :project_end_financial_year
       years = [-1]
-      years.concat((current_financial_year..project_end_financial_year).to_a)
+      years.concat((2015..project_end_financial_year).to_a)
       years.each { |y| build_missing_year(y) }
     end
 

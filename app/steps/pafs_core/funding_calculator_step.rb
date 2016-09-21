@@ -25,6 +25,7 @@ module PafsCore
             filename = File.basename(uploaded_file.original_filename)
             dest_file = File.join(storage_path, filename)
             storage.upload(uploaded_file.tempfile.path, dest_file)
+            PafsCore::CalculatorParserService.new.parse(uploaded_file, project)
 
             if old_file && old_file != filename
               # aws doesn't raise an error if it cannot find the key when deleting

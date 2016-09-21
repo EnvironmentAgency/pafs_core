@@ -248,6 +248,14 @@ module PafsCore
       "<em>Not provided</em>".html_safe
     end
 
+    def suffix_or_not_provided(v, suffix)
+      if v.present?
+        "#{v}#{suffix}"
+      else
+        not_provided
+      end
+    end
+
     def presentable_date(name)
       m = send("#{name}_month")
       y = send("#{name}_year")

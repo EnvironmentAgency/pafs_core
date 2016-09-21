@@ -460,3 +460,16 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   clear: both;
   margin-top: 1.5em;
 }
+
+.project-downloads {
+  margin-top: 1em;
+  overflow: auto;
+  padding: 0.5em;
+  padding-top: 1.5em;
+}
+
+.projects-download-link {
+  margin-bottom: 4.5em;
+  overflow: auto;
+  padding: 0.5em;
+}
