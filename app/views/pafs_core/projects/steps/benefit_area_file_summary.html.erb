@@ -11,23 +11,22 @@
             <table>
               <thead>
                 <tr>
-                  <th><%= t("filename_title", scope: scope) %></th>
-                  <th><%= t("uploaded_title", scope: scope) %></th>
+                  <th><%= t(".filename_title") %></th>
+                  <th><%= t(".uploaded_title") %></th>
                   <td></td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
-                    <%= link_to t("download_file_html",
-                                  file: @project.benefit_area_file_name,
-                                  scope: scope),
+                    <%= link_to t(".download_file_html",
+                                  file: @project.benefit_area_file_name),
                                   download_benefit_area_file_project_path(@project.to_param),
                                   aria: { describedby: "file-context" } %>
                 </td>
                 <td><%= l @project.benefit_area_file_updated_at %></td>
                 <td>
-                  <%= link_to t("delete_label_html", scope: scope),
+                  <%= link_to t(".delete_label_html"),
                     delete_benefit_area_file_project_path(@project.to_param),
                     aria: { describedby: "file-context" } %>
               </td>

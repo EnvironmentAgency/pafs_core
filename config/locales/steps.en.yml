@@ -139,6 +139,13 @@ en:
             description: Upload an image of a map or a shapefile. Uploads should show a rough outline of properties and habitat that the project protects. You can draw as many separate outlines as you need, but make sure they don't overlap.
             acceptable_file_formats: Acceptable file formats are jpg, png, svg and bmp. Compressed folders (such as zip or rar) that include shapefiles are acceptable too.
             draw_outline_instead: I would like to draw an outline on a map instead
+# benefit area file summary
+        benefit_area_file_summary:
+          heading: Review your upload
+          filename_title: File
+          uploaded_title: Uploaded
+          download_file_html: "<span class='visually-hidden'>Download your benefit area file named </span>%{file}"
+          delete_label_html: "Delete<span class='visually-hidden'> your uploaded benefit area file</span>"
 # risks
         risks:
           heading: What risks will the project protect against?

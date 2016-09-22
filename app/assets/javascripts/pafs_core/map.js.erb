@@ -3,7 +3,6 @@ var osMap;
 var key = "<%= ENV["OS_MAPPING_API_KEY"] %>";
 var polygonLayer;
 var markerLayer;
-var countyLayer;
 var select;
 
 function initMap() {
@@ -44,26 +43,6 @@ function loadOSMap()
         color: '0b0c0c',
         width: 6
       }),
-    })
-  });
-
-  countyLayer = new ol.layer.Image({
-    source: new ol.source.ImageVector({
-      source: new ol.source.Vector({
-        url: "<%= asset_path 'pafs_core/counties.geojson' %>",
-        format: new ol.format.GeoJSON({
-          defaultDataProjection: epsg27700Projection
-        })
-      }),
-      style: new ol.style.Style({
-        fill: new ol.style.Fill({
-          color: 'rgba(255, 255, 255, 0)'
-        }),
-        stroke: new ol.style.Stroke({
-          color: '#319FD3',
-          width: 3
-        })
-      })
     })
   });
 
@@ -147,7 +126,6 @@ function loadOSMap()
     })
   });
 
-  //osMap.addLayer(countyLayer);
   osMap.addLayer(polygonLayer);
   osMap.addLayer(markerLayer);
 

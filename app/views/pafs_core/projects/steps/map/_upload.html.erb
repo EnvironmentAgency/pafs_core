@@ -1,15 +1,23 @@
 <h1 class="heading-large"><%= t('.heading') %></h1>
 <p><%= t(".description") %></p>
 <p><%= t(".acceptable_file_formats") %></p>
+<div class="form-group">
 <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step), html: { multipart: true } do |f| %>
   <%= f.form_group(:base) do %>
     <%= f.error_message(:base) %>
     <%= f.file_field :benefit_area_file, aria: { labelledby: "file-upload" } %>
   <% end %>
-  <% if params[:js_enabled] == "1" %>
-    <div class="form-group">
-      <%= link_to t(".draw_outline_instead"), project_step_path(id: @project.to_param, step: @project.step) %>
-    </div>
-  <% end %>
+  <div class="hidden form-group">
+    <%= link_to t(".draw_outline_instead"), project_step_path(id: @project.to_param, step: @project.step) %>
+  </div>
   <%= f.submit t("save_and_continue_label"), class: 'button' %>
 <% end %>
+</div>
+<details>
+  <summary><span class="summary">If you need someone to do this for you</span></summary>
+  <div class="panel panel-border-narrow">
+    <p>
+      You can contact your local partnership and strategic overview officer and they can help you to submit a drawing to show what the project protects.
+    </p>
+  </div>
+</details>
