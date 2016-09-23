@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/kennyevil/cumberland
-  revision: 8d8a0f43f27ebceef1a8b87cd4213c7fbb06a476
+  revision: b3b7d7b9e93094041f2fcfee7c2c35db544ad123
   specs:
     cumberland (0.0.1)
       ffi-proj4 (~> 0.2)
@@ -101,7 +101,7 @@ GEM
     factory_girl_rails (4.7.0)
       factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
-    ffi (1.9.10)
+    ffi (1.9.14)
     ffi-proj4 (0.2.0)
       ffi (>= 1.0.0)
     formatador (0.2.5)

@@ -19,7 +19,7 @@ module PafsCore
 
     #validate :presence_of_file_or_area
 
-    def update
+    def update(params)
       true
     end
   end

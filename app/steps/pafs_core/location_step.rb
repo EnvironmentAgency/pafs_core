@@ -6,6 +6,7 @@ module PafsCore
              :region, :region=,
              :county, :county=,
              :parliamentary_constituency, :parliamentary_constituency=,
+             :benefit_area_file_name,
              to: :project
 
     attr_reader :results

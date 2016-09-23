@@ -54,10 +54,6 @@ module PafsCore
     #  valid? && (benefit_area? || benefit_area_file_name?)
     #end
 
-    def disabled?
-      !project_location?
-    end
-
     def download
       if benefit_area_file_name.present?
         t = Tempfile.new

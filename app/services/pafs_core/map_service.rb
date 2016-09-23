@@ -6,7 +6,7 @@ module PafsCore
   class MapService
     def find(string, project_location)
       string = project_location.join(",") if string.blank?
-      Cumberland.get_location(string)
+      Cumberland.get_location(string)[0..19]
     end
 
     def get_extra_geo_data(coordinates)
