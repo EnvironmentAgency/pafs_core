@@ -24,7 +24,7 @@ group :test do
   gem "codeclimate-test-reporter", require: false
 end
 
-gem 'cumberland', git: 'https://github.com/kennyevil/cumberland'
+gem 'cumberland', git: 'https://github.com/EnvironmentAgency/cumberland'
 gem 'rack-cors'
 gem 'axlsx', "~> 2.1.0.pre"
 gem 'axlsx_rails'

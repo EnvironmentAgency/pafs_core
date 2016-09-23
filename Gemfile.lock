@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/kennyevil/cumberland
+  remote: https://github.com/EnvironmentAgency/cumberland
   revision: aca83db766a65a84c22bd9ef8a8abe3e2555a39f
   specs:
     cumberland (0.0.1)

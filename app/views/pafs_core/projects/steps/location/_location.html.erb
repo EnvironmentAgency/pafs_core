@@ -5,7 +5,7 @@
     <div class="form-group">
       <% result = results.first %>
       <li>
-        <%= f.radio_button :project_location, result, label: search_result_label(params[:q], result) %>
+        <%= f.radio_button :project_location, result, label: search_result_label(params[:address], result) %>
       </li>
     </div>
     <div class="form-group">
