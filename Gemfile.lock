@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/kennyevil/cumberland
-  revision: 591f549c0694f89a6decee5a13d79a2dc957e7ce
+  revision: aca83db766a65a84c22bd9ef8a8abe3e2555a39f
   specs:
     cumberland (0.0.1)
       ffi-proj4 (~> 0.2)
