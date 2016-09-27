@@ -32,11 +32,15 @@ module PafsCore
     end
 
     def before_view(params)
-      @results = PafsCore::MapService.new
-                                     .find(
-                                       params[:q],
-                                       project_location || []
-                                     )
+      if params.fetch(:q, false) || project_location.present?
+        @results = PafsCore::MapService.new
+                                       .find(
+                                         params[:q],
+                                         project_location || []
+                                       )
+      else
+        @results = []
+      end
     end
 
   private
