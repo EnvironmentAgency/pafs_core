@@ -43,6 +43,14 @@ module PafsCore
       end
     end
 
+    def marker
+      if project_location.empty?
+        [@results.first[:eastings], @results.first[:northings]]
+      else
+        project_location
+      end
+    end
+
   private
     def step_params(params)
       ActionController::Parameters.new(params)

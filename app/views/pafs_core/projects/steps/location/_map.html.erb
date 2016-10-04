@@ -10,7 +10,7 @@
       data-northings=<%= map_centre[:northings] %>
       data-zoomlevel=<%= @project.project_location_zoom_level %>
       data-polygons= <%= JSON.parse(@project.benefit_area).to_json %>
-      data-marker=<%= @project.project_location.to_json %>>
+      data-marker=<%= @project.marker.to_json %>>
     </div>
   </div>
 </div>

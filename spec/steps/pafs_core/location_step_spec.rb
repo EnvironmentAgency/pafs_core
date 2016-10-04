@@ -13,7 +13,7 @@ RSpec.describe PafsCore::LocationStep, type: :model do
     subject { FactoryGirl.create(:location_step) }
 
     context "with a defined benefit_area" do
-      it "should resturn the benefit_area" do
+      it "should return the benefit_area" do
         subject.project.benefit_area = "[[[457736,221754]]]"
         subject.project.save
 
