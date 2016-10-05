@@ -25,6 +25,14 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesSummaryStep, type: :mod
     end
   end
 
+  describe "#update" do
+    subject { PafsCore::CoastalErosionProtectionOutcomesSummaryStep.new @project }
+
+    it "should return true" do
+      expect(subject.update({})).to eq true
+    end
+  end
+
   describe "#total_for" do
     subject { PafsCore::CoastalErosionProtectionOutcomesSummaryStep.new @project }
 
