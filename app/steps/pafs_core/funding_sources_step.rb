@@ -35,18 +35,6 @@ module PafsCore
         :not_yet_identified)
     end
 
-    def next_step
-      if public_contributions?
-        :public_contributors
-      elsif private_contributions?
-        :private_contributors
-      elsif other_ea_contributions?
-        :other_ea_contributors
-      else
-        :funding_values
-      end
-    end
-
     def at_least_one_funding_source_is_selected
       errors.add(:base, "The project must have at least one funding source.") unless
         [fcerm_gia,

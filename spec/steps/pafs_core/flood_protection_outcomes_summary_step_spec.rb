@@ -25,6 +25,14 @@ RSpec.describe PafsCore::FloodProtectionOutcomesSummaryStep, type: :model do
     end
   end
 
+  describe "#update" do
+    subject { PafsCore::FloodProtectionOutcomesSummaryStep.new @project }
+
+    it "should return true" do
+      expect(subject.update({})).to eq true
+    end
+  end
+
   describe "#total_fpo_for" do
     subject { PafsCore::FloodProtectionOutcomesSummaryStep.new @project }
 
