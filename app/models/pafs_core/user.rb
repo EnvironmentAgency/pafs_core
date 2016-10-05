@@ -10,6 +10,11 @@ module PafsCore
 
     has_many :projects, foreign_key: "creator_id"
 
+    def self.expired_invite
+      where(invitation_accepted_at: nil).
+        where(arel_table[:invitation_created_at].lt(30.days.ago))
+    end
+
     def full_name
       "#{first_name} #{last_name}"
     end

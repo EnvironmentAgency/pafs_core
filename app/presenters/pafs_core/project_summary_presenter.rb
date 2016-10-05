@@ -124,7 +124,7 @@ module PafsCore
     end
 
     def improve_river_size
-      return km(0) unless improve_river.nil? || improve_river?
+      return km(0) unless (improves_habitat? && improve_river.nil?) || improve_river?
       km(improve_river_amount)
     end
 
