@@ -41,6 +41,6 @@ http_interactions:
         East","primary_care_trust":"Oxfordshire","region":"South East","lsoa":"Cherwell
         015D","msoa":"Cherwell 015","incode":"1AN","outcode":"OX26","distance":161.822941285,"admin_district":"Cherwell","parish":"Bicester","admin_county":"Oxfordshire","admin_ward":"Bicester
         South and Ambrosden","ccg":"NHS Oxfordshire","nuts":null,"codes":{"admin_district":"E07000177","admin_county":"E10000025","admin_ward":"E05010927","parish":"E04012365","ccg":"E38000136","nuts":null}}]}'
-    http_version: 
+    http_version:
   recorded_at: Wed, 05 Oct 2016 10:31:01 GMT
 recorded_with: VCR 3.0.3
