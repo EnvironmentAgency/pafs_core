@@ -6,6 +6,7 @@
   <%= f.form_group(:base) do %>
     <%= f.error_message(:base) %>
     <%= f.file_field :benefit_area_file, aria: { labelledby: "file-upload" } %>
+    <%= f.hidden_field :id %>
   <% end %>
   <div class="hidden form-group">
     <%= link_to t(".draw_outline_instead"), project_step_path(id: @project.to_param, step: @project.step) %>

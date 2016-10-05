@@ -38,6 +38,13 @@ module PafsCore
                                          params[:q],
                                          project_location || []
                                        )
+
+        if results.empty? && !params[:q].empty?
+          errors.add(:base, "There are no results that match the location you specified")
+        end
+
+        errors.add(:base, "Tell us the location of the project") if results.empty? && params[:q].empty?
+
       else
         @results = []
       end

@@ -17,7 +17,7 @@ module PafsCore
     attr_reader :benefit_area_file, :map_centre
     attr_accessor :virus_info
 
-    validate :presence_of_file_or_area, :virus_free_benefit_area_file_present
+    validate :virus_free_benefit_area_file_present, :presence_of_file
 
     def benefit_area
       project.benefit_area ||= "[[[]]]"
@@ -86,8 +86,8 @@ module PafsCore
 
     private
 
-    def presence_of_file_or_area
-      errors.add(:base, "please draw an area of protection") if benefit_area.nil? || benefit_area == ""
+    def presence_of_file
+      errors.add(:base, "Upload a file that outlines the area of protection") if benefit_area_file_name.nil?
     end
 
     def upload_benefit_area_file(uploaded_file)
@@ -136,7 +136,7 @@ module PafsCore
           Rails.logger.error virus_info
           errors.add(:base, "The file was rejected because it may contain a virus. Verify your file and try again")
         elsif benefit_area_file_name.blank?
-          errors.add(:base, "Select your benefit area file")
+          errors.add(:base, "Upload a file that outlines the area of protection")
         end
       end
     end

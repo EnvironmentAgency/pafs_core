@@ -1,8 +1,11 @@
-<%= form_tag('', method: 'get') do %>
+<%= pafs_form_for @project, url: project_step_path(id: @project.to_param, step: @project.step), method: :get do |f| %>
   <div class="form-group">
     <h1 class="heading-large"><%= t('.heading') %></h1>
     <p class="form-hint"><%= t('.example_text') %></p>
-    <%= text_field_tag :q, params[:q], label: nil , class: "form-control"%>
+    <%= f.form_group(:base) do %>
+      <%= f.error_message(:base) %>
+      <%= text_field_tag :q, params[:q], label: nil , class: "form-control"%>
+    <% end %>
   </div>
   <div class="form-group">
     <%= submit_tag t('.search_label'), class: "button" %>
