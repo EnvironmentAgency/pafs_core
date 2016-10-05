@@ -124,7 +124,7 @@ module PafsCore
     end
 
     def improve_river_size
-      return km(0) unless improve_river.nil? || improve_river?
+      return km(0) unless (improves_habitat? && improve_river.nil?) || improve_river?
       km(improve_river_amount)
     end
 
@@ -248,19 +248,10 @@ module PafsCore
       "<em>Not provided</em>".html_safe
     end
 
-    def suffix_or_not_provided(v, suffix)
-      if v.present?
-        "#{v}#{suffix}"
-      else
-        not_provided
-      end
-    end
-
     def presentable_date(name)
       m = send("#{name}_month")
       y = send("#{name}_year")
-      # FIXME: can we do better than 'not set'?
-      return "not set" if m.nil? || y.nil?
+      return not_provided if m.nil? || y.nil?
       Date.new(y, m, 1).strftime("%B %Y") # Month-name Year
     end
   end

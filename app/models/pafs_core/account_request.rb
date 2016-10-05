@@ -25,6 +25,10 @@ module PafsCore
     before_validation :downcase_email
     before_create :generate_slug
 
+    def self.expired
+      where(arel_table[:updated_at].lt(30.days.ago))
+    end
+
     def to_param
       slug
     end

@@ -50,8 +50,8 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
     end
 
     context "when the month and year are not set" do
-      it "returns the string 'not set'" do
-        expect(subject.start_outline_business_case_date).to eq "not set"
+      it "returns the html string '<em>Not provided</em>'" do
+        expect(subject.start_outline_business_case_date).to eq "<em>Not provided</em>"
       end
     end
   end
@@ -66,8 +66,8 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
     end
 
     context "when the month and year are not set" do
-      it "returns the string 'not set'" do
-        expect(subject.award_contract_date).to eq "not set"
+      it "returns the html string '<em>Not provided</em>'" do
+        expect(subject.award_contract_date).to eq "<em>Not provided</em>"
       end
     end
   end
@@ -82,8 +82,8 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
     end
 
     context "when the month and year are not set" do
-      it "returns the string 'not set'" do
-        expect(subject.start_construction_date).to eq "not set"
+      it "returns the html string '<em>Not provided</em>'" do
+        expect(subject.start_construction_date).to eq "<em>Not provided</em>"
       end
     end
   end
@@ -98,8 +98,8 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
     end
 
     context "when the month and year are not set" do
-      it "returns the string 'not set'" do
-        expect(subject.ready_for_service_date).to eq "not set"
+      it "returns the html string '<em>Not provided</em>'" do
+        expect(subject.ready_for_service_date).to eq "<em>Not provided</em>"
       end
     end
   end
@@ -114,8 +114,8 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
     end
 
     context "when the month and year are not set" do
-      it "returns the string 'not set'" do
-        expect(subject.earliest_start_date).to eq "not set"
+      it "returns the html string '<em>Not provided</em>'" do
+        expect(subject.earliest_start_date).to eq "<em>Not provided</em>"
       end
     end
   end
