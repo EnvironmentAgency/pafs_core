@@ -77,7 +77,8 @@ module PafsCore
         GROUP BY pid) as cepo
       ON p.id = cepo.pid
       WHERE p.id IN (#{project_ids(projects)})
-      AND ap.owner = true"
+      AND ap.owner = true
+      ORDER BY p.updated_at DESC"
 
       records = ActiveRecord::Base.connection.execute(sql).to_a
     end
@@ -104,13 +105,13 @@ module PafsCore
       processed_record.merge!(add_lead_rma(record))
       processed_record.merge!(process_geo_data(record))
       processed_record.merge!(process_funding_totals(record))
-      processed_record.merge!(process_households_totals(record))
+      processed_record.merge!(process_households_totals(record)) if protects_households?(record)
       processed_record.merge!(process_funding_six_year_totals(record))
       processed_record[:households_six_year_total] = process_households_six_year_totals(record)
       processed_record.merge!(year_by_year_breakdowns(record))
-      processed_record.merge!(households_year_by_year_breakdowns(record))
+      processed_record.merge!(households_year_by_year_breakdowns(record)) if protects_households?(record)
       processed_record.merge!(process_future_funding_totals(record))
-      processed_record.merge!(process_future_household_totals(record))
+      processed_record.merge!(process_future_household_totals(record)) if protects_households?(record)
       processed_record.merge!(process_dates(record))
       processed_record.merge!(process_binary_values(record))
       processed_record.merge!(process_extraneous_columns)
@@ -127,24 +128,26 @@ module PafsCore
         parliamentary_constituency
         improve_surface_or_groundwater_amount
         create_habitat
-        public_contributor_names
-        private_contributor_names
-        other_ea_contributor_names
       )
+
+      %w(public private other_ea).each do |contributor|
+        keys << "#{contributor}_contributor_names" if record["#{contributor}_contributions"] == "t"
+      end
 
       risk_urgency_keys = %w(urgency_reason main_risk)
 
       numerical_keys = %w(
         raw_partnership_funding_score
         adjusted_partnership_funding_score
-        fish_or_eel_amount
-        create_habitat_amount
-        improve_river_amount
-        improve_habitat_amount
         hectares_of_net_water_intertidal_habitat_created
         hectares_of_net_water_dependent_habitat_created
         kilometres_of_protected_river_improved
       )
+
+      numerical_keys << "fish_or_eel_amount" if remove_fish_or_eel_barrier?(record)
+      numerical_keys << "improve_river_amount" if improve_river?(record)
+      numerical_keys << "create_habitat_amount" if create_habitat?(record)
+      numerical_keys << "improve_habitat_amount" if improve_habitat?(record)
 
       extracted_data = {}
 
@@ -179,19 +182,31 @@ module PafsCore
 
     def process_binary_values(record)
       binary_hash = {}
-      binary_hash[:remove_fish_or_eel_barrier] = remove_fish_or_eel_barrier?(record)
-      binary_hash[:improve_sac_or_sssi] = improve_sac_or_sssi?(record)
+      binary_hash[:remove_fish_or_eel_barrier] = process_binary_value(remove_fish_or_eel_barrier?(record))
+      binary_hash[:improve_sssi_spa_or_sac] = improve_sac_or_sssi?(record)
       binary_hash[:strategic_approach] = strategic_approach?(record)
 
       binary_hash
     end
 
     def remove_fish_or_eel_barrier?(record)
-      process_binary_value(record["remove_eel_barrier"] == "t" || record["remove_fish_barrier"] == "t")
+      record["remove_eel_barrier"] == "t" || record["remove_fish_barrier"] == "t"
     end
 
     def improve_sac_or_sssi?(record)
       process_binary_value(record["improve_sssi"] == "t" || record["improve_spa_or_sac"] == "t")
+    end
+
+    def create_habitat?(record)
+      record["create_habitat"] == "t"
+    end
+
+    def improve_habitat?(record)
+      record["improve_habitat"] == "t"
+    end
+
+    def improve_river?(record)
+      record["improve_river"] == "t"
     end
 
     def strategic_approach?(record)
@@ -224,8 +239,8 @@ module PafsCore
       protection = {}
       cpa = 999
       cpb = 999
-      cpb = record["coastal_protection_before"].to_i
-      cpa = record["coastal_protection_after"].to_i
+      cpb = record["coastal_protection_before"].to_i unless record["coastal_protection_before"].nil?
+      cpa = record["coastal_protection_after"].to_i unless record["coastal_protection_after"].nil?
       protection[:coastal_protection_before] = coastal_erosion_before_options.fetch(cpb, nil)
       protection[:coastal_protection_after] = coastal_erosion_after_options.fetch(cpa, nil)
 
@@ -253,6 +268,32 @@ module PafsCore
       coastal = false
       coastal_types.each { |c| coastal = true if record[c] == "t"}
       coastal
+    end
+
+    def flooding?(record)
+      flooding_types = %w(tidal_flooding groundwater_flooding surface_water_flooding)
+      flooding = false
+      flooding_types.each { |f| flooding = true if record[f] == "t" }
+      flooding
+    end
+
+    def funding_keys(record)
+      funding_keys = %w(total)
+      funding_keys << "gia" if record["fcerm_gia"] == "t"
+      funding_keys << "levy" if record["local_levy"] == "t"
+      funding_keys << "idb" if record["internal_drainage_boards"] == "t"
+      funding_keys << "growth" if record["growth_funding"] == "t"
+      funding_keys << "nyi" if record["not_yet_identified"] == "t"
+
+      funding_keys
+    end
+
+    def protects_households?(record)
+      !(
+        record["project_type"] == "ENV_WITHOUT_HOUSEHOLDS" ||
+        record["project_type"].nil? ||
+        record["project_type"].empty?
+      )
     end
 
     def get_pso_area(record)
@@ -288,7 +329,7 @@ module PafsCore
 
     def process_funding_totals(record)
       totals_hash = {}
-      funding_sources = %w(gia levy idb public private ea growth nyi total)
+      funding_sources = funding_keys(record)
       funding_sources.each do |fs|
         total = nil
         total = process_total(record["#{fs}_list"]) if record["#{fs}_list"].present?
@@ -300,14 +341,10 @@ module PafsCore
     end
 
     def process_households_totals(record)
-      keys = %w(
-        flood_households
-        flood_households_moved
-        flood_most_deprived
-        coastal_households
-        coastal_households_protected
-        coastal_most_deprived
-      )
+      keys = []
+
+      keys.concat %w(flood_households flood_households_moved flood_most_deprived) if flooding?(record)
+      keys.concat %w(coastal_households coastal_households_protected coastal_most_deprived) if coastal?(record)
 
       totals_hash = {}
 
@@ -338,7 +375,9 @@ module PafsCore
         totals_hash[symbol] = total
       end
 
-      other_funding_sources = %w(public private ea)
+      other_funding_sources = funding_keys(record)
+      unneeded_funding_sources = %w(gia total idb nyi levy)
+      unneeded_funding_sources.each { |ufs| other_funding_sources.delete(ufs) }
 
       combined_total = 0
       other_funding_sources.each do |ofs|
@@ -354,10 +393,9 @@ module PafsCore
     end
 
     def process_households_six_year_totals(record)
-      keys = %w(
-        flood_households
-        coastal_households
-      )
+      keys = []
+      keys << "flood_households" if flooding?(record)
+      keys << "coastal_households" if coastal?(record)
 
       total = 0
 
@@ -373,12 +411,14 @@ module PafsCore
       array = JSON.parse(array)
       total = 0
       array.each { |e| total += e["f2"].to_i if e["f1"].to_i < 2021 }
+
+      total = nil if total.zero?
       total
     end
 
     def year_by_year_breakdowns(record)
       breakdowns = {}
-      funding_sources = %w(gia levy idb public private ea growth nyi total)
+      funding_sources = funding_keys(record)
 
       funding_sources.each do |fs|
         if record["#{fs}_list"].present?
@@ -416,14 +456,32 @@ module PafsCore
       breakdown = {}
       array = JSON.parse(array)
       previous_years = array.select { |e| e["f1"] == -1 }
-      breakdown["#{type}_previous_years".to_sym] = previous_years.first["f2"]
 
-      (2015..2027).each do |year|
+      amount = if previous_years.first["f2"].nil? || previous_years.first["f2"].zero?
+                 nil
+               else
+                 previous_years.first["f2"]
+               end
+
+      breakdown["#{type}_previous_years".to_sym] = amount
+
+      (2015..2026).each do |year|
         sym = "#{type}_#{year}".to_sym
         breakdown[sym] = nil
         year_amount = array.select { |e| e["f1"].to_i == year }
         breakdown[sym] = year_amount.first["f2"] if !year_amount.empty?
       end
+
+      future_total = 0
+      (2027..2100).each do |year|
+        year_amount = array.select { |e| e["f1"].to_i == year }
+        future_total += year_amount.first["f2"] if !year_amount.empty?
+      end
+
+      future_total = nil if future_total.zero?
+
+      future_sym = "#{type}_2027".to_sym
+      breakdown[future_sym] = future_total
 
       breakdown
     end
@@ -441,7 +499,9 @@ module PafsCore
         end
       end
 
-      other_funding_sources = %w(public private ea)
+      other_funding_sources = funding_keys(record)
+      unneeded_funding_sources = %w(gia total idb nyi levy)
+      unneeded_funding_sources.each { |ufs| other_funding_sources.delete(ufs) }
 
       combined_total = 0
       other_funding_sources.each do |ofs|
@@ -470,16 +530,16 @@ module PafsCore
     end
 
     def process_future_totals(array)
-      breakdown = {}
       array = JSON.parse(array)
 
       total = 0
-      (NEXT_FINANCIAL_YEAR..2021).each do |year|
+      (NEXT_FINANCIAL_YEAR..2020).each do |year|
         year_amount = array.select { |e| e["f1"].to_i == year }
         total += year_amount.first["f2"].to_i if !year_amount.empty?
       end
 
       total = nil if total.zero?
+      total
     end
 
     def process_dates(record)
@@ -921,7 +981,15 @@ module PafsCore
           ws.add_row(fourth_row, height: 80, style: fourth_row_styles(ws))
           ws.add_row(fifth_row, height: 30, style: fifth_row_styles(ws))
 
-          default_cell_style = {border: { style: :thin, color: "66000000"}}
+          default_cell_style = {
+            border: {
+              style: :thin,
+              color: "66000000"
+            },
+            alignment: {
+              wrap_text: true
+            }
+          }
           standard_cell = ws.styles.add_style(default_cell_style)
           date_cell = ws.styles.add_style(default_cell_style.merge(format_code: "dd/mm/yyyy"))
           percentage_cell = ws.styles.add_style(default_cell_style.merge(num_fmt: Axlsx::NUM_FMT_PERCENT))

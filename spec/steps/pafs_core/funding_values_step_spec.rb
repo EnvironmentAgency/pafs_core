@@ -133,8 +133,8 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
     it "builds funding_value records for any missing years" do
       # project_end_financial_year = 2022
       # funding_values records run until 2019
-      # so expect 3 placeholders to be built for 2020, 2021 and 2022
-      expect { subject.before_view({}) }.to change { subject.funding_values.length }.by(3)
+      # so expect 4 placeholders to be built for 2015, 2020, 2021 and 2022
+      expect { subject.before_view({}) }.to change { subject.funding_values.length }.by(4)
     end
   end
 end
