@@ -30,7 +30,6 @@ module PafsCore
     end
 
     def self.generate_reference_number(rfcc_code)
-      raise ArgumentError.new("Invalid RFCC code: [#{rfcc_code}]") unless PafsCore::RFCC_CODES.include? rfcc_code
       sequence_nos = PafsCore::ReferenceCounter.next_sequence_for(rfcc_code)
       "#{rfcc_code}C501E/%03dA/%03dA" % sequence_nos
     end
@@ -39,6 +38,7 @@ module PafsCore
       #FIXME: just returning all projects while we're scaffolding
       areas = area_ids_for_user(user)
       PafsCore::Project.
+        includes(:area_projects, :areas).
         joins(:area_projects).
         merge(PafsCore::AreaProject.where(area_id: areas)).
         order(updated_at: :desc)

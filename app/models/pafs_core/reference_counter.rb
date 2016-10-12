@@ -6,8 +6,8 @@ module PafsCore
       raise ArgumentError.new("Invalid RFCC code") unless RFCC_CODES.include? rfcc_code
       counters = []
       # look up the counters for the rfcc_code
-      ReferenceCounter.transaction do
-        rc = ReferenceCounter.find_by!(rfcc_code: rfcc_code)
+      rc = ReferenceCounter.find_by!(rfcc_code: rfcc_code)
+      rc.with_lock do
         if rc.low_counter == 999
           rc.high_counter += 1
           rc.low_counter = 1
@@ -16,7 +16,7 @@ module PafsCore
         end
         counters << rc.high_counter
         counters << rc.low_counter
-        rc.save
+        rc.save!
       end
 
       counters
