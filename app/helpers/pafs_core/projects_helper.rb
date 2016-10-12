@@ -115,6 +115,10 @@ module PafsCore
       end
     end
 
+    def file_extension(file_name)
+      file_name.split(".").last.upcase
+    end
+
     # def key_date_field(f, attr)
     #   # expecting attr to end with either '_month' or '_year'
     #   date_type = attr.to_s.split("_").last

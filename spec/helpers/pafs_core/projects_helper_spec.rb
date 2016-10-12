@@ -77,5 +77,13 @@ module PafsCore
         expect(helper.search_result_label(search_string, result)).to eq "The search"
       end
     end
+
+    describe "#file_extension" do
+      let(:file_name) { "filename.ext" }
+
+      it "should return the correct file extension in upper case" do
+        expect(helper.file_extension(file_name)).to eq "EXT"
+      end
+    end
   end
 end

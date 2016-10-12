@@ -253,49 +253,9 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 }
 
 .summary-heading {
-  margin-top: 1.5em;
-
-  dl {
-    margin-bottom: 0.5em;
-
-    dd {
-
-      @include media(desktop) {
-        @include bold-19;
-      }
-
-      @include media(tablet) {
-        @include bold-16;
-      }
-
-      @include media(mobile) {
-        @include bold-14;
-      }
-    }
-
-    dt {
-
-      @include media(desktop) {
-        @include core-19;
-      }
-
-      @include media(tablet) {
-        @include core-16;
-      }
-
-      @include media(mobile) {
-        @include core-14;
-      }
-    }
-  }
-
-  li {
-    text-align: right;
-
-    @include media(mobile) {
-      text-align: left;
-    }
-  }
+  border-bottom: 3px solid $black;
+  margin-bottom: 1em;
+  margin-top: 0.125em;
 }
 
 .summary-item {
@@ -472,4 +432,13 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   margin-bottom: 4.5em;
   overflow: auto;
   padding: 0.5em;
+}
+
+.project-documents-download-link {
+  margin-top: 3.75em;
+  text-align: right;
+
+  @include media(mobile) {
+    text-align: left;
+  }
 }
