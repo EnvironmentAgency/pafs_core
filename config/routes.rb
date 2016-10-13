@@ -15,6 +15,7 @@ PafsCore::Engine.routes.draw do
       get :pipeline
     end
     member do
+      resources :downloads, only: :index
       # get :reference_number
       get :download_funding_calculator
       get :delete_funding_calculator
