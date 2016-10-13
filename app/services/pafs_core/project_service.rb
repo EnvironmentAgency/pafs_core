@@ -14,8 +14,8 @@ module PafsCore
     end
 
     def create_project(attrs = {})
-      p = PafsCore::Project.create(initial_attributes.merge(attrs))
-      p.area_projects.create(area_id: user.primary_area.id, owner: true)
+      p = PafsCore::Project.create!(initial_attributes.merge(attrs))
+      p.area_projects.create!(area_id: user.primary_area.id, owner: true)
       p
     end
 
