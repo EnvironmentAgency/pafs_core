@@ -74,13 +74,21 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
     img {
       background-color: $white;
       box-shadow: 0 2px 2px $icon-shadow-colour;
-      height: 93px; //140px
       outline: 5px solid $icon-outline-colour;
-      width: 66px; //99px
 
       @include media(mobile) {
         height: 70px;
         width: 49px;
+      }
+
+      @include media(tablet) {
+        height: 93px;
+        width: 66px;
+      }
+
+      @include media(desktop) {
+        height: 140px;
+        width: 99px;
       }
     }
   }
@@ -429,9 +437,9 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 }
 
 .projects-download-link {
-  margin-bottom: 4.5em;
+  margin-bottom: 1em;
   overflow: auto;
-  padding: 0.5em;
+  padding: 0 0.5em 0.5em 0.5em;
 }
 
 .project-documents-download-link {

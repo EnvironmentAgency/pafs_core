@@ -15,12 +15,21 @@ PafsCore::Engine.routes.draw do
       get :pipeline
     end
     member do
-      resources :downloads, only: :index
+      resources :downloads, only: :index do
+        collection do
+          get :proposal
+          get :benefit_area
+          get :funding_calculator
+          get :moderation
+          get :delete_funding_calculator
+          get :delete_benefit_area
+        end
+      end
       # get :reference_number
-      get :download_funding_calculator
-      get :delete_funding_calculator
-      get :download_benefit_area_file
-      get :delete_benefit_area_file
+      # get :download_funding_calculator
+      # get :delete_funding_calculator
+      # get :download_benefit_area_file
+      # get :delete_benefit_area_file
       get :submit
     end
   end

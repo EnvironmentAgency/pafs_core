@@ -51,6 +51,19 @@ module PafsCore
       area_type == AREA_TYPES[3]
     end
 
+    def ea_parent
+      return self if ea_area?
+      if ea_area?
+        return self
+      elsif pso_area?
+        return parent
+      elsif rma_area?
+        return parent.parent
+      else
+        raise "Cannot find ea parent for #{name}"
+      end
+    end
+
     def parentage
       if !country? && parent_id.blank?
         errors.add(:parent_id, "can't be blank")

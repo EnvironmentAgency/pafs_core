@@ -1,7 +1,6 @@
-<% #content_for :page_title, make_page_title("Download all projects") %>
+<% content_for :page_title, make_page_title("Download proposal documents") %>
 
-<h1 class="heading-large">Download project proposal</h1>
-
+<h1 class="heading-large">Download proposal documents</h1>
 <div class="grid-row">
   <div class="column-third">
     <h1 class="heading-medium">All downloads</h1>
@@ -10,16 +9,16 @@
     <section class="projects-download-link">
       <div class="attachment">
         <div class="attachment-thumb">
-          <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.downloads_path(@project, format: :xlsx), class: "thumbnail" %>
+          <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.proposal_downloads_path(@project, format: :xlsx), class: "thumbnail" %>
         </div>
         <div class="attachment-details">
-          <%= link_to "Proposal (Excel document)", pafs_core.downloads_path(@project, format: :xlsx), class: "font-medium" %>
+          <%= link_to "Proposal (Excel document)", pafs_core.proposal_downloads_path(@project, format: :xlsx), class: "font-medium" %>
           <p class="font-xsmall">MS Excel Spreadsheet</p>
           <p class="font-xsmall">
             This is formatted in the same way as the old spreadsheet, for convenience.
           </p>
           <p class="font-xsmall">
-            Also available as <%= link_to "Comma Separated Values file", pafs_core.downloads_path(@project, format: :csv) %>
+            Also available as <%= link_to "Comma Separated Values file", pafs_core.proposal_downloads_path(@project, format: :csv) %>
           </p>
         </div>
       </div>
@@ -28,10 +27,10 @@
       <section class="projects-download-link">
         <div class="attachment">
           <div class="attachment-thumb">
-            <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.download_benefit_area_file_project_path(@project), class: "thumbnail" %>
+            <%= link_to image_tag("pafs_core/pub-cover-shapefile.png"), pafs_core.benefit_area_downloads_path(@project), class: "thumbnail" %>
           </div>
           <div class="attachment-details">
-            <%= link_to "Project benefit area file (#{file_extension(@project.benefit_area_file_name)} file)", pafs_core.download_benefit_area_file_project_path(@project), class: "font-medium" %>
+            <%= link_to "Project benefit area file (#{file_extension(@project.benefit_area_file_name)} file)", pafs_core.benefit_area_downloads_path(@project), class: "font-medium" %>
             <p class="font-xsmall">
               <%= file_extension @project.benefit_area_file_name %> file, <%= (@project.benefit_area_file_size/1000).round %> KB
             </p>
@@ -43,15 +42,31 @@
       <section class="projects-download-link">
         <div class="attachment">
           <div class="attachment-thumb">
-            <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.download_funding_calculator_project_path(@project), class: "thumbnail" %>
+            <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.funding_calculator_downloads_path(@project), class: "thumbnail" %>
           </div>
           <div class="attachment-details">
-            <%= link_to "Project Funding calculator (Excel document)", pafs_core.download_funding_calculator_project_path(@project), class: "font-medium" %>
+            <%= link_to "Project Funding calculator (Excel document)", pafs_core.funding_calculator_downloads_path(@project), class: "font-medium" %>
             <p class="font-xsmall">
               MS Excel Spreadsheet, <%= (@project.funding_calculator_file_size/1000).round %> KB
             </p>
             <p class="font-xsmall">
               Uploaded <%= @project.funding_calculator_updated_at.strftime("%d %B %Y") %>
+            </p>
+          </div>
+        </div>
+      </section>
+    <% end %>
+    <% if @project.urgent? %>
+      <section class="projects-download-link">
+        <div class="attachment">
+          <div class="attachment-thumb">
+            <%= link_to image_tag("pafs_core/pub-cover-doc.png"), pafs_core.moderation_downloads_path(@project), class: "thumbnail" %>
+          </div>
+          <div class="attachment-details">
+            <%= link_to "Urgency moderation evidence", pafs_core.moderation_downloads_path(@project), class: "font-medium" %>
+            <p class="font-xsmall">Plain text file</p>
+            <p class="font-xsmall">
+              Last updated <%= @project.updated_at.strftime("%d %B %Y") %>
             </p>
           </div>
         </div>

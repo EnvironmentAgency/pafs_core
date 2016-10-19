@@ -11,6 +11,7 @@ module PafsCore
 
     delegate :urgency_reason, :urgency_reason=,
              :urgency_details, :urgency_details=,
+             :urgency_details_updated_at, :urgency_details_updated_at=,
              to: :project
 
     def urgent?

@@ -21,13 +21,13 @@
                   <td>
                     <%= link_to t(".download_file_html",
                                   file: @project.benefit_area_file_name),
-                                  download_benefit_area_file_project_path(@project.to_param),
+                                  pafs_core.benefit_area_downloads_path(@project.to_param),
                                   aria: { describedby: "file-context" } %>
                 </td>
                 <td><%= l @project.benefit_area_file_updated_at %></td>
                 <td>
                   <%= link_to t(".delete_label_html"),
-                    delete_benefit_area_file_project_path(@project.to_param),
+                    pafs_core.delete_benefit_area_downloads_path(@project.to_param),
                     aria: { describedby: "file-context" } %>
               </td>
                 </tr>

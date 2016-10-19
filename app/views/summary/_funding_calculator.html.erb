@@ -5,14 +5,14 @@
       <div class="column-three-quarters">
         <div class="attachment">
           <div class="attachment-thumb">
-            <%= link_to download_funding_calculator_project_path(project.to_param),
+            <%= link_to funding_calculator_downloads_path(project.to_param),
               class: "thumbnail", aria: { hidden: "true" } do -%>
               <%= image_tag "pafs_core/pub-cover-spreadsheet.png", alt: "Download file #{project.funding_calculator_file_name}" %>
             <% end %>
           </div>
           <div class="attachment-details">
             <h3 class="title">
-              <%= link_to download_funding_calculator_project_path(project.to_param),
+              <%= link_to funding_calculator_downloads_path(project.to_param),
                 aria: { described_by: "funding-calculator" } do -%>
                 <span class="visually-hidden">Download your funding calculator </span>
                 <%= project.funding_calculator_file_name %>
