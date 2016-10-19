@@ -66,7 +66,7 @@
             <%= link_to "Urgency moderation evidence", pafs_core.moderation_downloads_path(@project), class: "font-medium" %>
             <p class="font-xsmall">Plain text file</p>
             <p class="font-xsmall">
-              Last updated <%= @project.updated_at.strftime("%d %B %Y") %>
+              Last updated <%= format_date(@project.urgency_details_updated_at) %>
             </p>
           </div>
         </div>

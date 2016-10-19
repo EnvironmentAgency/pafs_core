@@ -28,6 +28,10 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   overflow-x: auto;
 }
 
+.urgent {
+  color: $red;
+}
+
 .with-seperator {
   border-bottom: 1px solid $grey-2;
   margin-bottom: 0.5em;
@@ -178,6 +182,35 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   &.hidden-totals {
     tfoot > tr {
       display: none;
+    }
+  }
+}
+
+.project-overview-head {
+  dd {
+    display: inline;
+    margin: 0;
+
+    @include media(mobile) {
+      display: block;
+      margin-bottom: 0.25em;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+    }
+  }
+
+  dt {
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 0.15em;
+    width: 25%;
+
+    @include media(mobile) {
+      display: block;
+      width: auto;
     }
   }
 }
