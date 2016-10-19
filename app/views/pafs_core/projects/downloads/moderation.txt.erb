@@ -1,0 +1,29 @@
+===========================
+Urgency Moderation Evidence
+===========================
+
+------------------------------------------------------
+* National Project Number
+  <%= project.reference_number %>
+
+* Project Name
+  <%= project.name %>
+<% if (project.updated_at.to_i - project.created_at.to_i) < 5 %>
+* Date created: <%= project.created_at.strftime("%d %B %Y") %>
+<% else %>
+* Last updated: <%= project.updated_at.strftime("%d %B %Y") %>
+<% end %>
+------------------------------------------------------
+* Risk Management Authority
+  <%= project.owner.name %>
+
+* Environment Agency Area
+  <%= project.owner.ea_parent.name %>
+
+* Regional Flood and Coastal Committee
+  <%= PafsCore::RFCC_CODE_NAMES_MAP.fetch(project.reference_number[0..1]) %>
+
+------------------------------------------------------
+* Reason for Moderation Evidence
+
+<%= project.urgency_details %>

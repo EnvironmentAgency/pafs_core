@@ -3,7 +3,7 @@
   <header class="summary-heading">
     <div class="grid-row">
       <div class="column-one-half">
-        <%= content_tag :h1, "Project overview", class: "heading-large" %>
+        <h1 class="heading-large">Proposal overview</h1>
       </div>
       <div class="column-one-half">
         <div class="project-documents-download-link">
@@ -14,28 +14,19 @@
   </header>
   <section>
     <div class="grid-row">
-      <div class="column-one-quarter">
-        <%= content_tag(:span, "Project number:", class: "bold-small")%>
-      </div>
-      <div class="column-one-quarter">
-        <%= @project.reference_number %>
-      </div>
-    </div>
-    <div class="grid-row">
-      <div class="column-one-quarter">
-        <%= content_tag :span, "Last submitted:", class: "bold-small" %>
-      </div>
-      <div class="column-one-quarter">
-        <%= @project.submission_date %>
+      <div class="column-two-thirds">
+        <dl class="project-overview-head">
+          <dt>Project number:</dt>
+          <dd><%= @project.reference_number %></dd>
+          <dt>Last submitted:</dt>
+          <dd><%= @project.submission_date %></dd>
+          <dt>Last updated:</dt>
+          <dd><%= format_date @project.updated_at %></dd>
+          <% if @project.urgent? %>
+            <dt>Urgent:</dt>
+            <dd><span class="urgent">Yes</span></dd>
+          <% end %>
         </dl>
-      </div>
-    </div>
-    <div class="grid-row">
-      <div class="column-one-quarter">
-        <%= content_tag :span, "Last updated:", class: "bold-small" %>
-      </div>
-      <div class="column-one-quarter">
-        <%= format_date @project.updated_at %>
       </div>
     </div>
   </section>

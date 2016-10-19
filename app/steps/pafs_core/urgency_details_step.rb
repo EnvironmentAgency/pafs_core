@@ -6,6 +6,17 @@ module PafsCore
     #validates :urgency_details, presence: true
     validate :urgency_details_are_present
 
+    def update(params)
+      old_details = urgency_details
+      result = super
+      if result
+        if urgency_details != old_details
+          project.update_attributes(urgency_details_updated_at: Time.zone.now)
+        end
+      end
+      result
+    end
+
   private
     def step_params(params)
       ActionController::Parameters.new(params).require(:urgency_details_step).permit(:urgency_details)

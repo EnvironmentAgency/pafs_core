@@ -548,8 +548,8 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
   end
 
   describe "#submission_date" do
-    it "returns the text 'Project not submitted'" do
-      expect(subject.submission_date).to eq "Project not submitted"
+    it "returns the text 'Proposal not submitted'" do
+      expect(subject.submission_date).to eq "Proposal not submitted"
     end
   end
 

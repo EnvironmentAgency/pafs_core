@@ -37,6 +37,14 @@ module PafsCore
       end
     end
 
+    def urgency_flag(project)
+      if project.urgency_reason.present? && project.urgency_reason != "not_urgent"
+        %{<span class="urgent">Yes</span>}.html_safe
+      else
+        ""
+      end
+    end
+
     def formatted_financial_month_and_year(year)
       if year < 0
         t("previous_years_label")

@@ -161,8 +161,8 @@ module PafsCore
     end
 
     def submission_date
-      # TODO: return the formatted submission date or "Project not submitted"
-      "Project not submitted"
+      # TODO: return the formatted submission date or "Proposal not submitted"
+      "Proposal not submitted"
     end
 
     def is_main_risk?(risk)

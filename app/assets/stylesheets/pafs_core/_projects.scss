@@ -28,6 +28,10 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   overflow-x: auto;
 }
 
+.urgent {
+  color: $red;
+}
+
 .with-seperator {
   border-bottom: 1px solid $grey-2;
   margin-bottom: 0.5em;
@@ -74,13 +78,21 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
     img {
       background-color: $white;
       box-shadow: 0 2px 2px $icon-shadow-colour;
-      height: 93px; //140px
       outline: 5px solid $icon-outline-colour;
-      width: 66px; //99px
 
       @include media(mobile) {
         height: 70px;
         width: 49px;
+      }
+
+      @include media(tablet) {
+        height: 93px;
+        width: 66px;
+      }
+
+      @include media(desktop) {
+        height: 140px;
+        width: 99px;
       }
     }
   }
@@ -170,6 +182,35 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   &.hidden-totals {
     tfoot > tr {
       display: none;
+    }
+  }
+}
+
+.project-overview-head {
+  dd {
+    display: inline;
+    margin: 0;
+
+    @include media(mobile) {
+      display: block;
+      margin-bottom: 0.25em;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+    }
+  }
+
+  dt {
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 0.15em;
+    width: 25%;
+
+    @include media(mobile) {
+      display: block;
+      width: auto;
     }
   }
 }
@@ -429,9 +470,9 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 }
 
 .projects-download-link {
-  margin-bottom: 4.5em;
+  margin-bottom: 1em;
   overflow: auto;
-  padding: 0.5em;
+  padding: 0 0.5em 0.5em 0.5em;
 }
 
 .project-documents-download-link {
