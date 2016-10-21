@@ -18,7 +18,9 @@
       <h3 class="heading-medium" id="file-upload"><%= t("upload_heading", scope: scope) %></h3>
       <%= f.form_group(:base) do %>
         <%= f.error_message(:base) %>
-        <%= f.file_field :funding_calculator, aria: { labelledby: "file-upload" } %>
+        <%= f.file_field :funding_calculator,
+                         accept: @project.acceptable_funding_calculator_types,
+                         aria: { labelledby: "file-upload" } %>
       <% end %>
     </div>
     <%= f.submit t("upload_and_continue_label"), class: 'button' %>

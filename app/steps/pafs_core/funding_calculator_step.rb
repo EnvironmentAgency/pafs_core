@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module PafsCore
   class FundingCalculatorStep < BasicStep
-
+    include PafsCore::FileTypes
     delegate :funding_calculator_file_name, :funding_calculator_file_name=,
              :funding_calculator_content_type, :funding_calculator_content_type=,
              :funding_calculator_file_size, :funding_calculator_file_size=,
@@ -19,6 +19,7 @@ module PafsCore
       else
         uploaded_file = step_params(params).fetch(:funding_calculator, nil)
         if uploaded_file
+          return false unless filetype_valid?(uploaded_file)
           begin
             old_file = funding_calculator_file_name
             # virus check and upload to S3
@@ -91,12 +92,21 @@ module PafsCore
                    end
     end
 
+    # NOTE: we could probably check the content type of the file but we are
+    # expecting a .xslx file to be uploaded
+    def filetype_valid?(file)
+      return true if valid_funding_calculator_file?(file.original_filename)
+
+      errors.add(:base, I18n.t("unsupported_funding_calc_format"))
+      false
+    end
+
     def virus_free_funding_calculator_present
       if virus_info.present?
         Rails.logger.error virus_info
         errors.add(:base, "The file was rejected because it may contain a virus. Verify your file and try again")
       elsif funding_calculator_file_name.blank?
-        errors.add(:base, "Select your partnership funding calculator file")
+        errors.add(:base, "Upload the completed partnership funding calculator .xslx file")
       end
     end
   end
