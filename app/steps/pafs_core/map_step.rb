@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 module PafsCore
   class MapStep < BasicStep
-
+    include PafsCore::FileTypes
     delegate :benefit_area=,
              :benefit_area_zoom_level, :benefit_area_zoom_level=,
              :benefit_area_centre=,
@@ -30,29 +30,21 @@ module PafsCore
     def update(params)
       sp = step_params(params)
       if sp[:benefit_area_file]
-        benefit_area_file = sp.fetch(:benefit_area_file, nil)
-        upload_benefit_area_file(benefit_area_file)
+        benefit_area_file = sp.fetch(:benefit_area_file)
+        if valid_benefit_area_file?(benefit_area_file.original_filename)
+          upload_benefit_area_file(benefit_area_file)
+        else
+          errors.add(:base,
+                     I18n.t("unsupported_file_type", formats: benefit_area_file_types))
+          return false
+        end
       else
         sp[:benefit_area_centre] = JSON.parse(sp[:benefit_area_centre]) if sp[:benefit_area_centre] != nil
         sp[:benefit_area_zoom_level] = sp[:benefit_area_zoom_level].to_i
         assign_attributes(sp)
       end
       valid? && project.save
-      # if valid? && project.save
-      #   @step = if sp[:benefit_area_file]
-      #             :benefit_area_file_summary
-      #           else
-      #             :risks
-      #           end
-      #   true
-      # else
-      #   false
-      # end
     end
-
-    #def completed?
-    #  valid? && (benefit_area? || benefit_area_file_name?)
-    #end
 
     def download
       if benefit_area_file_name.present?
@@ -87,7 +79,7 @@ module PafsCore
     private
 
     def presence_of_file
-      errors.add(:base, "Upload a file that outlines the area of protection") if benefit_area_file_name.nil?
+      errors.add(:base, I18n.t("missing_shapefile_error")) if benefit_area_file_name.nil?
     end
 
     def upload_benefit_area_file(uploaded_file)

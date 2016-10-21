@@ -15,7 +15,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     it "validates that a file has been selected" do
       subject.funding_calculator_file_name = nil
       expect(subject.valid?).to eq false
-      expect(subject.errors[:base]).to include "Select your partnership funding calculator file"
+      expect(subject.errors[:base]).to include "Upload the completed partnership funding calculator .xslx file"
     end
 
     it "validates that the file passed a virus check" do
@@ -28,7 +28,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
 
   describe "#update" do
     subject { FactoryGirl.create(:funding_calculator_step) }
-    let(:filename) { "new_file.xls" }
+    let(:filename) { "new_file.xlsx" }
     let(:content_type) { "text/plain" }
     let(:temp_file) do
       ActionDispatch::Http::UploadedFile.new(tempfile: @tempfile,
@@ -78,7 +78,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
       end
 
       context "when an uploaded file already exists" do
-        let(:new_file) { "my_file.xls" }
+        let(:new_file) { "my_file.xlsx" }
         it "deletes the previous file" do
           subject.funding_calculator_file_name = new_file
           expect(storage).to receive(:delete).with(File.join(subject.storage_path, new_file)) { true }

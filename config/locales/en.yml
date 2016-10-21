@@ -31,6 +31,9 @@ en:
   funding_calculator_link: "https://www.gov.uk/government/publications/fcrm-partnership-funding-calculator"
   funding_calculator_label: "partnership funding calculator"
   surface_water_description: "Surface waters are rivers, lakes, estuaries and stretches of coastal water. Groundwater is water found underground in cracks and spaces in soil, sand and rock."
+  missing_shapefile_error: "Upload a shapefile or an image file that outlines the area of protection"
+  unsupported_file_type: "This file type is not supported. Upload a shapefile or a map using one of the following formats: %{formats}"
+  unsupported_funding_calc_format: "This file type is not supported.  Upload a completed partnership funding calculator .xslx file"
   pafs_core:
     bootstraps:
       new:

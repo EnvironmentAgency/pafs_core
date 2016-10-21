@@ -1,11 +1,14 @@
+<%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step), html: { multipart: true } do |f| %>
+  <%= f.error_header %>
 <h1 class="heading-large"><%= t('.heading') %></h1>
 <p><%= t(".description") %></p>
 <p><%= t(".acceptable_file_formats") %></p>
 <div class="form-group">
-<%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step), html: { multipart: true } do |f| %>
   <%= f.form_group(:base) do %>
     <%= f.error_message(:base) %>
-    <%= f.file_field :benefit_area_file, aria: { labelledby: "file-upload" } %>
+    <%= f.file_field :benefit_area_file,
+                     accept: @project.acceptable_benefit_area_types,
+                     aria: { labelledby: "file-upload" } %>
     <%= f.hidden_field :id %>
   <% end %>
   <div class="hidden form-group">
