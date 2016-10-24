@@ -25,7 +25,7 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
   describe "GET proposal" do
     it "renders an excel spreadsheet for xlsx requests" do
       get :proposal, id: @project.to_param, format: :xlsx
-      expect(response.headers["Content-Type"]).to eq("application/xlsx")
+      expect(response.headers["Content-Type"]).to eq(Mime::XLSX.to_s)
     end
 
     it "renders a csv for csv requests" do
@@ -39,20 +39,24 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
       let(:navigator) { double("navigator") }
       let(:step) { double("funding_calculator_step") }
       let(:data) { "This is the file data" }
-      let(:filename) { "my_upload.xls" }
-      let(:content_type) { "text/plain" }
+      let(:filename) { "my_upload.xlsx" }
+      let(:content_type) { Mime::XLSX.to_s }
+      let(:download_filename) do
+        "#{@project.reference_number.parameterize.upcase}_PFcalculator.xlsx"
+      end
 
       it "sends the file to the client" do
         expect(controller).to receive(:navigator) { navigator }
         expect(navigator).to receive(:find_project_step).
           with(@project.to_param, :funding_calculator) { step }
 
+        expect(step).to receive(:reference_number) { @project.reference_number }
         expect(step).to receive(:download) do |&block|
           block.call(data, filename, content_type)
         end
 
         expect(controller).to receive(:send_data).
-          with(data, { filename: filename, type: content_type }) { controller.render nothing: true }
+          with(data, { filename: download_filename, type: content_type }) { controller.render nothing: true }
 
         get :funding_calculator, id: @project.to_param, step: "funding_calculator"
       end
@@ -83,20 +87,24 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
       let(:navigator) { double("navigator") }
       let(:step) { double("benefit_area_file_summary_step") }
       let(:data) { "This is the file data" }
-      let(:filename) { "my_upload.xls" }
-      let(:content_type) { "text/plain" }
+      let(:filename) { "my_upload.jpg" }
+      let(:content_type) { Mime::JPEG.to_s }
+      let(:download_filename) do
+        "#{@project.reference_number.parameterize.upcase}_benefit_area.jpg"
+      end
 
       it "sends the file to the client" do
         expect(controller).to receive(:navigator) { navigator }
         expect(navigator).to receive(:find_project_step).
           with(@project.to_param, :map) { step }
 
+        expect(step).to receive(:reference_number) { @project.reference_number }
         expect(step).to receive(:download) do |&block|
           block.call(data, filename, content_type)
         end
 
         expect(controller).to receive(:send_data).
-          with(data, { filename: filename, type: content_type }) { controller.render nothing: true }
+          with(data, { filename: download_filename, type: content_type }) { controller.render nothing: true }
 
         get :benefit_area, id: @project.to_param
       end
