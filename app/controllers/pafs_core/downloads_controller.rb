@@ -48,7 +48,7 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
     @project = navigator.find_project_step(params[:id], :funding_calculator)
     @project.download do |data, filename, content_type|
       send_data(data,
-                filename: benefit_area_filename(@project, filename),
+                filename: pfcalc_filename(@project, filename),
                 type: content_type)
     end
   end
