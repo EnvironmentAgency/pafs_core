@@ -57,7 +57,7 @@ module PafsCore
         return self
       elsif pso_area?
         return parent
-      elsif rma_area?
+      elsif rma?
         return parent.parent
       else
         raise "Cannot find ea parent for #{name}"
