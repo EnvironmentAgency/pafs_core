@@ -18,7 +18,9 @@ module PafsCore
 
     def body
       f = PafsCore::Engine.root.join("app", "views", "pafs_core", "projects", "downloads", "moderation.txt.erb")
-      ERB.new(IO.read(f)).result binding
+      s = ERB.new(IO.read(f)).result(binding)
+      # make it friendly for the Winders users
+      s.encode(s.encoding, crlf_newline: true)
     end
 
     def filename
