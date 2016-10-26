@@ -25,11 +25,6 @@ PafsCore::Engine.routes.draw do
           get :delete_benefit_area
         end
       end
-      # get :reference_number
-      # get :download_funding_calculator
-      # get :delete_funding_calculator
-      # get :download_benefit_area_file
-      # get :delete_benefit_area_file
       get :submit
     end
   end

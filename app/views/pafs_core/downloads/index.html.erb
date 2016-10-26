@@ -60,10 +60,10 @@
       <section class="projects-download-link">
         <div class="attachment">
           <div class="attachment-thumb">
-            <%= link_to image_tag("pafs_core/pub-cover-doc.png"), pafs_core.moderation_downloads_path(@project), class: "thumbnail" %>
+            <%= link_to image_tag("pafs_core/pub-cover-doc.png"), pafs_core.moderation_downloads_path(@project, format: :txt), class: "thumbnail" %>
           </div>
           <div class="attachment-details">
-            <%= link_to "Urgency moderation evidence", pafs_core.moderation_downloads_path(@project), class: "font-medium" %>
+            <%= link_to "Urgency moderation evidence", pafs_core.moderation_downloads_path(@project, format: :txt), class: "font-medium" %>
             <p class="font-xsmall">Plain text file</p>
             <p class="font-xsmall">
               Last updated <%= format_date(@project.urgency_details_updated_at) %>
