@@ -3,7 +3,7 @@ module PafsCore
   class User < ActiveRecord::Base
     validates :first_name, presence: true
     validates :last_name, presence: true
-    validates_uniqueness_of :email, case_sensitive: false
+    # validates_uniqueness_of :email, case_sensitive: false
 
     has_many :user_areas
     has_many :areas, through: :user_areas

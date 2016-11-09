@@ -129,6 +129,27 @@ module PafsCore
       f
     end
 
+    def select(attribute, choices = nil, options = {}, html_options = {}, &block)
+      attribute = attribute.to_sym
+      contents = []
+      label_val = options.delete(:label) if options.include? :label
+      unless label_val == :none
+        label_args = [attribute]
+        label_args << label_val
+        label_args << { class: options.fetch(:label_class, "form-label-bold") }
+
+        contents << label(*label_args)
+      end
+      contents << hint_text(options.delete(:hint)) if options.include? :hint
+      contents << error_message(attribute)
+      contents << super
+
+      group_class = options.fetch(:group_class, "form-block")
+      content_tag(:div, class: error_class(attribute, group_class)) do
+        safe_join(contents, "\n")
+      end
+    end
+
     def text_area(attribute, options = {})
       attribute = attribute.to_sym
       contents = []
