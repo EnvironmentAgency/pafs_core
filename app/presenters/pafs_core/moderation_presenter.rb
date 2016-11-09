@@ -24,7 +24,7 @@ module PafsCore
     end
 
     def filename
-      "#{reference_number.parameterize.upcase}_moderation.txt"
+      "#{reference_number.parameterize.upcase}_moderation_#{urgency_code}.txt"
     end
 
     def content_type

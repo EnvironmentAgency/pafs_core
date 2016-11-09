@@ -9,6 +9,14 @@ module PafsCore
                           emergency_works
                           time_limited ].freeze
 
+    URGENCY_CODES = {
+      "statutory_need" => "BS",
+      "legal_need" => "BL",
+      "health_and_safety" => "HS",
+      "emergency_works" => "EM",
+      "time_limited" => "TL"
+    }.freeze
+
     delegate :urgency_reason, :urgency_reason=,
              :urgency_details, :urgency_details=,
              :urgency_details_updated_at, :urgency_details_updated_at=,
@@ -20,6 +28,10 @@ module PafsCore
 
     def not_urgent?
       urgency_reason.present? && urgency_reason == "not_urgent"
+    end
+
+    def urgency_code
+      URGENCY_CODES.fetch(urgency_reason, "") if urgency_reason.present?
     end
   end
 end
