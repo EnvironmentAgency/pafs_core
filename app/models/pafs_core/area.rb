@@ -64,6 +64,10 @@ module PafsCore
       end
     end
 
+    def self.name_matches(q)
+      where(arel_table[:name].matches(q))
+    end
+
     def parentage
       if !country? && parent_id.blank?
         errors.add(:parent_id, "can't be blank")

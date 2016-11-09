@@ -10,7 +10,10 @@ RSpec.describe PafsCore::User, type: :model do
 
     it { is_expected.to validate_presence_of :last_name }
 
-    it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
+    # This gets handled by Devise in the front-end
+    # if we include the validation at this level we get duplicate error messages
+    # at the front-end
+    # it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
   end
 
   describe "#full_name" do
