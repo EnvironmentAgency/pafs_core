@@ -24,11 +24,19 @@ module PafsCore
     end
 
     def filename
-      "#{reference_number.parameterize.upcase}_moderation.txt"
+      "#{reference_number.parameterize.upcase}_moderation_#{urgency_code}.txt"
     end
 
     def content_type
       "text/plain"
+    end
+
+    def pretty_urgency_reason
+      if urgency_reason.present?
+        I18n.t("#{urgency_reason}_text", scope: "pafs_core.urgency_reasons.short")
+      else
+        ""
+      end
     end
 
   private
