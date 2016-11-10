@@ -31,6 +31,14 @@ module PafsCore
       "text/plain"
     end
 
+    def pretty_urgency_reason
+      if urgency_reason.present?
+        I18n.t("#{urgency_reason}_text", scope: "pafs_core.urgency_reasons.short")
+      else
+        ""
+      end
+    end
+
   private
     def project
       __getobj__

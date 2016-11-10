@@ -7,6 +7,12 @@ en:
       health_and_safety_label: There is a health and safety issue
       emergency_works_label: There is an emergency
       time_limited_label: There is a specific aspect of the project that has a time limit
+      short:
+        statutory_need_text: A business critical statutory need
+        legal_need_text: A business critical legal need
+        health_and_safety_text: A health and safety issue
+        emergency_works_text: An emergency
+        time_limited_text: A specific aspect of the project has a time limit
     urgency_details:
       statutory_need_label: What is the business critical statutory need?
       statutory_need_error: ^You told us the project is urgent due to a business critical statutory need. Tell us more information about this.
