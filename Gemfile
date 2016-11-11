@@ -25,7 +25,7 @@ group :test do
 end
 
 gem 'cumberland', git: 'https://github.com/EnvironmentAgency/cumberland'
-gem 'rack-cors'
-gem 'axlsx', "~> 2.1.0.pre"
-gem 'axlsx_rails'
-gem 'roo', '~> 2.4.0'
+# gem 'rack-cors'
+# gem 'axlsx', "~> 2.1.0.pre"
+# gem 'axlsx_rails'
+# gem 'roo', '~> 2.4.0'
