@@ -17,8 +17,12 @@ PATH
   specs:
     pafs_core (0.0.2)
       aws-sdk (~> 2)
+      axlsx (~> 2.1.0.pre)
+      axlsx_rails
       clamav-client (~> 3.0)
+      rack-cors
       rails (~> 4.2.5.1)
+      roo (~> 2.4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -249,8 +253,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  axlsx (~> 2.1.0.pre)
-  axlsx_rails
   byebug
   capybara
   codeclimate-test-reporter
@@ -265,8 +267,6 @@ DEPENDENCIES
   pg
   pry
   pry-rails
-  rack-cors
-  roo (~> 2.4.0)
   rspec-rails
   shoulda-matchers (~> 3.1)
   simplecov
