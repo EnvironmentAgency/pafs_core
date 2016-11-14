@@ -8,11 +8,11 @@ module PafsCore
 
   module FileTypes
     def valid_funding_calculator_file?(filename)
-      PafsCore::FUNDING_CALCULATOR_FILE_TYPES.include? safe_file_ext(filename)
+      PafsCore::FUNDING_CALCULATOR_FILE_TYPES.include? safe_file_ext(filename).downcase
     end
 
     def valid_benefit_area_file?(filename)
-      PafsCore::BENEFIT_AREA_FILE_TYPES.include? safe_file_ext(filename)
+      PafsCore::BENEFIT_AREA_FILE_TYPES.include? safe_file_ext(filename).downcase
     end
 
     def acceptable_funding_calculator_types
