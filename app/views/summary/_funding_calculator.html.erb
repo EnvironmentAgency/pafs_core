@@ -28,11 +28,13 @@
         </div>
       </div>
       <div class="column-one-quarter">
-        <div class="change-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_calculator_summary) do -%>
-            Change<span class="visually-hidden"> the funding calculator file</span>
-          <% end -%>
-        </div>
+        <% if project.draft? %>
+          <div class="change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_calculator_summary) do -%>
+              Change<span class="visually-hidden"> the funding calculator file</span>
+            <% end -%>
+          </div>
+        <% end -%>
       </div>
     </div>
   <% else %>

@@ -14,11 +14,13 @@
         <% end %>
       </div>
       <div class="column-one-third">
-        <div class="change-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :earliest_start) do -%>
-            Change<span class="visually-hidden"> whether the project could start earlier without impacting deliverability or outcomes</span>
-          <% end -%>
-        </div>
+        <% if project.draft? %>
+          <div class="change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :earliest_start) do -%>
+              Change<span class="visually-hidden"> whether the project could start earlier without impacting deliverability or outcomes</span>
+            <% end -%>
+          </div>
+        <% end -%>
       </div>
     </div>
   <% else %>

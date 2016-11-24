@@ -11,11 +11,13 @@
             <%= project.start_outline_business_case_date %>
           </div>
           <div class="column-one-quarter align-right">
-            <span class="change-link">
-              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :start_outline_business_case_date) do -%>
-                Change<span class="visually-hidden"> the <%= t(".start_outline_business_case_label").downcase %></span>
-              <% end -%>
-            </span>
+            <% if project.draft? %>
+              <span class="change-link">
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :start_outline_business_case_date) do -%>
+                  Change<span class="visually-hidden"> the <%= t(".start_outline_business_case_label").downcase %></span>
+                <% end -%>
+              </span>
+            <% end -%>
           </div>
         </div>
       </li>
@@ -28,11 +30,13 @@
             <%= project.award_contract_date %>
           </div>
           <div class="column-one-quarter align-right">
-            <span class="change-link">
-              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :award_contract_date) do -%>
-                Change<span class="visually-hidden"> the <%= t(".award_contract_label").downcase %> date</span>
-              <% end -%>
-            </span>
+            <% if project.draft? %>
+              <span class="change-link">
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :award_contract_date) do -%>
+                  Change<span class="visually-hidden"> the <%= t(".award_contract_label").downcase %> date</span>
+                <% end -%>
+              </span>
+            <% end -%>
           </div>
         </div>
       </li>
@@ -45,11 +49,13 @@
             <%= project.start_construction_date %>
           </div>
           <div class="column-one-quarter align-right">
-            <span class="change-link">
-              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :start_construction_date) do -%>
-                Change<span class="visually-hidden"> the <%= t(".start_construction_label").downcase %> date</span>
-              <% end -%>
-            </span>
+            <% if project.draft? %>
+              <span class="change-link">
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :start_construction_date) do -%>
+                  Change<span class="visually-hidden"> the <%= t(".start_construction_label").downcase %> date</span>
+                <% end -%>
+              </span>
+            <% end -%>
           </div>
         </div>
       </li>
@@ -62,11 +68,13 @@
             <%= project.ready_for_service_date %>
           </div>
           <div class="column-one-quarter align-right">
-            <span class="change-link">
-              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :ready_for_service_date) do -%>
-                Change<span class="visually-hidden"> the <%= t(".ready_for_service_label").downcase %> date</span>
-              <% end -%>
-            </span>
+            <% if project.draft? %>
+              <span class="change-link">
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :ready_for_service_date) do -%>
+                  Change<span class="visually-hidden"> the <%= t(".ready_for_service_label").downcase %> date</span>
+                <% end -%>
+              </span>
+            <% end -%>
           </div>
         </div>
       </li>

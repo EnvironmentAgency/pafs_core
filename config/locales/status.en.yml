@@ -1,0 +1,11 @@
+en:
+  pafs_core:
+    projects:
+      status:
+        draft_label: "Draft"
+        completed_label: "Review"
+        submitted_label: "Submitted"
+        rma:
+          draft_label: "Draft"
+          completed_label: "Under review"
+          submitted_label: "Submitted"

@@ -13,11 +13,13 @@
         </ul>
       </div>
       <div class="column-one-third">
-        <div class="change-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_values) do -%>
-            Change<span class="visually-hidden"> the funding values</span>
-          <% end -%>
-        </div>
+        <% if project.draft? %>
+          <div class="change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_values) do -%>
+              Change<span class="visually-hidden"> the funding values</span>
+            <% end -%>
+          </div>
+        <% end -%>
       </div>
     </div>
   <% else %>

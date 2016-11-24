@@ -5,6 +5,20 @@ module PafsCore
       Date.new(date.month < 4 ? date.year : date.year + 1, 3, 31)
     end
 
+    def rma_user?
+      current_resource.respond_to?(:primary_area) && current_resource.primary_area.rma?
+    end
+
+    def pso_user?
+      current_resource.respond_to?(:primary_area) && current_resource.primary_area.pso_area?
+    end
+
+    def status_label_for(state)
+      scope = "pafs_core.projects.status"
+      scope = scope + ".rma" if rma_user?
+      t("#{state}_label", scope: scope)
+    end
+
     def funding_value_label(fv)
       t("#{fv}_label", scope: "pafs_core.projects.steps.funding_values")
     end

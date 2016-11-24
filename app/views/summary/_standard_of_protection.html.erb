@@ -31,11 +31,13 @@
           </ul>
         </div>
         <div class="column-one-quarter">
-          <div class="change-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection) do -%>
-              Change<span class="visually-hidden"> flooding <%= project.summary_label(:standard_of_protection_title).downcase %></span>
-            <% end -%>
-          </div>
+          <% if project.draft? %>
+            <div class="change-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection) do -%>
+                Change<span class="visually-hidden"> flooding <%= project.summary_label(:standard_of_protection_title).downcase %></span>
+              <% end -%>
+            </div>
+          <% end -%>
         </div>
       </div>
       </div>
@@ -67,11 +69,13 @@
           </ul>
         </div>
         <div class="column-one-quarter">
-          <div class="change-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection_coastal) do -%>
-              Change<span class="visually-hidden"> coastal erosion <%= project.summary_label(:standard_of_protection_title).downcase %></span>
-            <% end -%>
-          </div>
+          <% if project.draft? %>
+            <div class="change-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection_coastal) do -%>
+                Change<span class="visually-hidden"> coastal erosion <%= project.summary_label(:standard_of_protection_title).downcase %></span>
+              <% end -%>
+            </div>
+          <% end -%>
         </div>
       </div>
     <% end %>

@@ -1,0 +1,28 @@
+<% content_for :page_title, make_page_title(t("proposal_submitted", scope: "page_titles")) %>
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <div class="govuk-box-highlight">
+        <h1 class="bold-large">Proposal submitted</h1>
+        <p>Your national project number is<br>
+          <strong class="heading-medium"><%= @project.reference_number %></strong>
+        </p>
+      </div>
+      <h2 class="heading-medium">What happens next?</h2>
+      <p>The proposal has now been marked as submitted to the Area Programming Team. They'll contact you if they need more information.</p>
+
+      <p>Please ensure you have downloaded the proposal documents and submitted them to your Area Programming Team.</p>
+
+      <h2 class="heading-medium">If you need to change your proposal</h2>
+      <ul class="list list-bullet">
+        <li>Return to the <%= link_to "proposal overview", project_path(@project) %> page and click the 'Revert to draft' button</li>
+      </ul>
+      <div class="form-group headroom">
+        <%= link_to "Return to your proposals", projects_path, class: "button", role: "button" %>
+      </div>
+      <div class="form-group">
+        <%= link_to "What did you think of this service?", "#" %> (takes 30 seconds)
+      </div>
+    </div>
+  </div>
+</div>

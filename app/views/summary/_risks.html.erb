@@ -1,6 +1,6 @@
 <article class="summary-item" aria-labelledby="risks">
   <% if project.risks_started? %>
-    <h2 class="heading-medium" role="heading" id="risks">Risks and households benefitting</h2>
+    <h2 class="heading-medium" role="heading" id="risks">Risks and households benefiting</h2>
     <div class="grid-row">
       <div class="column-three-quarters">
         <ul class="summary-list list-bullet">
@@ -15,11 +15,13 @@
         </ul>
       </div>
       <div class="column-one-quarter">
-        <div class="change-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :risks) do -%>
-            Change<span class="visually-hidden"> the risks your proposed project will protect against</span>
-          <% end -%>
-        </div>
+        <% if project.draft? %>
+          <div class="change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :risks) do -%>
+              Change<span class="visually-hidden"> the risks your proposed project will protect against</span>
+            <% end -%>
+          </div>
+        <% end -%>
       </div>
     </div>
     <% if project.protects_against_flooding? %>
@@ -104,7 +106,7 @@
   <% else %>
     <div class="grid-row add-row">
       <div class="column-three-quarters">
-        <h2 class="heading-medium" role="heading" id="risks">Risks and households benefitting</h2>
+        <h2 class="heading-medium" role="heading" id="risks">Risks and households benefiting</h2>
       </div>
       <div class="column-one-quarter">
         <div class="add-link">

@@ -11,11 +11,13 @@
         <% end %>
       </div>
       <div class="column-one-quarter">
-        <div class="change-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :urgency) do -%>
-            Change<span class="visually-hidden"> <%= project.summary_label(:urgency_title).downcase %></span>
-          <% end -%>
-        </div>
+        <% if project.draft? %>
+          <div class="change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :urgency) do -%>
+              Change<span class="visually-hidden"> <%= project.summary_label(:urgency_title).downcase %></span>
+            <% end -%>
+          </div>
+        <% end -%>
       </div>
     </div>
   <% else %>

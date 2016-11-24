@@ -18,14 +18,10 @@
         <dl class="project-overview-head">
           <dt>Project number:</dt>
           <dd><%= @project.reference_number %></dd>
-          <dt>Last submitted:</dt>
-          <dd><%= @project.submission_date %></dd>
+          <dt>Status:</dt>
+          <dd><%= status_label_for(@project.status) %></dd>
           <dt>Last updated:</dt>
           <dd><%= format_date @project.updated_at %></dd>
-          <% if @project.urgent? %>
-            <dt>Urgent:</dt>
-            <dd><span class="urgent">Yes</span></dd>
-          <% end %>
         </dl>
       </div>
     </div>
@@ -34,16 +30,38 @@
     <%= render partial: "summary/#{item}", locals: { project: @project } %>
   <% end %>
 </section>
-<section aria-labelledby="submission">
-  <h2 class="heading-medium" role="heading" id="submission">
-    <%= @project.summary_label(:submission_title) %>
-  </h2>
-  <div class="grid-row">
-    <div class="column-two-thirds">
-      <p><%= @project.summary_label(:submission_notice) %></p>
-      <%= render partial: "summary/data_notice", locals: { project: @project } %>
-      <%= link_to t("submit_project_label"),
-        submit_project_path(id: @project.to_param), class: "button submit-proposal" %>
+<% if @project.draft? %>
+  <section aria-labelledby="submission">
+    <h2 class="heading-medium" role="heading" id="submission">
+      <%= @project.summary_label(:submission_title) %>
+    </h2>
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <p><%= @project.summary_label(:submission_notice) %></p>
+        <%= render partial: "summary/data_notice", locals: { project: @project } %>
+        <%= link_to t("complete_project_label"),
+          complete_project_path(id: @project.to_param), class: "button submit-proposal" %>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+<% elsif pso_user? && @project.completed? %>
+  <section aria-label="controls">
+    <div class="grid-row">
+      <div class="column-two-thirds space-kids">
+        <%= link_to t("submit_project_label"),
+          submit_project_path(id: @project.to_param), class: "button submit-proposal" %>
+        <%= link_to t("unlock_project_label"),
+          unlock_project_path(id: @project.to_param), class: "button submit-proposal" %>
+      </div>
+    </div>
+  </section>
+<% elsif pso_user? && @project.submitted? %>
+  <section aria-label="controls">
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <%= link_to t("unlock_project_label"),
+          unlock_project_path(id: @project.to_param), class: "button submit-proposal" %>
+      </div>
+    </div>
+  </section>
+<% end -%>

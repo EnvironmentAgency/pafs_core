@@ -10,11 +10,13 @@
         </p>
       </div>
       <div class="column-one-quarter">
-        <div class="change-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :location, search: true) do -%>
-            Change<span class="visually-hidden"> <%= project.summary_label(:location_title).downcase %></span>
-          <% end -%>
-        </div>
+        <% if project.draft? %>
+          <div class="change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :location, search: true) do -%>
+              Change<span class="visually-hidden"> <%= project.summary_label(:location_title).downcase %></span>
+            <% end -%>
+          </div>
+        <% end -%>
       </div>
     </div>
   <% else %>

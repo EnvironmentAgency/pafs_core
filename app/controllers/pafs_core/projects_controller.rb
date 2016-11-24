@@ -25,8 +25,40 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   # end
 
   # GET
+  def complete
+    # RMA completes a proposal for PSO review
+    @project = project_service.find_project(params[:id])
+    @project.submission_state.complete!
+    redirect_to pafs_core.confirm_project_path(@project)
+  end
+
   def submit
-    @project = PafsCore::ProjectService.new(current_resource).find_project(params[:id])
+    # PSO mark proposal as submitted to APT
+    @project = project_service.find_project(params[:id])
+    @project.submission_state.submit!
+    redirect_to pafs_core.confirm_project_path(@project)
+  end
+
+  def unlock
+    # PSO revert to draft
+    @project = project_service.find_project(params[:id])
+    @project.submission_state.unlock!
+    redirect_to pafs_core.project_path(@project)
+  end
+
+  def confirm
+    @project = project_service.find_project(params[:id])
+    if @project.completed?
+      if current_resource.primary_area.rma?
+        render "confirm_rma"
+      else
+        render "confirm_pso"
+      end
+    elsif @project.submitted?
+      render "confirm_area"
+    else
+      redirect_to pafs_core.project_path(@project)
+    end
   end
 
   # GET
@@ -115,6 +147,10 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
 private
   def project_params
     params.require(:project).permit(:fcerm_gia, :local_levy)
+  end
+
+  def project_service
+    @project_service ||= PafsCore::ProjectService.new current_resource
   end
 
   def navigator
