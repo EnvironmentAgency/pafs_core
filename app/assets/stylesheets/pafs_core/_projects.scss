@@ -5,6 +5,35 @@
 $icon-outline-colour: rgba(11, 12, 12, 0.1);
 $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 
+.space-kids > * {
+  margin-right: 0.5em;
+
+  @include media(mobile) {
+    margin-right: 0;
+  }
+}
+
+.secondary-button {
+  background-color: $link-colour;
+  margin-left: 0.5em;
+
+  @include media(mobile) {
+    margin-left: 0;
+  }
+
+  &:link, &:hover, &:focus, &:visited {
+    color: $white;
+  }
+
+  &:visited {
+    background-color: $link-colour;
+  }
+
+  &:hover, &:focus {
+    background-color: $purple;
+  }
+}
+
 .column-three-quarters {
   @include grid-column(3 / 4);
 }

@@ -18,9 +18,9 @@
         <tr>
           <th scope="col" class="project-number">National project number</th>
           <th scope="col">Project name</th>
-          <th scope="col">Risk management authority</th>
-          <th scope="col">Urgent</th>
-          <th scope="col">Last submitted</th>
+          <th scope="col">Created by</th>
+          <th scope="col">Status</th>
+          <th scope="col">Last updated</th>
         </tr>
       </thead>
       <tbody>
@@ -29,8 +29,8 @@
             <td><%= link_to project.reference_number, pafs_core.project_path(project), class: "project-link" %></td>
             <td><%= project.name %></td>
             <td><%= project.owner.name unless project.owner.blank? %></td>
-            <td><%= urgency_flag(project) %></td>
-            <td><%= l(project.submitted_at) if project.submitted_at %></td>
+            <td><%= status_label_for(project.submission_state.current_state) %></td>
+            <td><%= l(project.updated_at) %></td>
           </tr>
         <% end %>
       </tbody>

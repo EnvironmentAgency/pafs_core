@@ -38,12 +38,12 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
     end
   end
 
-  describe "GET submit" do
-    it "renders the submit template" do
-      get :submit, id: @project.to_param
-      expect(response).to render_template("submit")
-    end
-  end
+  # describe "GET submit" do
+  #   it "renders the submit template" do
+  #     get :submit, id: @project.to_param
+  #     expect(response).to render_template("submit")
+  #   end
+  # end
 
   describe "GET pipeline" do
     it "renders the pipeline template" do

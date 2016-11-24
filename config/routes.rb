@@ -26,6 +26,9 @@ PafsCore::Engine.routes.draw do
         end
       end
       get :submit
+      get :complete
+      get :unlock
+      get :confirm
     end
   end
 

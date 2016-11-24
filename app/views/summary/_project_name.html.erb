@@ -5,11 +5,13 @@
       <p><%= project.name %></p>
     </div>
     <div class="column-one-quarter">
-      <div class="change-link">
-        <%= link_to pafs_core.project_step_path(id: project.to_param, step: :project_name) do -%>
-          Change<span class="visually-hidden"> the project name</span>
-        <% end -%>
-      </div>
+      <% if project.draft? %>
+        <div class="change-link">
+          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :project_name) do -%>
+            Change<span class="visually-hidden"> the project name</span>
+          <% end -%>
+        </div>
+      <% end -%>
     </div>
   </div>
 </article>
