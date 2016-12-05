@@ -16,6 +16,8 @@ module PafsCore
     end
 
     def import(path_to_file)
+      abort("Areas already exist") if PafsCore::Area.count > 0
+
       CSV.foreach(path_to_file, headers: true) do |row|
         @areas << row.to_h
       end
