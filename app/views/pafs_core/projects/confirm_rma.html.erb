@@ -2,19 +2,16 @@
 <div class="step-container">
   <div class="grid-row">
     <div class="column-two-thirds">
-      <div class="govuk-box-highlight">
-        <h1 class="bold-large">Proposal sent for review</h1>
-        <p>Your national project number is<br>
-          <strong class="heading-medium"><%= @project.reference_number %></strong>
-        </p>
-      </div>
+      <%= render partial: "confirm_banner",
+        locals: { reference_number: @project.reference_number,
+                  title: "Proposal sent for review" } %>
       <h2 class="heading-medium">What happens next?</h2>
       <p>We've sent your proposal to your <%= link_to t("strategic_officer_label"), t("strategic_officer_link"), target: "_blank", rel: "external" %> for consideration. They'll contact you if they need more information.</p>
 
       <h2 class="heading-medium">If you need to change your proposal</h2>
       <p>If you have any questions, or need to make changes to your proposal, contact your
       <%= link_to t("strategic_officer_label"), t("strategic_officer_link"), target: "_blank", rel: "external" %>.</p>
-      <p>You'll need to quote the national project number.</p>
+      <p>You'll need to quote your national project number.</p>
 
       <div class="form-group headroom">
       <%= link_to "Return to your proposals", projects_path, class: "button", role: "button" %>
