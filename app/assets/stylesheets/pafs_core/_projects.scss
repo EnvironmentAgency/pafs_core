@@ -288,6 +288,10 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   }
 }
 
+.error .add-row {
+  margin-top: 0;
+}
+
 .align-right {
   text-align: right;
 
@@ -330,6 +334,10 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 
 .summary-item {
   border-bottom: 1px solid $grey-2;
+}
+
+.error .summary-item .heading-medium {
+  margin-top: 0;
 }
 
 .summary-list {

@@ -202,8 +202,8 @@ ActiveRecord::Schema.define(version: 20161114144822) do
   add_index "pafs_core_reference_counters", ["rfcc_code"], name: "index_pafs_core_reference_counters_on_rfcc_code", unique: true, using: :btree
 
   create_table "pafs_core_states", force: :cascade do |t|
-    t.integer  "pafs_core_projects_id"
-    t.string   "state",                 default: "draft", null: false
+    t.integer  "project_id"
+    t.string   "state",      default: "draft", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -20,34 +20,33 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   end
 
   # GET
-  # def reference_number
-  #   @project = navigator.find_project_step(params[:id], navigator.first_step)
-  # end
-
-  # GET
   def complete
     # RMA completes a proposal for PSO review
-    @project = project_service.find_project(params[:id])
-    @project.submission_state.complete!
-    redirect_to pafs_core.confirm_project_path(@project)
+    @project = PafsCore::ValidationPresenter.new navigator.find(params[:id])
+    if @project.complete?
+      @project.submission_state.complete!
+      redirect_to pafs_core.confirm_project_path(@project)
+    else
+      render :show
+    end
   end
 
   def submit
     # PSO mark proposal as submitted to APT
-    @project = project_service.find_project(params[:id])
+    @project = navigator.find(params[:id])
     @project.submission_state.submit!
     redirect_to pafs_core.confirm_project_path(@project)
   end
 
   def unlock
     # PSO revert to draft
-    @project = project_service.find_project(params[:id])
+    @project = navigator.find(params[:id])
     @project.submission_state.unlock!
     redirect_to pafs_core.project_path(@project)
   end
 
   def confirm
-    @project = project_service.find_project(params[:id])
+    @project = navigator.find(params[:id])
     if @project.completed?
       if current_resource.primary_area.rma?
         render "confirm_rma"
@@ -85,6 +84,8 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     # params[:step] part of the URL and display the appropriate form
     if @project.disabled?
       raise_not_found
+    elsif !@project.project.draft?
+      redirect_to project_path(@project)
     else
       # give the step the opportunity to do any tasks prior to being viewed
       @project.before_view(params)
@@ -99,8 +100,13 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     # if request is exit redirect to summary or dashboard?
     # else go to next step
     @project = navigator.find_project_step(params[:id], params[:step])
-    # each step is responsible for managing their params safely
-    if @project.update(params)
+
+    if @project.disabled?
+      raise_not_found
+    elsif !@project.project.draft?
+      redirect_to project_path(@project)
+    elsif @project.update(params)
+      # each step is responsible for managing their params safely
       next_step = navigator.next_step(@project.step, @project)
       if next_step == :summary
         # we're at the end so return to project summary
@@ -147,10 +153,6 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
 private
   def project_params
     params.require(:project).permit(:fcerm_gia, :local_levy)
-  end
-
-  def project_service
-    @project_service ||= PafsCore::ProjectService.new current_resource
   end
 
   def navigator

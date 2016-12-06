@@ -98,7 +98,7 @@ module PafsCore
     end
 
     def project_type_label(pt)
-      I18n.t("#{pt.downcase}_label", scope: "pafs_core.projects.steps.project_type")
+      I18n.t("#{pt.downcase}_label", scope: "pafs_core.projects.steps.project_type") unless pt.nil?
     end
 
     def location_search_results_for(results, query, word, description)
