@@ -3,14 +3,18 @@ module PafsCore
   class FormBuilder < ActionView::Helpers::FormBuilder
     delegate :content_tag, :tag, :safe_join, to: :@template
 
-    def error_header(heading = nil, description = nil)
+    def error_header(heading = nil, description = nil, sort_order = nil)
       if @object.errors.any?
         h = heading || I18n.t(:error_heading)
         d = description || I18n.t(:error_description)
 
         contents = [error_heading(h)]
         contents << error_description(d) unless d.blank?
-        contents << error_list
+        contents << if sort_order.nil?
+                      error_list
+                    else
+                      sorted_error_list(sort_order)
+                    end
 
         content_tag(:div, class: "error-summary", role: "group",
                     aria: { labelledby: "error-summary-heading" },
@@ -262,11 +266,23 @@ module PafsCore
       content_tag(:p, description)
     end
 
+    def sorted_error_list(keys)
+      el = []
+      keys.each do |k|
+        @object.errors.full_messages_for(k).each_with_index do |message, i|
+          el << error_item(k, message, i)
+        end
+      end
+      content_tag(:ul, class: "error-summary-list") do
+        safe_join(el, "\n")
+      end
+    end
+
     def error_list
       el = []
       @object.errors.keys.sort.each do |k|
         @object.errors.full_messages_for(k).each_with_index do |message, i|
-          el << content_tag(:li, content_tag(:a, error_trim(message), href: "##{error_id(k, i)}"))
+          el << error_item(k, message, i)
         end
       end
       content_tag(:ul, class: "error-summary-list") do
@@ -285,5 +301,8 @@ module PafsCore
       message.split("^").last if message
     end
 
+    def error_item(attr, message, index)
+      content_tag(:li, content_tag(:a, error_trim(message), href: "##{error_id(attr, index)}"))
+    end
   end
 end

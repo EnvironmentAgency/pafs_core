@@ -9,15 +9,16 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
     @country = FactoryGirl.create(:country, :with_full_hierarchy)
     @area = PafsCore::Area.last
     @user.user_areas.create(area_id: @area.id, primary: true)
-    @project = PafsCore::Project.last
+    # @project = PafsCore::Project.last
+    @project = FactoryGirl.create(:project)
+    @project.area_projects.create(area_id: @area.id)
     allow(subject).to receive(:current_resource) { @user }
   end
 
   describe "GET index" do
     it "assigns @projects" do
-      # project = FactoryGirl.create(:project)
       get :index
-      expect(assigns(:projects)).to eq([@project])
+      expect(assigns(:projects)).to include(@project.reload)
     end
 
     it "renders the index template for html responses" do

@@ -48,10 +48,6 @@ module PafsCore
       ) if total_protected_households.zero?
     end
 
-    def total_protected_households
-      flood_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
-    end
-
     def step_params(params)
       ActionController::Parameters.new(params)
                                   .require(:flood_protection_outcomes_step)
