@@ -45,9 +45,24 @@ RSpec.describe PafsCore::ValidationPresenter do
 
   describe "#location_complete?" do
     context "when location has been set" do
-      it "returns true" do
-        subject.project_location = { latitude: "123", longitude: "123"}.to_json
-        expect(subject.location_complete?).to eq true
+      before(:each) { subject.grid_reference = "ST 58198 72725" }
+
+      context "when a benefit area file has been uploaded" do
+        it "returns true" do
+          subject.benefit_area_file_name = "my_file.jpg"
+          expect(subject.location_complete?).to eq true
+        end
+      end
+
+      context "when a benefit area file has not been uploaded" do
+        it "returns false" do
+          subject.benefit_area_file_name = nil
+          expect(subject.location_complete?).to eq false
+        end
+        it "sets an error on the project" do
+          subject.location_complete?
+          expect(subject.errors[:location]).to include "^Tell us the location of the project"
+        end
       end
     end
     context "when location has not been set" do

@@ -1,0 +1,34 @@
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step), html: { multipart: true } do |f| %>
+      <%= f.error_header %>
+      <h1 class="heading-large"><%= t('.heading') %></h1>
+      <p><%= t(".description") %></p>
+      <p><%= t(".acceptable_file_formats") %></p>
+      <%= f.form_group(:base) do %>
+        <%= f.error_message(:base) %>
+        <%= f.file_field :benefit_area_file,
+          accept: @project.acceptable_benefit_area_types,
+          aria: { labelledby: "file-upload" } %>
+        <%= f.hidden_field :id %>
+      <% end %>
+      <%= f.submit t("upload_and_continue_label"), class: 'button' %>
+    <% end %>
+  </div>
+</div>
+<div class="grid-row headroom">
+  <div class="column-two-thirds">
+    <details role="group">
+      <summary role="button" aria-controls="shapefile-help">
+        <span class="summary">Unable to create a shapefile</span>
+      </summary>
+      <div class="panel panel-indent panel-border-narrow" id="shapefile-help">
+        <p>If you are unable to create a shapefile, upload an image of a map showing
+        the area the project is likely to benefit.  Acceptable file formats are
+        jpg, png and bmp.</p>
+        <p>Alternatively, contact your local partnership and strategic overview
+        officer and they will be able to help you.</p>
+      </div>
+    </details>
+  </div>
+</div>

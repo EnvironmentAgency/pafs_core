@@ -96,7 +96,7 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
       it "sends the file to the client" do
         expect(controller).to receive(:navigator) { navigator }
         expect(navigator).to receive(:find_project_step).
-          with(@project.to_param, :map) { step }
+          with(@project.to_param, :benefit_area_file) { step }
 
         expect(step).to receive(:reference_number) { @project.reference_number }
         expect(step).to receive(:download) do |&block|
@@ -121,7 +121,7 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
       it "deletes the funding benefit area file" do
         expect(controller).to receive(:navigator) { navigator }
         expect(navigator).to receive(:find_project_step).
-          with(@project.to_param, :map) { step }
+          with(@project.to_param, :benefit_area_file) { step }
 
         expect(step).to receive(:delete_benefit_area_file)
 

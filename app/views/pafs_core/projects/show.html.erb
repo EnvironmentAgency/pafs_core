@@ -38,10 +38,12 @@
 </section>
 <% if @project.draft? %>
   <section aria-labelledby="submission">
-    <h2 class="heading-medium" role="heading" id="submission">
-      <%= @project.summary_label(:submission_title) %>
-    </h2>
-    <div class="grid-row">
+    <div class="grid-row submission">
+      <div class="column-three-quarters">
+        <h2 class="heading-medium" role="heading" id="submission">
+          <%= @project.summary_label(:submission_title) %>
+        </h2>
+      </div>
       <div class="column-two-thirds">
         <p><%= @project.summary_label(:submission_notice) %></p>
         <%= render partial: "summary/data_notice", locals: { project: @project } %>

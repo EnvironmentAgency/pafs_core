@@ -34,6 +34,10 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   }
 }
 
+.indent {
+  margin-left: 1em;
+}
+
 .column-three-quarters {
   @include grid-column(3 / 4);
 }
@@ -97,6 +101,8 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 }
 
 .attachment {
+  margin-top: 0.25em;
+
   .attachment-thumb {
     float: left;
     margin-right: 1.5em;
@@ -128,7 +134,7 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 
   .attachment-details {
     .title {
-      @include core-19;
+      @include core-16;
     }
 
     a {
@@ -268,10 +274,18 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   }
 }
 
+.map-link {
+  margin-bottom: 1.5em;
+
+  a[rel="external"]::after {
+    background-position-y: 2px;
+  }
+}
+
 .change-link {
   margin-bottom: 1em;
   margin-right: 1em;
-  margin-top: 0.5em;
+  // margin-top: 0.5em;
   text-align: right;
 
   @include media(mobile) {
@@ -324,6 +338,14 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 
 .project-summary {
   margin-bottom: 2em;
+
+  .form-group {
+    margin-bottom: 0.25em;
+  }
+}
+
+.submission {
+  margin-top: 2em;
 }
 
 .summary-heading {
@@ -334,6 +356,14 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 
 .summary-item {
   border-bottom: 1px solid $grey-2;
+
+  .heading-medium {
+    margin-top: 0;
+  }
+}
+
+.no-error .summary-item {
+  margin-top: 1em;
 }
 
 .error .summary-item .heading-medium {
@@ -497,6 +527,11 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 .headroom {
   clear: both;
   margin-top: 1.5em;
+}
+
+.footroom {
+  clear: both;
+  margin-bottom: 1.5em;
 }
 
 .project-downloads {

@@ -28,13 +28,13 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
   describe "#location_set?" do
     context "when the location has been set" do
       it "returns true" do
-        subject.project_location = { latitude: "123", longitude: "123"}.to_json
+        subject.grid_reference = "ST 58198 72725"
         expect(subject.location_set?).to eq true
       end
     end
     context "when the project location has not been set" do
       it "returns false" do
-        subject.project_location = nil
+        subject.grid_reference = nil
         expect(subject.location_set?).to eq false
       end
     end

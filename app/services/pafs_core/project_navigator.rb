@@ -73,8 +73,10 @@ module PafsCore
         s.add :summary_3
 
         s.add :location
-        s.add :map, unless: ->(p) { p.benefit_area_file_name.present? }
-        s.add :benefit_area_file_summary, if: ->(p) { p.benefit_area_file_name.present? }
+        s.add :benefit_area_file, unless: ->(p) { p.benefit_area_file_name.present? }
+        s.add :benefit_area_file_summary
+        # s.add :map, unless: ->(p) { p.benefit_area_file_name.present? }
+        # s.add :benefit_area_file_summary, if: ->(p) { p.benefit_area_file_name.present? }
         s.add :summary_4
 
         s.add :start_outline_business_case_date

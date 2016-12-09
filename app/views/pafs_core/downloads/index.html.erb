@@ -34,6 +34,9 @@
             <p class="font-xsmall">
               <%= file_extension @project.benefit_area_file_name %> file, <%= (@project.benefit_area_file_size/1000).round %> KB
             </p>
+            <p class="font-xsmall">
+              Uploaded <%= @project.benefit_area_file_updated_at.strftime("%d %B %Y") %>
+            </p>
           </div>
         </div>
       </section>

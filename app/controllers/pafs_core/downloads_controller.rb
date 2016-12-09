@@ -29,7 +29,7 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
   end
 
   def benefit_area
-    @project = navigator.find_project_step(params[:id], :map)
+    @project = navigator.find_project_step(params[:id], :benefit_area_file)
     @project.download do |data, filename, content_type|
       send_data(data,
                 filename: benefit_area_filename(@project, filename),
@@ -39,9 +39,9 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
 
   # GET
   def delete_benefit_area
-    @project = navigator.find_project_step(params[:id], :map)
+    @project = navigator.find_project_step(params[:id], :benefit_area_file)
     @project.delete_benefit_area_file
-    redirect_to project_step_path(id: @project.to_param, step: :map)
+    redirect_to project_step_path(id: @project.to_param, step: :benefit_area_file)
   end
 
   def funding_calculator

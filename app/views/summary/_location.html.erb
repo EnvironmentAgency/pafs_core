@@ -2,27 +2,81 @@
   <% if project.location_set? %>
     <h2 class="heading-medium" role="heading" id="location"><%= project.summary_label(:location_title) %></h2>
     <div class="grid-row">
-      <div class="column-three-quarters">
-        <p>Placeholder for location name</p>
-        <p>The nearest postcode is (placeholder)</p>
-        <p>
-          <%= link_to project.summary_label(:map_link), pafs_core.project_step_path(id: project.to_param, step: :location) %>
-        </p>
+      <div class="column-one-half">
+        <h3 class="column-heading-small">National Grid Reference</h3>
       </div>
-      <div class="column-one-quarter">
+    </div>
+    <div class="grid-row">
+      <div class="column-one-quarter aslign-right">
+        <%= project.grid_reference %>
+      </div>
+      <div class="column-one-half">
+        <div class="map-link">
+          <%= link_to t("see_this_location_link_label"),
+            project.grid_reference_link,
+            rel: "external",
+            target: "_blank" %>
+        </div>
+      </div>
+      <div class="column-one-quarter align-right">
         <% if project.draft? %>
           <div class="change-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :location, search: true) do -%>
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :location) do -%>
               Change<span class="visually-hidden"> <%= project.summary_label(:location_title).downcase %></span>
             <% end -%>
           </div>
         <% end -%>
       </div>
     </div>
+    <% if project.benefit_area_file_uploaded? %>
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <h3 class="column-heading-small">Project benefit area</h3>
+          <div class="attachment">
+            <div class="attachment-thumb">
+              <%= link_to funding_calculator_downloads_path(project.to_param),
+                class: "thumbnail", aria: { hidden: "true" } do -%>
+                <%= image_tag "pafs_core/pub-cover-shapefile.png", alt: "Download file #{project.funding_calculator_file_name}" %>
+              <% end %>
+            </div>
+            <div class="attachment-details">
+              <h3 class="title">
+                <%= link_to benefit_area_downloads_path(project.to_param),
+                  aria: { described_by: "location" } do -%>
+                  <span class="visually-hidden">Download your benefit area file </span>
+                  <%= project.benefit_area_file_name %>
+                <% end %>
+              </h3>
+              <dl class="metadata">
+                <dt>Size</dt>
+                <dd><%= number_to_human_size(project.benefit_area_file_size) -%></dd>
+                <dt>Uploaded</dt>
+                <dd><%= format_date project.benefit_area_file_updated_at %></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <h3 class="column-heading-small">Project benefit area</h3>
+        </div>
+      </div>
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <div class="footroom">
+            <%= project.not_provided %>
+          </div>
+        </div>
+      </div>
+    <% end -%>
   <% else %>
     <div class="grid-row add-row">
       <div class="column-three-quarters">
-        <h2 class="heading-medium" role="heading" id="location"><%= project.summary_label(:location_title) %></h2>
+        <h2 class="heading-medium" role="heading" id="location">
+          <%= project.summary_label(:location_title) %>
+        </h2>
       </div>
       <div class="column-one-quarter">
         <div class="add-link">
