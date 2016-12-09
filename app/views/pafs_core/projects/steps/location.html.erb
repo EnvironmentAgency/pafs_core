@@ -1,18 +1,43 @@
 <div class="step-container">
   <div class="grid-row">
     <div class="column-two-thirds">
-      <% if @project.results.size == 0 || params[:search] == "true" %>
-        <%= render partial: 'pafs_core/projects/steps/location/search' %>
-      <% elsif @project.results.size > 1 %>
-        <%= render partial: 'pafs_core/projects/steps/location/results', locals: { results: @project.results } %>
-      <% elsif @project.results.size == 1 %>
-        <div class="js-hidden">
-          <%= render partial: 'pafs_core/projects/steps/location/location', locals: { results: @project.results } %>
-        </div>
-        <div class="js-map hidden">
-          <%= render partial: 'pafs_core/projects/steps/location/map', locals: { results: @project.results } %>
+      <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
+        <%= f.error_header %>
+        <h1 class="heading-large"><%= t('.heading') %></h1>
+        <div class="step-form">
+          <%= f.form_group(:grid_reference) do %>
+            <p class="form-hint"><%= t('.example_text') %></p>
+            <p class="form-hint">
+              For projects over;
+              <ul class="list list-bullet form-hint indent">
+                <li>multiple locations, choose the main location</li>
+                <li>a stretch of watercourse or coast, choose the middle point</li>
+              </ul>
+            </p>
+            <%= f.error_message(:grid_reference) %>
+            <%= f.text_field_without_label :grid_reference, class: "form-control" %>
+          <% end %>
+          <%= f.submit t("save_and_continue_label"), class: 'button' %>
         </div>
       <% end %>
+    </div>
+  </div>
+  <div class="grid-row headroom">
+    <div class="column-two-thirds">
+      <details role="group">
+        <summary role="button" aria-controls="find-grid-reference">
+          <span class="summary">How to find a National Grid Reference</span>
+        </summary>
+        <div class="panel panel-indent panel-border-narrow" id="find-grid-reference">
+          <p>Use the free <%= link_to t("grid_reference_link_label"), t("grid_reference_link"), rel: "external", target: "_blank" %></p>
+          <ol class="list list-number indent">
+            <li>Search for a location or postcode on the left of the page</li>
+            <li>Right-click to display the National Grid Reference</li>
+            <li>Select and copy the National Grid Reference</li>
+            <li>Return to this page and paste the National Grid Reference into the text-box above</li>
+          </ol>
+        </div>
+      </details>
     </div>
   </div>
 </div>

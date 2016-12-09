@@ -4,7 +4,7 @@ module PafsCore
   FUNDING_CALCULATOR_FILE_TYPES = %w[ .xlsx ].freeze
 
   # file extensions permitted for benefit area file upload
-  BENEFIT_AREA_FILE_TYPES = %w[ .jpg .png .svg .bmp .zip .rar ].freeze
+  BENEFIT_AREA_FILE_TYPES = %w[ .jpg .png .svg .bmp .zip ].freeze
 
   module FileTypes
     def valid_funding_calculator_file?(filename)

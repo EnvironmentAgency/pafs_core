@@ -6,7 +6,29 @@ module PafsCore
       PafsCore::EnvironmentalOutcomes
 
     def location_set?
-      project_location.present?
+      project.grid_reference.present?
+    end
+
+    def benefit_area_file_uploaded?
+      benefit_area_file_name.present?
+    end
+
+    def grid_reference
+      if project.grid_reference
+        p = project.grid_reference.delete("\s")
+        "#{p[0..1]} #{p[2..6]} #{p[7..11]}"
+      else
+        ""
+      end
+    end
+
+    def grid_reference_link
+      if project.grid_reference
+        I18n.t("see_this_location_link",
+               grid_reference: CGI::escape(grid_reference))
+      else
+        "#"
+      end
     end
 
     def start_outline_business_case_date
@@ -219,6 +241,10 @@ module PafsCore
       end
     end
 
+    def not_provided
+      "<em>Not provided</em>".html_safe
+    end
+
     private
     def project
       __getobj__
@@ -242,10 +268,6 @@ module PafsCore
        :environmental_outcomes,
        :urgency,
        :funding_calculator].freeze
-    end
-
-    def not_provided
-      "<em>Not provided</em>".html_safe
     end
 
     def presentable_date(name)

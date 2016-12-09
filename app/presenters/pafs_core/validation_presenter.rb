@@ -26,8 +26,7 @@ module PafsCore
     end
 
     def location_complete?
-      # TODO: new location stuff needs to be added
-      if location_set?
+      if location_set? && benefit_area_file_uploaded?
         true
       else
         add_error(:location, "^Tell us the location of the project")
