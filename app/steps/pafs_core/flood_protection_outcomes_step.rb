@@ -45,7 +45,7 @@ module PafsCore
         :base,
         "In the applicable year(s), tell us how many households moved to a lower flood\
         risk category (column A)."
-      ) if total_protected_households.zero?
+      ) if flooding_total_protected_households.zero?
     end
 
     def step_params(params)

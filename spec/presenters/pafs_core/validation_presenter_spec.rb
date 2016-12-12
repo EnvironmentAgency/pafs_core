@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::ValidationPresenter do
-  subject { PafsCore::ValidationPresenter.new(FactoryGirl.build(:project)) }
+  subject { PafsCore::ValidationPresenter.new(FactoryGirl.build(:full_project)) }
 
   let(:flood_options) do
     ["Very significant",
@@ -55,8 +55,9 @@ RSpec.describe PafsCore::ValidationPresenter do
       end
 
       context "when a benefit area file has not been uploaded" do
+        before(:each) { subject.benefit_area_file_name = nil }
+
         it "returns false" do
-          subject.benefit_area_file_name = nil
           expect(subject.location_complete?).to eq false
         end
         it "sets an error on the project" do
@@ -65,6 +66,7 @@ RSpec.describe PafsCore::ValidationPresenter do
         end
       end
     end
+
     context "when location has not been set" do
       before(:each) { subject.project_location = nil }
       it "returns false" do

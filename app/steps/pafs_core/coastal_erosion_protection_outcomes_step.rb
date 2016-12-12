@@ -41,11 +41,7 @@ module PafsCore
       errors.add(
         :base,
         "In the applicable year(s), tell us how many households are at a reduced risk of coastal erosion (column A)."
-      ) if total_protected_households.zero?
-    end
-
-    def total_protected_households
-      coastal_erosion_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
+      ) if coastal_total_protected_households.zero?
     end
 
     def step_params(params)
