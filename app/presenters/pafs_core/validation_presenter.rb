@@ -70,19 +70,22 @@ module PafsCore
       if selected_risks.any?
         if protects_against_multiple_risks?
           if main_risk.nil?
-            add_error(:risks, "^Tell us the risks the project protects against and the households benefiting.")
-          elsif total_protected_households > 0
-            true
+            risks_error
+          elsif protects_against_flooding? && protects_against_coastal_erosion?
+            check_flooding && check_coastal_erosion
+          elsif protects_against_flooding?
+            check_flooding
           else
-            add_error(:risks, "^Tell us the risks the project protects against and the households benefiting.")
+            # this must be only protecting against coastal erosion to get here
+            check_coastal_erosion
           end
-        elsif total_protected_households > 0
-          true
+        elsif protects_against_flooding?
+          check_flooding
         else
-          add_error(:risks, "^Tell us the risks the project protects against and the households benefiting.")
+          check_coastal_erosion
         end
       else
-        add_error(:risks, "^Tell us the risks the project protects against and the households benefiting.")
+        risks_error
       end
     end
 
@@ -216,6 +219,29 @@ module PafsCore
     def outcomes_error
       add_error(:environmental_outcomes,
                 "^Tell us the project’s environmental outcomes")
+    end
+
+    def check_flooding
+      if flooding_total_protected_households > 0
+        true
+      else
+        risks_error
+      end
+    end
+
+    def check_coastal_erosion
+      if coastal_total_protected_households > 0
+        true
+      else
+        risks_error
+      end
+    end
+
+    def risks_error
+      add_error(:risks,
+                "^Tell us the risks the project protects against "\
+                "and the households benefiting.")
+      false
     end
   end
 end

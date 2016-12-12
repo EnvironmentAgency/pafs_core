@@ -34,8 +34,12 @@ module PafsCore
       current_coastal_erosion_protection_outcomes.reduce(0) { |sum, cepo| sum + (cepo.send(value) || 0) }
     end
 
-    def total_protected_households
-      flood_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
+    def flooding_total_protected_households
+      current_flood_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
+    end
+
+    def coastal_total_protected_households
+      current_coastal_erosion_protection_outcomes.map(&:households_at_reduced_risk).compact.sum
     end
   end
 end
