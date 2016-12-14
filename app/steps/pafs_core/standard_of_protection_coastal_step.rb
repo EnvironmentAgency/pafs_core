@@ -15,11 +15,17 @@ module PafsCore
       allow_blank: true
     }
 
+    validate :coastal_protection_improves
+
   private
     def step_params(params)
       ActionController::Parameters.new(params).
         require(:standard_of_protection_coastal_step).
         permit(:coastal_protection_before)
+    end
+
+    def coastal_protection_improves
+      coastal_erosion_protection_should_be_same_or_better_for(:coastal_protection_before)
     end
   end
 end

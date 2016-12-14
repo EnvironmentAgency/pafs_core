@@ -9,9 +9,17 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
 
     it "validates that :flood_protection_before is present" do
       subject.flood_protection_before = nil
-      expect(subject.valid?).to be false
+      expect(subject.valid?).to eq false
       expect(subject.errors.messages[:flood_protection_before]).to include
       "^Select the option that shows the current risk of flooding to the area likely to benefit from the project."
+    end
+
+    it "validates that :flood_protection_before is not greater than :flood_protection_after" do
+      subject.flood_protection_before = 3
+      subject.project.flood_protection_after = 1
+      expect(subject.valid?).to eq false
+      expect(subject.errors.messages[:flood_protection_before]).to include
+      "^Once the project is complete the flood risk must be less than it is now"
     end
   end
 
