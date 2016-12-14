@@ -276,7 +276,7 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 
 .map-link {
   margin-bottom: 1.5em;
-
+  // scss-lint:disable QualifyingElement
   a[rel="external"]::after {
     background-position-y: 2px;
   }

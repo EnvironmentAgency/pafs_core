@@ -63,5 +63,26 @@ module PafsCore
     def standard_of_protection_label(t)
       I18n.t(t, scope: "pafs_core.standard_of_protection")
     end
+
+    # validation for flood protection
+    def flood_protection_should_be_same_or_better_for(attr)
+      if flood_protection_before.present? && flood_protection_after.present? &&
+         flood_protection_before > flood_protection_after
+        errors.add(attr, "^Once the project is complete the flood risk "\
+                   "must be less than it is now")
+      end
+    end
+
+    # validation for coastal erosion protection
+    def coastal_erosion_protection_should_be_same_or_better_for(attr)
+      if coastal_protection_before.present? &&
+         coastal_protection_after.present? &&
+         coastal_erosion_before_options[coastal_protection_before] == :ten_years_or_more &&
+         coastal_erosion_after_options[coastal_protection_after] == :less_than_ten_years
+        errors.add(attr, "^Once the project is complete the length of time before"\
+                   " coastal erosion affects the area must be greater than it"\
+                   " is now")
+      end
+    end
   end
 end
