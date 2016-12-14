@@ -24,15 +24,17 @@
       </div>
     </div>
   <% else %>
-    <div class="grid-row add-row">
-      <div class="column-three-quarters">
-        <h2 class="heading-medium" role="heading" id="earliest-start">Earliest start</h2>
-      </div>
-      <div class="column-one-quarter">
-        <div class="add-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :earliest_start) do -%>
-            Add<span class="visually-hidden"> whether the project could start earlier without impacting deliverability or outcomes</span>
-          <% end -%>
+    <div class="add-row">
+      <div class="grid-row">
+        <div class="column-three-quarters">
+          <h2 class="heading-medium" role="heading" id="earliest-start">Earliest start</h2>
+        </div>
+        <div class="column-one-quarter">
+          <div class="add-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :earliest_start) do -%>
+              Add<span class="visually-hidden"> whether the project could start earlier without impacting deliverability or outcomes</span>
+            <% end -%>
+          </div>
         </div>
       </div>
     </div>

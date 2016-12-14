@@ -29,10 +29,12 @@
     </div>
   </section>
   <% @project.articles.each do |item| %>
-    <%= f.form_group item do %>
-      <%= f.error_message item %>
-      <%= render partial: "summary/#{item}", locals: { project: @project } %>
-    <% end -%>
+    <div class="project-part">
+      <%= f.form_group item do %>
+        <%= f.error_message item %>
+        <%= render partial: "summary/#{item}", locals: { project: @project } %>
+      <% end -%>
+    </div>
   <% end %>
   <% end -%>
 </section>

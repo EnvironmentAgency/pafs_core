@@ -5,41 +5,41 @@
     </h2>
     <% if project.protects_against_flooding? %>
       <div class="<%= flood_class_for_sop(project) %> pushed-up">
-      <div class="grid-row">
-        <div class="column-three-quarters">
-          <ul class="summary-list underlined-items">
-            <li>
-              <dl class="grid-row">
-                <dt class="column-three-quarters">
+        <div class="grid-row">
+          <div class="column-three-quarters">
+            <ul class="summary-list underlined-items">
+              <li>
+                <dl class="grid-row">
+                  <dt class="column-three-quarters">
                   <%= project.summary_label(:flood_risk_before) %>
-                </dt>
-                <dd class="column-one-quarter align-right">
+                  </dt>
+                  <dd class="column-one-quarter align-right">
                   <%= project.flood_protection_before_percentage %>
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <dl class="grid-row">
-                <dt class="column-three-quarters">
+                  </dd>
+                </dl>
+              </li>
+              <li>
+                <dl class="grid-row">
+                  <dt class="column-three-quarters">
                   <%= project.summary_label(:flood_risk_after) %>
-                </dt>
-                <dd class="column-one-quarter align-right">
+                  </dt>
+                  <dd class="column-one-quarter align-right">
                   <%= project.flood_protection_after_percentage %>
-                </dd>
-              </dl>
-            </li>
-          </ul>
+                  </dd>
+                </dl>
+              </li>
+            </ul>
+          </div>
+          <div class="column-one-quarter">
+            <% if project.draft? %>
+              <div class="change-link">
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection) do -%>
+                  Change<span class="visually-hidden"> flooding <%= project.summary_label(:standard_of_protection_title).downcase %></span>
+                <% end -%>
+              </div>
+            <% end -%>
+          </div>
         </div>
-        <div class="column-one-quarter">
-          <% if project.draft? %>
-            <div class="change-link">
-              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection) do -%>
-                Change<span class="visually-hidden"> flooding <%= project.summary_label(:standard_of_protection_title).downcase %></span>
-              <% end -%>
-            </div>
-          <% end -%>
-        </div>
-      </div>
       </div>
     <% end %>
     <% if project.protects_against_coastal_erosion? %>
@@ -49,20 +49,20 @@
             <li>
               <dl class="grid-row">
                 <dt class="column-three-quarters">
-                  <%= project.summary_label(:coastal_protection_before) %>
+                <%= project.summary_label(:coastal_protection_before) %>
                 </dt>
                 <dd class="column-one-quarter align-right">
-                  <%= project.coastal_protection_before_years %>
+                <%= project.coastal_protection_before_years %>
                 </dd>
               </dl>
             </li>
             <li>
               <dl class="grid-row">
                 <dt class="column-three-quarters">
-                  <%= project.summary_label(:coastal_protection_after) %>
+                <%= project.summary_label(:coastal_protection_after) %>
                 </dt>
                 <dd class="column-one-quarter align-right">
-                  <%= project.coastal_protection_after_years %>
+                <%= project.coastal_protection_after_years %>
                 </dd>
               </dl>
             </li>
@@ -80,17 +80,19 @@
       </div>
     <% end %>
   <% else %>
-    <div class="grid-row add-row">
-      <div class="column-three-quarters">
-        <h2 class="heading-medium" role="heading" id="standard-of-protection">
-          <%= project.summary_label(:standard_of_protection_title) %>
-        </h2>
-      </div>
-      <div class="column-one-quarter">
-        <div class="add-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: project.standard_of_protection_step) do -%>
-            Add<span class="visually-hidden"> <%= project.summary_label(:standard_of_protection_title).downcase %> details</span>
-          <% end -%>
+    <div class="add-row">
+      <div class="grid-row">
+        <div class="column-three-quarters">
+          <h2 class="heading-medium" role="heading" id="standard-of-protection">
+            <%= project.summary_label(:standard_of_protection_title) %>
+          </h2>
+        </div>
+        <div class="column-one-quarter">
+          <div class="add-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: project.standard_of_protection_step) do -%>
+              Add<span class="visually-hidden"> <%= project.summary_label(:standard_of_protection_title).downcase %> details</span>
+            <% end -%>
+          </div>
         </div>
       </div>
     </div>
