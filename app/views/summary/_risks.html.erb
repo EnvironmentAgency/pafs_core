@@ -104,15 +104,17 @@
     <% end %>
 
   <% else %>
-    <div class="grid-row add-row">
-      <div class="column-three-quarters">
-        <h2 class="heading-medium" role="heading" id="risks">Risks and households benefiting</h2>
-      </div>
-      <div class="column-one-quarter">
-        <div class="add-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :risks) do -%>
-            Add<span class="visually-hidden"> the risks your proposed project will protect against</span>
-          <% end -%>
+    <div class="add-row">
+      <div class="grid-row">
+        <div class="column-three-quarters">
+          <h2 class="heading-medium" role="heading" id="risks">Risks and households benefiting</h2>
+        </div>
+        <div class="column-one-quarter">
+          <div class="add-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :risks) do -%>
+              Add<span class="visually-hidden"> the risks your proposed project will protect against</span>
+            <% end -%>
+          </div>
         </div>
       </div>
     </div>

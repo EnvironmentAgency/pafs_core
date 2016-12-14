@@ -18,7 +18,7 @@
                 <div class="column-three-quarters"><%= f[:name] %></div>
                 <div class="column-one-quarter align-right">
                   £<%= number_with_delimiter f[:value] %>
-                </div>
+              </div>
               </div>
             </li>
           <% end %>
@@ -35,15 +35,17 @@
       </div>
     </div>
   <% else %>
-    <div class="grid-row add-row">
-      <div class="column-three-quarters">
-        <h2 class="heading-medium" role="heading" id="funding-sources">Funding sources and spending</h2>
-      </div>
-      <div class="column-one-quarter">
-        <div class="add-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_sources) do -%>
-            Add<span class="visually-hidden"> the funding sources and spending details</span>
-          <% end -%>
+    <div class="add-row">
+      <div class="grid-row">
+        <div class="column-three-quarters">
+          <h2 class="heading-medium" role="heading" id="funding-sources">Funding sources and spending</h2>
+        </div>
+        <div class="column-one-quarter">
+          <div class="add-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_sources) do -%>
+              Add<span class="visually-hidden"> the funding sources and spending details</span>
+            <% end -%>
+          </div>
         </div>
       </div>
     </div>
