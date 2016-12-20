@@ -28,6 +28,15 @@
         <% end -%>
       </div>
     </div>
+    <% if project.show_location_data? %>
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <p><strong>Region:</strong> <%= project.region %><br/>
+          <strong>County:</strong> <%= project.county %><br/>
+          <strong>Constituency:</strong> <%= project.parliamentary_constituency %></p>
+        </div>
+      </div>
+    <% end -%>
     <% if project.benefit_area_file_uploaded? %>
       <div class="grid-row">
         <div class="column-two-thirds">

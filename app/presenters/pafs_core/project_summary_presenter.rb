@@ -22,6 +22,10 @@ module PafsCore
       end
     end
 
+    def show_location_data?
+      ENV.fetch("SHOW_LOCATION_DATA", false) != false
+    end
+
     def grid_reference_link
       if project.grid_reference
         I18n.t("see_this_location_link",
