@@ -6,14 +6,23 @@ require "faraday"
 module PafsCore
   class MapService
     def fetch_location_data(latitude, longitude)
-      response = connection.get("/postcodes?lat=#{latitude}&lon=#{longitude}&limit=1&radius=50")
+      response = connection.get("/postcodes?lat=#{latitude}&lon=#{longitude}&limit=1")
       if response.status == 200
-        data = JSON.parse(response.body)["result"].first
-        {
-          region: data["region"],
-          parliamentary_constituency: data["parliamentary_constituency"],
-          county: data["admin_county"]
-        }
+        data = JSON.parse(response.body)
+        if data && data["result"]
+          data = data["result"].first
+          {
+            region: data["region"],
+            parliamentary_constituency: data["parliamentary_constituency"],
+            county: data["admin_county"]
+          }
+        else
+          {
+            region: nil,
+            parliamentary_constituency: nil,
+            county: nil
+          }
+        end
       else
         raise MapServiceError.new "MapService error: #{response.status}"
       end
