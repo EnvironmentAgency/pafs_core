@@ -17,4 +17,7 @@ module PafsCore
 
   class FileNotFoundError < RuntimeError
   end
+
+  class MapServiceError < RuntimeError
+  end
 end
