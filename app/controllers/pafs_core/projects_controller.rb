@@ -7,7 +7,10 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   def index
     # dashboard page
     # (filterable) list of projects
-    @projects = navigator.search(params)
+    page = params.fetch(:page, 1)
+    projects_per_page = params.fetch(:per, 10)
+
+    @projects = navigator.search(params).page(page).per(projects_per_page)
   end
 
   def show
