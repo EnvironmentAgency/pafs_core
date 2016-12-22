@@ -35,5 +35,15 @@
         <% end %>
       </tbody>
     </table>
+<div class="grid-row page-nav">
+  <div class="column-one-third">
+    <%= page_entries_info @projects %>
+  </div>
+  <div class="column-two-thirds">
+    <div class="pagination-area">
+      <%= paginate @projects, left: 0, right: 0, window: 2 %>
+    </div>
+  </div>
+</div>
   </section>
 </div>

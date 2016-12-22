@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "roo", "~> 2.4.0"
   s.add_dependency "bstard"
   s.add_dependency "faraday"
+  s.add_dependency "kaminari"
   #s.add_dependency "axlsx"
   #s.add_dependency "axlsx_rails"
   s.add_development_dependency "pg"

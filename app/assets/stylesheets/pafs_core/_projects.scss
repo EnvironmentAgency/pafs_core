@@ -13,6 +13,21 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   }
 }
 
+.page-nav {
+  @include core-16;
+
+  margin-top: 1em;
+}
+
+.pagination-area {
+  margin-right: 1em;
+  text-align: right;
+
+  .page {
+    padding: 0.15em;
+  }
+}
+
 .secondary-button {
   background-color: $link-colour;
   margin-left: 0.5em;

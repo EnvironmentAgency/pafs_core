@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class ProjectService
     attr_reader :user
@@ -35,14 +36,12 @@ module PafsCore
     end
 
     def search(options = {})
-      #FIXME: just returning all projects while we're scaffolding
       areas = area_ids_for_user(user)
       PafsCore::Project.
         includes(:area_projects, :areas).
         joins(:area_projects).
         merge(PafsCore::AreaProject.where(area_id: areas)).
         order(updated_at: :desc)
-      # PafsCore::Project.all.order(updated_at: :desc)
     end
 
     def all_projects_for(area)
