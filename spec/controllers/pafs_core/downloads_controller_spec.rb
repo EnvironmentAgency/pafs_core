@@ -47,16 +47,12 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
       it "sends the file to the client" do
         expect(controller).to receive(:navigator) { navigator }
-        expect(navigator).to receive(:find_project_step).
-          with(@project.to_param, :funding_calculator) { step }
+        expect(navigator).to receive(:find).
+          with(@project.to_param) { @project }
 
-        expect(step).to receive(:reference_number) { @project.reference_number }
-        expect(step).to receive(:download) do |&block|
-          block.call(data, filename, content_type)
+        expect(controller).to receive(:fetch_funding_calculator_for).with(@project) do
+          controller.render nothing: true
         end
-
-        expect(controller).to receive(:send_data).
-          with(data, { filename: download_filename, type: content_type }) { controller.render nothing: true }
 
         get :funding_calculator, id: @project.to_param, step: "funding_calculator"
       end
@@ -66,16 +62,15 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
   describe "GET delete_funding_calculator" do
     context "given a file has been stored previously" do
       let(:navigator) { double("navigator") }
-      let(:step) { double("funding_calculator_step") }
       let(:filename) { "my_upload.xls" }
       let(:content_type) { "text/plain" }
 
       it "deletes the funding calculator" do
         expect(controller).to receive(:navigator) { navigator }
-        expect(navigator).to receive(:find_project_step).
-          with(@project.to_param, :funding_calculator) { step }
+        expect(navigator).to receive(:find).
+          with(@project.to_param) { @project }
 
-        expect(step).to receive(:delete_calculator)
+        expect(controller).to receive(:delete_funding_calculator_for).with(@project)
 
         get :delete_funding_calculator, id: @project.to_param
       end
@@ -95,16 +90,10 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
       it "sends the file to the client" do
         expect(controller).to receive(:navigator) { navigator }
-        expect(navigator).to receive(:find_project_step).
-          with(@project.to_param, :benefit_area_file) { step }
+        expect(navigator).to receive(:find).
+          with(@project.to_param) { @project }
 
-        expect(step).to receive(:reference_number) { @project.reference_number }
-        expect(step).to receive(:download) do |&block|
-          block.call(data, filename, content_type)
-        end
-
-        expect(controller).to receive(:send_data).
-          with(data, { filename: download_filename, type: content_type }) { controller.render nothing: true }
+        expect(controller).to receive(:fetch_benefit_area_file_for).with(@project) { controller.render nothing: true }
 
         get :benefit_area, id: @project.to_param
       end
@@ -120,10 +109,10 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
       it "deletes the funding benefit area file" do
         expect(controller).to receive(:navigator) { navigator }
-        expect(navigator).to receive(:find_project_step).
-          with(@project.to_param, :benefit_area_file) { step }
+        expect(navigator).to receive(:find).
+          with(@project.to_param) { @project }
 
-        expect(step).to receive(:delete_benefit_area_file)
+        expect(controller).to receive(:delete_benefit_area_file_for).with(@project)
 
         get :delete_benefit_area, id: @project.to_param
       end
@@ -142,16 +131,10 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
         expect(controller).to receive(:navigator) { navigator }
         expect(navigator).to receive(:find).
           with(@project.to_param) { @project }
-        expect(PafsCore::ModerationPresenter).to receive(:new) { presenter }
-        expect(presenter).to receive(:download) do |&block|
-          block.call(data, filename, content_type)
-        end
 
-        expect(controller).to receive(:send_data).
-          with(data, { filename: filename, type: content_type }) { controller.render nothing: true }
+        expect(controller).to receive(:generate_moderation_for).with(@project) { controller.render nothing: true }
 
         get :moderation, id: @project.to_param
-        expect(response.headers["Content-Type"]).to eq(content_type)
       end
     end
   end

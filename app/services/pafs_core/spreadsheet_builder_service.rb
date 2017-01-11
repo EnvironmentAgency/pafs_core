@@ -103,7 +103,7 @@ module PafsCore
       processed_record[:rfcc] = rfcc_name(record["reference_number"])
       processed_record[:coastal_group] = add_coastal_group(record)
       processed_record.merge!(add_lead_rma(record))
-      processed_record.merge!(process_geo_data(record))
+      # processed_record.merge!(process_geo_data(record))
       processed_record.merge!(process_funding_totals(record))
       processed_record.merge!(process_households_totals(record)) if protects_households?(record)
       processed_record.merge!(process_funding_six_year_totals(record))
@@ -316,15 +316,15 @@ module PafsCore
     end
 
     def process_geo_data(record)
-      location = record["project_location"].scan(/\d+/).map(&:to_i)
-      grid_ref = nil
-      grid_ref = Cumberland.get_grid_reference_from_coordinates(location[0], location[1]) if location.size == 2
-      ea_area = if record["parent_area_type"] == "EA Area"
-                  record["parent_area_name"]
-                else
-                  record["grandparent_area_name"]
-                end
-      { grid_ref: grid_ref, ea_area: ea_area, project_location: location }
+      # location = record["project_location"].scan(/\d+/).map(&:to_i)
+      # grid_ref = nil
+      # grid_ref = Cumberland.get_grid_reference_from_coordinates(location[0], location[1]) if location.size == 2
+      # ea_area = if record["parent_area_type"] == "EA Area"
+      #             record["parent_area_name"]
+      #           else
+      #             record["grandparent_area_name"]
+      #           end
+      # { grid_ref: grid_ref, ea_area: ea_area, project_location: location }
     end
 
     def process_funding_totals(record)

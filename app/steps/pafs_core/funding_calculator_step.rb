@@ -46,42 +46,11 @@ module PafsCore
       end
     end
 
-    def download
-      if funding_calculator_file_name.present?
-        t = Tempfile.new
-        storage.download(File.join(storage_path, funding_calculator_file_name), t.path)
-        t.rewind
-
-        if block_given?
-          yield t.read, funding_calculator_file_name, funding_calculator_content_type
-          t.close!
-        else
-          t
-        end
-      end
-    end
-
-    def delete_calculator
-      if funding_calculator_file_name.present?
-        storage.delete(File.join(storage_path, funding_calculator_file_name))
-        reset_file_attributes
-      end
-    end
-
   private
     def step_params(params)
       ActionController::Parameters.new(params).
         require(:funding_calculator_step).
         permit(:funding_calculator)
-    end
-
-    def reset_file_attributes
-      self.funding_calculator_file_name = nil
-      self.funding_calculator_content_type = nil
-      self.funding_calculator_file_size = nil
-      self.funding_calculator_updated_at = nil
-      self.virus_info = nil
-      project.save
     end
 
     def storage
