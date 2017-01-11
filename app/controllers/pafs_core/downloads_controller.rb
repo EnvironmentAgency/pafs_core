@@ -1,6 +1,7 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 class PafsCore::DownloadsController < PafsCore::ApplicationController
+  include PafsCore::Files
 
   def index
     @project = PafsCore::ProjectSummaryPresenter.new navigator.find(params[:id])
@@ -11,13 +12,15 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
 
     respond_to do |format|
       format.csv do
-        @csv = PafsCore::SpreadsheetBuilderService.new.generate_csv([@project])
-        send_data @csv, type: "text/csv", filename: "#{ref_to_file_name(@project)}_FCERM1.csv"
+        # @csv = PafsCore::SpreadsheetBuilderService.new.generate_csv([@project])
+        @csv = generate_fcerm1(@project, :csv)
+        send_data @csv, type: "text/csv", filename: fcerm1_filename(@project.reference_number, :csv)
       end
 
       format.xlsx do
-        xlsx = PafsCore::SpreadsheetBuilderService.new.generate_xlsx([@project])
-        file_path = Rails.root.join("tmp", "#{ref_to_file_name(@project)}_FCERM1.xlsx")
+        # xlsx = PafsCore::SpreadsheetBuilderService.new.generate_xlsx([@project])
+        xlsx = generate_fcerm1(@project, :xlsx)
+        file_path = Rails.root.join("tmp", fcerm1_filename(@project.reference_number, :xlsx))
 
         f = File.open(file_path, "wb")
         xlsx.serialize(f)
@@ -29,58 +32,46 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
   end
 
   def benefit_area
-    @project = navigator.find_project_step(params[:id], :benefit_area_file)
-    @project.download do |data, filename, content_type|
-      send_data(data,
-                filename: benefit_area_filename(@project, filename),
-                type: content_type)
+    @project = navigator.find(params[:id])
+    fetch_benefit_area_file_for(@project) do |data, filename, content_type|
+      send_data(data, filename: filename, type: content_type)
     end
   end
 
   # GET
   def delete_benefit_area
-    @project = navigator.find_project_step(params[:id], :benefit_area_file)
-    @project.delete_benefit_area_file
+    @project = navigator.find(params[:id])
+    delete_benefit_area_file_for(@project)
     redirect_to project_step_path(id: @project.to_param, step: :benefit_area_file)
   end
 
   def funding_calculator
-    @project = navigator.find_project_step(params[:id], :funding_calculator)
-    @project.download do |data, filename, content_type|
+    @project = navigator.find(params[:id])
+    fetch_funding_calculator_for(@project) do |data, filename, content_type|
       send_data(data,
-                filename: pfcalc_filename(@project, filename),
+                filename: filename,
                 type: content_type)
     end
   end
 
   # GET
   def delete_funding_calculator
-    @project = navigator.find_project_step(params[:id], :funding_calculator)
-    @project.delete_calculator
+    @project = navigator.find(params[:id])
+    delete_funding_calculator_for(@project)
     redirect_to project_step_path(id: @project.to_param, step: :funding_calculator)
   end
 
   def moderation
-    @project = PafsCore::ModerationPresenter.new(navigator.find(params[:id]))
-    @project.download do |data, filename, content_type|
-      send_data(data, filename: filename, type: content_type)
+    @project = navigator.find(params[:id])
+    generate_moderation_for(@project) do |data, filename, content_type|
+      send_data(data,
+                filename: filename,
+                type: content_type)
     end
   end
 
   private
   def navigator
     @navigator ||= PafsCore::ProjectNavigator.new current_resource
-  end
-
-  def benefit_area_filename(project, original_filename)
-    "#{ref_to_file_name(project)}_benefit_area#{File.extname(original_filename)}"
-  end
-
-  def pfcalc_filename(project, original_filename)
-    "#{ref_to_file_name(project)}_PFcalculator#{File.extname(original_filename)}"
-  end
-
-  def ref_to_file_name(project)
-    @project.reference_number.parameterize.upcase
   end
 end

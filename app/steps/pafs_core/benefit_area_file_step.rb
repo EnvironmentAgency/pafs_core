@@ -45,27 +45,27 @@ module PafsCore
       end
     end
 
-    def download
-      if benefit_area_file_name.present?
-        t = Tempfile.new
-        storage.download(File.join(storage_path, benefit_area_file_name), t.path)
-        t.rewind
+    # def download
+    #   if benefit_area_file_name.present?
+    #     t = Tempfile.new
+    #     storage.download(File.join(storage_path, benefit_area_file_name), t.path)
+    #     t.rewind
+    #
+    #     if block_given?
+    #       yield t.read, benefit_area_file_name, benefit_area_content_type
+    #       t.close!
+    #     else
+    #       t
+    #     end
+    #   end
+    # end
 
-        if block_given?
-          yield t.read, benefit_area_file_name, benefit_area_content_type
-          t.close!
-        else
-          t
-        end
-      end
-    end
-
-    def delete_benefit_area_file
-      if benefit_area_file_name.present?
-        storage.delete(File.join(storage_path, benefit_area_file_name))
-        reset_file_attributes
-      end
-    end
+    # def delete_benefit_area_file
+    #   if benefit_area_file_name.present?
+    #     storage.delete(File.join(storage_path, benefit_area_file_name))
+    #     reset_file_attributes
+    #   end
+    # end
 
   private
     def step_params(params)
@@ -74,14 +74,14 @@ module PafsCore
         permit(:benefit_area_file)
     end
 
-    def reset_file_attributes
-      self.benefit_area_file_name = nil
-      self.benefit_area_content_type = nil
-      self.benefit_area_file_size = nil
-      self.benefit_area_file_updated_at = nil
-      self.virus_info = nil
-      project.save
-    end
+    # def reset_file_attributes
+    #   self.benefit_area_file_name = nil
+    #   self.benefit_area_content_type = nil
+    #   self.benefit_area_file_size = nil
+    #   self.benefit_area_file_updated_at = nil
+    #   self.virus_info = nil
+    #   project.save
+    # end
 
     def storage
       @storage ||= if Rails.env.development?

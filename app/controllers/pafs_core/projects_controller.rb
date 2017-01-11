@@ -38,6 +38,10 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     # PSO mark proposal as submitted to APT
     @project = navigator.find(params[:id])
     @project.submission_state.submit!
+
+    # send files to asite
+    asite.submit_project(@project)
+
     redirect_to pafs_core.confirm_project_path(@project)
   end
 
@@ -68,21 +72,6 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     # edit step
     @project = navigator.find_project_step(params[:id], params[:step])
 
-    # TODO: move this into before_view for the appropriate steps
-    # This is necessary for the map to be set on the location step
-    # if params[:step] == "location"
-    #   @results = PafsCore::MapService.new
-    #                                  .find(
-    #                                    params[:q],
-    #                                    @project.project_location
-    #                                  )
-    # elsif params[:step] == "map"
-    #   @map_centre = PafsCore::MapService.new
-    #                                     .find(
-    #                                       @project.benefit_area_centre.join(","),
-    #                                       @project.project_location
-    #                                     )
-    # end
     # we want to go to the page in the process requested in the
     # params[:step] part of the URL and display the appropriate form
     if @project.disabled?
@@ -160,5 +149,9 @@ private
 
   def navigator
     @navigator ||= PafsCore::ProjectNavigator.new current_resource
+  end
+
+  def asite
+    @asite ||= PafsCore::AsiteService.new current_resource
   end
 end

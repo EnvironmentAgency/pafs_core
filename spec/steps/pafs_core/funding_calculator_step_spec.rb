@@ -130,64 +130,64 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     end
   end
 
-  describe "#download" do
-    let(:storage) { double("storage") }
-    subject { FactoryGirl.build(:funding_calculator_step) }
-    before(:each) do
-      @upload_path = File.join(subject.storage_path, subject.funding_calculator_file_name)
-      expect(PafsCore::FileStorageService).to receive(:new) { storage }
-    end
+  # describe "#download" do
+  #   let(:storage) { double("storage") }
+  #   subject { FactoryGirl.build(:funding_calculator_step) }
+  #   before(:each) do
+  #     @upload_path = File.join(subject.storage_path, subject.funding_calculator_file_name)
+  #     expect(PafsCore::FileStorageService).to receive(:new) { storage }
+  #   end
+  #
+  #   context "when an uploaded file exists" do
+  #     let(:tmpfile) { double("tmpfile") }
+  #     before(:each) do
+  #       expect(storage).to receive(:download)
+  #       expect(Tempfile).to receive(:new) { tmpfile }
+  #       expect(tmpfile).to receive(:path) { "path/to/file.xls" }
+  #       expect(tmpfile).to receive(:rewind) { 0 }
+  #     end
+  #
+  #     it "returns a temporary file" do
+  #       expect(subject.download).to eq tmpfile
+  #     end
+  #
+  #     context "when a block is given" do
+  #       let(:tmpfile_content) { "Wigwam haystack" }
+  #       it "passes the temporary file data and details to the block" do
+  #         expect(tmpfile).to receive(:read) { tmpfile_content }
+  #         expect(tmpfile).to receive(:close!)
+  #
+  #         expect { |b| subject.download(&b) }.
+  #           to yield_with_args(tmpfile_content,
+  #                           subject.funding_calculator_file_name,
+  #                           subject.funding_calculator_content_type)
+  #       end
+  #     end
+  #   end
+  # end
 
-    context "when an uploaded file exists" do
-      let(:tmpfile) { double("tmpfile") }
-      before(:each) do
-        expect(storage).to receive(:download)
-        expect(Tempfile).to receive(:new) { tmpfile }
-        expect(tmpfile).to receive(:path) { "path/to/file.xls" }
-        expect(tmpfile).to receive(:rewind) { 0 }
-      end
-
-      it "returns a temporary file" do
-        expect(subject.download).to eq tmpfile
-      end
-
-      context "when a block is given" do
-        let(:tmpfile_content) { "Wigwam haystack" }
-        it "passes the temporary file data and details to the block" do
-          expect(tmpfile).to receive(:read) { tmpfile_content }
-          expect(tmpfile).to receive(:close!)
-
-          expect { |b| subject.download(&b) }.
-            to yield_with_args(tmpfile_content,
-                            subject.funding_calculator_file_name,
-                            subject.funding_calculator_content_type)
-        end
-      end
-    end
-  end
-
-  describe "#delete_calculator" do
-    let(:storage) { double("storage") }
-    subject { FactoryGirl.build(:funding_calculator_step) }
-    before(:each) do
-      expect(PafsCore::FileStorageService).to receive(:new) { storage }
-    end
-
-    context "when an uploaded file exists" do
-      it "removes the file from storage" do
-        expect(storage).to receive(:delete)
-        subject.delete_calculator
-      end
-
-      it "resets the stored file attributes" do
-        expect(storage).to receive(:delete)
-        subject.delete_calculator
-        expect(subject.funding_calculator_file_name).to be_nil
-        expect(subject.funding_calculator_content_type).to be_nil
-        expect(subject.funding_calculator_file_size).to be_nil
-        expect(subject.funding_calculator_updated_at).to be_nil
-        expect(subject.virus_info).to be_nil
-      end
-    end
-  end
+  # describe "#delete_calculator" do
+  #   let(:storage) { double("storage") }
+  #   subject { FactoryGirl.build(:funding_calculator_step) }
+  #   before(:each) do
+  #     expect(PafsCore::FileStorageService).to receive(:new) { storage }
+  #   end
+  #
+  #   context "when an uploaded file exists" do
+  #     it "removes the file from storage" do
+  #       expect(storage).to receive(:delete)
+  #       subject.delete_calculator
+  #     end
+  #
+  #     it "resets the stored file attributes" do
+  #       expect(storage).to receive(:delete)
+  #       subject.delete_calculator
+  #       expect(subject.funding_calculator_file_name).to be_nil
+  #       expect(subject.funding_calculator_content_type).to be_nil
+  #       expect(subject.funding_calculator_file_size).to be_nil
+  #       expect(subject.funding_calculator_updated_at).to be_nil
+  #       expect(subject.virus_info).to be_nil
+  #     end
+  #   end
+  # end
 end
