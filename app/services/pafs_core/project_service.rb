@@ -4,7 +4,7 @@ module PafsCore
   class ProjectService
     attr_reader :user
 
-    def initialize(user)
+    def initialize(user = nil)
       # when instantiated from a controller the 'current_user' should
       # be passed in. This will allow us to audit actions etc. down the line.
       @user = user
@@ -28,6 +28,10 @@ module PafsCore
         joins(:area_projects).
         merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user))).
         first!
+    end
+
+    def find_project_without_security(id)
+      PafsCore::Project.find_by!(slug: id.to_s.upcase)
     end
 
     def self.generate_reference_number(rfcc_code)
