@@ -44,4 +44,6 @@ PafsCore::Engine.routes.draw do
   patch 'bootstrap/:id/:step' => 'bootstraps#save', as: :save_bootstrap_step
   get 'projects/:id/:step' => 'projects#step', as: :project_step
   patch 'projects/:id/:step' => 'projects#save', as: :save_project_step
+
+  post "confirmation" => "confirmation#receipt", as: :confirm_receipt
 end

@@ -49,6 +49,8 @@ module PafsCore
 
       # generate attachments and send to asite
       PafsCore::AsiteMailer.submit_project(project.slug, attachments).deliver_now
+
+      submission.submission_state.send!
     end
 
     def add_attachment(submission, attachments, filename, data)
