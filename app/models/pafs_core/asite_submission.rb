@@ -10,12 +10,17 @@ module PafsCore
       where(status: "sent")
     end
 
+    def self.sent_or_unsuccessful
+      t = arel_table
+      where(t[:status].eq("sent").or(t[:status].eq("failed")))
+    end
+
     # rubocop:disable Style/HashSyntax
     def submission_state
       machine = Bstard.define do |fsm|
         fsm.initial status
         fsm.event :deliver, :created => :sent
-        fsm.event :confirm, :sent => :succeeeded
+        fsm.event :confirm, :sent => :succeeded
         fsm.event :reject, :sent => :failed
         fsm.when :any do |_event, _prev, new_state|
           self.status = new_state
