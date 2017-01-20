@@ -6,6 +6,7 @@
         <%= f.hidden_field :id %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
         <div class="step-form">
+          <p><%= t('.urgency_proposal_need_agree') %></p>
           <fieldset>
             <legend class="visuallyhidden">Select the reason why your project is urgent</legend>
             <%= f.form_group(:urgency_reason) do %>
