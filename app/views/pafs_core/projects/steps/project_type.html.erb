@@ -8,6 +8,7 @@
         <div class="step-form">
           <fieldset>
             <legend class="visuallyhidden">Select the type of your proposed project</legend>
+            <p><%= t('.project_type_supporting_text') %></p>
             <%= f.form_group(:project_type) do %>
               <%= f.error_message(:project_type) %>
               <% PafsCore::PROJECT_TYPES.each do |pt| %>
