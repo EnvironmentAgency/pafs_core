@@ -18,6 +18,7 @@ en:
           str_label: Strategy for complex flood or coastal erosion risk situations across several interconnected areas
           env_with_households_label: Environmental project that also benefits households
           env_without_households_label: Environmental project that doesn't benefit any households
+          project_type_supporting_text: For projects covering more than one type select the type that provides the majority of the benefits
 # financial year
         financial_year:
           heading: In what financial year will the project stop spending funds?
