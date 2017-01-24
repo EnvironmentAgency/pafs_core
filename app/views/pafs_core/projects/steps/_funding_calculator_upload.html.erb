@@ -24,5 +24,14 @@
       <% end %>
     </div>
     <%= f.submit t("upload_and_continue_label"), class: 'button' %>
+    <details>
+      <summary role="button" aria-controls="find-grid-reference">
+        <span class="summary"><%= t('if_you_need_help', scope: scope) %></span>
+      </summary>
+      <div class="panel panel-indent panel-border-narrow" id="calc-help-needed">
+        <p><%= t('contact_your_pso', scope: scope) %> </p>
+
+      </div>
+    </details>
   </div>
 <% end %>

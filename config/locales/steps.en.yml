@@ -11,7 +11,7 @@ en:
 # project type
         project_type:
           heading: What type of project are you proposing?
-          def_label: Changing the current standard of service of a flood or coastal erosion risk management asset, or creating a new one
+          def_label: Creating a new flood or coastal erosion risk management asset, or improving the standard of service of an existing one
           cm_label: Restore the standard of service of a flood or coastal erosion risk management asset by refurbishment or replacement
           plp_label: Property level protection for properties within the 'very significant' flood band where there is a 5% or greater chance of flooding
           brg_label: Work done to bridges to enable flood and coastal erosion risk management
@@ -181,6 +181,8 @@ en:
           delete_label_html: "Delete<span class='visually-hidden'> your uploaded funding calculator</span>"
           filename_title: File
           uploaded_title: Uploaded
+          if_you_need_help: If you need someone to do this for you
+          contact_your_pso: You can contact your local partnership and strategic overview officer and they can help you to complete and upload the partnership funding calculator.
 # funding calculator summary
         funding_calculator_summary:
           heading: The uploaded partnership funding calculator
@@ -289,6 +291,7 @@ en:
 # urgency
         urgency:
           heading: Is the project urgent for any of the following reasons?
+          urgency_proposal_need_agree: Project urgency proposals must be agreed with your local Partnership and Strategic Overview (PSO) officer before submission
 # urgency details
         urgency_details:
           heading: Why is your project urgent?
