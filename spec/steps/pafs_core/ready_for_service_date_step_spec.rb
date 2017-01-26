@@ -39,11 +39,11 @@ RSpec.describe PafsCore::ReadyForServiceDateStep, type: :model do
       })
     }
 
-    let(:invalid_date_params) {
-      HashWithIndifferentAccess.new({
-        ready_for_service_date_step: { ready_for_service_month: "12", ready_for_service_year: "2013" }
-      })
-    }
+    # Commented out as dates can now be in the past ...doesn't reduce the test covergage. let(:invalid_date_params) {
+     # HashWithIndifferentAccess.new({
+      #  ready_for_service_date_step: { ready_for_service_month: "12", ready_for_service_year: "2013" }
+      #})
+    #}
 
     it "saves the start construction fields when valid" do
       [:ready_for_service_month, :ready_for_service_year].each do |attr|
@@ -56,7 +56,7 @@ RSpec.describe PafsCore::ReadyForServiceDateStep, type: :model do
     it "returns false when validation fails" do
       expect(subject.update(invalid_month_params)).to eq false
       expect(subject.update(invalid_year_params)).to eq false
-      expect(subject.update(invalid_date_params)).to eq false
+      #expect(subject.update(invalid_date_params)).to eq false
     end
   end
 end

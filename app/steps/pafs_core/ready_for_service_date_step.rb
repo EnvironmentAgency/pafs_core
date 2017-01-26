@@ -19,7 +19,6 @@ module PafsCore
       date_is_present_and_in_range
       return if errors.any?
       ready_for_service_after_start_construction
-      date_is_in_future
     end
 
     def ready_for_service_after_start_construction
@@ -47,13 +46,5 @@ module PafsCore
                (2000..2100).cover?(yv.to_i)
     end
 
-    def date_is_in_future
-      dt = Date.new(ready_for_service_year, ready_for_service_month, 1)
-
-      errors.add(
-        :ready_for_service,
-        "^The date you expect the project to start achieving its benefits must be in the future"
-      ) if Time.zone.today > dt
-    end
   end
 end
