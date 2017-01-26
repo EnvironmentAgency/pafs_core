@@ -14,11 +14,11 @@ en:
           def_label: Creating a new flood or coastal erosion risk management asset, or improving the standard of service of an existing one
           cm_label: Restore the standard of service of a flood or coastal erosion risk management asset by refurbishment or replacement
           plp_label: Property level protection for properties within the 'very significant' flood band where there is a 5% or greater chance of flooding
-          brg_label: Work done to bridges to enable flood and coastal erosion risk management
+          # Removed by PM-207 26 Jan 2017 brg_label: Work done to bridges to enable flood and coastal erosion risk management
           str_label: Strategy for complex flood or coastal erosion risk situations across several interconnected areas
           env_with_households_label: Environmental project that also benefits households
           env_without_households_label: Environmental project that doesn't benefit any households
-          project_type_supporting_text: For projects covering more than one type select the type that provides the majority of the benefits
+          project_type_supporting_text: For projects covering more than one type select the type that provides the majority of the benefits.
 # financial year
         financial_year:
           heading: In what financial year will the project stop spending funds?
@@ -291,7 +291,7 @@ en:
 # urgency
         urgency:
           heading: Is the project urgent for any of the following reasons?
-          urgency_proposal_need_agree: Project urgency proposals must be agreed with your local Partnership and Strategic Overview (PSO) officer before submission
+          urgency_proposal_need_agree: Urgency proposals must be agreed with your local Partnership and Strategic Overview (PSO) officer before submission.
 # urgency details
         urgency_details:
           heading: Why is your project urgent?
