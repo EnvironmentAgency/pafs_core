@@ -20,14 +20,14 @@ module PafsCore
       attachments = {}
 
       fcerm1 = generate_fcerm1(project, :xlsx)
-      tmp_fcerm1 = Tempfile.new
-      fcerm1.serialize(tmp_fcerm1)
-      tmp_fcerm1.rewind
+      # tmp_fcerm1 = Tempfile.new
+      # fcerm1.serialize(tmp_fcerm1)
+      # tmp_fcerm1.rewind
       add_attachment(submission,
                      attachments,
                      fcerm1_filename(project.reference_number, :xlsx),
-                     tmp_fcerm1.read)
-      tmp_fcerm1.close!
+                     fcerm1.stream.read)
+      # tmp_fcerm1.close!
 
       if project.benefit_area_file_name
         fetch_benefit_area_file_for(project) do |data, filename, _content_type|

@@ -18,8 +18,8 @@ module PafsCore
     end
 
     def generate_fcerm1(project, format)
-      builder = PafsCore::SpreadsheetBuilderService.new
-      builder.send("generate_#{format}", [project])
+      builder = PafsCore::SpreadsheetService.new
+      builder.send("generate_#{format}", project)
     end
 
     # benefit area file
