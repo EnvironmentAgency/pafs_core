@@ -40,6 +40,10 @@ module PafsCore
       STANDARD_OF_PROTECTION_FLOODING
     end
 
+    def flood_risk_symbol(n)
+      STANDARD_OF_PROTECTION_FLOODING[n]
+    end
+
     # coastal erosion protection levels are stored as integers that correlate to
     # the category of risk, before the project
     # 0 - Less than 1 year
@@ -50,6 +54,10 @@ module PafsCore
       STANDARD_OF_PROTECTION_COASTAL_BEFORE
     end
 
+    def coastal_risk_before_symbol(n)
+      STANDARD_OF_PROTECTION_COASTAL_BEFORE[n]
+    end
+
     # coastal erosion protection levels are stored as integers that correlate to
     # the category of risk, after the project
     # 0 - Less than 10 years
@@ -58,6 +66,10 @@ module PafsCore
     # 3 - 50 years or more
     def coastal_erosion_after_options
       STANDARD_OF_PROTECTION_COASTAL_AFTER
+    end
+
+    def coastal_risk_after_symbol(n)
+      STANDARD_OF_PROTECTION_COASTAL_AFTER[n]
     end
 
     def standard_of_protection_label(t)

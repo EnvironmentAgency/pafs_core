@@ -1,0 +1,29 @@
+en:
+  pafs_core:
+    fcerm1:
+      risks:
+        fluvial_flooding: "River Flooding"
+        tidal_flooding: "Tidal Flooding"
+        groundwater_flooding: "Groundwater Flooding"
+        surface_water_flooding: "Surface Water Flooding"
+        sea_flooding: "Sea Flooding"
+        coastal_erosion: "Coastal Erosion"
+      moderation:
+        statutory_need: "Statutory Requirement"
+        legal_need: "Legal Agreement"
+        health_and_safety: "Health & Safety"
+        emergency_works: "Other"
+        time_limited: "Time Constrained Contribution"
+      standard_of_protection:
+        less_than_one_year: "Less than 1 year"
+        one_to_four_years: "1 to 4 years"
+        five_to_nine_years: "5 to 9 years"
+        ten_years_or_more: "10 years or more"
+        less_than_ten_years: "Less than 10 years"
+        ten_to_nineteen_years: "10 to 19 years"
+        twenty_to_fortynine_years: "20 to 49 years"
+        fifty_years_or_more: "50 years or more"
+        very_significant: "5% or greater"
+        significant: "1.33% to 4.99%"
+        moderate: "0.51% to 1.32%"
+        low: "0.5% or lower"

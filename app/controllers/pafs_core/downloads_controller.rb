@@ -18,15 +18,9 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
       end
 
       format.xlsx do
-        # xlsx = PafsCore::SpreadsheetBuilderService.new.generate_xlsx([@project])
         xlsx = generate_fcerm1(@project, :xlsx)
-        file_path = Rails.root.join("tmp", fcerm1_filename(@project.reference_number, :xlsx))
-
-        f = File.open(file_path, "wb")
-        xlsx.serialize(f)
-
-        send_file file_path, type: Mime::XLSX
-        f.close && File.delete(file_path)
+        send_data xlsx.stream.read,
+          filename: fcerm1_filename(@project.reference_number, :xlsx)
       end
     end
   end
