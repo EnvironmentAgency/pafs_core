@@ -3,6 +3,7 @@
 module PafsCore
   class ApplicationController < ActionController::Base
     include PafsCore::ApplicationHelper
+    protect_from_forgery with: :exception
 
     before_filter :set_cache_headers
 

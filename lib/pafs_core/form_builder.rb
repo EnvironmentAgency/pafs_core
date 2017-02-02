@@ -200,7 +200,6 @@ module PafsCore
       email_field
       password_field
       number_field
-      phone_field
       range_field
       search_field
       telephone_field

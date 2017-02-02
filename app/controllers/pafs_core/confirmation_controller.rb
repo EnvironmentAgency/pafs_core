@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class PafsCore::ConfirmationController < PafsCore::ApplicationController
+  protect_from_forgery with: :null_session
   # Callback from Asite to indicate that they have received our email and that
   # the attached files are complete and unaltered
   # The body of the request should contain a JSON payload containing the project
