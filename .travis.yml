@@ -24,4 +24,4 @@ notifications:
 addons:
   postgresql: "9.4"
   code_climate:
-    repo_token: f8cd9c18c5ec42f72e7fb94fd63ec7dfe5bd13b4a64bb53a57846b739372fe47
+    repo_token: 6329f07963b904dfc32beac2596e2aa3b1a980a2953de6613ec1bbc78c827d5a
