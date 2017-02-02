@@ -1,15 +1,15 @@
 # Project Application and Funding Service (PAFS) Core Shared
 
-[![Build Status](https://travis-ci.org/EnvironmentAgency/pafs_core.svg?branch=develop)](https://travis-ci.org/EnvironmentAgency/pafs_core)
-[![Code Climate](https://codeclimate.com/github/EnvironmentAgency/pafs_core/badges/gpa.svg)](https://codeclimate.com/github/EnvironmentAgency/pafs_core)
-[![Test Coverage](https://codeclimate.com/github/EnvironmentAgency/pafs_core/badges/coverage.svg)](https://codeclimate.com/github/EnvironmentAgency/pafs_core/coverage)
-[![security](https://hakiri.io/github/EnvironmentAgency/pafs_core/develop.svg)](https://hakiri.io/github/EnvironmentAgency/pafs_core/develop)
+[![Build Status](https://travis-ci.org/DEFRA/pafs_core.svg?branch=develop)](https://travis-ci.org/DEFRA/pafs_core)
+[![Code Climate](https://codeclimate.com/github/DEFRA/pafs_core/badges/gpa.svg)](https://codeclimate.com/github/DEFRA/pafs_core)
+[![Test Coverage](https://codeclimate.com/github/DEFRA/pafs_core/badges/coverage.svg)](https://codeclimate.com/github/DEFRA/pafs_core/coverage)
+[![security](https://hakiri.io/github/DEFRA/pafs_core/develop.svg)](https://hakiri.io/github/DEFRA/pafs_core/develop)
 
-A Rails Engine for [Project Application and Funding Service](https://github.com/EnvironmentAgency/pafs-user)
+A Rails Engine for [Project Application and Funding Service](https://github.com/DEFRA/pafs-user)
 
 ## Versions
 
-The project is currently using Ruby version 2.3.0 and Rails 4.2.5.2.
+The project is currently using Ruby version 2.3.0 and Rails 4.2.7.1.
 
 ## Installation
 
