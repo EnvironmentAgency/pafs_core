@@ -7,5 +7,5 @@ en:
         submitted_label: "Submitted"
         rma:
           draft_label: "Draft"
-          completed_label: "Under review"
+          completed_label: "Submitted"
           submitted_label: "Submitted"
