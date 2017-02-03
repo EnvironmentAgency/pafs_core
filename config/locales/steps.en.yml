@@ -244,7 +244,7 @@ en:
           fifty_years_or_more_label: 50 years or more
 # approach
         approach:
-          heading: What work does the project plan to do to achieve its outcomes?
+          heading: What work does the project plan to do to achieve its benefits?
           example_text: Limit your answer to 700 characters or fewer
 # surface and groundwater
         surface_and_groundwater:
