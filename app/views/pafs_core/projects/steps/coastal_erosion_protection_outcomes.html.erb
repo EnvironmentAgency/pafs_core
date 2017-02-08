@@ -34,18 +34,27 @@
                           <%= formatted_financial_year(builder.object.financial_year) %>
                         </td>
                         <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.households_at_reduced_risk) %>">
-                            <%= builder.number_field_without_label :households_at_reduced_risk,                                     class: "protection-value households-protected",
+                          <%= builder.label :households_at_reduced_risk, class: "visuallyhidden" do -%>
+                            <%= "Column A #{ formatted_financial_year(builder.object.financial_year) }" -%>
+                          <% end -%>
+                          <%= builder.number_field_without_label :households_at_reduced_risk,                                     class: "protection-value households-protected",
                                                                    min: 0,
                                                                    step: 1 %>
                         </td>
                         <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.households_protected_from_loss_in_next_20_years) %> significant-to-low-risk">
-                            <%= builder.number_field_without_label :households_protected_from_loss_in_next_20_years,
+                          <%= builder.label :households_protected_from_loss_in_next_20_years, class: "visuallyhidden" do -%>
+                            <%= "Column B #{ formatted_financial_year(builder.object.financial_year) }" -%>
+                          <% end -%>
+                          <%= builder.number_field_without_label :households_protected_from_loss_in_next_20_years,
                                                                   class: "protection-value significant-to-low-risk",
                                                                   min: 0,
                                                                   step: 1 %>
                         </td>
                         <td class="<%= funding_table_cell(builder.object.financial_year, builder.object.households_protected_from_loss_in_20_percent_most_deprived) %>">
-                            <%= builder.number_field_without_label :households_protected_from_loss_in_20_percent_most_deprived,
+                          <%= builder.label :households_protected_from_loss_in_20_percent_most_deprived, class: "visuallyhidden" do -%>
+                            <%= "Column C #{ formatted_financial_year(builder.object.financial_year) }" -%>
+                          <% end -%>
+                          <%= builder.number_field_without_label :households_protected_from_loss_in_20_percent_most_deprived,
                                                                   class: "protection-value most-deprived",
                                                                   min: 0,
                                                                   step: 1 %>
