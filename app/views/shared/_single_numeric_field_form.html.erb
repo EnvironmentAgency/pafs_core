@@ -10,6 +10,7 @@
           <% end %>
           <%= f.form_group(numeric_field) do %>
             <%= f.error_message(numeric_field) %>
+            <%= f.label(numeric_field, heading, class: "visuallyhidden") %>
             <%= f.number_field_without_label(numeric_field,
                   class: "form-control form-medium", min: 0.01, step: 0.01) %>
             <% if local_assigns.has_key? :units %>

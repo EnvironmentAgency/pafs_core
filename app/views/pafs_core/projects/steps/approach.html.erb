@@ -7,7 +7,9 @@
         <div class="step-form">
           <fieldset>
             <legend class="visuallyhidden">Explain how your project will achieve the outcomes</legend>
-            <%= f.text_area :approach, class: "form-control form-wide", cols: 30, rows: 10, hint: t(".example_text"), label: :none, group_class: "form-group" %>
+            <%= f.label :approach, t('.heading'), class: "visuallyhidden" %>
+            <%= f.text_area :approach, class: "form-control form-wide", cols: 30, rows: 10,
+              hint: t(".example_text"), label: :none, group_class: "form-group" %>
           </fieldset>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
