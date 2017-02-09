@@ -3,14 +3,16 @@
     <div class="column-two-thirds">
       <%#= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
         <%= pafs_form_for @project, url: { action: "save", id: @project.to_param, step: @project.step } do |f| %>
-        <%= f.error_header %>
-        <h1 class="heading-large"><%= t('.heading') %></h1>
-        <p><%= t('.description') %></p>
-        <div class="step-form">
-          <%= f.text_field :name, class: "form-control form-wide", hint: t(".example_text") %>
-          <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          <%= f.error_header %>
+          <h1 class="heading-large"><%= t('.heading') %></h1>
+          <p><%= t('.description') %></p>
+          <div class="step-form">
+            <%= f.text_field_without_label :name, class: "form-control form-wide" %>
+          </div>
+          <div class="step-form">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
         <% end %>
-      </div>
     </div>
   </div>
 </div>
