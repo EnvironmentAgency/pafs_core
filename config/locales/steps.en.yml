@@ -5,9 +5,9 @@ en:
 # project name
         project_name:
           heading: What is the project's name?
-          description: The project name should be meaningful and understandable and shouldn't include abbreviations.
-          project_name_label: Project name
-          example_text: For example, South Chesham River Colne Flood Alleviation Scheme or Clacton-on-Sea Coastal Erosion Project Phase 4
+          description: The project name should be meaningful and understandable and shouldn't include abbreviations. For example, South Chesham River Colne Flood Alleviation Scheme or Clacton-on-Sea Coastal Erosion Project Phase 4.
+          #project_name_label: Project name
+          #example_text: For example, South Chesham River Colne Flood Alleviation Scheme or Clacton-on-Sea Coastal Erosion Project Phase 4
 # project type
         project_type:
           heading: What type of project are you proposing?
@@ -83,7 +83,7 @@ en:
 # funding values
         funding_values:
           heading: What is the estimated spend for each financial year?
-          lede: Spending estimates should be in pounds (£) and estimated at current prices. Future maintenance costs aren't required.
+          lede: Spending estimates should be in pounds (e.g £ 50000) and estimated at current prices. Future maintenance costs aren't required.
           financial_year_label: Financial year (April to March)
           fcerm_gia_label: Grant in Aid
           local_levy_label: Local levy
@@ -101,7 +101,8 @@ en:
           heading: Could the project start sooner if grant in aid funding was made available earlier?
 # earliest date
         earliest_date:
-          heading: What is the earliest date the project could start without impacting deliverables or outcomes?
+          heading: What is the earliest date the project could start spending without impacting deliverables or benefits?
+          description: Spend includes any funding source (e.g. local levy, contributions and GiA).
           example_text: For example, 10 2019
 # location
         location:

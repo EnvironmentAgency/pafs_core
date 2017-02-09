@@ -5,6 +5,7 @@
         <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
           <%= f.error_header %>
           <h1 class="heading-large"><%= t('.heading') %></h1>
+          <p><%= t('.description') %></p>
           <%= f.month_and_year(:earliest_start,
                                hint: t(".example_text")) %>
 

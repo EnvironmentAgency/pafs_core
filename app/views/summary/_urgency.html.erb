@@ -5,11 +5,20 @@
       <div class="column-three-quarters">
         <% if project.urgent? %>
           <p>Your project is urgent as there is a <%= urgency_reason_text(project.urgency_reason).downcase %></p>
-          <%= simple_format project.urgency_details %>
         <% else %>
           <p>Your project is not urgent</p>
         <% end %>
       </div>
+      <% if project.urgent? %>
+        <div class="column-three-quarters">
+          <h3 class="column-heading-small">Urgency details</h3>
+          <% if project.urgency_details? %>
+              <p><%= simple_format project.urgency_details %></p>
+          <% else %>
+              <p>Not provided</p>
+          <% end %>
+        </div>
+      <% end %>
       <div class="column-one-quarter">
         <% if project.draft? %>
           <div class="change-link">
