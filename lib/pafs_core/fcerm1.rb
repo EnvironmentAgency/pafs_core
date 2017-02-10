@@ -26,10 +26,23 @@ module PafsCore
       { column: "U",  field_name: :agreed_strategy, export: false },
       { column: "V",  field_name: :approach },
       { column: "W",  field_name: :environmental_considerations, export: false },
-      { column: "X",  field_name: :flood_protection_before },
-      { column: "Y",  field_name: :flood_protection_after },
-      { column: "Z",  field_name: :coastal_protection_before },
-      { column: "AA", field_name: :coastal_protection_after },
+
+      { column: "X",
+        field_name: :flood_protection_before,
+        if: ->(p) { p.project_protects_households? } },
+
+      { column: "Y",
+        field_name: :flood_protection_after,
+        if: ->(p) { p.project_protects_households? } },
+
+      { column: "Z",
+        field_name: :coastal_protection_before,
+        if: ->(p) { p.project_protects_households? } },
+
+      { column: "AA",
+        field_name: :coastal_protection_after,
+        if: ->(p) { p.project_protects_households? } },
+
       { column: "AB", field_name: :new_builds, export: false },
 
       { column: "AC", field_name: :strategic_approach },
@@ -82,32 +95,40 @@ module PafsCore
       { column: "FS", field_name: :not_yet_identified, date_range: true },
 
       # Households affected by flooding OM2 GG - GT
-      { column: "GG", field_name: :households_at_reduced_risk, date_range: true },
+      { column: "GG",
+        field_name: :households_at_reduced_risk,
+        date_range: true,
+        if: ->(p) { p.project_protects_households? } },
 
       # Households affected by flooding OM2b GU - HH
       { column: "GU",
         field_name: :moved_from_very_significant_and_significant_to_moderate_or_low,
-        date_range: true },
+        date_range: true,
+        if: ->(p) { p.project_protects_households? } },
 
       # Households affected by flooding OM2c HI - HV
       { column: "HI",
         field_name: :households_protected_from_loss_in_20_percent_most_deprived,
-        date_range: true },
+        date_range: true,
+        if: ->(p) { p.project_protects_households? } },
 
       # Coastal erosion protection outcomes OM3 HW - IJ
       { column: "HW",
         field_name: :coastal_households_at_reduced_risk,
-        date_range: true },
+        date_range: true,
+        if: ->(p) { p.project_protects_households? } },
 
       # Coastal erosion protection outcomes OM3b IK - IX
       { column: "IK",
         field_name: :coastal_households_protected_from_loss_in_next_20_years,
-        date_range: true },
+        date_range: true,
+        if: ->(p) { p.project_protects_households? } },
 
       # Coastal erosion protection outcomes OM3c IY - JL
       { column: "IY",
         field_name: :coastal_households_protected_from_loss_in_20_percent_most_deprived,
-        date_range: true },
+        date_range: true,
+        if: ->(p) { p.project_protects_households? } },
 
       # From PF calculator
       { column: "JM", field_name: :hectares_of_net_water_dependent_habitat_created },

@@ -27,9 +27,9 @@ module PafsCore
       data[:pv_whole_life_costs] = sheet.cell("H", 37)
       data[:pv_whole_life_benefits] = sheet.cell("H", 29)
       data[:duration_of_benefits] = sheet.cell("H", 27)
-      data[:hectares_of_net_water_dependent_habitat_created] = sheet.cell("C", 81)
-      data[:hectares_of_net_water_intertidal_habitat_created] = sheet.cell("C", 82)
-      data[:kilometres_of_protected_river_improved] = sheet.cell("C", 83)
+      data[:hectares_of_net_water_dependent_habitat_created] = sheet.cell("C", 80)
+      data[:hectares_of_net_water_intertidal_habitat_created] = sheet.cell("C", 81)
+      data[:kilometres_of_protected_river_improved] = sheet.cell("C", 82)
 
       #data
       project.update(data)
