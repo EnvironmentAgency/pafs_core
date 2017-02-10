@@ -43,7 +43,13 @@ module PafsCore
       end
     end
 
-    # project_type
+    def project_type
+      if project.project_type && project.project_type.start_with?("ENV")
+        "ENV"
+      else
+        project.project_type
+      end
+    end
 
     def main_risk
       I18n.t(project.main_risk, scope: "pafs_core.fcerm1.risks") unless project.main_risk.nil?
@@ -276,7 +282,7 @@ module PafsCore
       if year > 2026
         # sum up 2027 onwards for spreadsheet
         t = PafsCore::FundingValue.arel_table
-        project.funding_values.where(t[:financial_year].gt(year))
+        project.funding_values.where(t[:financial_year].gt(year - 1))
       else
         project.funding_values.where(financial_year: year)
       end
@@ -286,7 +292,7 @@ module PafsCore
       if year > 2026
         # sum up 2027 onwards for spreadsheet
         t = PafsCore::FloodProtectionOutcome.arel_table
-        project.flood_protection_outcomes.where(t[:financial_year].gt(year))
+        project.flood_protection_outcomes.where(t[:financial_year].gt(year - 1))
       else
         project.flood_protection_outcomes.where(financial_year: year)
       end
@@ -296,7 +302,7 @@ module PafsCore
       if year > 2026
         # sum up 2027 onwards for spreadsheet
         t = PafsCore::CoastalErosionProtectionOutcome.arel_table
-        project.coastal_erosion_protection_outcomes.where(t[:financial_year].gt(year))
+        project.coastal_erosion_protection_outcomes.where(t[:financial_year].gt(year - 1))
       else
         project.coastal_erosion_protection_outcomes.where(financial_year: year)
       end

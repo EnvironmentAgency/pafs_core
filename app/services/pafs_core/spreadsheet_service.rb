@@ -31,18 +31,19 @@ module PafsCore
         if col.fetch(:export, true)
           range = col.fetch(:date_range, false)
           name = col[:field_name]
+          conditional_proc = col.fetch(:if, nil)
+          use_value = conditional_proc.nil? || conditional_proc.call(project)
+
           if range
             start_column = column_index(col[:column])
             years = [-1].concat((2015..2027).to_a)
             years.each_with_index do |year, i|
-              sheet[row_no][start_column + i].change_contents(project.send(name, year))
-              # sheet.add_cell(row_no, start_column + i, project.send(name, year))
+              value = use_value ? project.send(name, year) : 0
+              sheet[row_no][start_column + i].change_contents(value)
             end
           else
-            sheet[row_no][column_index(col[:column])].
-              change_contents(project.send(col[:field_name]))
-            # sheet.add_cell(row_no, column_index(col[:column]),
-            #                project.send(col[:field_name]))
+            value = use_value ? project.send(col[:field_name]) : 0
+            sheet[row_no][column_index(col[:column])].change_contents(value)
           end
         end
       end
