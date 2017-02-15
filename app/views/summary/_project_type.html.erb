@@ -1,17 +1,19 @@
 <article class="summary-item" aria-labelledby="project-type">
-  <h2 class="heading-medium" role="heading" id="project-type">Project type</h2>
-  <div class="grid-row">
-    <div class="column-two-thirds">
-      <p><%= project_type_label(project.project_type) %></p>
-    </div>
-    <div class="column-one-third">
-      <% if project.draft? %>
-        <div class="change-link">
-          <%= link_to pafs_core.project_step_path(id: project.to_param, step: :project_type) do -%>
-            Change<span class="visually-hidden"> the project type</span>
-          <% end -%>
-        </div>
-      <% end -%>
+  <div class="summary-item-content">
+    <h2 class="heading-medium" role="heading" id="project-type">Project type</h2>
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <p><%= project_type_label(project.project_type) %></p>
+      </div>
+      <div class="column-one-third">
+        <% if project.draft? %>
+          <div class="change-link">
+            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :project_type) do -%>
+              Change<span class="visually-hidden"> the project type</span>
+            <% end -%>
+          </div>
+        <% end -%>
+      </div>
     </div>
   </div>
 </article>

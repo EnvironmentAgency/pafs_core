@@ -1,84 +1,78 @@
 <article class="summary-item" aria-labelledby="standard-of-protection">
   <% if project.standard_of_protection_started? %>
-    <h2 class="heading-medium" role="heading" id="standard-of-protection">
-      <%= project.summary_label(:standard_of_protection_title) -%>
-    </h2>
-    <% if project.protects_against_flooding? %>
-      <div class="<%= flood_class_for_sop(project) %> pushed-up">
+    <div class="summary-item-content">
+      <h2 class="heading-medium" role="heading" id="standard-of-protection">
+        <%= project.summary_label(:standard_of_protection_title) -%>
+      </h2>
+      <% if project.protects_against_flooding? %>
+        <div class="<%= flood_class_for_sop(project) %> pushed-up">
+          <div class="grid-row">
+            <div class="column-three-quarters">
+              <table class="full-table">
+                <thead>
+                  <tr>
+                    <th class="visuallyhidden">Point in time</th>
+                    <th class="visuallyhidden">Risk</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><%= project.summary_label(:flood_risk_before) %></td>
+                    <td class="align-right"><%= project.flood_protection_before_percentage %></td>
+                  </tr>
+                  <tr>
+                    <td><%= project.summary_label(:flood_risk_after) %></td>
+                    <td class="align-right"><%= project.flood_protection_after_percentage %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="column-one-quarter">
+              <% if project.draft? %>
+                <div class="change-link">
+                  <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection) do -%>
+                    Change<span class="visually-hidden"> flooding <%= project.summary_label(:standard_of_protection_title).downcase %></span>
+                  <% end -%>
+                </div>
+              <% end -%>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <% if project.protects_against_coastal_erosion? %>
         <div class="grid-row">
           <div class="column-three-quarters">
-            <ul class="summary-list underlined-items">
-              <li>
-                <dl class="grid-row">
-                  <dt class="column-three-quarters">
-                  <%= project.summary_label(:flood_risk_before) %>
-                  </dt>
-                  <dd class="column-one-quarter align-right">
-                  <%= project.flood_protection_before_percentage %>
-                  </dd>
-                </dl>
-              </li>
-              <li>
-                <dl class="grid-row">
-                  <dt class="column-three-quarters">
-                  <%= project.summary_label(:flood_risk_after) %>
-                  </dt>
-                  <dd class="column-one-quarter align-right">
-                  <%= project.flood_protection_after_percentage %>
-                  </dd>
-                </dl>
-              </li>
-            </ul>
+            <table class="full-table">
+              <thead>
+                <tr>
+                  <th class="visuallyhidden">Point in time</th>
+                  <th class="visuallyhidden">Risk</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= project.summary_label(:coastal_protection_before) %></td>
+                  <td class="align-right"><%= project.coastal_protection_before_years %></td>
+                </tr>
+                <tr>
+                  <td><%= project.summary_label(:coastal_protection_after) %></td>
+                  <td class="align-right"><%= project.coastal_protection_after_years %></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div class="column-one-quarter">
             <% if project.draft? %>
               <div class="change-link">
-                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection) do -%>
-                  Change<span class="visually-hidden"> flooding <%= project.summary_label(:standard_of_protection_title).downcase %></span>
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection_coastal) do -%>
+                  Change<span class="visually-hidden"> coastal erosion <%= project.summary_label(:standard_of_protection_title).downcase %></span>
                 <% end -%>
               </div>
             <% end -%>
           </div>
         </div>
-      </div>
-    <% end %>
-    <% if project.protects_against_coastal_erosion? %>
-      <div class="grid-row">
-        <div class="column-three-quarters">
-          <ul class="summary-list underlined-items">
-            <li>
-              <dl class="grid-row">
-                <dt class="column-three-quarters">
-                <%= project.summary_label(:coastal_protection_before) %>
-                </dt>
-                <dd class="column-one-quarter align-right">
-                <%= project.coastal_protection_before_years %>
-                </dd>
-              </dl>
-            </li>
-            <li>
-              <dl class="grid-row">
-                <dt class="column-three-quarters">
-                <%= project.summary_label(:coastal_protection_after) %>
-                </dt>
-                <dd class="column-one-quarter align-right">
-                <%= project.coastal_protection_after_years %>
-                </dd>
-              </dl>
-            </li>
-          </ul>
-        </div>
-        <div class="column-one-quarter">
-          <% if project.draft? %>
-            <div class="change-link">
-              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection_coastal) do -%>
-                Change<span class="visually-hidden"> coastal erosion <%= project.summary_label(:standard_of_protection_title).downcase %></span>
-              <% end -%>
-            </div>
-          <% end -%>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   <% else %>
     <div class="add-row">
       <div class="grid-row">

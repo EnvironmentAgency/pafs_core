@@ -1,32 +1,34 @@
 <article class="summary-item" aria-labelledby="urgency">
   <% unless project.urgency_reason.nil? %>
-    <h2 class="heading-medium" role="heading" id="urgency"><%= project.summary_label(:urgency_title) %></h2>
-    <div class="grid-row">
-      <div class="column-three-quarters">
-        <% if project.urgent? %>
-          <p>Your project is urgent as there is a <%= urgency_reason_text(project.urgency_reason).downcase %></p>
-        <% else %>
-          <p>Your project is not urgent</p>
-        <% end %>
-      </div>
-      <% if project.urgent? %>
+    <div class="summary-item-content">
+      <h2 class="heading-medium" role="heading" id="urgency"><%= project.summary_label(:urgency_title) %></h2>
+      <div class="grid-row">
         <div class="column-three-quarters">
-          <h3 class="column-heading-small">Urgency details</h3>
-          <% if project.urgency_details? %>
-              <p><%= simple_format project.urgency_details %></p>
+          <% if project.urgent? %>
+            <p>Your project is urgent as there is a <%= urgency_reason_text(project.urgency_reason).downcase %></p>
           <% else %>
-              <p>Not provided</p>
+            <p>Your project is not urgent</p>
           <% end %>
         </div>
-      <% end %>
-      <div class="column-one-quarter">
-        <% if project.draft? %>
-          <div class="change-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :urgency) do -%>
-              Change<span class="visually-hidden"> <%= project.summary_label(:urgency_title).downcase %></span>
-            <% end -%>
+        <div class="column-one-quarter">
+          <% if project.draft? %>
+            <div class="change-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :urgency) do -%>
+                Change<span class="visually-hidden"> <%= project.summary_label(:urgency_title).downcase %></span>
+              <% end -%>
+            </div>
+          <% end -%>
+        </div>
+        <% if project.urgent? %>
+          <div class="column-three-quarters">
+            <h3 class="column-heading-small">Urgency details</h3>
+            <% if project.urgency_details? %>
+              <p><%= simple_format project.urgency_details %></p>
+            <% else %>
+              <p>Not provided</p>
+            <% end %>
           </div>
-        <% end -%>
+        <% end %>
       </div>
     </div>
   <% else %>

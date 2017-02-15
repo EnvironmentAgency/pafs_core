@@ -1,40 +1,42 @@
 <article class="summary-item" aria-labelledby="funding-calculator">
   <% if project.funding_calculator_uploaded? %>
-    <h2 class="heading-medium" role="heading" id="funding-calculator"><%= project.summary_label(:funding_calculator_title) %></h2>
-    <div class="grid-row">
-      <div class="column-three-quarters">
-        <div class="attachment">
-          <div class="attachment-thumb">
-            <%= link_to funding_calculator_downloads_path(project.to_param),
-              class: "thumbnail", aria: { hidden: "true" } do -%>
-              <%= image_tag "pafs_core/pub-cover-spreadsheet.png", alt: "Download file #{project.funding_calculator_file_name}" %>
-            <% end %>
-          </div>
-          <div class="attachment-details">
-            <h3 class="title">
+    <div class="summary-item-content">
+      <h2 class="heading-medium" role="heading" id="funding-calculator"><%= project.summary_label(:funding_calculator_title) %></h2>
+      <div class="grid-row">
+        <div class="column-three-quarters">
+          <div class="attachment">
+            <div class="attachment-thumb">
               <%= link_to funding_calculator_downloads_path(project.to_param),
-                aria: { described_by: "funding-calculator" } do -%>
-                <span class="visually-hidden">Download your funding calculator </span>
-                <%= project.funding_calculator_file_name %>
+                class: "thumbnail", aria: { hidden: "true" } do -%>
+                <%= image_tag "pafs_core/pub-cover-spreadsheet.png", alt: "Download file #{project.funding_calculator_file_name}" %>
               <% end %>
-            </h3>
-            <dl class="metadata">
-              <dt>Size</dt>
-              <dd><%= number_to_human_size(project.funding_calculator_file_size) -%></dd>
-              <dt>Uploaded</dt>
-              <dd><%= format_date project.funding_calculator_updated_at %></dd>
-            </dl>
+            </div>
+            <div class="attachment-details">
+              <h3 class="title">
+                <%= link_to funding_calculator_downloads_path(project.to_param),
+                  aria: { described_by: "funding-calculator" } do -%>
+                  <span class="visually-hidden">Download your funding calculator </span>
+                  <%= project.funding_calculator_file_name %>
+                <% end %>
+              </h3>
+              <dl class="metadata">
+                <dt>Size</dt>
+                <dd><%= number_to_human_size(project.funding_calculator_file_size) -%></dd>
+                <dt>Uploaded</dt>
+                <dd><%= format_date project.funding_calculator_updated_at %></dd>
+              </dl>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="column-one-quarter">
-        <% if project.draft? %>
-          <div class="change-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_calculator_summary) do -%>
-              Change<span class="visually-hidden"> the funding calculator file</span>
-            <% end -%>
-          </div>
-        <% end -%>
+        <div class="column-one-quarter">
+          <% if project.draft? %>
+            <div class="change-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_calculator_summary) do -%>
+                Change<span class="visually-hidden"> the funding calculator file</span>
+              <% end -%>
+            </div>
+          <% end -%>
+        </div>
       </div>
     </div>
   <% else %>

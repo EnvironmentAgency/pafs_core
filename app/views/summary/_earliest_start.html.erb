@@ -1,26 +1,28 @@
 <article class="summary-item" aria-labelledby="earliest-start">
   <% if project.earliest_start_started? %>
-    <h2 class="heading-medium" role="heading" id="earliest-start">Earliest start</h2>
-    <div class="grid-row">
-      <div class="column-two-thirds">
-        <% if project.could_start_early? %>
-          <% if project.earliest_start_month.nil? %>
-            <p><em>The earliest date the project could start has not been provided</em><p>
+    <div class="summary-item-content">
+      <h2 class="heading-medium" role="heading" id="earliest-start">Earliest start</h2>
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <% if project.could_start_early? %>
+            <% if project.earliest_start_month.nil? %>
+              <p><em>The earliest date the project could start has not been provided</em><p>
+            <% else %>
+              <p>The earliest date the project could start without impacting deliverability or outcomes is <%= project.earliest_start_date %></p>
+            <% end %>
           <% else %>
-            <p>The earliest date the project could start without impacting deliverability or outcomes is <%= project.earliest_start_date %></p>
+            <p>The project cannot start earlier without impacting deliverability or outcomes.</p>
           <% end %>
-        <% else %>
-          <p>The project cannot start earlier without impacting deliverability or outcomes.</p>
-        <% end %>
-      </div>
-      <div class="column-one-third">
-        <% if project.draft? %>
-          <div class="change-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :earliest_start) do -%>
-              Change<span class="visually-hidden"> whether the project could start earlier without impacting deliverability or outcomes</span>
-            <% end -%>
-          </div>
-        <% end -%>
+        </div>
+        <div class="column-one-third">
+          <% if project.draft? %>
+            <div class="change-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :earliest_start) do -%>
+                Change<span class="visually-hidden"> whether the project could start earlier without impacting deliverability or outcomes</span>
+              <% end -%>
+            </div>
+          <% end -%>
+        </div>
       </div>
     </div>
   <% else %>
