@@ -15,6 +15,7 @@
               </ul>
             </p>
             <%= f.error_message(:grid_reference) %>
+            <%= f.label :grid_reference, t(".heading"), class: "visuallyhidden" %>
             <%= f.text_field_without_label :grid_reference, class: "form-control" %>
           <% end %>
           <%= f.submit t("save_and_continue_label"), class: 'button' %>
