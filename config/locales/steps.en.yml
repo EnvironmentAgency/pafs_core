@@ -48,7 +48,7 @@ en:
 # start construction date
         start_construction_date:
           heading: When do you expect to start the work?
-          description: This could be construction, carrying out studies or creating a strategy.
+          description: This could be construction or creating a strategy.
           month_label: Month
           year_label: Year
           example_text: For example, 3 2020
@@ -98,7 +98,7 @@ en:
           heading: Confirm the estimated spend for each financial year.
 # earliest start
         earliest_start:
-          heading: Could the project start sooner if grant in aid funding was made available earlier?
+          heading: Could the project start sooner if Grant in Aid funding was made available earlier?
 # earliest date
         earliest_date:
           heading: What is the earliest date the project could start spending without impacting deliverables or benefits?
