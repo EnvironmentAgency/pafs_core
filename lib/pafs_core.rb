@@ -22,6 +22,7 @@ require "pafs_core/grid_reference"
 require "pafs_core/file_types"
 require "pafs_core/files"
 require "pafs_core/fcerm1"
+require "pafs_core/email"
 require "core_ext/time/financial"
 require "core_ext/date/financial"
 
