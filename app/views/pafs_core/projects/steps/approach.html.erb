@@ -4,7 +4,13 @@
       <%= pafs_form_for @project, url: save_project_step_path(id: @project.to_param, step: @project.step) do |f| %>
         <%= f.error_header %>
         <h1 class="heading-large"><%= t('.heading') %></h1>
-        <div class="step-form">
+          <p><%= t(".description") %>:
+            <ul class="list list-bullet indent">
+              <li><%=t(".example1")%></li>
+              <li><%=t(".example2")%></li>
+            </ul>
+          </p>
+          <div class="step-form">
           <fieldset>
             <legend class="visuallyhidden">Explain how your project will achieve the outcomes</legend>
             <%= f.label :approach, t('.heading'), class: "visuallyhidden" %>

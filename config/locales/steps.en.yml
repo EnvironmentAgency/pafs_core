@@ -55,6 +55,7 @@ en:
 # ready for service date
         ready_for_service_date:
           heading: When do you expect the project to start achieving its benefits?
+          description: This could be when households start to benefit or new habitat is created.
           month_label: Month
           year_label: Year
           example_text: For example, 9 2021
@@ -223,13 +224,13 @@ en:
           total_label: Total
 # standard of protection
         standard_of_protection:
-          heading: In the area likely to benefit from the project, what is the current flood risk?
+          heading: What is the current flood risk in the area the project is likely to benefit?
 # standard of protection after
         standard_of_protection_after:
-          heading: What will the flood risk be once the project is complete?
+          heading: What is the expected flood risk once the project is complete?
 # standard of protection coastal
         standard_of_protection_coastal:
-          heading: How soon will coastal erosion affect the area likely to benefit from the project?
+          heading: How soon will coastal erosion affect the area the project is likely to benefit?
           description: This could be the length of time before the current protection fails. Or the length of time before land is significantly changed by erosion.
           less_than_one_year_label: Less than 1 year
           one_to_four_years_label: 1 to 4 years
@@ -237,7 +238,7 @@ en:
           ten_years_or_more_label: 10 years or more
 # standard of protection coastal after
         standard_of_protection_coastal_after:
-          heading: When the project is complete, how soon will coastal erosion affect the area?
+          heading: How soon will coastal erosion affect the area once the project is complete?
           description: This could be the length of time before the new protection fails. Or the length of time before land is significantly changed by erosion.
           less_than_ten_years_label: Less than 10 years
           ten_to_nineteen_years_label: 10 to 19 years
@@ -246,6 +247,9 @@ en:
 # approach
         approach:
           heading: What work does the project plan to do to achieve its benefits?
+          description: For example, the project will improve the standard of protection to 500 properties by
+          example1: constructing an upstream storage area
+          example2: replacing an existing culvert to increase capacity
           example_text: Limit your answer to 700 characters or fewer
 # surface and groundwater
         surface_and_groundwater:
