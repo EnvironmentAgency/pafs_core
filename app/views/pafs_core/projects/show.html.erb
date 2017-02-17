@@ -20,12 +20,12 @@
     <div class="grid-row">
       <div class="column-two-thirds">
         <dl class="project-overview-head">
-          <dt>Project number:</dt>
+          <dt>National project number:</dt>
           <dd><%= @project.reference_number %></dd>
-          <dt>Status:</dt>
-          <dd><%= status_label_for(@project.status) %></dd>
           <dt>Last updated:</dt>
           <dd><%= format_date @project.updated_at %></dd>
+          <dt>Status:</dt>
+          <dd><%= status_label_for(@project.status) %></dd>
         </dl>
       </div>
     </div>
