@@ -46,4 +46,5 @@ PafsCore::Engine.routes.draw do
   patch 'projects/:id/:step' => 'projects#save', as: :save_project_step
 
   post "confirmation" => "confirmation#receipt", as: :confirm_receipt
+  match '(errors)/:status', to: 'errors#show', via: :all, constraints: { status: /\d{3}/ }
 end

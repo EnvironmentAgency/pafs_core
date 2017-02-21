@@ -1,0 +1,7 @@
+<% scope = "pafs_core.exceptions.422_unprocessable_entity" %>
+
+<%= render partial: "error_page", locals: {
+  heading: t("heading", scope: scope),
+  message1: t("message1", scope: scope),
+  status_code: 422
+} %>

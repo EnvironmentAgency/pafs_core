@@ -1,0 +1,8 @@
+<% scope = "pafs_core.exceptions.404_not_found" %>
+
+<%= render partial: "error_page", locals: {
+  heading: t("heading", scope: scope),
+  message1: t("message1", scope: scope),
+  message2: t("message2", scope: scope).html_safe,
+  status_code: 403
+} %>

@@ -1,0 +1,6 @@
+<% scope = "pafs_core.exceptions.invalid_authenticity_token" %>
+<%= render partial: "error_page", locals: {
+  heading: t("heading", scope: scope),
+  message1: t("message1", scope: scope),
+  status_code: 400
+} %>
