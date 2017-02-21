@@ -1,0 +1,13 @@
+en:
+  pafs_core:
+    exceptions:
+      404_not_found:
+        heading: "Page not found"
+        message1: "If you entered a web address, please check it was correct."
+        message2: "You can also <a href='http://www.gov.uk/search'>search GOV.UK</a> or <a href='/'>browse from the homepage</a> to find the information you need."
+      422_unprocessable_entity:
+        heading: "We encountered a problem saving your data"
+        message1: "Please check your data and try again."
+      invalid_authenticity_token:
+        heading: "Cookies must be enabled to use this service"
+        message1: "Please enable cookies in your browser and try again"

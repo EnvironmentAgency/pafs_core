@@ -1,0 +1,17 @@
+<% heading = "Sorry, we're experiencing technical difficulties" unless local_assigns.include?(:heading) %>
+<% content_for :page_title, make_page_title(heading) + " (#{response.status})" %>
+<div class="error-page">
+  <h1 class="heading-large"><%= heading %></h1>
+  <div class="message1">
+    <% if local_assigns.include?(:message1) %>
+      <p><%= message1 %></p>
+    <% else %>
+      <p>Please try again in a few moments.</p>
+    <% end %>
+  </div>
+  <% if local_assigns.include?(:message2) %>
+    <div class="message2">
+      <p><%= message2 %></p>
+    </div>
+  <% end %>
+</div>

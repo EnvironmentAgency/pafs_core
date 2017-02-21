@@ -603,3 +603,15 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
     text-align: left;
   }
 }
+
+.error-page {
+  text-align: center;
+
+  .message1 {
+    margin-top: 2em;
+  }
+
+  .message2 {
+    margin-bottom: 4em;
+  }
+}
