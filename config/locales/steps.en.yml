@@ -6,8 +6,7 @@ en:
         project_name:
           heading: What is the project's name?
           description: The project name should be meaningful and understandable and shouldn't include abbreviations. For example, South Chesham River Colne Flood Alleviation Scheme or Clacton-on-Sea Coastal Erosion Project Phase 4.
-          #project_name_label: Project name
-          #example_text: For example, South Chesham River Colne Flood Alleviation Scheme or Clacton-on-Sea Coastal Erosion Project Phase 4
+          project_name_label: Project name
 # project type
         project_type:
           heading: What type of project are you proposing?
@@ -149,6 +148,7 @@ en:
           heading: "What area is the project likely to benefit?"
           description: "Upload a shapefile. The shapefile should show the approximate area the project is likely to benefit. Draw as many separate areas as necessary, but make sure they don't overlap."
           acceptable_file_formats: "Combine multiple file together in a single compressed folder (.zip)"
+          benefit_area_file_label: "Upload a shapefile"
 # benefit area file summary
         benefit_area_file_summary:
           heading: The uploaded shapefile

@@ -7,6 +7,7 @@
           <h1 class="heading-large"><%= t('.heading') %></h1>
           <p><%= t('.description') %></p>
           <div class="step-form">
+            <%= f.label :name, t('.project_name_label'), class: "visuallyhidden" %>
             <%= f.text_field_without_label :name, class: "form-control form-wide" %>
           </div>
           <div class="step-form">
