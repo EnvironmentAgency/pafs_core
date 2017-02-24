@@ -32,8 +32,6 @@ PafsCore::Engine.routes.draw do
     end
   end
 
-  resources :account_requests
-
   resources :areas, only: [:index, :show] do
     member do
       get :set_user
