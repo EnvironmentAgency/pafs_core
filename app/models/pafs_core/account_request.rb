@@ -33,6 +33,10 @@ module PafsCore
       slug
     end
 
+    def full_name
+      "#{first_name} #{last_name}" unless first_name.nil? || last_name.nil?
+    end
+
   private
     def generate_slug
       self.slug = email.parameterize

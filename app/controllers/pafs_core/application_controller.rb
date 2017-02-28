@@ -25,7 +25,7 @@ module PafsCore
       Rails.logger.error "ApplicationController authenticity failed " \
                          "(browser cookies may have been disabled): #{exception}"
 
-      render "pafs_core/errors/invalid_authenticity_token"
+      render "pafs_core/errors/invalid_authenticity_token", status: :forbidden
     end
   end
 end
