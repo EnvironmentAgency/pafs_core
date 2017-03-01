@@ -7,7 +7,7 @@ module PafsCore
              :project_protects_households?,
              to: :project
 
-    validate :at_least_one_value, :values_make_sense
+    validate :at_least_one_value, :values_make_sense, :sensible_number_of_houses
 
     def before_view(params)
       setup_flood_protection_outcomes
@@ -46,6 +46,40 @@ module PafsCore
         "In the applicable year(s), tell us how many households moved to a lower flood\
         risk category (column A)."
       ) if flooding_total_protected_households.zero?
+    end
+
+    private
+    def sensible_number_of_houses
+      limit = 1000000
+      a_insensible = []
+      b_insensible = []
+      c_insensible = []
+      flood_protection_outcomes.each do |fpo|
+        a = fpo.households_at_reduced_risk.to_i
+        b = fpo.moved_from_very_significant_and_significant_to_moderate_or_low.to_i
+        c = fpo.households_protected_from_loss_in_20_percent_most_deprived.to_i
+
+        a_insensible.push fpo.id if a > limit
+        b_insensible.push fpo.id if b > limit
+        c_insensible.push fpo.id if c > limit
+      end
+
+      errors.add(
+        :base,
+        "The number of households at reduced risk must be less than or equal to 1 million."
+      ) if !a_insensible.empty?
+
+      errors.add(
+        :base,
+        "The number of households moved from very significant and significant to moderate or low must be \
+        less than or equal to 1 million."
+      ) if !b_insensible.empty?
+
+      errors.add(
+        :base,
+        "The number of households protected from loss in the 20 percent most deprived must be \
+        less than or equal to 1 million."
+      ) if !c_insensible.empty?
     end
 
     def step_params(params)

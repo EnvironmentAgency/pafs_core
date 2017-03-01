@@ -51,6 +51,21 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
       expect(subject.errors.messages[:base]).to include
       "In the applicable year(s), tell us how many households are at a reduced risk of coastal erosion."
     end
+
+    it "validates that number of households is less than or equal to 1 million" do
+      subject.coastal_erosion_protection_outcomes.build(financial_year: 2020,
+                                                        households_at_reduced_risk: 1000001,
+                                                        households_protected_from_loss_in_next_20_years: 1000001,
+                                                    households_protected_from_loss_in_20_percent_most_deprived: 1000001)
+      expect(subject.valid?).to be false
+      expect(subject.errors.messages[:base]).to include
+      "The number of households at reduced risk must be less than or equal to 1 million."
+      expect(subject.errors.messages[:base]).to include
+      "The number of households protected from loss in the next 20 years must be less than or equal to 1 million."
+      expect(subject.errors.messages[:base]).to include
+      "The number of households protected from loss in the 20 percent most deprived must be \
+      less than or equal to 1 million."
+    end
   end
 
   describe "#update" do

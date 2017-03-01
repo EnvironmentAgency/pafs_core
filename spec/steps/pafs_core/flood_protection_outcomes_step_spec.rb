@@ -54,6 +54,22 @@ RSpec.describe PafsCore::FloodProtectionOutcomesStep, type: :model do
       "In the applicable year(s), tell us how many households moved to a lower flood \
       risk category (column A)."
     end
+
+    it "validates that number of households is less than or equal to 1 million" do
+      subject.flood_protection_outcomes.build(financial_year: 2020,
+                                              households_at_reduced_risk: 1000001,
+                                              moved_from_very_significant_and_significant_to_moderate_or_low: 1000001,
+                                              households_protected_from_loss_in_20_percent_most_deprived: 1000001)
+      expect(subject.valid?).to be false
+      expect(subject.errors.messages[:base]).to include
+      "The number of households at reduced risk must be less than or equal to 1 million."
+      expect(subject.errors.messages[:base]).to include
+      "The number of households moved from very significant and significant to moderate or low must be \
+      less than or equal to 1 million."
+      expect(subject.errors.messages[:base]).to include
+      "The number of households protected from loss in the 20 percent most deprived must be \
+      less than or equal to 1 million."
+    end
   end
 
   describe "#update" do
