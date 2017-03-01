@@ -282,11 +282,6 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
     background-color: transparent;
     color: $link-colour;
   }
-
-  &:focus {
-    background-color: transparent;
-    outline: unset;
-  }
 }
 
 .map-link {
