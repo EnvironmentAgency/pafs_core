@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/EnvironmentAgency/cumberland
-  revision: 8dbbd674b4f3b27292261a5a746773df13b78a91
-  specs:
-    cumberland (0.0.1)
-      ffi-proj4 (~> 0.2)
-
-GIT
   remote: https://github.com/tonyheadford/dibble
   revision: 06fe3d0811b6f601607b2b9aa61f6c3f8b4965a1
   branch: develop
@@ -115,8 +108,6 @@ GEM
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.14)
-    ffi-proj4 (0.2.0)
-      ffi (>= 1.0.0)
     formatador (0.2.5)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -279,7 +270,6 @@ DEPENDENCIES
   byebug
   capybara
   codeclimate-test-reporter
-  cumberland!
   database_cleaner
   dibble (~> 0.1)!
   dotenv
@@ -297,4 +287,4 @@ DEPENDENCIES
   webmock (~> 1.24)
 
 BUNDLED WITH
-   1.11.2
+   1.14.4
