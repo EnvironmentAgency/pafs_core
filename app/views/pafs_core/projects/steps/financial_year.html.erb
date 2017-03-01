@@ -13,9 +13,12 @@
         <div class="step-form">
           <div class ="form-group">
             <%= f.hidden_field :id %>
-            <% @project.financial_year_options.each do |year| %>
-              <%= f.radio_button :project_end_financial_year, year, label: "April #{year} to March #{year + 1}" %>
-            <% end %>
+            <fieldset>
+              <legend class="visuallyhidden"><%= t(".heading") %></legend>
+              <% @project.financial_year_options.each do |year| %>
+                <%= f.radio_button :project_end_financial_year, year, label: "April #{year} to March #{year + 1}" %>
+              <% end %>
+            </fieldset>
           </div>
           <div class="form-group">
             <%= link_to t('.next_step_link_text', year: last_year),

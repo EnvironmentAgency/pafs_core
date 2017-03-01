@@ -8,10 +8,13 @@
           <h1 class="heading-large"><%= t('.heading') %></h1>
           <%= f.form_group(:flood_protection_after) do %>
             <%= f.error_message(:flood_protection_after) %>
-            <% @project.flood_risk_options.each_with_index do |option, index| %>
-              <%= f.radio_button :flood_protection_after, index,
-                label: compound_standard_of_protection_label(option) %>
-            <% end %>
+            <fieldset>
+              <legend class="visuallyhidden"><%= t(".heading") %></legend>
+              <% @project.flood_risk_options.each_with_index do |option, index| %>
+                <%= f.radio_button :flood_protection_after, index,
+                  label: compound_standard_of_protection_label(option) %>
+              <% end %>
+            </fieldset>
           <% end %>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
