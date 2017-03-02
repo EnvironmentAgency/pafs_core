@@ -44,9 +44,9 @@
             <h3 class="column-heading-small">Project benefit area</h3>
             <div class="attachment">
               <div class="attachment-thumb">
-                <%= link_to funding_calculator_downloads_path(project.to_param),
+                <%= link_to benefit_area_downloads_path(project.to_param),
                   class: "thumbnail", aria: { hidden: "true" } do -%>
-                  <%= image_tag "pafs_core/pub-cover-shapefile.png", alt: "Download file #{project.funding_calculator_file_name}" %>
+                  <%= image_tag "pafs_core/pub-cover-shapefile.png", alt: "Download file #{project.benefit_area_file_name}" %>
                 <% end %>
               </div>
               <div class="attachment-details">
