@@ -2,8 +2,8 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe PafsCore::SpreadsheetBuilderService do
-  subject { PafsCore::SpreadsheetBuilderService.new }
+RSpec.describe PafsCore::SpreadsheetService do
+  subject { PafsCore::SpreadsheetService.new }
 
   before(:each) do
     FactoryGirl.create(:country, :with_full_hierarchy_and_projects)
@@ -11,9 +11,9 @@ RSpec.describe PafsCore::SpreadsheetBuilderService do
 
   describe "#generate_csv" do
     it "should generate a CSV with the correct data" do
-      projects = PafsCore::Project.all
+      project = PafsCore::Project.last
 
-      generated_csv = subject.generate_csv(projects)
+      generated_csv = subject.generate_csv(project)
       file_path = [Rails.root, "..", "fixtures", "test_projects.csv"].join("/")
       file = File.open(file_path)
 
@@ -23,9 +23,9 @@ RSpec.describe PafsCore::SpreadsheetBuilderService do
 
   describe "#generate_xlsx" do
     it "should generate an xlsx file with the correct data" do
-      projects = PafsCore::Project.all
+      project = PafsCore::Project.last
 
-      generated_xlsx = subject.generate_xlsx(projects)
+      generated_xlsx = subject.generate_xlsx(project)
       file_path = [Rails.root, "..", "fixtures", "test_projects.xlsx"].join("/")
       file = File.open(file_path)
 
