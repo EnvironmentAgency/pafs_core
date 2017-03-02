@@ -104,7 +104,7 @@ module PafsCore
       if virus_info.present?
         Rails.logger.error virus_info
         errors.add(:base, "The file was rejected because it may contain a virus. "\
-                          "Verify your file and try again")
+                          "Check the file and try again")
       elsif benefit_area_file_name.blank?
         errors.add(:base, "Upload a shapefile or image file that outlines "\
                           "the area the project is likely to benefit")

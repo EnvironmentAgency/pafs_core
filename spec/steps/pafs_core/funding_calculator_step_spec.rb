@@ -22,7 +22,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
       subject.virus_info = "Found a nasty virus"
       expect(subject.valid?).to eq false
       expect(subject.errors[:base]).
-        to include "The file was rejected because it may contain a virus. Verify your file and try again"
+        to include "The file was rejected because it may contain a virus. Check the file and try again"
     end
   end
 

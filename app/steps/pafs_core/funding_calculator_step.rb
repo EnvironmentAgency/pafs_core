@@ -73,7 +73,7 @@ module PafsCore
     def virus_free_funding_calculator_present
       if virus_info.present?
         Rails.logger.error virus_info
-        errors.add(:base, "The file was rejected because it may contain a virus. Verify your file and try again")
+        errors.add(:base, "The file was rejected because it may contain a virus. Check the file and try again")
       elsif funding_calculator_file_name.blank?
         errors.add(:base, "Upload the completed partnership funding calculator .xslx file")
       end
