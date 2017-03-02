@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "rubyXL"
+require "csv"
 
 module PafsCore
   class SpreadsheetService

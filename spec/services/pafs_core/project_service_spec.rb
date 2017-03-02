@@ -144,7 +144,7 @@ RSpec.describe PafsCore::ProjectService do
                  rma_area_1.id, rma_area_2.id, rma_area_3.id, rma_area_4.id,
                  rma_area_5.id, rma_area_6.id, rma_area_7.id, rma_area_8.id]
 
-        expect(subject.area_ids_for_user(@user)).to eq areas
+        expect(subject.area_ids_for_user(@user).sort).to eq areas.sort
       end
     end
 
@@ -155,7 +155,7 @@ RSpec.describe PafsCore::ProjectService do
         areas = [ea_area_1.id,
                  pso_area_1.id, pso_area_2.id,
                  rma_area_1.id, rma_area_2.id, rma_area_3.id, rma_area_4.id]
-        expect(subject.area_ids_for_user(@user)).to eq areas
+        expect(subject.area_ids_for_user(@user).sort).to eq areas.sort
       end
     end
 
@@ -165,7 +165,7 @@ RSpec.describe PafsCore::ProjectService do
         @user.touch
         areas = [pso_area_1.id,
                  rma_area_1.id, rma_area_2.id]
-        expect(subject.area_ids_for_user(@user)).to eq areas
+        expect(subject.area_ids_for_user(@user).sort).to eq areas.sort
       end
     end
 
