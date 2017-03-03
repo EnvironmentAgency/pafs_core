@@ -6,9 +6,12 @@
           <%= f.error_header %>
           <h1 class="heading-large"><%= t('.heading') %></h1>
           <p><%= t('.description') %></p>
-          <%= f.month_and_year(:earliest_start,
-                               hint: t(".example_text")) %>
-
+          <div class="form-group">
+            <fieldset>
+              <legend class="visuallyhidden"><%= t('.heading') %></legend>
+              <%= f.month_and_year(:earliest_start, hint: t(".example_text")) %>
+            </fieldset>
+          </div>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
           </div>
