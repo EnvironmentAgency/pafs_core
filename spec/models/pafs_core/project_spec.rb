@@ -27,6 +27,10 @@ RSpec.describe PafsCore::Project, type: :model do
     subject { FactoryGirl.create(:project) }
 
     it "is expected to return true if the project protects against any kind of flooding" do
+      subject.reservoir_flooding = true
+      expect(subject.flooding?).to eq(true)
+
+      subject.reservoir_flooding = false
       subject.fluvial_flooding = true
       expect(subject.flooding?).to eq(true)
 

@@ -15,9 +15,11 @@
               <%= f.check_box :groundwater_flooding %>
               <%= f.check_box :surface_water_flooding %>
               <%= f.check_box :sea_flooding %>
+              <%= f.check_box :reservoir_flooding %>
               <%= f.check_box :coastal_erosion %>
             <% end %>
         </fieldset>
+        </div>
         <div class="form-group">
           <%= f.submit t("save_and_continue_label"), class: 'button' %>
         </div>

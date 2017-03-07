@@ -7,6 +7,7 @@ module PafsCore
       :groundwater_flooding,
       :surface_water_flooding,
       :sea_flooding,
+      :reservoir_flooding,
       :coastal_erosion
     ].freeze
 
@@ -24,7 +25,8 @@ module PafsCore
     end
 
     def protects_against_flooding?
-      fluvial_flooding? || tidal_flooding? || groundwater_flooding? || surface_water_flooding? || sea_flooding?
+      fluvial_flooding? || tidal_flooding? || groundwater_flooding? || surface_water_flooding? ||
+        sea_flooding? || reservoir_flooding?
     end
 
     def protects_against_coastal_erosion?
