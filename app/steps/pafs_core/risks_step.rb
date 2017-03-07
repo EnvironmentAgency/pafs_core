@@ -25,6 +25,7 @@ module PafsCore
         :groundwater_flooding,
         :surface_water_flooding,
         :sea_flooding,
+        :reservoir_flooding,
         :coastal_erosion)
     end
 

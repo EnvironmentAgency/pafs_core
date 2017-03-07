@@ -7,6 +7,7 @@ en:
         groundwater_flooding: "Groundwater Flooding"
         surface_water_flooding: "Surface Water Flooding"
         sea_flooding: "Sea Flooding"
+        reservoir_flooding: "Reservoir Flooding"
         coastal_erosion: "Coastal Erosion"
       moderation:
         statutory_need: "Statutory Requirement"

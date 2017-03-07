@@ -55,6 +55,7 @@ module PafsCore
     fish_or_eel_amount
     funding_sources_visited
     sea_flooding
+    reservoir_flooding
     gia_list
     levy_list
     idb_list

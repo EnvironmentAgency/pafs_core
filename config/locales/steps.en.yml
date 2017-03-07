@@ -165,6 +165,7 @@ en:
           groundwater_flooding_label: Groundwater flooding
           surface_water_flooding_label: Surface water flooding
           sea_flooding_label: Sea flooding
+          reservoir_flooding_label: Reservoir flooding
           coastal_erosion_label: Coastal erosion
 # main risk
         main_risk:
