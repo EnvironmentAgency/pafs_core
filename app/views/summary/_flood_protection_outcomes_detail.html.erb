@@ -1,0 +1,56 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <h2 class="heading-medium" role="heading" id="flood_protection_outcomes_detail"><%= project.summary_label(:flood_protection_outcomes_detail_heading) %></h2>
+      <p><%= project.summary_label(:flood_protection_outcomes_detail_lede) %></p>
+      <div class="step-form">
+        <div class="scroll-horz">
+          <table>
+            <thead>
+            <tr>
+              <th class="financial-year-column"><%= project.summary_label(:financial_year_label) %></th>
+              <th class="data-column protection-outcomes"><%= project.summary_label(:households_at_reduced_risk_label) %></th>
+              <th class="data-column protection-outcomes significant-to-low-risk"><%= project.summary_label(:households_moved_from_very_significant_and_significant_to_moderate_or_low_label) %></th>
+              <th class="data-column protection-outcomes most-deprived"><%= project.summary_label(:households_protected_from_loss_in_20_percent_most_deprived_label) %></th>
+            </tr>
+            <tr>
+              <td></td>
+              <th class="data-column protection-outcomes-subheading">A</th>
+              <th class="data-column protection-outcomes-subheading">B</th>
+              <th class="data-column protection-outcomes-subheading">C</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% project.current_flood_protection_outcomes.each do |fo| %>
+                <tr>
+                  <td class="financial_year">
+                    <%= formatted_financial_year(fo.financial_year) %>
+                  </td>
+                  <td class="<%= funding_table_cell(fo.financial_year, fo.households_at_reduced_risk) %>">
+                    <%= fo.households_at_reduced_risk %>
+                  </td>
+                  <td class="<%= funding_table_cell(fo.financial_year, fo.moved_from_very_significant_and_significant_to_moderate_or_low) %> significant-to-low-risk">
+                    <%= fo.moved_from_very_significant_and_significant_to_moderate_or_low %>
+
+                  </td>
+                  <td class="<%= funding_table_cell(fo.financial_year, fo.households_protected_from_loss_in_20_percent_most_deprived) %>">
+                    <%= fo.households_protected_from_loss_in_20_percent_most_deprived %>
+
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td><%= project.summary_label(:total_label) %></td>
+              <td class="numeric households-at-reduced-risk-total"><%= project.total_households_flood_protected_by_category(:households_at_reduced_risk)%></td>
+              <td class="numeric moved-from-very-significant-and-significant-to-moderate-or-low-total"><%= project.total_households_flood_protected_by_category(:moved_from_very_significant_and_significant_to_moderate_or_low)%></td>
+              <td class="numeric households-protected-from-loss-in-20-percent-most-deprived-total"><%= project.total_households_flood_protected_by_category(:households_protected_from_loss_in_20_percent_most_deprived)%></td>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

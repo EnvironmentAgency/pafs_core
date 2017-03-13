@@ -1,0 +1,57 @@
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <h2 class="heading-medium" role="heading" id="funding-sources-and-spendng"><%= project.summary_label(:funding_sources_and_spending_detail_heading) %></h2>
+      <p><%= project.summary_label(:funding_sources_and_spending_detail_lede) %></p>
+      <div class="step-form">
+        <div class="scroll-horz">
+          <table>
+            <thead>
+            <tr>
+              <th class="financial-year-column"><%= project.summary_label(:financial_year_label) %></th>
+              <% project.selected_funding_sources.each do |fs| %>
+                  <th class="data-column <%= "#{fs}-column" %>"><%= project.summary_label(:"#{fs}_label") %></th>
+              <% end %>
+              <th class="data-total"><%= project.summary_label(:total_label) %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% project.current_funding_values.each do |fv| %>
+                <tr>
+                  <td class="financial_year">
+
+                    <%= formatted_financial_year(fv.financial_year) %>
+                  </td>
+                  <% project.selected_funding_sources.each do |fs| %>
+                      <td class="<%= funding_table_cell(fv.financial_year, fs) %>">
+                        <%= fv[fs] %>
+
+                      </td>
+                  <% end %>
+                  <td class="row-total numeric <%= fy_total_class(fv.financial_year) %>">
+                    <%= fv.total %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+            <tfoot>
+            <tr>
+              <td><%= project.summary_label(:total_label) %></td>
+              <% grandTotal = 0 %>
+              <% project.selected_funding_sources.each do |fs| %>
+                  <% sourceTotal = project.total_for_funding_source(fs) %>
+                  <% grandTotal = grandTotal + sourceTotal %>
+                  <td class="numeric <%= fs %>-total"><%= sourceTotal %></td>
+              <% end %>
+              <td class="numeric grand-total"><%= grandTotal %></td>
+            </tr>
+            </tfoot>
+          </table>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,103 +1,131 @@
 <article class="summary-item" aria-labelledby="risks">
   <% if project.risks_started? %>
-    <div class="summary-item-content">
-      <h2 class="heading-medium" role="heading" id="risks">Risks and households benefiting</h2>
-      <div class="grid-row">
-        <div class="column-three-quarters">
-          <ul class="summary-list list-bullet">
-            <% project.selected_risks.each do |risk| %>
-              <li>
-                <%= t("#{risk}_label", scope: "pafs_core.projects.steps.risks") %>
-                <% if @project.protects_against_multiple_risks? && @project.is_main_risk?(risk) %>
-                  <span class="main-risk"> - Main source of risk</span>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-        <div class="column-one-quarter">
-          <% if project.draft? %>
-            <div class="change-link">
-              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :risks) do -%>
-                Change<span class="visually-hidden"> the risks your proposed project will protect against</span>
-              <% end -%>
-            </div>
-          <% end -%>
-        </div>
-      </div>
-      <% if project.protects_against_flooding? %>
+      <div class="summary-item-content">
+        <h2 class="heading-medium" role="heading" id="risks">Risks and households benefiting</h2>
         <div class="grid-row">
           <div class="column-three-quarters">
-            <h3 class="heading-small summary-sub-heading"><%= project.summary_label(:flooding_outcome_title) %></h3>
-            <table class="full-table">
-              <thead>
-                <tr>
-                  <th class="visuallyhidden">Households benefitting</th>
-                  <th class="visuallyhidden">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><%= project.summary_label(:flooding_outcome_a) %></td>
-                  <td class="align-right"><%= project.total_for_flooding_a %></td>
-                </tr>
-                <tr>
-                  <td><%= project.summary_label(:flooding_outcome_b) %></td>
-                  <td class="align-right"><%= project.total_for_flooding_b %></td>
-                </tr>
-                <tr>
-                  <td><%= project.summary_label(:flooding_outcome_c) %></td>
-                  <td class="align-right"><%= project.total_for_flooding_c %></td>
-                </tr>
-              </tbody>
-            </table>
+            <ul class="summary-list list-bullet">
+              <% project.selected_risks.each do |risk| %>
+                  <li>
+                    <%= t("#{risk}_label", scope: "pafs_core.projects.steps.risks") %>
+                    <% if @project.protects_against_multiple_risks? && @project.is_main_risk?(risk) %>
+                        <span class="main-risk"> - Main source of risk</span>
+                    <% end %>
+                  </li>
+              <% end %>
+            </ul>
           </div>
-        </div>
-      <% end %>
-      <% if project.protects_against_coastal_erosion? %>
-        <div class="grid-row">
-          <div class="column-three-quarters">
-            <h3 class="heading-small summary-sub-heading"><%= project.summary_label(:coastal_outcome_title) %></h3>
-            <table class="full-table">
-              <thead>
-                <tr>
-                  <th class="visuallyhidden">Households benefitting</th>
-                  <th class="visuallyhidden">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><%= project.summary_label(:coastal_outcome_a) %></td>
-                  <td class="align-right"><%= project.total_for_coastal_a %></td>
-                </tr>
-                <tr>
-                  <td><%= project.summary_label(:coastal_outcome_b) %></td>
-                  <td class="align-right"><%= project.total_for_coastal_b %></td>
-                </tr>
-                <tr>
-                  <td><%= project.summary_label(:coastal_outcome_c) %></td>
-                  <td class="align-right"><%= project.total_for_coastal_c %></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="add-row">
-      <div class="grid-row">
-        <div class="column-three-quarters">
-          <h2 class="heading-medium" role="heading" id="risks">Risks and households benefiting</h2>
-        </div>
-        <div class="column-one-quarter">
-          <div class="add-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :risks) do -%>
-              Add<span class="visually-hidden"> the risks your proposed project will protect against</span>
+          <div class="column-one-quarter">
+            <% if project.draft? %>
+                <div class="change-link">
+                  <%= link_to pafs_core.project_step_path(id: project.to_param, step: :risks) do -%>
+                      Change<span class="visually-hidden"> the risks your proposed project will protect against</span>
+                  <% end -%>
+                </div>
             <% end -%>
           </div>
         </div>
+        <% if project.protects_against_flooding? %>
+            <div class="grid-row">
+              <div class="column-three-quarters">
+                <h3 class="heading-small summary-sub-heading"><%= project.summary_label(:flooding_outcome_title) %></h3>
+                <table class="full-table">
+                  <thead>
+                  <tr>
+                    <th class="visuallyhidden">Households benefitting</th>
+                    <th class="visuallyhidden">Total</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td><%= project.summary_label(:flooding_outcome_a) %></td>
+                    <td class="align-right"><%= project.total_for_flooding_a %></td>
+                  </tr>
+                  <tr>
+                    <td><%= project.summary_label(:flooding_outcome_b) %></td>
+                    <td class="align-right"><%= project.total_for_flooding_b %></td>
+                  </tr>
+                  <tr>
+                    <td><%= project.summary_label(:flooding_outcome_c) %></td>
+                    <td class="align-right"><%= project.total_for_flooding_c %></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <% if !project.draft? %>
+                <div class="grid-row">
+                  <div class="column-three-quarters">
+                    <details>
+                      <summary role="button" aria-controls="show_risks and households benefitting detail">
+                        <span class="summary"> View risks and households benefitting detail </span>
+                      </summary>
+                      <div id="show_risks and households benefitting detail">
+                        <%= render partial: "summary/flood_protection_outcomes_detail", locals: {project: @project} %>
+                      </div>
+                    </details>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
+        <% if project.protects_against_coastal_erosion? %>
+            <div class="grid-row">
+              <div class="column-three-quarters">
+                <h3 class="heading-small summary-sub-heading"><%= project.summary_label(:coastal_outcome_title) %></h3>
+                <table class="full-table">
+                  <thead>
+                  <tr>
+                    <th class="visuallyhidden">Households benefitting</th>
+                    <th class="visuallyhidden">Total</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td><%= project.summary_label(:coastal_outcome_a) %></td>
+                    <td class="align-right"><%= project.total_for_coastal_a %></td>
+                  </tr>
+                  <tr>
+                    <td><%= project.summary_label(:coastal_outcome_b) %></td>
+                    <td class="align-right"><%= project.total_for_coastal_b %></td>
+                  </tr>
+                  <tr>
+                    <td><%= project.summary_label(:coastal_outcome_c) %></td>
+                    <td class="align-right"><%= project.total_for_coastal_c %></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <% if !project.draft? %>
+                <div class="grid-row">
+                  <div class="column-three-quarters">
+                    <details>
+                      <summary role="button" aria-controls="show_risks and households benefitting detail">
+                        <span class="summary"> View risks and households benefitting detail </span>
+                      </summary>
+                      <div id="show_risks and households benefitting detail">
+                        <%= render partial: "summary/coastal_erosion_protection_outcomes_detail", locals: {project: @project} %>
+                      </div>
+                    </details>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
       </div>
-    </div>
+  <% else %>
+      <div class="add-row">
+        <div class="grid-row">
+          <div class="column-three-quarters">
+            <h2 class="heading-medium" role="heading" id="risks">Risks and households benefiting</h2>
+          </div>
+          <div class="column-one-quarter">
+            <div class="add-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :risks) do -%>
+                  Add<span class="visually-hidden"> the risks your proposed project will protect against</span>
+              <% end -%>
+            </div>
+          </div>
+        </div>
+      </div>
   <% end %>
 </article>
