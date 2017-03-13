@@ -1,51 +1,65 @@
 <article class="summary-item" aria-labelledby="funding-sources">
   <% if project.funding_sources_started? %>
-    <div class="summary-item-content">
-      <h2 class="heading-medium" role="heading" id="funding-sources">Funding sources and spending</h2>
-      <div class="grid-row">
-        <div class="column-three-quarters">
-          <table class="full-table">
-            <thead>
+      <div class="summary-item-content">
+        <h2 class="heading-medium" role="heading" id="funding-sources">Funding sources and spending</h2>
+        <div class="grid-row">
+          <div class="column-three-quarters">
+            <table class="full-table">
+              <thead>
               <tr>
                 <th>Funding Source</th>
                 <th class="align-right">Estimated Spend</th>
               </tr>
-            </thead>
-            <tbody>
+              </thead>
+              <tbody>
               <% project.funding.each do |f| %>
-                <tr>
-                  <td><%= f[:name] %></td>
-                  <td class="align-right">£<%= number_with_delimiter f[:value] %></td>
-                </tr>
+                  <tr>
+                    <td><%= f[:name] %></td>
+                    <td class="align-right">£<%= number_with_delimiter f[:value] %></td>
+                  </tr>
               <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="column-one-quarter">
-          <% if project.draft? %>
-            <div class="change-link">
-              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_sources) do -%>
-                Change<span class="visually-hidden"> the sources of funding</span>
-              <% end -%>
-            </div>
-          <% end -%>
-        </div>
-      </div>
-    </div>
-  <% else %>
-    <div class="add-row">
-      <div class="grid-row">
-        <div class="column-three-quarters">
-          <h2 class="heading-medium" role="heading" id="funding-sources">Funding sources and spending</h2>
-        </div>
-        <div class="column-one-quarter">
-          <div class="add-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_sources) do -%>
-              Add<span class="visually-hidden"> the funding sources and spending details</span>
+              </tbody>
+            </table>
+          </div>
+          <div class="column-one-quarter">
+            <% if project.draft? %>
+                <div class="change-link">
+                  <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_sources) do -%>
+                      Change<span class="visually-hidden"> the sources of funding</span>
+                  <% end -%>
+                </div>
             <% end -%>
           </div>
         </div>
+        <% if !project.draft? %>
+            <div class="grid-row">
+              <div class="column-three-quarters">
+                <details>
+                  <summary role="button" aria-controls="show_funding_sources_and_spending_detail">
+                    <span class="summary"> View funding sources and spending detail </span>
+                  </summary>
+                  <div id="show_funding_sources_and_spending_detail">
+                    <%= render partial: "summary/funding_sources_and_spending_detail", locals: {project: @project} %>
+                  </div>
+                </details>
+              </div>
+            </div>
+        <% end %>
       </div>
-    </div>
+  <% else %>
+      <div class="add-row">
+        <div class="grid-row">
+          <div class="column-three-quarters">
+            <h2 class="heading-medium" role="heading" id="funding-sources">Funding sources and spending</h2>
+          </div>
+          <div class="column-one-quarter">
+            <div class="add-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_sources) do -%>
+                  Add<span class="visually-hidden"> the funding sources and spending details</span>
+              <% end -%>
+            </div>
+          </div>
+        </div>
+      </div>
   <% end %>
 </article>

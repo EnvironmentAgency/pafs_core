@@ -75,6 +75,30 @@ module PafsCore
       current_state.to_sym
     end
 
+    def total_for_funding_source(fs)
+      source_total = 0
+      funding_values.each do |fv|
+        source_total = source_total + fv[fs].to_i
+      end
+      source_total
+    end
+
+    def total_households_flood_protected_by_category(category)
+      households = 0
+      flood_protection_outcomes.each do |fo|
+        households = households + fo[category].to_i
+      end
+      households
+    end
+
+    def total_households_coastal_protected_by_category(category)
+      households = 0
+      coastal_erosion_protection_outcomes.each do |fo|
+        households = households + fo[category].to_i
+      end
+      households
+    end
+
   private
     def set_slug
       self.slug = reference_number.parameterize.upcase
