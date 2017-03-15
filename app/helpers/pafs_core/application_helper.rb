@@ -29,5 +29,57 @@ module PafsCore
       end
       resource
     end
+
+    # Sortable columns helper method: this one just takes the current sort order (asc or desc) and
+    # returns the appropriate html entity code for the arrow to display.
+    def get_arrow(curr_sort_order)
+      arrow = if curr_sort_order == "desc"
+                "&#9660;"
+              else
+                "&#9650;" # default is ascending which is the up arrow.
+              end
+    end
+
+    # Sortable columns helper method: this one works out the sort properties to
+    # associate with the column, specifically the next sort order and
+    # the sort order denoting arrow to display on the page.
+    # The next sort order to associate with this column (this_col),
+    # is worked out assuming that:
+    # 1 the default sort order for a currently unsorted column should be ascending
+    # 2 if this column is the currently sorted column then the sort order should be reversed
+    # (this is intended to support usage where-by a user inverts the sort order of a column
+    # by re-clicking on a link)
+    # 3 If no columns are currently sorted but this column is the default sort column
+    # then the column should have the same sort properties as if it was the currently sorted column
+    # It also works out the arrow to display assuming that:
+    # 1 The arrow denotes the current sort order.
+    # 2 The arrow points up for asc, meaning smallest values first.
+    # 3 The arrow points down for desc, meaning smallest values last.
+    # 4 If a column is not the currently sorted column (or the default sortable column if
+    # no other columns are sorted) then no arrow should be displayed at all.
+    def get_next_sort_order_and_curr_arrow(current_sorted_col, this_col, curr_sort_order, default_sort_col)
+      # Assuming that, if no user-defined sorts have yet been run, the system has already applied
+      # any default sort properties.
+
+      current_sorted_col = this_col if current_sorted_col.nil? \
+      && !default_sort_col.nil? && default_sort_col == this_col
+
+      curr_sort_order = "asc" if curr_sort_order.nil?
+      if current_sorted_col == this_col
+        # NB what's going to be written to the link is the next sort order,
+        # which is the inverse of the current sort order
+        arrow = get_arrow(curr_sort_order)
+        next_sort_order = if curr_sort_order == "asc"
+                            "desc"
+                          else
+                            "asc" # Default sort order is ascending
+                          end
+      else
+        arrow = "" # Not the currently sorted column, so display no arrow.
+        next_sort_order = "asc" # Starting sort order should be asc
+      end
+      sort_properties_for_col = {next_sort_order: next_sort_order, curr_arrow: arrow}
+      sort_properties_for_col
+    end
   end
 end

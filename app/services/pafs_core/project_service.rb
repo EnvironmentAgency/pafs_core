@@ -39,13 +39,18 @@ module PafsCore
       "#{rfcc_code}C501E/%03dA/%03dA" % sequence_nos
     end
 
-    def search(options = {})
+    def search(options)
       areas = area_ids_for_user(user)
+      sort_col = options[:sort_col];
+      sort_order = options[:sort_order]
+
+      sort_col = "updated_at" if sort_col.nil?
+      sort_order = "asc" if sort_order.nil?
       PafsCore::Project.
         includes(:area_projects, :areas).
         joins(:area_projects).
         merge(PafsCore::AreaProject.where(area_id: areas)).
-        order(updated_at: :desc)
+        order("#{sort_col}": sort_order)
     end
 
     def all_projects_for(area)
