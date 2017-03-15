@@ -45,7 +45,7 @@ module PafsCore
       sort_order = options[:sort_order]
 
       sort_col = "updated_at" if sort_col.nil?
-      sort_order = "asc" if sort_order.nil?
+      sort_order = "desc" if sort_order.nil?
       PafsCore::Project.
         includes(:area_projects, :areas).
         joins(:area_projects).
