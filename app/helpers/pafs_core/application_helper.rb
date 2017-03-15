@@ -57,12 +57,16 @@ module PafsCore
     # 3 The arrow points down for desc, meaning smallest values last.
     # 4 If a column is not the currently sorted column (or the default sortable column if
     # no other columns are sorted) then no arrow should be displayed at all.
-    def get_next_sort_order_and_curr_arrow(current_sorted_col, this_col, curr_sort_order, default_sort_col)
+    def get_next_sort_order_and_curr_arrow(current_sorted_col, this_col, curr_sort_order,
+                                           default_sort_col, default_sort_order)
       # Assuming that, if no user-defined sorts have yet been run, the system has already applied
       # any default sort properties.
 
-      current_sorted_col = this_col if current_sorted_col.nil? \
+      if current_sorted_col.nil? \
       && !default_sort_col.nil? && default_sort_col == this_col
+        current_sorted_col = this_col
+        curr_sort_order = default_sort_order
+      end
 
       curr_sort_order = "asc" if curr_sort_order.nil?
       if current_sorted_col == this_col
