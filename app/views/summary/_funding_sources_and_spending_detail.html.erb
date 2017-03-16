@@ -1,6 +1,6 @@
 <div class="step-container">
-  <div class="grid-row">
-    <div class="column-two-thirds">
+  <div>
+    <div>
       <h2 class="heading-medium" role="heading" id="funding-sources-and-spendng"><%= project.summary_label(:funding_sources_and_spending_detail_heading) %></h2>
       <p><%= project.summary_label(:funding_sources_and_spending_detail_lede) %></p>
       <div class="step-form">
@@ -47,9 +47,28 @@
             </tr>
             </tfoot>
           </table>
-
+          <% if !project.public_contributor_names.blank? %>
+              <p></p>
+              <div>
+                <h3 class="column-heading-small">Public sector contributors:</h3>
+                <%= simple_format project.public_contributor_names %>
+              </div>
+          <% end %>
+          <% if !project.private_contributor_names.blank? %>
+              <p></p>
+              <div>
+                <h3 class="column-heading-small">Private sector contributors:</h3>
+                <%= simple_format project.private_contributor_names %>
+              </div>
+          <% end %>
+          <% if !project.other_ea_contributor_names.blank? %>
+              <p></p>
+              <div>
+                <h3 class="column-heading-small">Other Environment Agency contributors:</h3>
+                <%= simple_format project.other_ea_contributor_names %>
+              </div>
+          <% end %>
         </div>
-
 
       </div>
     </div>
