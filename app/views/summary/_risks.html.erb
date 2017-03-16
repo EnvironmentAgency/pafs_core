@@ -54,13 +54,13 @@
               </div>
             </div>
             <% if !project.draft? %>
-                <div class="grid-row">
-                  <div class="column-three-quarters">
+                <div>
+                  <div>
                     <details>
                       <summary role="button" aria-controls="show_risks and households benefitting detail">
                         <span class="summary"> View risks and households benefitting detail </span>
                       </summary>
-                      <div id="show_risks and households benefitting detail">
+                      <div id="show_risks and households benefitting detail" class="panel panel-indent panel-border-narrow">
                         <%= render partial: "summary/flood_protection_outcomes_detail", locals: {project: @project} %>
                       </div>
                     </details>
@@ -69,8 +69,8 @@
             <% end %>
         <% end %>
         <% if project.protects_against_coastal_erosion? %>
-            <div class="grid-row">
-              <div class="column-three-quarters">
+            <div>
+              <div>
                 <h3 class="heading-small summary-sub-heading"><%= project.summary_label(:coastal_outcome_title) %></h3>
                 <table class="full-table">
                   <thead>
@@ -103,7 +103,7 @@
                       <summary role="button" aria-controls="show_risks and households benefitting detail">
                         <span class="summary"> View risks and households benefitting detail </span>
                       </summary>
-                      <div id="show_risks and households benefitting detail">
+                      <div id="show_risks and households benefitting detail" class="panel panel-indent panel-border-narrow">
                         <%= render partial: "summary/coastal_erosion_protection_outcomes_detail", locals: {project: @project} %>
                       </div>
                     </details>
