@@ -27,14 +27,14 @@
                     <%= formatted_financial_year(fo.financial_year) %>
                   </td>
                   <td class="<%= funding_table_cell(fo.financial_year, fo.households_at_reduced_risk) %>">
-                    <%= fo.households_at_reduced_risk %>
+                    <%= number_with_delimiter fo.households_at_reduced_risk %>
                   </td>
                   <td class="<%= funding_table_cell(fo.financial_year, fo.households_protected_from_loss_in_next_20_years) %> significant-to-low-risk">
-                    <%= fo.households_protected_from_loss_in_next_20_years %>
+                    <%= number_with_delimiter  fo.households_protected_from_loss_in_next_20_years %>
 
                   </td>
                   <td class="<%= funding_table_cell(fo.financial_year, fo.households_protected_from_loss_in_20_percent_most_deprived) %>">
-                    <%= fo.households_protected_from_loss_in_20_percent_most_deprived %>
+                    <%= number_with_delimiter  fo.households_protected_from_loss_in_20_percent_most_deprived %>
 
                   </td>
                 </tr>
@@ -43,9 +43,9 @@
             <tfoot>
             <tr>
               <td><%= project.summary_label(:households_total_label) %></td>
-              <td class="numeric households-at-reduced-risk-total"><%= project.total_households_coastal_protected_by_category(:households_at_reduced_risk)%></td>
-              <td class="numeric moved-from-very-significant-and-significant-to-moderate-or-low-total"><%= project.total_households_coastal_protected_by_category(:households_protected_from_loss_in_next_20_years)%></td>
-              <td class="numeric households-protected-from-loss-in-20-percent-most-deprived-total"><%= project.total_households_coastal_protected_by_category(:households_protected_from_loss_in_20_percent_most_deprived)%></td>
+              <td class="numeric households-at-reduced-risk-total"><%= number_with_delimiter project.total_households_coastal_protected_by_category(:households_at_reduced_risk)%></td>
+              <td class="numeric moved-from-very-significant-and-significant-to-moderate-or-low-total"><%= number_with_delimiter project.total_households_coastal_protected_by_category(:households_protected_from_loss_in_next_20_years)%></td>
+              <td class="numeric households-protected-from-loss-in-20-percent-most-deprived-total"><%= number_with_delimiter project.total_households_coastal_protected_by_category(:households_protected_from_loss_in_20_percent_most_deprived)%></td>
             </tr>
             </tfoot>
           </table>
