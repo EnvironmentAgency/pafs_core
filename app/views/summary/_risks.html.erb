@@ -54,11 +54,11 @@
               </div>
             </div>
             <% if !project.draft? %>
-                <div>
-                  <div>
+                <div class="grid-row">
+                  <div class="column-two-thirds">
                     <details>
-                      <summary role="button" aria-controls="show_risks and households benefitting detail">
-                        <span class="summary"> View risks and households benefitting detail </span>
+                      <summary class="half_indent" role="button" aria-controls="show_risks and households benefitting detail">
+                        <span class="summary"> View households affected by flooding detail </span>
                       </summary>
                       <div id="show_risks and households benefitting detail" class="panel panel-indent panel-border-narrow">
                         <%= render partial: "summary/flood_protection_outcomes_detail", locals: {project: @project} %>
@@ -69,8 +69,8 @@
             <% end %>
         <% end %>
         <% if project.protects_against_coastal_erosion? %>
-            <div>
-              <div>
+            <div class="grid-row">
+              <div class="column-three-quarters">
                 <h3 class="heading-small summary-sub-heading"><%= project.summary_label(:coastal_outcome_title) %></h3>
                 <table class="full-table">
                   <thead>
@@ -98,10 +98,10 @@
             </div>
             <% if !project.draft? %>
                 <div class="grid-row">
-                  <div class="column-three-quarters">
+                  <div class="column-two-thirds">
                     <details>
-                      <summary role="button" aria-controls="show_risks and households benefitting detail">
-                        <span class="summary"> View risks and households benefitting detail </span>
+                      <summary class="half_indent" role="button" aria-controls="show_risks and households benefitting detail">
+                        <span class="summary"> View households affected by coastal erosion detail </span>
                       </summary>
                       <div id="show_risks and households benefitting detail" class="panel panel-indent panel-border-narrow">
                         <%= render partial: "summary/coastal_erosion_protection_outcomes_detail", locals: {project: @project} %>
