@@ -8,7 +8,7 @@
               <thead>
               <tr>
                 <th>Funding Source</th>
-                <th class="align-right">Estimated Spend</th>
+                <th class="align-right">Total Estimated Spend</th>
               </tr>
               </thead>
               <tbody>
@@ -32,13 +32,14 @@
           </div>
         </div>
         <% if !project.draft? %>
-            <div class="grid-row">
-              <div class="column-three-quarters">
+            <p></p>
+            <div>
+              <div>
                 <details>
-                  <summary role="button" aria-controls="show_funding_sources_and_spending_detail">
+                  <summary class="half-indent" role="button" aria-controls="show_funding_sources_and_spending_detail">
                     <span class="summary"> View funding sources and spending detail </span>
                   </summary>
-                  <div id="show_funding_sources_and_spending_detail">
+                  <div id="show_funding_sources_and_spending_detail" class="panel panel-indent panel-border-narrow">
                     <%= render partial: "summary/funding_sources_and_spending_detail", locals: {project: @project} %>
                   </div>
                 </details>

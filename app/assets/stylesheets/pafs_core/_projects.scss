@@ -53,6 +53,10 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   margin-left: 1em;
 }
 
+.half-indent {
+  margin-left: 0.5em;
+}
+
 .column-three-quarters {
   @include grid-column(3 / 4);
 }

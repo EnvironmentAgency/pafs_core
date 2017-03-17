@@ -1,6 +1,6 @@
 <div class="step-container">
-  <div class="grid-row">
-    <div class="column-two-thirds">
+  <div>
+    <div>
       <h2 class="heading-medium" role="heading" id="funding-sources-and-spendng"><%= project.summary_label(:funding_sources_and_spending_detail_heading) %></h2>
       <p><%= project.summary_label(:funding_sources_and_spending_detail_lede) %></p>
       <div class="step-form">
@@ -10,9 +10,9 @@
             <tr>
               <th class="financial-year-column"><%= project.summary_label(:financial_year_label) %></th>
               <% project.selected_funding_sources.each do |fs| %>
-                  <th class="data-column <%= "#{fs}-column" %>"><%= project.summary_label(:"#{fs}_label") %></th>
+                  <th class="align-right data-column <%= "#{fs}-column" %>"><%= project.summary_label(:"#{fs}_label") %></th>
               <% end %>
-              <th class="data-total"><%= project.summary_label(:total_label) %></th>
+              <th class="align-right data-total"><%= project.summary_label(:total_label) %></th>
             </tr>
             </thead>
             <tbody>
@@ -24,12 +24,11 @@
                   </td>
                   <% project.selected_funding_sources.each do |fs| %>
                       <td class="<%= funding_table_cell(fv.financial_year, fs) %>">
-                        <%= fv[fs] %>
-
+                        <%= number_with_delimiter fv[fs] %>
                       </td>
                   <% end %>
                   <td class="row-total numeric <%= fy_total_class(fv.financial_year) %>">
-                    <%= fv.total %>
+                    <%= number_with_delimiter fv.total %>
                   </td>
                 </tr>
             <% end %>
@@ -41,16 +40,41 @@
               <% project.selected_funding_sources.each do |fs| %>
                   <% sourceTotal = project.total_for_funding_source(fs) %>
                   <% grandTotal = grandTotal + sourceTotal %>
-                  <td class="numeric <%= fs %>-total"><%= sourceTotal %></td>
+                  <td class="numeric <%= fs %>-total"><%= number_with_delimiter sourceTotal %></td>
               <% end %>
-              <td class="numeric grand-total"><%= grandTotal %></td>
+              <td class="numeric grand-total"><%= number_with_delimiter grandTotal %></td>
             </tr>
             </tfoot>
           </table>
-
         </div>
-
-
+        <% if !project.public_contributor_names.blank? ||
+            !project.private_contributor_names.blank? ||
+            !project.other_ea_contributor_names.blank? %>
+            <div id="contributor_detail">
+              </br>
+              <% if !project.public_contributor_names.blank? %>
+                  <p></p>
+                  <div>
+                    <h3 class="column-heading-small">Public sector contributors:</h3>
+                    <%= simple_format project.public_contributor_names %>
+                  </div>
+              <% end %>
+              <% if !project.private_contributor_names.blank? %>
+                  <p></p>
+                  <div>
+                    <h3 class="column-heading-small">Private sector contributors:</h3>
+                    <%= simple_format project.private_contributor_names %>
+                  </div>
+              <% end %>
+              <% if !project.other_ea_contributor_names.blank? %>
+                  <p></p>
+                  <div>
+                    <h3 class="column-heading-small">Other Environment Agency contributors:</h3>
+                    <%= simple_format project.other_ea_contributor_names %>
+                  </div>
+              <% end %>
+            </div>
+        <% end %>
       </div>
     </div>
   </div>

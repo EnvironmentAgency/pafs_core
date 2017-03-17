@@ -28,7 +28,7 @@ en:
       submission_title: "All information needs to be completed before you can submit your proposal."
       submission_notice: "By submitting this proposal you confirm that you have read and accepted the standard data notice (below) and are happy to proceed."
       funding_sources_and_spending_detail_heading: "The estimated spend for each financial year"
-      funding_sources_and_spending_detail_lede: "Spending estimates are in pounds (e.g £ 50000) at current prices. Future maintenance costs aren't included."
+      funding_sources_and_spending_detail_lede: "Spending estimates are in pounds (e.g £50,000) at current prices. Future maintenance costs aren't included."
       financial_year_label: "Financial year (April to March)"
       fcerm_gia_label: "Grant in Aid"
       local_levy_label: "Local levy"

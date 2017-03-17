@@ -55,12 +55,12 @@
             </div>
             <% if !project.draft? %>
                 <div class="grid-row">
-                  <div class="column-three-quarters">
+                  <div class="column-two-thirds">
                     <details>
-                      <summary role="button" aria-controls="show_risks and households benefitting detail">
-                        <span class="summary"> View risks and households benefitting detail </span>
+                      <summary class="half-indent" role="button" aria-controls="show_risks and households benefitting detail">
+                        <span class="summary"> View households affected by flooding detail </span>
                       </summary>
-                      <div id="show_risks and households benefitting detail">
+                      <div id="show_risks and households benefitting detail" class="panel panel-indent panel-border-narrow">
                         <%= render partial: "summary/flood_protection_outcomes_detail", locals: {project: @project} %>
                       </div>
                     </details>
@@ -98,12 +98,12 @@
             </div>
             <% if !project.draft? %>
                 <div class="grid-row">
-                  <div class="column-three-quarters">
+                  <div class="column-two-thirds">
                     <details>
-                      <summary role="button" aria-controls="show_risks and households benefitting detail">
-                        <span class="summary"> View risks and households benefitting detail </span>
+                      <summary class="half-indent" role="button" aria-controls="show_risks and households benefitting detail">
+                        <span class="summary"> View households affected by coastal erosion detail </span>
                       </summary>
-                      <div id="show_risks and households benefitting detail">
+                      <div id="show_risks and households benefitting detail" class="panel panel-indent panel-border-narrow">
                         <%= render partial: "summary/coastal_erosion_protection_outcomes_detail", locals: {project: @project} %>
                       </div>
                     </details>
