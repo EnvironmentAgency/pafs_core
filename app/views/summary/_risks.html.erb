@@ -39,15 +39,15 @@
                   <tbody>
                   <tr>
                     <td><%= project.summary_label(:flooding_outcome_a) %></td>
-                    <td class="align-right"><%= project.total_for_flooding_a %></td>
+                    <td class="align-right"><%= number_with_delimiter project.total_for_flooding_a %></td>
                   </tr>
                   <tr>
                     <td><%= project.summary_label(:flooding_outcome_b) %></td>
-                    <td class="align-right"><%= project.total_for_flooding_b %></td>
+                    <td class="align-right"><%= number_with_delimiter project.total_for_flooding_b %></td>
                   </tr>
                   <tr>
                     <td><%= project.summary_label(:flooding_outcome_c) %></td>
-                    <td class="align-right"><%= project.total_for_flooding_c %></td>
+                    <td class="align-right"><%= number_with_delimiter project.total_for_flooding_c %></td>
                   </tr>
                   </tbody>
                 </table>
@@ -55,11 +55,9 @@
             </div>
             <% if !project.draft? %>
                 <div class="grid-row">
-                  </br>
-                  </br>
                   <div class="column-two-thirds">
                     <details>
-                      <summary class="half-indent" role="button" aria-controls="show_risks and households benefitting detail">
+                      <summary class="half-indent-with-top-margin" role="button" aria-controls="show_risks and households benefitting detail">
                         <span class="summary"> View households affected by flooding detail </span>
                       </summary>
                       <div id="show_risks and households benefitting detail" class="panel panel-indent panel-border-narrow">
@@ -84,15 +82,15 @@
                   <tbody>
                   <tr>
                     <td><%= project.summary_label(:coastal_outcome_a) %></td>
-                    <td class="align-right"><%= project.total_for_coastal_a %></td>
+                    <td class="align-right"><%= number_with_delimiter project.total_for_coastal_a %></td>
                   </tr>
                   <tr>
                     <td><%= project.summary_label(:coastal_outcome_b) %></td>
-                    <td class="align-right"><%= project.total_for_coastal_b %></td>
+                    <td class="align-right"><%= number_with_delimiter project.total_for_coastal_b %></td>
                   </tr>
                   <tr>
                     <td><%= project.summary_label(:coastal_outcome_c) %></td>
-                    <td class="align-right"><%= project.total_for_coastal_c %></td>
+                    <td class="align-right"><%= number_with_delimiter project.total_for_coastal_c %></td>
                   </tr>
                   </tbody>
                 </table>
@@ -100,11 +98,9 @@
             </div>
             <% if !project.draft? %>
                 <div class="grid-row">
-                  </br>
-                  </br>
                   <div class="column-two-thirds">
                     <details>
-                      <summary class="half-indent" role="button" aria-controls="show_risks and households benefitting detail">
+                      <summary class="half-indent-with-top-margin" role="button" aria-controls="show_risks and households benefitting detail">
                         <span class="summary"> View households affected by coastal erosion detail </span>
                       </summary>
                       <div id="show_risks and households benefitting detail" class="panel panel-indent panel-border-narrow">

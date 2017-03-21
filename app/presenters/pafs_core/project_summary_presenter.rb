@@ -3,7 +3,7 @@ module PafsCore
   class ProjectSummaryPresenter < SimpleDelegator
     include PafsCore::FundingSources, PafsCore::Risks, PafsCore::Outcomes,
       PafsCore::Urgency, PafsCore::StandardOfProtection,
-      PafsCore::EnvironmentalOutcomes
+      PafsCore::EnvironmentalOutcomes, ActionView::Helpers::NumberHelper
 
     def location_set?
       project.grid_reference.present?
@@ -169,12 +169,12 @@ module PafsCore
 
     def km(n)
       return not_provided if n.blank?
-      "#{squish_int_float(n)} kilometres"
+      "#{number_with_delimiter squish_int_float(n)} kilometres"
     end
 
     def ha(n)
       return not_provided if n.blank?
-      "#{squish_int_float(n)} hectares"
+      "#{number_with_delimiter squish_int_float(n)} hectares"
     end
 
     def funding
