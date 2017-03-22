@@ -8,7 +8,7 @@ module PafsCore
 
     protect_from_forgery with: :exception
 
-    before_action :custom_headers
+    before_action :cache_busting
 
     rescue_from ActionController::InvalidAuthenticityToken, with: :handle_invalid_authenticity_token
 
@@ -16,10 +16,6 @@ module PafsCore
 
     def raise_not_found
       raise ActionController::RoutingError.new("Not Found")
-    end
-
-    def custom_headers
-      response_headers!(response)
     end
 
     def handle_invalid_authenticity_token(exception)
