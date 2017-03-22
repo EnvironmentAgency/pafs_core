@@ -619,4 +619,14 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 
 .sortable-heading {
   text-decoration: none;
+
 }
+
+a.sortable-heading:visited {
+    color:$link-colour;
+}
+
+a.sortable-heading:hover {
+  text-decoration: underline;
+}
+
