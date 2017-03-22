@@ -617,15 +617,20 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   }
 }
 
+
 .sortable-heading {
   text-decoration: none;
+
+  &:visited {
+    color: $link-colour;
+    text-decoration: none;
+  }
+
+  &:hover, &:focus {
+    color: $link-colour;
+    text-decoration: underline;
+  }
+
 }
 
-a.sortable-heading:visited {
-  color: $link-colour;
-}
-
-a.sortable-heading:hover {
-  text-decoration: underline;
-}
 
