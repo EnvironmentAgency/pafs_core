@@ -621,12 +621,12 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 .sortable-heading {
   text-decoration: none;
 
-   &:visited {
+  &:visited {
     color: $link-colour;
     text-decoration: none;
   }
 
-   &:hover, &:focus {
+  &:hover, &:focus {
     color: $link-colour;
     text-decoration: underline;
   }
