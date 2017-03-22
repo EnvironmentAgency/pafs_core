@@ -39,7 +39,7 @@ module PafsCore
       project_service.find_project(ref_number)
     end
 
-    def search(options = {})
+    def search(options)
       project_service.search(options)
     end
 
