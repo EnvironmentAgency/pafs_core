@@ -5,7 +5,7 @@ require "bstard"
 module PafsCore
   class Project < ActiveRecord::Base
     validates :reference_number, presence: true, uniqueness: { scope: :version }
-    validates :reference_number, format: { with: /\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|WX|YO)C501E\/\d{3}A\/\d{3}A\z/,
+    validates :reference_number, format: { with: /\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|TS|WX|YO)C501E\/\d{3}A\/\d{3}A\z/,
                                            message: "has an invalid format" }
     validates :version, presence: true
 
