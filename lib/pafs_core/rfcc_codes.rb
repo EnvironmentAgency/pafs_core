@@ -1,7 +1,7 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
-  RFCC_CODES = %w[ AC AE AN NO NW SN SO SW TH TR WX YO ].freeze
+  RFCC_CODES = %w[ AC AE AN NO NW SN SO SW TH TR TS WX YO ].freeze
 
   # map RFCC codes to names
 
@@ -16,6 +16,7 @@ module PafsCore
     "SW" => "Southwest",
     "TH" => "Thames",
     "TR" => "Trent",
+    "TS" => "Test",
     "WX" => "Wessex",
     "YO" => "Yorkshire",
   }.freeze
@@ -54,6 +55,7 @@ module PafsCore
     "PSO Somerset"                                        => "WX",
     "PSO South West London & Mole"                        => "TH",
     "PSO South Yorkshire"                                 => "YO",
+    "PSO Test Area"                                       => "TS",
     "PSO Tyne and Wear & Northumberland"                  => "NO",
     "PSO Warwickshire, Birmingham, Solihull & Coventry"   => "SN",
     "PSO Welland & Nene"                                  => "AN",

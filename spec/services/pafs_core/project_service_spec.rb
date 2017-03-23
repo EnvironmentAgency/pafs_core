@@ -183,7 +183,7 @@ RSpec.describe PafsCore::ProjectService do
     it "returns a reference number in the correct format" do
       PafsCore::RFCC_CODES.each do |rfcc_code|
         ref = described_class.generate_reference_number(rfcc_code)
-        expect(ref).to match /\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|WX|YO)C501E\/\d{3}A\/\d{3}A\z/
+        expect(ref).to match /\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|TS|WX|YO)C501E\/\d{3}A\/\d{3}A\z/
       end
     end
   end
