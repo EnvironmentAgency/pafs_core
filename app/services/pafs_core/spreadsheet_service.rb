@@ -5,7 +5,6 @@ require "csv"
 module PafsCore
   class SpreadsheetService
     include PafsCore::Fcerm1
-    FIRST_DATA_ROW = 7
 
     def generate_xlsx(project)
       workbook = read_fcerm1_template

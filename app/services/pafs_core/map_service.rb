@@ -26,6 +26,8 @@ module PafsCore
       else
         raise MapServiceError.new "MapService error: #{response.status}"
       end
+    rescue Faraday::Error => ex
+      raise MapServiceError.new ex
     end
 
     def connection

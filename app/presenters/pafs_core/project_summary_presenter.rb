@@ -70,10 +70,6 @@ module PafsCore
       !could_start_early.nil?
     end
 
-    def risks_started?
-      selected_risks.count > 0
-    end
-
     def standard_of_protection_started?
       flood_protection_before.present? || flood_protection_after.present? ||
         coastal_protection_before.present? || coastal_protection_after.present?

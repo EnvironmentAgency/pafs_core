@@ -96,5 +96,9 @@ module PafsCore
                    " is now")
       end
     end
+
+    def sop_from_string(value)
+      I18n.t("pafs_core.fcerm1.standard_of_protection").invert[value]
+    end
   end
 end

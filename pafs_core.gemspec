@@ -21,9 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "clamav-client", "~> 3.0"
   s.add_dependency "aws-sdk", "~> 2"
   s.add_dependency "rack-cors"
-  # s.add_dependency "axlsx", "~> 2.1.0.pre"
-  # s.add_dependency "axlsx_rails"
-  s.add_dependency "roo", "~> 2.4.0"
+  s.add_dependency "roo", "~> 2.7.0"
   s.add_dependency "rubyXL"
   s.add_dependency "bstard"
   s.add_dependency "faraday"
@@ -40,5 +38,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "overcommit"
   s.add_development_dependency "vcr", "~> 3.0"
   s.add_development_dependency "webmock", "~> 1.24"
-  # s.add_development_dependency "ffaker"
 end
