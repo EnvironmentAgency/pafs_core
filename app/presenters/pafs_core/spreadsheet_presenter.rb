@@ -64,8 +64,7 @@ module PafsCore
     end
 
     def consented
-      # FIXME: this flag hasn't been added to the project yet
-      "N"
+      y_or_n project.consented?
     end
 
     def grid_reference

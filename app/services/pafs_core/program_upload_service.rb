@@ -45,6 +45,9 @@ module PafsCore
         xlsx = fetch_workbook(upload_record.filename)
         row_count = 0
 
+        # clear all consented flags
+        PafsCore::Project.update_all(consented: false)
+
         # Roo has an odd offset so we have to take 2 off our zero-based
         # FIRST_DATA_ROW value
         xlsx.each_row_streaming(pad_cells: true,
