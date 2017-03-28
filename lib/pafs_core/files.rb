@@ -98,6 +98,21 @@ module PafsCore
       end
     end
 
+    def fetch_file(filename)
+      if filename
+        t = Tempfile.new
+        storage.download(filename, t.path)
+        t.rewind
+
+        if block_given?
+          yield t.read, filename
+          t.close!
+        else
+          t
+        end
+      end
+    end
+
     def storage
       @storage ||= if Rails.env.development?
                      PafsCore::DevelopmentFileStorageService.new

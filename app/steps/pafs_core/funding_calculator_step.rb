@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module PafsCore
   class FundingCalculatorStep < BasicStep
-    include PafsCore::FileTypes
+    include PafsCore::FileTypes, PafsCore::FileStorage
     delegate :funding_calculator_file_name, :funding_calculator_file_name=,
              :funding_calculator_content_type, :funding_calculator_content_type=,
              :funding_calculator_file_size, :funding_calculator_file_size=,
@@ -51,14 +51,6 @@ module PafsCore
       ActionController::Parameters.new(params).
         require(:funding_calculator_step).
         permit(:funding_calculator)
-    end
-
-    def storage
-      @storage ||= if Rails.env.development?
-                     PafsCore::DevelopmentFileStorageService.new user
-                   else
-                     PafsCore::FileStorageService.new user
-                   end
     end
 
     # NOTE: we could probably check the content type of the file but we are

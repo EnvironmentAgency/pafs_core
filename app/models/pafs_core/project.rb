@@ -5,8 +5,12 @@ require "bstard"
 module PafsCore
   class Project < ActiveRecord::Base
     validates :reference_number, presence: true, uniqueness: { scope: :version }
-    validates :reference_number, format: { with: /\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|TS|WX|YO)C501E\/\d{3}A\/\d{3}A\z/,
-                                           message: "has an invalid format" }
+    # broaden validation to cope with initial bulk import of existing projects
+    # with subtly non-standard formatting
+    validates :reference_number,
+      format: { with: /\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|WX|YO)[A-Z]\d{3,4}[A-Z]\/\d{3}A\/\d{3,4}[A-Z]\z/,
+                message: "has an invalid format" }
+
     validates :version, presence: true
 
     belongs_to :creator, class_name: "User"
@@ -60,15 +64,15 @@ module PafsCore
     # rubocop:enable Style/HashSyntax
 
     def draft?
-      current_state == "draft"
+      submission_state.draft?
     end
 
     def completed?
-      current_state == "completed"
+      submission_state.completed?
     end
 
     def submitted?
-      current_state == "submitted"
+      submission_state.submitted?
     end
 
     def status

@@ -6,6 +6,9 @@ module PafsCore
   # file extensions permitted for benefit area file upload
   BENEFIT_AREA_FILE_TYPES = %w[ .jpg .png .svg .bmp .zip ].freeze
 
+  # file extensions permitted for program upload
+  PROGRAM_UPLOAD_FILE_TYPES = %w[ .xlsx ].freeze
+
   module FileTypes
     def valid_funding_calculator_file?(filename)
       PafsCore::FUNDING_CALCULATOR_FILE_TYPES.include? safe_file_ext(filename).downcase
@@ -13,6 +16,10 @@ module PafsCore
 
     def valid_benefit_area_file?(filename)
       PafsCore::BENEFIT_AREA_FILE_TYPES.include? safe_file_ext(filename).downcase
+    end
+
+    def valid_program_upload_file?(filename)
+      PafsCore::PROGRAM_UPLOAD_FILE_TYPES.include? safe_file_ext(filename).downcase
     end
 
     def acceptable_funding_calculator_types
@@ -25,6 +32,10 @@ module PafsCore
 
     def benefit_area_file_types
       PafsCore::BENEFIT_AREA_FILE_TYPES.map { |t| t[1..-1] }.join(", ").reverse.sub(",", "ro ").reverse
+    end
+
+    def program_upload_file_types
+      PafsCore::PROGRAM_UPLOAD_FILE_TYPES.join(",")
     end
 
     def safe_file_ext(filename)

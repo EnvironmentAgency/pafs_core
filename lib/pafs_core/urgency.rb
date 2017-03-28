@@ -33,5 +33,9 @@ module PafsCore
     def urgency_code
       URGENCY_CODES.fetch(urgency_reason, "") if urgency_reason.present?
     end
+
+    def urgency_from_string(str)
+      I18n.t("pafs_core.fcerm1.moderation").invert[str]
+    end
   end
 end

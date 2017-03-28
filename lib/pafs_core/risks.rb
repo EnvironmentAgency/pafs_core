@@ -20,6 +20,10 @@ module PafsCore
       RISKS.select { |r| send("#{r}?") }
     end
 
+    def risks_started?
+      selected_risks.count > 0
+    end
+
     def protects_against_multiple_risks?
       selected_risks.count > 1
     end
@@ -31,6 +35,10 @@ module PafsCore
 
     def protects_against_coastal_erosion?
       coastal_erosion?
+    end
+
+    def risk_from_string(str)
+      I18n.t("pafs_core.fcerm1.risks").invert[str]
     end
   end
 end

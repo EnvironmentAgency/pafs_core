@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class ProjectNavigator
     attr_reader :user
@@ -17,6 +18,10 @@ module PafsCore
       step = sequence.next(step, project)
       return :summary if step.to_s.starts_with? "summary_"
       step
+    end
+
+    def next_step_raw(step, project)
+      sequence.next(step, project)
     end
 
     def last_step

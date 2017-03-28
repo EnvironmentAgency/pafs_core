@@ -2,30 +2,32 @@
 
 module PafsCore
   module Fcerm1
+    FIRST_DATA_ROW = 7
+
     FCERM1_COLUMN_MAP = [
       { column: "A",  field_name: :reference_number },
       { column: "B",  field_name: :name },
-      { column: "C",  field_name: :lrma_project_reference, export: false },
-      { column: "D",  field_name: :ldw_cpw_idb_number, export: false },
-      { column: "E",  field_name: :region },
-      { column: "F",  field_name: :rfcc },
-      { column: "G",  field_name: :ea_area },
+      { column: "C",  field_name: :lrma_project_reference, export: false, import: false },
+      { column: "D",  field_name: :ldw_cpw_idb_number, export: false, import: false },
+      { column: "E",  field_name: :region, import: false },
+      { column: "F",  field_name: :rfcc, import: false },
+      { column: "G",  field_name: :ea_area, import: false },
       { column: "H",  field_name: :rma_name },
-      { column: "I",  field_name: :rma_type },
-      { column: "J",  field_name: :coastal_group },
+      { column: "I",  field_name: :rma_type, import: false },
+      { column: "J",  field_name: :coastal_group, import: false },
       { column: "K",  field_name: :project_type },
       { column: "L",  field_name: :main_risk },
       { column: "M",  field_name: :moderation_code },
-      { column: "N",  field_name: :package_reference, export: false },
+      { column: "N",  field_name: :package_reference, export: false, import: false },
       { column: "O",  field_name: :consented },
       { column: "P",  field_name: :grid_reference },
-      { column: "Q",  field_name: :project_location, export: false },
-      { column: "R",  field_name: :county },
-      { column: "S",  field_name: :parliamentary_constituency },
-      { column: "T",  field_name: :parliamentary_benefit_area, export: false },
-      { column: "U",  field_name: :agreed_strategy, export: false },
+      { column: "Q",  field_name: :project_location, export: false, import: false },
+      { column: "R",  field_name: :county, import: false },
+      { column: "S",  field_name: :parliamentary_constituency, import: false },
+      { column: "T",  field_name: :parliamentary_benefit_area, export: false, import: false },
+      { column: "U",  field_name: :agreed_strategy, export: false, import: false },
       { column: "V",  field_name: :approach },
-      { column: "W",  field_name: :environmental_considerations, export: false },
+      { column: "W",  field_name: :environmental_considerations, export: false, import: false },
 
       { column: "X",
         field_name: :flood_protection_before,
@@ -43,20 +45,20 @@ module PafsCore
         field_name: :coastal_protection_after,
         if: ->(p) { p.project_protects_households? } },
 
-      { column: "AB", field_name: :new_builds, export: false },
+      { column: "AB", field_name: :new_builds, export: false, import: false },
 
-      { column: "AC", field_name: :strategic_approach },
-      { column: "AD", field_name: :raw_partnership_funding_score },
-      { column: "AE", field_name: :adjusted_partnership_funding_score },
-      { column: "AF", field_name: :pv_whole_life_costs },
-      { column: "AG", field_name: :pv_whole_life_benefits },
-      { column: "AH", field_name: :benefit_cost_ratio },
-      { column: "AI", field_name: :duration_of_benefits },
+      { column: "AC", field_name: :strategic_approach, import: false },
+      { column: "AD", field_name: :raw_partnership_funding_score, import: false },
+      { column: "AE", field_name: :adjusted_partnership_funding_score, import: false },
+      { column: "AF", field_name: :pv_whole_life_costs, import: false },
+      { column: "AG", field_name: :pv_whole_life_benefits, import: false },
+      { column: "AH", field_name: :benefit_cost_ratio, import: false },
+      { column: "AI", field_name: :duration_of_benefits, import: false },
 
       { column: "AJ", field_name: :public_contributors },
       { column: "AK", field_name: :private_contributors },
       { column: "AL", field_name: :other_ea_contributors },
-      { column: "AM", field_name: :scheme_comments, export: false },
+      { column: "AM", field_name: :scheme_comments, export: false, import: false },
 
       { column: "AN", field_name: :earliest_start_date },
       { column: "AO", field_name: :start_business_case_date },
@@ -65,10 +67,10 @@ module PafsCore
       { column: "AR", field_name: :ready_for_service_date },
 
       # Project totals AS - BJ (formula)
-      { column: "AS", field_name: :project_totals, export: false },
+      { column: "AS", field_name: :project_totals, export: false, import: false },
 
       # Total Project expenditure BK - BX (formula)
-      { column: "BK", field_name: :project_totals, export: false },
+      { column: "BK", field_name: :project_totals, export: false, import: false },
 
       # GiA columns BY - CL
       { column: "BY", field_name: :fcerm_gia, date_range: true },
@@ -131,14 +133,14 @@ module PafsCore
         if: ->(p) { p.project_protects_households? } },
 
       # From PF calculator
-      { column: "JM", field_name: :hectares_of_net_water_dependent_habitat_created },
-      { column: "JN", field_name: :hectares_of_net_water_intertidal_habitat_created },
-      { column: "JO", field_name: :kilometres_of_protected_river_improved },
+      { column: "JM", field_name: :hectares_of_net_water_dependent_habitat_created, import: false },
+      { column: "JN", field_name: :hectares_of_net_water_intertidal_habitat_created, import: false },
+      { column: "JO", field_name: :kilometres_of_protected_river_improved, import: false },
 
       # Natural flood risk management measure
-      { column: "JP", field_name: :natural_measures, export: false },
-      { column: "JQ", field_name: :main_natural_measure, export: false },
-      { column: "JR", field_name: :natural_measures_costs, export: false },
+      { column: "JP", field_name: :natural_measures, export: false, import: false },
+      { column: "JQ", field_name: :main_natural_measure, export: false, import: false },
+      { column: "JR", field_name: :natural_measures_costs, export: false, import: false },
 
       # # spa/sac, sssi or none
       { column: "JS", field_name: :designated_site },
