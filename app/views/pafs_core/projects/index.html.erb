@@ -28,17 +28,20 @@
       <tr>
         <th scope="col" class="project-number">
           <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "reference_number", params[:sort_order], "updated_at", "desc") %>
-          <%= link_to raw("National project number" + sort_properties_for_col[:curr_arrow]), pafs_core.projects_path(sort_col: "reference_number", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-heading" %>
+          <%= link_to "National project number", pafs_core.projects_path(sort_col: "reference_number", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
+          <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
         </th>
-        <th scope="col">
+        <th scope="col" class="sortable-heading">
           <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "name", params[:sort_order], "updated_at", "desc") %>
-          <%= link_to raw("Project name" + sort_properties_for_col[:curr_arrow]), pafs_core.projects_path(sort_col: "name", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-heading" %>
+          <%= link_to "Project name" , pafs_core.projects_path(sort_col: "name", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
+          <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
         </th>
 
         <th scope="col">Created by</th>
         <th scope="col">
           <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "updated_at", params[:sort_order], "updated_at", "desc") %>
-          <%= link_to raw("Last updated" + sort_properties_for_col[:curr_arrow]), pafs_core.projects_path(sort_col: "updated_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-heading" %>
+          <%= link_to "Last updated", pafs_core.projects_path(sort_col: "updated_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
+          <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
         </th>
         <th scope="col">Status</th>
       </tr>

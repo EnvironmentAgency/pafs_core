@@ -617,8 +617,8 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   }
 }
 
-
-.sortable-heading {
+.sortable-link {
+  color: $link-colour;
   text-decoration: none;
 
   &:visited {
@@ -627,10 +627,20 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   }
 
   &:hover, &:focus {
-    color: $link-colour;
+    color: $link-hover-colour;
     text-decoration: underline;
-  }
 
+    + .sortable-arrow {
+      color: $link-hover-colour;
+    }
+  }
+}
+
+.sortable-arrow {
+  color: $link-colour;
+  font-size: 10px;
+  text-decoration: none;
+  vertical-align: middle;
 }
 
 .risk-summary-heading {
