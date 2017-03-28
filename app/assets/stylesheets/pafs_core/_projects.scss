@@ -630,7 +630,7 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
     color: $link-hover-colour;
     text-decoration: underline;
 
-    & + .sortable-arrow {
+    + .sortable-arrow {
       color: $link-hover-colour;
     }
   }
