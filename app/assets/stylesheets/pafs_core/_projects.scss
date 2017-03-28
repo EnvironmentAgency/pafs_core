@@ -618,17 +618,18 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 }
 
 .sortable-link {
-  text-decoration: none;
   color: $link-colour;
+  text-decoration: none;
 
   &:visited {
-    color:  $link-colour;
+    color: $link-colour;
     text-decoration: none;
   }
 
   &:hover, &:focus {
     color: $link-hover-colour;
     text-decoration: underline;
+
     & + .sortable-arrow {
       color: $link-hover-colour;
     }
