@@ -51,7 +51,7 @@ module PafsCore
     end
 
     def consented=(value)
-      # project.consented = (value == "Y" | value == "y")
+      project.consented = (value == "Y" || value == "y")
     end
 
     def grid_reference=(value)
