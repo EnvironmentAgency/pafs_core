@@ -79,7 +79,7 @@ module PafsCore
                             "asc" # Default sort order is ascending
                           end
       else
-        arrow = "" # Not the currently sorted column, so display no arrow.
+        arrow = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" # Not the currently sorted column, so display no arrow.
         next_sort_order = "asc" # Starting sort order should be asc
       end
       sort_properties_for_col = {next_sort_order: next_sort_order, curr_arrow: arrow}
