@@ -31,7 +31,7 @@ module PafsCore
 
   private
     def tidy(str)
-      str.delete("\s").upcase unless str.nil?
+      str.to_s.delete("\s").upcase unless str.nil?
     end
   end
 end
