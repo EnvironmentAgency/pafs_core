@@ -2,7 +2,6 @@
 <div id="dashboard">
   <h1 class="heading-large">Your proposals</h1>
 
-
   <% if !pso_user? %>
       <div class="grid-row">
         <div class="column-two-thirds">
@@ -13,14 +12,9 @@
       </div>
   <% end %>
 
-
-  <p></p>
-
   <div>
     <%= link_to t('create_a_new_project_label'), pafs_core.new_bootstrap_path, class: "button" %>
   </div>
-
-  <p></p>
 
   <section>
     <table class="dashboard">
@@ -44,6 +38,9 @@
           <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
         </th>
         <th scope="col">Status</th>
+        <% if pso_user? %>
+          <th scope="col">In current program</th>
+        <% end %>
       </tr>
       </thead>
       <tbody>
@@ -54,6 +51,9 @@
             <td><%= project.owner.name unless project.owner.blank? %></td>
             <td><%= l(project.updated_at) %></td>
             <td><%= status_label_for(project.submission_state.current_state) %></td>
+            <% if pso_user? %>
+              <td><%= project.consented? ? "Y" : "N" %></td>
+            <% end %>
           </tr>
       <% end %>
       </tbody>

@@ -2,6 +2,11 @@
 module PafsCore
   class State < ActiveRecord::Base
     belongs_to :project, inverse_of: :state
-    validates :state, inclusion: { in: %w[draft completed submitted] }
+    validates :state, inclusion: { in: %w[draft completed submitted updatable updated finished] }
+
+    def self.refreshable
+      # states that can be "opened" during programme refresh
+      where(state: %w[completed submitted updated finished])
+    end
   end
 end
