@@ -16,18 +16,22 @@ module PafsCore
     validates :version, presence: true
 
     belongs_to :creator, class_name: "User"
-    has_many :area_projects
+    has_many :area_projects, dependent: :destroy
     has_many :areas, through: :area_projects
-    has_many :funding_values
-    has_many :flood_protection_outcomes
-    has_many :coastal_erosion_protection_outcomes
-    has_one :state, inverse_of: :project
-    has_many :asite_submissions, inverse_of: :project
+    has_many :funding_values, dependent: :destroy
+    has_many :flood_protection_outcomes, dependent: :destroy
+    has_many :coastal_erosion_protection_outcomes, dependent: :destroy
+    has_one :state, inverse_of: :project, dependent: :destroy
+    has_many :asite_submissions, inverse_of: :project, dependent: :destroy
     accepts_nested_attributes_for :funding_values, allow_destroy: true
     accepts_nested_attributes_for :flood_protection_outcomes, allow_destroy: true
     accepts_nested_attributes_for :coastal_erosion_protection_outcomes, allow_destroy: true
 
     before_validation :set_slug, on: :create
+
+    def self.refreshable
+      joins(:state).merge(PafsCore::State.refreshable)
+    end
 
     def to_param
       slug
@@ -54,9 +58,10 @@ module PafsCore
     def submission_state
       machine = Bstard.define do |fsm|
         fsm.initial current_state
-        fsm.event :complete, :draft => :completed
-        fsm.event :submit, :completed => :submitted
+        fsm.event :complete, :draft => :completed, :updatable => :updated
+        fsm.event :submit, :completed => :submitted, :updated => :finished
         fsm.event :unlock, :completed => :draft, :submitted => :draft
+        fsm.event :refresh, :completed => :updatable, :submitted => :updatable
         fsm.when :any do |_event, _prev_state, new_state|
           state.state = new_state
           state.save!
@@ -75,6 +80,18 @@ module PafsCore
 
     def submitted?
       submission_state.submitted?
+    end
+
+    def updatable?
+      submission_state.updatable?
+    end
+
+    def updated?
+      submission_state.updated?
+    end
+
+    def finished?
+      submission_state.finished?
     end
 
     def status
