@@ -112,36 +112,6 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     end
   end
 
-  # GET
-  # def download_funding_calculator
-  #   @project = navigator.find_project_step(params[:id], :funding_calculator)
-  #   @project.download do |data, filename, content_type|
-  #     send_data(data, filename: filename, type: content_type)
-  #   end
-  # end
-
-  # GET
-  # def delete_funding_calculator
-  #   @project = navigator.find_project_step(params[:id], :funding_calculator)
-  #   @project.delete_calculator
-  #   redirect_to project_step_path(id: @project.to_param, step: :funding_calculator)
-  # end
-
-  # GET
-  # def download_benefit_area_file
-  #   @project = navigator.find_project_step(params[:id], :map)
-  #   @project.download do |data, filename, content_type|
-  #     send_data(data, filename: filename, type: content_type)
-  #   end
-  # end
-
-  # GET
-  # def delete_benefit_area_file
-  #   @project = navigator.find_project_step(params[:id], :map)
-  #   @project.delete_benefit_area_file
-  #   redirect_to project_step_path(id: @project.to_param, step: :map)
-  # end
-  #
 private
   def project_params
     params.require(:project).permit(:fcerm_gia, :local_levy)
