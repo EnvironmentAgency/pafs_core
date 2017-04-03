@@ -4,50 +4,12 @@ class PafsCore::BootstrapsController < PafsCore::ApplicationController
   # before_action :authenticate_user!
 
   def new
-    # bootstrap a new project by asking:
-    # whether GiA funding is required before 31 March 2021
-    # whether Local levy funding is required before 31 March 2021
+    # create a temporary bootstrap project and start the steps
     # for the project name
     # for the project type
     # for the financial year the project stops spending funds
-    @project = navigator.new_bootstrap
-  end
-
-  # POST
-  def funding
-    # this is 'new' part 2
-    # continue initialising a project by asking whether Local Levy is required before 31 March 2021
-    @project = navigator.new_bootstrap(project_params)
-    if @project.fcerm_gia.nil?
-      @project.errors.add(:fcerm_gia, "^Tell us if you need Grant in Aid funding before 31 March 2021")
-      render :new
-    end
-  end
-
-  # POST
-  def create
-    # if the project starts within the next 6 years
-    # save the new project and start the steps
-    @project = navigator.new_bootstrap(project_params)
-
-    if !@project.fcerm_gia.nil? && !@project.local_levy.nil?
-      if @project.fcerm_gia? || @project.local_levy?
-        # create project
-        @project = navigator.create_bootstrap(project_params)
-        redirect_to bootstrap_step_path(id: @project.to_param, step: @project.step)
-      else
-        # not a project we want to know about (yet)
-        redirect_to pipeline_projects_path
-      end
-    elsif @project.fcerm_gia.nil?
-      @project = navigator.new_bootstrap(project_params)
-      @project.errors.add(:fcerm_gia, "^Tell us if you need Grant in Aid funding before 31 March 2021")
-      render :new
-    elsif @project.local_levy.nil?
-      @project = navigator.new_bootstrap(project_params)
-      @project.errors.add(:local_levy, "^Tell us if you need local levy funding before 31 March 2021")
-      render :funding
-    end
+    @project = navigator.create_bootstrap
+    redirect_to bootstrap_step_path(id: @project.to_param, step: @project.step)
   end
 
   # GET
@@ -90,10 +52,6 @@ class PafsCore::BootstrapsController < PafsCore::ApplicationController
   end
 
 private
-  def project_params
-    params.require(:bootstrap).permit(:fcerm_gia, :local_levy)
-  end
-
   def navigator
     @navigator ||= PafsCore::BootstrapNavigator.new current_resource
   end

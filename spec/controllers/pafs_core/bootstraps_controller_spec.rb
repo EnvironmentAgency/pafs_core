@@ -5,138 +5,20 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
   routes { PafsCore::Engine.routes }
 
   describe "GET new" do
-    it "renders the new template" do
+    it "creates a new bootstrap project" do
+      expect { get :new }.to change { PafsCore::Bootstrap.count }.by 1
+    end
+
+    it "assigns @project to the new project" do
       get :new
       expect(assigns(:project)).not_to be_nil
-      expect(response).to render_template("new")
-    end
-  end
-
-  describe "POST funding" do
-    context "when :fcerm_gia is present" do
-      it "renders the 'funding' template" do
-        post :funding, bootstrap: { fcerm_gia: true }
-        expect(response).to render_template("funding")
-      end
-
-      it "assigns the :fcerm_gia value to the project in the response" do
-        post :funding, bootstrap: { fcerm_gia: true }
-        expect(assigns(:project).fcerm_gia).to eq true
-      end
+      expect(assigns(:project).project).to eq PafsCore::Bootstrap.last
     end
 
-    context "when :fcerm_gia is not present" do
-      it "renders the 'new' template" do
-        post :funding, bootstrap: { fcerm_gia: nil }
-        expect(response).to render_template("new")
-      end
-
-      it "assigns a new project" do
-        post :funding, bootstrap: { fcerm_gia: nil }
-        expect(assigns(:project).new_record?).to eq true
-      end
-
-      it "sets an error message" do
-        post :funding, bootstrap: { fcerm_gia: nil }
-        expect(assigns(:project).errors[:fcerm_gia]).
-          to include"^Tell us if you need Grant in Aid funding before 31 March 2021"
-      end
-    end
-  end
-
-  describe "POST create" do
-    let(:params) { { bootstrap: { fcerm_gia: "true", local_levy: "false" } } }
-    let(:false_params) { { bootstrap: { fcerm_gia: "false", local_levy: "false" } } }
-    let(:no_fcerm_gia_params) { { bootstrap: { local_levy: "false" } } }
-    let(:no_local_levy_params) { { bootstrap: { fcerm_gia: "true" } } }
-
-    before(:each) do
-      @pso = FactoryGirl.create(:pso_area, parent_id: 1, name: "PSO Essex")
-      @rma = FactoryGirl.create(:rma_area, parent_id: @pso.id)
-      @user = FactoryGirl.create(:user)
-      @user.user_areas.create(area_id: @rma.id, primary: true)
-      @nav = PafsCore::BootstrapNavigator.new(@user)
-    end
-
-    context "when :fcerm_gia and ::local_levy are valid" do
-      context "when either :fcerm_gia or :local_levy are true" do
-        it "creates a new project" do
-          expect(subject).to receive(:navigator).twice { @nav }
-          expect { post :create, params }.
-            to change { PafsCore::Bootstrap.count }.by 1
-        end
-
-        it "sets the :fcerm_gia and :local_levy attributes accordingly" do
-          expect(subject).to receive(:navigator).twice { @nav }
-          post :create, params
-          expect(assigns(:project).project.fcerm_gia).to eq true
-          expect(assigns(:project).project.local_levy).to eq false
-        end
-
-        it "assigns @project" do
-          expect(subject).to receive(:navigator).twice { @nav }
-          post :create, params
-          expect(assigns(:project).project).to eq PafsCore::Bootstrap.last
-        end
-      end
-
-      context "when :fcerm_gia and :local_levy are false" do
-        it "does not create a new project" do
-          expect { post :create, false_params }.
-            not_to change { PafsCore::Bootstrap.count }
-        end
-
-        it "redirects to the pipeline page" do
-          post :create, false_params
-          expect(response).to redirect_to(pipeline_projects_path)
-        end
-      end
-    end
-
-    context "when :fcerm_gia is not present" do
-      it "does not create a new project" do
-        expect { post :create, no_fcerm_gia_params }.
-          not_to change { PafsCore::Bootstrap.count }
-      end
-
-      it "renders the 'new' template" do
-        post :create, no_fcerm_gia_params
-        expect(response).to render_template("new")
-      end
-
-      it "assigns a new project" do
-        post :create, no_fcerm_gia_params
-        expect(assigns(:project).new_record?).to eq true
-      end
-
-      it "sets an error message" do
-        post :create, no_fcerm_gia_params
-        expect(assigns(:project).errors[:fcerm_gia]).
-          to include"^Tell us if you need Grant in Aid funding before 31 March 2021"
-      end
-    end
-
-    context "when :local_levy is not present" do
-      it "does not create a new project" do
-        expect { post :create, no_local_levy_params }.
-          not_to change { PafsCore::Bootstrap.count }
-      end
-
-      it "renders the 'funding' template" do
-        post :create, no_local_levy_params
-        expect(response).to render_template("funding")
-      end
-
-      it "assigns a new project" do
-        post :create, no_local_levy_params
-        expect(assigns(:project).new_record?).to eq true
-      end
-
-      it "sets an error message" do
-        post :create, no_local_levy_params
-        expect(assigns(:project).errors[:local_levy]).
-          to include"^Tell us if you need local levy funding before 31 March 2021"
-      end
+    it "redirects to the first step" do
+      get :new
+      project = assigns(:project)
+      expect(response).to redirect_to bootstrap_step_path(id: project.to_param, step: "project_name")
     end
   end
 
