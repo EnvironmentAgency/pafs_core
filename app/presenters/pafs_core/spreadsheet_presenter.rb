@@ -171,31 +171,27 @@ module PafsCore
     end
 
     def households_at_reduced_risk(year)
-      flood_protection_for(year).sum(:households_at_reduced_risk)
+      sum_flood_protection_for(year, :households_at_reduced_risk)
     end
 
     def moved_from_very_significant_and_significant_to_moderate_or_low(year)
-      flood_protection_for(year).
-        sum(:moved_from_very_significant_and_significant_to_moderate_or_low)
+      sum_flood_protection_for(year, :moved_from_very_significant_and_significant_to_moderate_or_low)
     end
 
     def households_protected_from_loss_in_20_percent_most_deprived(year)
-      flood_protection_for(year).
-        sum(:households_protected_from_loss_in_20_percent_most_deprived)
+      sum_flood_protection_for(year, :households_protected_from_loss_in_20_percent_most_deprived)
     end
 
     def coastal_households_at_reduced_risk(year)
-      coastal_erosion_protection_for(year).sum(:households_at_reduced_risk)
+      sum_coastal_erosion_protection_for(year, :households_at_reduced_risk)
     end
 
     def coastal_households_protected_from_loss_in_next_20_years(year)
-      coastal_erosion_protection_for(year).
-        sum(:households_protected_from_loss_in_next_20_years)
+      sum_coastal_erosion_protection_for(year, :households_protected_from_loss_in_next_20_years)
     end
 
     def coastal_households_protected_from_loss_in_20_percent_most_deprived(year)
-      coastal_erosion_protection_for(year).
-        sum(:households_protected_from_loss_in_20_percent_most_deprived)
+      sum_coastal_erosion_protection_for(year, :households_protected_from_loss_in_20_percent_most_deprived)
     end
 
     def hectares_of_net_water_dependent_habitat_created
@@ -305,6 +301,16 @@ module PafsCore
       else
         project.coastal_erosion_protection_outcomes.where(financial_year: year)
       end
+    end
+
+    def sum_flood_protection_for(year, category)
+      return 0 if year > project.project_end_financial_year
+      flood_protection_for(year).sum(category)
+    end
+
+    def sum_coastal_erosion_protection_for(year, category)
+      return 0 if year > project.project_end_financial_year
+      coastal_erosion_protection_for(year).sum(category)
     end
 
     def format_2_part_date(dt)
