@@ -15,6 +15,23 @@ module PafsCore
       workbook
     end
 
+    def generate_multi_xlsx(projects)
+      workbook = read_fcerm1_template
+      # until sheet names are fixed, take the first sheet in the workbook
+      sheet = workbook.worksheets[0]
+
+      row_number = FIRST_DATA_ROW
+      projects.each do |project|
+        add_project_to_sheet(
+          sheet,
+          PafsCore::SpreadsheetPresenter.new(project),
+          row_number
+        )
+        row_number += 1
+      end
+      workbook
+    end
+
     def generate_csv(project)
       CSV.generate do |csv|
         csv << %w[ not yet implemented ]

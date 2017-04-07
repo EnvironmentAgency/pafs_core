@@ -32,4 +32,23 @@ RSpec.describe PafsCore::SpreadsheetService do
       expect generated_xlsx == file
     end
   end
+
+  describe "#generate_multi_xlsx" do
+    it "should generate an xlsx file with a row for each project" do
+      # The area factory :country with trait :with_full_hierarchy_and_projects
+      # creates a hierarchy and 5 projects which is what we need for our test,
+      # but it doesn't create any users along the way. The ProjectService, and
+      # particularly its search() method are dependent on the projects being
+      # linked to the user, hence we create one here and attach it to the
+      # projects via a UserArea record.
+      rma_user = FactoryGirl.create(:user)
+      rma_area = PafsCore::Area.rma_areas.last
+      FactoryGirl.create(:user_area, user_id: rma_user.id, area_id: rma_area.id)
+
+      ps = PafsCore::ProjectService.new(rma_user)
+
+      puts "Search result count = #{ps.search.count}"
+      generated_xlsx = subject.generate_multi_xlsx(ps.search)
+    end
+  end
 end
