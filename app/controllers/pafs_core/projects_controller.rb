@@ -9,7 +9,6 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     # (filterable) list of projects
     page = params.fetch(:page, 1)
     projects_per_page = params.fetch(:per, 10)
-
     @projects = navigator.search(params).page(page).per(projects_per_page)
   end
 

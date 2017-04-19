@@ -13,6 +13,10 @@ module PafsCore
       current_resource.respond_to?(:primary_area) && current_resource.primary_area.pso_area?
     end
 
+    def ea_user?
+      current_resource.respond_to?(:primary_area) && current_resource.primary_area.ea_area?
+    end
+
     def status_label_for(state)
       scope = "pafs_core.projects.status"
       scope = scope + ".rma" if rma_user?

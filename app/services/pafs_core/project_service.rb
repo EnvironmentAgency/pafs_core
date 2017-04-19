@@ -30,6 +30,13 @@ module PafsCore
         first!
     end
 
+    def submitted_projects
+      PafsCore::Project.joins(:state).
+        merge(PafsCore::State.submitted).
+        joins(:area_projects).
+        merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user)))
+    end
+
     def find_project_without_security(id)
       PafsCore::Project.find_by!(slug: id.to_s.upcase)
     end

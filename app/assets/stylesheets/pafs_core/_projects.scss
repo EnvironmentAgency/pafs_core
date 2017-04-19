@@ -609,6 +609,19 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   }
 }
 
+.download-all-proposals-link {
+  @include core-16;
+
+  margin-bottom: 0.5em;
+  margin-top: -2.5em;
+  text-align: right;
+
+  @include media(mobile) {
+    margin-top: auto;
+    text-align: left;
+  }
+}
+
 .error-page {
   text-align: center;
 
@@ -654,5 +667,3 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 .risk-summary-subheading {
   text-align: right;
 }
-
-

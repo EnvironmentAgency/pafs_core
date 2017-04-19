@@ -44,7 +44,12 @@ module PafsCore
       project_service.find_project(ref_number)
     end
 
-    def search(options)
+    def find_apt_projects
+      project_service.submitted_projects
+    end
+
+    def search(options = {})
+      options[:state] = "submitted" if user.primary_area.ea_area?
       project_service.search(options)
     end
 

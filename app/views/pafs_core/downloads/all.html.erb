@@ -1,0 +1,62 @@
+<% content_for :page_title, make_page_title("Download proposal documents") %>
+
+<h1 class="heading-large">Download all proposals</h1>
+<div class="sub-heading">
+  All <b><%= @downloads.count %></b> proposals are available for download.
+</div>
+<div class="grid-row">
+  <div class="column-third">
+    <h1 class="heading-medium">All downloads</h1>
+  </div>
+  <div class="column-two-thirds project-downloads">
+    <section class="projects-download-link">
+      <div class="attachment">
+        <div class="attachment-thumb">
+          <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.proposals_downloads_path, class: "thumbnail" %>
+        </div>
+        <div class="attachment-details">
+          <%= link_to "Proposal (Excel document)", pafs_core.proposals_downloads_path, class: "font-medium" %>
+          <p class="font-xsmall">MS Excel Spreadsheet</p>
+          <p class="font-xsmall">There are <%= @downloads.count %> proposals</p>
+          <p class="font-xsmall">
+            This is formatted in the same way as the old spreadsheet, for convenience.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="projects-download-link">
+      <div class="attachment">
+        <div class="attachment-thumb">
+          <%= link_to image_tag("pafs_core/pub-cover-shapefile.png"), pafs_core.benefit_areas_downloads_path, class: "thumbnail" %>
+        </div>
+        <div class="attachment-details">
+          <%= link_to "Project benefit area files (zip file)", pafs_core.benefit_areas_downloads_path, class: "font-medium" %>
+          <p class="font-xsmall">
+            Compressed folder containing shapefiles for all <%= @downloads.shapefile_count %> proposals (zip file)
+          </p>
+          <p class="font-xsmall">
+            <%= @downloads.shapefile_count %> proposals have benefit area files
+          </p>
+        </div>
+      </div>
+    </section>
+    <% if @downloads.urgency_count.positive? %>
+      <section class="projects-download-link">
+        <div class="attachment">
+          <div class="attachment-thumb">
+            <%= link_to image_tag("pafs_core/pub-cover-doc.png"), pafs_core.moderations_downloads_path, class: "thumbnail" %>
+          </div>
+          <div class="attachment-details">
+            <%= link_to "Urgency moderation evidence", pafs_core.moderations_downloads_path, class: "font-medium" %>
+            <p class="font-xsmall">
+              Compressed folder containing urgency moderation evidence for <%= @downloads.urgency_count %> proposals (zip file)
+            </p>
+            <p class="font-xsmall">
+              <%= @downloads.urgency_count %> proposals have urgency moderation evidence
+            </p>
+          </div>
+        </div>
+      </section>
+    <% end %>
+  </div>
+</div>
