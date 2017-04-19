@@ -2,7 +2,11 @@
 
 <h1 class="heading-large">Download all proposals</h1>
 <div class="sub-heading">
-  All <b><%= @downloads.count %></b> proposals are available for download.
+  <% if @downloads.count == 1 %>
+    There is <span class="bold-small">1</span> proposal available for download.
+  <% else %>
+    There are <span class="bold-small"><%= @downloads.count %></span> proposals available for download.
+  <% end %>
 </div>
 <div class="grid-row">
   <div class="column-third">
@@ -12,14 +16,20 @@
     <section class="projects-download-link">
       <div class="attachment">
         <div class="attachment-thumb">
-          <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.proposals_downloads_path, class: "thumbnail" %>
+          <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.proposals_downloads_path(format: :xslx), class: "thumbnail" %>
         </div>
         <div class="attachment-details">
-          <%= link_to "Proposal (Excel document)", pafs_core.proposals_downloads_path, class: "font-medium" %>
+          <%= link_to "Proposal (Excel document)", pafs_core.proposals_downloads_path(format: :xslx), class: "font-medium" %>
           <p class="font-xsmall">MS Excel Spreadsheet</p>
-          <p class="font-xsmall">There are <%= @downloads.count %> proposals</p>
           <p class="font-xsmall">
-            This is formatted in the same way as the old spreadsheet, for convenience.
+            <% if @downloads.count == 1 %>
+              There is 1 proposal
+            <% else %>
+              There are <%= @downloads.count %> proposals
+            <% end %>
+          </p>
+          <p class="font-xsmall">
+            This is formatted in the same way as the old spreadsheet for convenience.
           </p>
         </div>
       </div>
@@ -27,15 +37,19 @@
     <section class="projects-download-link">
       <div class="attachment">
         <div class="attachment-thumb">
-          <%= link_to image_tag("pafs_core/pub-cover-shapefile.png"), pafs_core.benefit_areas_downloads_path, class: "thumbnail" %>
+          <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.benefit_areas_downloads_path(format: :zip), class: "thumbnail" %>
         </div>
         <div class="attachment-details">
-          <%= link_to "Project benefit area files (zip file)", pafs_core.benefit_areas_downloads_path, class: "font-medium" %>
+          <%= link_to "Project benefit area files (zip file)", pafs_core.benefit_areas_downloads_path(format: :zip), class: "font-medium" %>
           <p class="font-xsmall">
-            Compressed folder containing shapefiles for all <%= @downloads.shapefile_count %> proposals (zip file)
+            Compressed folder containing shapefiles for <%= @downloads.shapefile_count %> <%= "proposal".pluralize(@downloads.shapefile_count) %> (zip file)
           </p>
           <p class="font-xsmall">
-            <%= @downloads.shapefile_count %> proposals have benefit area files
+            <% if @downloads.shapefile_count == 1 %>
+              1 proposal has a benefit area file
+            <% else %>
+              <%= @downloads.shapefile_count %> proposals have benefit area files
+            <% end %>
           </p>
         </div>
       </div>
@@ -44,15 +58,19 @@
       <section class="projects-download-link">
         <div class="attachment">
           <div class="attachment-thumb">
-            <%= link_to image_tag("pafs_core/pub-cover-doc.png"), pafs_core.moderations_downloads_path, class: "thumbnail" %>
+            <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.moderations_downloads_path(format: :zip), class: "thumbnail" %>
           </div>
           <div class="attachment-details">
-            <%= link_to "Urgency moderation evidence", pafs_core.moderations_downloads_path, class: "font-medium" %>
+            <%= link_to "Urgency moderation evidence (zip file)", pafs_core.moderations_downloads_path(format: :zip), class: "font-medium" %>
             <p class="font-xsmall">
               Compressed folder containing urgency moderation evidence for <%= @downloads.urgency_count %> proposals (zip file)
             </p>
             <p class="font-xsmall">
-              <%= @downloads.urgency_count %> proposals have urgency moderation evidence
+              <% if @downloads.urgency_count == 1 %>
+                1 proposal has urgency moderation evidence
+              <% else %>
+                <%= @downloads.urgency_count %> proposals have urgency moderation evidence
+              <% end %>
             </p>
           </div>
         </div>

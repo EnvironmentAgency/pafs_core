@@ -30,10 +30,8 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
   end
 
   def proposals
-    projects = navigator.find_apt_projects
-
-    projects.each do |project|
-    end
+    xlsx = generate_multi_fcerm1(navigator.find_apt_projects, :xlsx)
+    send_data xlsx.stream.read, filename: "fcerm_proposals.xlsx"
   end
 
   def benefit_area

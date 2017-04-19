@@ -44,6 +44,9 @@ module PafsCore
     end
 
     def add_project_to_sheet(sheet, project, row_no)
+      # multi project spreadsheets need additional rows to work with
+      sheet.insert_row(row_no) if row_no != FIRST_DATA_ROW
+
       FCERM1_COLUMN_MAP.each do |col|
         if col.fetch(:export, true)
           range = col.fetch(:date_range, false)
