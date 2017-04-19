@@ -44,6 +44,10 @@ module PafsCore
       project_service.find_project(ref_number)
     end
 
+    def find_apt_projects
+      project_service.submitted_projects
+    end
+
     def search(options)
       project_service.search(options)
     end

@@ -7,7 +7,7 @@
       <div class="column-one-half">
         <h1 class="heading-large">Proposal overview</h1>
       </div>
-      <% if pso_user? && (@project.submitted? || @project.completed?) %>
+      <% if ea_user? || (pso_user? && (@project.submitted? || @project.completed?)) %>
         <div class="column-one-half">
           <div class="project-documents-download-link">
             <%= link_to "Download proposal documents", pafs_core.downloads_path(@project) %>

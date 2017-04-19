@@ -30,6 +30,13 @@ module PafsCore
         first!
     end
 
+    def submitted_projects
+      PafsCore::Project.joins(:state).
+        merge(PafsCore::State.submitted).
+        joins(:area_projects).
+        merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user)))
+    end
+
     def find_project_without_security(id)
       PafsCore::Project.find_by!(slug: id.to_s.upcase)
     end
@@ -46,11 +53,15 @@ module PafsCore
 
       sort_col = "updated_at" if sort_col.nil?
       sort_order = "desc" if sort_order.nil?
-      PafsCore::Project.
-        includes(:area_projects, :areas).
-        joins(:area_projects).
-        merge(PafsCore::AreaProject.where(area_id: areas)).
-        order("#{sort_col}": sort_order)
+      results = PafsCore::Project.
+                includes(:area_projects, :areas).
+                joins(:area_projects).
+                merge(PafsCore::AreaProject.where(area_id: areas)).
+                order("#{sort_col}": sort_order)
+      results = results.joins(:state).
+                merge(PafsCore::State.submitted) if user.primary_area.ea_area?
+
+      results
     end
 
     def all_projects_for(area)

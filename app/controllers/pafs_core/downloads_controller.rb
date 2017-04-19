@@ -7,6 +7,10 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
     @project = PafsCore::ProjectSummaryPresenter.new navigator.find(params[:id])
   end
 
+  def all
+    @downloads = PafsCore::ProjectsDownloadPresenter.new navigator.find_apt_projects
+  end
+
   def proposal
     @project = PafsCore::ProjectSummaryPresenter.new navigator.find(params[:id])
 
@@ -22,6 +26,13 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
         send_data xlsx.stream.read,
           filename: fcerm1_filename(@project.reference_number, :xlsx)
       end
+    end
+  end
+
+  def proposals
+    projects = navigator.find_apt_projects
+
+    projects.each do |project|
     end
   end
 
