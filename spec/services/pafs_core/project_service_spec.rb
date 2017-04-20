@@ -11,6 +11,36 @@ RSpec.describe PafsCore::ProjectService do
   end
   subject { PafsCore::ProjectService.new(@user) }
 
+  describe "#search" do
+    it "returns all projects for a given user" do
+      # Create 2 projects against the user
+      subject.create_project
+      subject.create_project
+
+      results = subject.search
+      expect(results.count).to eq(2)
+
+      results.each do |result|
+        expect(result.creator_id).to eq(@user.id)
+      end
+    end
+
+    it "returns all projects for a given user and state" do
+      # Create 2 projects against the user and set their states (projects don't
+      # get a default state)
+      draft_project = subject.create_project
+      draft_project.create_state(state: "draft")
+      submitted_project = subject.create_project
+      submitted_project.create_state(state: "submitted")
+
+      # Search for submitted projects for the user
+      results = subject.search(state: "submitted")
+
+      expect(results.count).to eq(1)
+      expect(results.first.status).to eq(:submitted)
+    end
+  end
+
   describe "#new_project" do
     it "builds a new project model without saving to the database" do
       p = nil

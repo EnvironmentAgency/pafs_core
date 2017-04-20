@@ -1,0 +1,80 @@
+<% content_for :page_title, make_page_title("Download proposal documents") %>
+
+<h1 class="heading-large">Download all proposals</h1>
+<div class="sub-heading">
+  <% if @downloads.count == 1 %>
+    There is <span class="bold-small">1</span> proposal available for download.
+  <% else %>
+    There are <span class="bold-small"><%= @downloads.count %></span> proposals available for download.
+  <% end %>
+</div>
+<div class="grid-row">
+  <div class="column-third">
+    <h1 class="heading-medium">All downloads</h1>
+  </div>
+  <div class="column-two-thirds project-downloads">
+    <section class="projects-download-link">
+      <div class="attachment">
+        <div class="attachment-thumb">
+          <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.proposals_downloads_path(format: :xslx), class: "thumbnail" %>
+        </div>
+        <div class="attachment-details">
+          <%= link_to "Proposal (Excel document)", pafs_core.proposals_downloads_path(format: :xslx), class: "font-medium" %>
+          <p class="font-xsmall">MS Excel Spreadsheet</p>
+          <p class="font-xsmall">
+            <% if @downloads.count == 1 %>
+              There is 1 proposal
+            <% else %>
+              There are <%= @downloads.count %> proposals
+            <% end %>
+          </p>
+          <p class="font-xsmall">
+            This is formatted in the same way as the old spreadsheet for convenience.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="projects-download-link">
+      <div class="attachment">
+        <div class="attachment-thumb">
+          <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.benefit_areas_downloads_path(format: :zip), class: "thumbnail" %>
+        </div>
+        <div class="attachment-details">
+          <%= link_to "Project benefit area files (zip file)", pafs_core.benefit_areas_downloads_path(format: :zip), class: "font-medium" %>
+          <p class="font-xsmall">
+            Compressed folder containing shapefiles for <%= @downloads.shapefile_count %> <%= "proposal".pluralize(@downloads.shapefile_count) %> (zip file)
+          </p>
+          <p class="font-xsmall">
+            <% if @downloads.shapefile_count == 1 %>
+              1 proposal has a benefit area file
+            <% else %>
+              <%= @downloads.shapefile_count %> proposals have benefit area files
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </section>
+    <% if @downloads.urgency_count.positive? %>
+      <section class="projects-download-link">
+        <div class="attachment">
+          <div class="attachment-thumb">
+            <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.moderations_downloads_path(format: :zip), class: "thumbnail" %>
+          </div>
+          <div class="attachment-details">
+            <%= link_to "Urgency moderation evidence (zip file)", pafs_core.moderations_downloads_path(format: :zip), class: "font-medium" %>
+            <p class="font-xsmall">
+              Compressed folder containing urgency moderation evidence for <%= @downloads.urgency_count %> proposals (zip file)
+            </p>
+            <p class="font-xsmall">
+              <% if @downloads.urgency_count == 1 %>
+                1 proposal has urgency moderation evidence
+              <% else %>
+                <%= @downloads.urgency_count %> proposals have urgency moderation evidence
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </section>
+    <% end %>
+  </div>
+</div>

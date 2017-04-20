@@ -22,6 +22,11 @@ module PafsCore
       builder.send("generate_#{format}", project)
     end
 
+    def generate_multi_fcerm1(projects, format)
+      builder = PafsCore::SpreadsheetService.new
+      builder.send("generate_multi_#{format}", projects)
+    end
+
     # benefit area file
     def make_benefit_area_file_name(reference, original_filename)
       "#{ref_to_file_name(reference)}_benefit_area#{File.extname(original_filename)}"

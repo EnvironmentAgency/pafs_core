@@ -2,7 +2,7 @@
 <div id="dashboard">
   <h1 class="heading-large">Your proposals</h1>
 
-  <% if !pso_user? %>
+  <% if rma_user? %>
       <div class="grid-row">
         <div class="column-two-thirds">
           <div class="panel panel-indent panel-border-narrow panel-border-short">
@@ -12,9 +12,15 @@
       </div>
   <% end %>
 
-  <div class="create-new-project">
-    <%= link_to t('create_a_new_project_label'), pafs_core.new_bootstrap_path, class: "button" %>
-  </div>
+  <% if ea_user? %>
+    <div class="download-all-proposals-link">
+      <%= link_to t('download_all_proposals_label'), pafs_core.all_downloads_path %>
+    </div>
+  <% else %>
+    <div class="create-new-project">
+      <%= link_to t('create_a_new_project_label'), pafs_core.new_bootstrap_path, class: "button" %>
+    </div>
+  <% end %>
 
   <section>
     <table class="dashboard">
@@ -37,7 +43,11 @@
           <%= link_to "Last updated", pafs_core.projects_path(sort_col: "updated_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
           <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
         </th>
-        <th scope="col">Status</th>
+
+        <% unless ea_user? %>
+          <th scope="col">Status</th>
+        <% end %>
+
         <% if pso_user? %>
           <th scope="col">In current programme</th>
         <% end %>
@@ -50,7 +60,9 @@
             <td><%= project.name %></td>
             <td><%= project.owner.name unless project.owner.blank? %></td>
             <td><%= l(project.updated_at) %></td>
-            <td><%= status_label_for(project.submission_state.current_state) %></td>
+            <% unless ea_user? %>
+              <td><%= status_label_for(project.submission_state.current_state) %></td>
+            <% end %>
             <% if pso_user? %>
               <td><%= project.consented? ? "Y" : "N" %></td>
             <% end %>
