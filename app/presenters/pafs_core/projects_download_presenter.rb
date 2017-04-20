@@ -15,7 +15,12 @@ module PafsCore
     end
 
     def urgency_count
-      projects.count
+      @urgency_count ||= calc_urgency_count
+    end
+
+  private
+    def calc_urgency_count
+      projects.where.not(urgency_reason: "not_urgent").count
     end
   end
 end

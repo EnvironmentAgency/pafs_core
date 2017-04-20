@@ -39,7 +39,8 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     @project.submission_state.submit!
 
     # send files to asite
-    asite.submit_project(@project)
+    # asite.submit_project(@project)
+    PafsCore::AsiteSubmissionJob.perform_later(@project)
 
     redirect_to pafs_core.confirm_project_path(@project)
   end
@@ -120,7 +121,7 @@ private
     @navigator ||= PafsCore::ProjectNavigator.new current_resource
   end
 
-  def asite
-    @asite ||= PafsCore::AsiteService.new current_resource
-  end
+  # def asite
+  #   @asite ||= PafsCore::AsiteService.new current_resource
+  # end
 end
