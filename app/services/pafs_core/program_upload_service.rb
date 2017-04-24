@@ -12,8 +12,12 @@ module PafsCore
       @user = user
     end
 
-    def upload(form_file)
-      record = PafsCore::ProgramUpload.new(number_of_records: 0, status: "new")
+    def upload(params = {})
+      record = PafsCore::ProgramUpload.new(number_of_records: 0,
+                                           status: "new",
+                                           reset_consented_flag: params.fetch(:reset_consented_flag, false))
+
+      form_file = params.fetch(:program_upload_file, nil)
       if form_file
         if valid_program_upload_file?(form_file.original_filename)
           begin
@@ -46,13 +50,13 @@ module PafsCore
         row_count = 0
 
         # clear all consented flags
-        PafsCore::Project.update_all(consented: false)
+        PafsCore::Project.update_all(consented: false) if upload_record.reset_consented_flag?
 
         # Roo has an odd offset so we have to take 2 off our zero-based
         # FIRST_DATA_ROW value
         xlsx.each_row_streaming(pad_cells: true,
                                 offset: FIRST_DATA_ROW - 2) do |row|
-          next if row.nil? || row[0].nil?
+          next if row.nil? || row[0].blank?
           reset_errors
           row_count += 1
           project = build_project_from_row(row)
