@@ -13,14 +13,6 @@ PafsCore::Engine.routes.draw do
   resources :projects do
     collection do
       get :pipeline
-      resources :downloads do
-        collection do
-          get :all
-          get :proposals
-          get :benefit_areas
-          get :moderations
-        end
-      end
     end
     member do
       resources :downloads, only: :index do
@@ -37,6 +29,14 @@ PafsCore::Engine.routes.draw do
       get :complete
       get :unlock
       get :confirm
+    end
+  end
+
+  resources :multi_downloads, only: :index do
+    collection do
+      get :proposals
+      get :benefit_areas
+      get :moderations
     end
   end
 

@@ -55,7 +55,7 @@ module PafsCore
         # Roo has an odd offset so we have to take 2 off our zero-based
         # FIRST_DATA_ROW value
         xlsx.each_row_streaming(pad_cells: true,
-                                offset: FIRST_DATA_ROW - 2) do |row|
+                                offset: FIRST_DATA_ROW - 1) do |row|
           next if row.nil? || row[0].blank?
           reset_errors
           row_count += 1
@@ -165,7 +165,7 @@ module PafsCore
 
     def fetch_workbook(filename)
       temp_file = fetch_file(filename)
-      xlsx = Roo::Spreadsheet.open(temp_file, extension: :xlsx)
+      Roo::Spreadsheet.open(temp_file, extension: :xlsx)
     end
 
     def create_upload_item(upload_record, project)
