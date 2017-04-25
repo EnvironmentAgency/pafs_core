@@ -25,7 +25,7 @@ module PafsCore
 
     def rma_name
       owning_area = owner
-      owning_area.name if owning_area && owning_area.rma?
+      owning_area.name if owning_area && (owning_area.rma? || owning_area.pso_area?)
     end
 
     def rma_type
