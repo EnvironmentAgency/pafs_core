@@ -16,10 +16,10 @@
     <section class="projects-download-link">
       <div class="attachment">
         <div class="attachment-thumb">
-          <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.proposals_downloads_path(format: :xslx), class: "thumbnail" %>
+          <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.proposals_multi_downloads_path(format: :xlsx), class: "thumbnail" %>
         </div>
         <div class="attachment-details">
-          <%= link_to "Proposal (Excel document)", pafs_core.proposals_downloads_path(format: :xslx), class: "font-medium" %>
+          <%= link_to "Proposal (Excel document)", pafs_core.proposals_multi_downloads_path(format: :xlsx), class: "font-medium" %>
           <p class="font-xsmall">MS Excel Spreadsheet</p>
           <p class="font-xsmall">
             <% if @downloads.count == 1 %>
@@ -37,10 +37,10 @@
     <section class="projects-download-link">
       <div class="attachment">
         <div class="attachment-thumb">
-          <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.benefit_areas_downloads_path(format: :zip), class: "thumbnail" %>
+          <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.benefit_areas_multi_downloads_path(format: :zip), class: "thumbnail" %>
         </div>
         <div class="attachment-details">
-          <%= link_to "Project benefit area files (zip file)", pafs_core.benefit_areas_downloads_path(format: :zip), class: "font-medium" %>
+          <%= link_to "Project benefit area files (zip file)", pafs_core.benefit_areas_multi_downloads_path(format: :zip), class: "font-medium" %>
           <p class="font-xsmall">
             Compressed folder containing shapefiles for <%= @downloads.shapefile_count %> <%= "proposal".pluralize(@downloads.shapefile_count) %> (zip file)
           </p>
@@ -58,10 +58,10 @@
       <section class="projects-download-link">
         <div class="attachment">
           <div class="attachment-thumb">
-            <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.moderations_downloads_path(format: :zip), class: "thumbnail" %>
+            <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.moderations_multi_downloads_path(format: :zip), class: "thumbnail" %>
           </div>
           <div class="attachment-details">
-            <%= link_to "Urgency moderation evidence (zip file)", pafs_core.moderations_downloads_path(format: :zip), class: "font-medium" %>
+            <%= link_to "Urgency moderation evidence (zip file)", pafs_core.moderations_multi_downloads_path(format: :zip), class: "font-medium" %>
             <p class="font-xsmall">
               Compressed folder containing urgency moderation evidence for <%= @downloads.urgency_count %> proposals (zip file)
             </p>

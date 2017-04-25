@@ -43,9 +43,26 @@ module PafsCore
       RubyXL::Parser.parse(PafsCore::Engine.root.join("lib", "fcerm1_template.xlsx"))
     end
 
+    def copy_previous_row(sheet, row_no)
+      sheet.insert_row(row_no)
+      new_row = sheet[row_no]
+      prev_row = sheet[row_no - 1]
+
+      prev_row.cells.each_with_index do |cell, i|
+        if cell.formula
+          # formulas need to be updated for the new row_no
+          # the row number reference in the formulas are "1" based not "0" based
+          new_row[i].change_contents(0, cell.formula.expression.gsub(/#{row_no}/, (row_no + 1).to_s))
+        elsif cell.value
+          new_row[i].change_contents(cell.value)
+        end
+      end
+    end
+
     def add_project_to_sheet(sheet, project, row_no)
       # multi project spreadsheets need additional rows to work with
-      sheet.insert_row(row_no) if row_no != FIRST_DATA_ROW
+      copy_previous_row(sheet, row_no) if row_no != FIRST_DATA_ROW
+      # sheet.insert_row(row_no) if row_no != FIRST_DATA_ROW
 
       FCERM1_COLUMN_MAP.each do |col|
         if col.fetch(:export, true)
