@@ -17,8 +17,8 @@ module PafsCore
       if area.nil?
         project.errors.add(:base, "^Cannot find area (rma_name: #{value})")
       else
-        project.area_projects.create(area_id: area.id, owner: true) unless
-          project.area_projects.where(area_id: area.id).count.positive?
+        project.area_projects.delete_all
+        project.area_projects.create(area_id: area.id, owner: true)
       end
     end
 
