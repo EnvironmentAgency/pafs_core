@@ -10,6 +10,9 @@ module PafsCore
       workbook = read_fcerm1_template
       # until sheet names are fixed, take the first sheet in the workbook
       sheet = workbook.worksheets[0]
+
+      fix_worksheet(sheet)
+
       add_project_to_sheet(sheet, PafsCore::SpreadsheetPresenter.new(project),
                            FIRST_DATA_ROW)
       workbook
@@ -19,6 +22,8 @@ module PafsCore
       workbook = read_fcerm1_template
       # until sheet names are fixed, take the first sheet in the workbook
       sheet = workbook.worksheets[0]
+
+      fix_worksheet(sheet)
 
       row_number = FIRST_DATA_ROW
       projects.each do |project|
@@ -41,6 +46,12 @@ module PafsCore
   private
     def read_fcerm1_template
       RubyXL::Parser.parse(PafsCore::Engine.root.join("lib", "fcerm1_template.xlsx"))
+    end
+
+    def fix_worksheet(sheet)
+      # HACK: for some reason the formula in column BJ (index 61) is not recognised by RubyXL
+      #       so we'll poke in the correct formula here
+      sheet[FIRST_DATA_ROW][61].change_contents(0, "JO#{FIRST_DATA_ROW + 1}")
     end
 
     def copy_previous_row(sheet, row_no)
