@@ -34,6 +34,7 @@ PafsCore::Engine.routes.draw do
 
   resources :multi_downloads, only: :index do
     collection do
+      get :generate
       get :proposals
       get :benefit_areas
       get :moderations

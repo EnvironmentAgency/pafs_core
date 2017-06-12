@@ -13,7 +13,14 @@ module PafsCore
 
     def upload(from_path, to_path)
       antivirus.scan(from_path)
-      storage.put_object(bucket: bucket_name, key: to_path, body: File.open(from_path))
+      # storage.put_object(bucket: bucket_name, key: to_path, body: File.open(from_path))
+      upload_data(File.open(from_path), to_path)
+    end
+
+    def upload_data(io_object, to_path)
+      # NOTE: NO VIRUS CHECK HERE - only use this for in-memory generated documents
+      # or files that have already been scanned
+      storage.put_object(bucket: bucket_name, key: to_path, body: io_object)
     end
 
     def download(file_key, dest)

@@ -1,0 +1,83 @@
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <div class="panel panel-border-narrow">
+      <ul class="list">
+        <li>Area programme last generated on <%= downloads.requested_on %></li>
+        <li>Containing <%= downloads.number_of_proposals_generated %> proposals</li>
+        <li>Requested by <%= downloads.requested_by.full_name %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <%= link_to "Regenerate area programme", pafs_core.generate_multi_downloads_path,
+        class: "button", role: "button" %>
+  </div>
+</div>
+<div class="grid-row">
+  <div class="column-one-third">
+    <h1 class="heading-medium">All downloads</h1>
+  </div>
+  <div class="column-two-thirds project-downloads">
+    <section class="projects-download-link">
+      <div class="attachment">
+        <div class="attachment-thumb">
+          <%= link_to image_tag("pafs_core/pub-cover-spreadsheet.png"), pafs_core.proposals_multi_downloads_path(format: :xlsx), class: "thumbnail" %>
+        </div>
+        <div class="attachment-details">
+          <%= link_to "FCERM1 (Excel document)", pafs_core.proposals_multi_downloads_path(format: :xlsx), class: "font-medium" %>
+          <p class="font-xsmall">
+            There
+            <% if downloads.number_of_proposals_generated == 1 %>
+              is 1 proposal
+            <% else %>
+              are <%= downloads.number_of_proposals_generated %> proposals
+            <% end %>
+            in this document
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="projects-download-link">
+      <div class="attachment">
+        <div class="attachment-thumb">
+          <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.benefit_areas_multi_downloads_path(format: :zip), class: "thumbnail" %>
+        </div>
+        <div class="attachment-details">
+          <%= link_to "Project benefit areas (zip file)", pafs_core.benefit_areas_multi_downloads_path(format: :zip), class: "font-medium" %>
+          <p class="font-xsmall">
+            There
+            <% if downloads.shapefile_count == 1 %>
+              is 1 project benefit area
+            <% else %>
+              are <%= downloads.shapefile_count %> benefit areas
+            <% end %>
+            in this compressed folder
+          </p>
+        </div>
+      </div>
+    </section>
+    <% if downloads.moderation_count.positive? %>
+      <section class="projects-download-link">
+        <div class="attachment">
+          <div class="attachment-thumb">
+            <%= link_to image_tag("pafs_core/pub-cover-zip.png"), pafs_core.moderations_multi_downloads_path(format: :zip), class: "thumbnail" %>
+          </div>
+          <div class="attachment-details">
+            <%= link_to "Moderation forms (zip file)", pafs_core.moderations_multi_downloads_path(format: :zip), class: "font-medium" %>
+            <p class="font-xsmall">
+              There
+              <% if downloads.moderation_count == 1 %>
+                is 1 moderation form
+              <% else %>
+                are <%= downloads.moderation_count %> moderation forms
+              <% end %>
+              in this compressed folder
+            </p>
+          </div>
+        </div>
+      </section>
+    <% end %>
+  </div>
+</div>

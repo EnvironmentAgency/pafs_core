@@ -1,0 +1,24 @@
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <h2 class="heading-medium">The area programme is being generated</h2>
+    <div class="headroom-shuffle-up">
+      Requested by <span class="bold-small"><%= @downloads.requested_by.full_name %></span>
+      on <%= @downloads.requested_on %>
+    </div>
+  </div>
+</div>
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <div class="panel panel-border-narrow">
+      <p>
+        This may take several minutes to complete.
+        Re-visit this page later to download the area programme.
+      </p>
+      <% if @downloads.requested_by.email == current_resource.email %>
+        <p>
+          As the requestor, you will receive an email once the programme is ready to download.
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

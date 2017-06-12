@@ -16,6 +16,7 @@ module PafsCore
     has_many :children, class_name: "Area", foreign_key: "parent_id"
     has_many :area_projects
     has_many :projects, through: :area_projects
+    has_one :area_download, inverse_of: :area
 
     scope :top_level, -> { where(parent_id: nil) }
 
