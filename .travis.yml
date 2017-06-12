@@ -8,12 +8,8 @@ before_script:
   - sudo apt-get install -y libffi-dev
   - git config --global user.name "Travis Test"
   - git config --global user.email travis@example.com
-  - BUNDLE_GEMFILE=.overcommit_gems.rb bundle install
-  - BUNDLE_GEMFILE=.overcommit_gems.rb bundle exec overcommit --sign
-  - BUNDLE_GEMFILE=.overcommit_gems.rb bundle exec overcommit --sign pre-commit
 script:
   - >-
-    BUNDLE_GEMFILE=.overcommit_gems.rb bundle exec "overcommit --run" &&
     bundle exec rake spec
 
 services:
