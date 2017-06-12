@@ -1,21 +1,45 @@
 # frozen_string_literal: true
 module PafsCore
   class ProjectsDownloadPresenter
-    attr_reader :projects
-    def initialize(projects)
-      @projects = projects
+    attr_reader :number_of_available_proposals, :download_info
+
+    delegate :documentation_state, to: :download_info
+
+    def initialize(download_info, number_of_available_proposals)
+      @download_info = download_info
+      @number_of_available_proposals = number_of_available_proposals
+    end
+
+    def requested_by
+      if download_info.user
+        download_info.user
+      else
+        "Unknown"
+      end
+    end
+
+    def requested_on
+      if download_info.requested_on
+        download_info.requested_on.localtime.strftime "%d/%m/%Y at %H:%M"
+      else
+        "Unknown"
+      end
+    end
+
+    def number_of_proposals_generated
+      download_info.number_of_proposals || 0
     end
 
     def count
-      projects.count
+      number_of_available_proposals
     end
 
     def shapefile_count
-      projects.count
+      number_of_available_proposals
     end
 
-    def urgency_count
-      @urgency_count ||= calc_urgency_count
+    def moderation_count
+      download_info.number_of_proposals_with_moderation || 0
     end
 
   private

@@ -1,0 +1,6 @@
+<p>Hello <%= @download_info.requested_by.full_name %>,</p>
+<p>Unfortunately, we encountered a problem and the area programme documents you requested on <%= @download_info.requested_on %>
+    did not generate properly.</p>
+<p>Use the link below to generate the area programme documents again.</p>
+<p><%= link_to nil, pafs_core.multi_downloads_url %></p>
+<p>If you have any queries, please email <%= mail_to I18n.t("support_email")%></p>

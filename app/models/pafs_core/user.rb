@@ -10,6 +10,10 @@ module PafsCore
 
     has_many :projects, foreign_key: "creator_id"
 
+    # possible if a user has many areas they could initiate downloads in more than
+    # one area
+    has_many :area_downloads, inverse_of: :user
+
     def self.expired_invite
       where(invitation_accepted_at: nil).
         where(arel_table[:invitation_created_at].lt(30.days.ago))

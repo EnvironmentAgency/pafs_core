@@ -65,7 +65,11 @@ module PafsCore
           # the row number reference in the formulas are "1" based not "0" based
           new_row[i].change_contents(0, cell.formula.expression.gsub(/#{row_no}/, (row_no + 1).to_s))
         elsif cell.value
-          new_row[i].change_contents(cell.value)
+          if cell.value.is_a?(Float) && cell.value.nan?
+            new_row[i].change_contents(0)
+          else
+            new_row[i].change_contents(cell.value)
+          end
         end
       end
     end
@@ -73,7 +77,6 @@ module PafsCore
     def add_project_to_sheet(sheet, project, row_no)
       # multi project spreadsheets need additional rows to work with
       copy_previous_row(sheet, row_no) if row_no != FIRST_DATA_ROW
-      # sheet.insert_row(row_no) if row_no != FIRST_DATA_ROW
 
       FCERM1_COLUMN_MAP.each do |col|
         if col.fetch(:export, true)
@@ -90,8 +93,13 @@ module PafsCore
               sheet[row_no][start_column + i].change_contents(value)
             end
           else
-            value = use_value ? project.send(col[:field_name]) : 0
-            sheet[row_no][column_index(col[:column])].change_contents(value)
+            begin
+              value = use_value ? project.send(col[:field_name]) : 0
+              sheet[row_no][column_index(col[:column])].change_contents(value)
+            rescue => e
+              raise "Boom - Project (#{project.slug}) Row no (#{row_no}) col (#{col})" \
+                    " field_name (#{col[:field_name]}) value (#{value})"
+            end
           end
         end
       end

@@ -1,0 +1,9 @@
+Hello <%= @download_info.requested_by.full_name %>,
+
+The area programme documents you requested on <%= @download_info.requested_on %> are now available to download.
+
+Use the link below to view and download these documents.
+
+<%= link_to nil, pafs_core.multi_downloads_url %>
+
+If you have any queries, please email <%= mail_to I18n.t("support_email")%>

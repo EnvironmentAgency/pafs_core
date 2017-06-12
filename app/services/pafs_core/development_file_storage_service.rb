@@ -19,6 +19,14 @@ module PafsCore
       raise PafsCore::FileNotFoundError.new("Storage file not found: #{from_path}")
     end
 
+    def upload_data(io_object, to_path)
+      dest = file_path(to_path)
+      x = FileUtils.mkdir_p(File.dirname(dest))
+      File.open(dest, "wb",) { |f| f.write(io_object) }
+    rescue => e
+      raise PafsCore::FileNotFoundError.new("Something went wrong: #{dest}\n#{e}")
+    end
+
     def download(file_key, dest)
       if File.exists?(file_path(file_key))
         FileUtils.cp(file_path(file_key), dest)

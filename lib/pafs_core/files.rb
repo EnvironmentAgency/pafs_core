@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "zip"
+
 module PafsCore
   module Files
     def fcerm1_filename(reference, format)
@@ -17,14 +19,82 @@ module PafsCore
       reference.parameterize.upcase
     end
 
+    def apt_fcerm1_storage_filename(area)
+      "#{apt_storage_path(area.id)}/#{apt_fcerm1_filename}"
+    end
+
+    def apt_fcerm1_filename
+      "fcerm1_proposals.xlsx"
+    end
+
+    def apt_benefit_areas_storage_filename(area)
+      "#{apt_storage_path(area.id)}/#{apt_benefit_areas_filename}"
+    end
+
+    def apt_benefit_areas_filename
+      "benefit_areas.zip"
+    end
+
+    def apt_moderation_storage_filename(area)
+      "#{apt_storage_path(area.id)}/#{apt_moderation_filename}"
+    end
+
+    def apt_moderation_filename
+      "moderations.zip"
+    end
+
+    def apt_storage_path(area_id)
+      "area_programme/#{area_id}"
+    end
+
     def generate_fcerm1(project, format)
       builder = PafsCore::SpreadsheetService.new
       builder.send("generate_#{format}", project)
     end
 
-    def generate_multi_fcerm1(projects, format)
-      builder = PafsCore::SpreadsheetService.new
-      builder.send("generate_multi_#{format}", projects)
+    def generate_multi_fcerm1(projects, filename)
+      xlsx = PafsCore::SpreadsheetService.new.generate_multi_xlsx(projects)
+      storage.upload_data(xlsx.stream.read, filename)
+    end
+
+    def generate_benefit_areas_file(projects, filename)
+      tmpfile = Tempfile.new
+      # make tmpfile an empty Zipfile
+      Zip::OutputStream.open(tmpfile) { |_| }
+      # now we can open the temporary zipfile
+      Zip::File.open(tmpfile.path, Zip::File::CREATE) do |zf|
+        projects.each do |project|
+          fetch_benefit_area_file_for(project) do |data, filename, _content_type|
+            zf.get_output_stream(filename) { |f| f.write(data) }
+          end
+        end
+      end
+
+      # store file
+      storage.upload_data(File.read(tmpfile.path), filename)
+    ensure
+      tmpfile.close
+      tmpfile.unlink
+    end
+
+    def generate_moderations_file(projects, filename)
+      tmpfile = Tempfile.new
+      # make tmpfile an empty Zipfile
+      Zip::OutputStream.open(tmpfile) { |_| }
+      # now we can open the temporary zipfile
+      Zip::File.open(tmpfile.path, Zip::File::CREATE) do |zf|
+        projects.each do |project|
+          generate_moderation_for(project) do |data, project_filename, _content_type|
+            zf.get_output_stream(project_filename) { |f| f.write(data) }
+          end
+        end
+      end
+
+      # store file
+      storage.upload_data(File.read(tmpfile.path), filename)
+    ensure
+      tmpfile.close
+      tmpfile.unlink
     end
 
     # benefit area file
