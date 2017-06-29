@@ -5,8 +5,10 @@ module PafsCore
 
     include PafsCore::Files, PafsCore::FileStorage
 
-    def perform(user)
-      PafsCore::AreaDownloadService.new(user).generate_area_programme
+    def perform(user_id)
+      ActiveRecord::Base.connection_pool.with_connection do
+        PafsCore::AreaDownloadService.new(PafsCore::User.find(user_id)).generate_area_programme
+      end
     end
   end
 end
