@@ -12,6 +12,10 @@ module PafsCore
       @user = user
     end
 
+    def find(id)
+      PafsCore::ProgramUpload.find(id)
+    end
+
     def upload(params = {})
       record = PafsCore::ProgramUpload.new(number_of_records: 0,
                                            status: "new",
