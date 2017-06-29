@@ -24,7 +24,7 @@ module PafsCore
         info.save!
 
         # kick off background job
-        PafsCore::GenerateAreaProgrammeJob.perform_later user
+        PafsCore::GenerateAreaProgrammeJob.perform_later user.id
       end
     end
 
