@@ -10,6 +10,8 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
   describe "attributes" do
     subject { FactoryGirl.build(:funding_calculator_step) }
 
+    let(:file_path) { File.join(Rails.root, '..', 'fixtures', 'calculator.xlsl') }
+
     it_behaves_like "a project step"
 
     it "validates that a file has been selected" do
@@ -23,6 +25,20 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
       expect(subject.valid?).to eq false
       expect(subject.errors[:base]).
         to include "The file was rejected because it may contain a virus. Check the file and try again"
+    end
+
+    it 'validates the calculator version' do
+      allow(subject).
+        to receive(:uploaded_file).
+        and_return(file_path)
+
+      allow(Roo::Excelx).
+        to receive(:new).
+        and_return(double(:sheet, cell: 'Version 5'))
+
+      expect(subject).not_to be_valid
+      expect(subject.errors[:base]).
+        to include 'The partnership funding calculator file used is the wrong version. The file used must be version 8. Download the correct partnership funding calculator'
     end
   end
 

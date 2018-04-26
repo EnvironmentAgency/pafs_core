@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "roo"
+
 module PafsCore
   class FundingCalculatorStep < BasicStep
     include PafsCore::FileTypes, PafsCore::FileStorage
@@ -11,7 +13,10 @@ module PafsCore
 
     attr_reader :funding_calculator
     attr_accessor :virus_info
+    attr_accessor :uploaded_file
+
     validate :virus_free_funding_calculator_present
+    validate :validate_calculator_version
 
     def update(params)
       if params.fetch(:commit, nil) == "Continue"
@@ -32,6 +37,8 @@ module PafsCore
               # aws doesn't raise an error if it cannot find the key when deleting
               storage.delete(File.join(storage_path, old_file))
             end
+
+            self.uploaded_file = uploaded_file.tempfile
 
             self.funding_calculator_file_name = filename
             self.funding_calculator_content_type = uploaded_file.content_type
@@ -68,6 +75,16 @@ module PafsCore
         errors.add(:base, "The file was rejected because it may contain a virus. Check the file and try again")
       elsif funding_calculator_file_name.blank?
         errors.add(:base, "Upload the completed partnership funding calculator .xslx file")
+      end
+    end
+
+    def validate_calculator_version
+      if self.uploaded_file
+        sheet = ::Roo::Excelx.new(self.uploaded_file)
+
+        unless sheet.cell('B', 3) == 'Version 8 January 2014'
+          errors.add(:base, "The partnership funding calculator file used is the wrong version. The file used must be version 8. Download the correct partnership funding calculator")
+        end
       end
     end
   end
