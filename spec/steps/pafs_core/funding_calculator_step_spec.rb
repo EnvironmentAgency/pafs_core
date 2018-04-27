@@ -36,7 +36,8 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
         to receive(:new).
         and_return(double(:sheet, cell: 'Version 5'))
 
-      expect(subject).not_to be_valid
+      subject.valid?
+
       expect(subject.errors[:base]).
         to include 'The partnership funding calculator file used is the wrong version. The file used must be version 8. Download the correct partnership funding calculator'
     end
