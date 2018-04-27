@@ -14,7 +14,7 @@ PATH
       clamav-client (~> 3.0)
       faraday
       kaminari
-      nokogiri (~> 1.8.1)
+      nokogiri (~> 1.8.2)
       rack-cors
       rails (~> 4.2.7.1)
       roo (~> 2.7.0)
