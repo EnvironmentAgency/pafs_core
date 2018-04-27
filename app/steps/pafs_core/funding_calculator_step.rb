@@ -79,7 +79,7 @@ module PafsCore
     end
 
     def validate_calculator_version
-      if self.uploaded_file
+      if virus_info.nil? && self.uploaded_file
         sheet = ::Roo::Excelx.new(self.uploaded_file)
 
         unless sheet.cell('B', 3) == 'Version 8 January 2014'

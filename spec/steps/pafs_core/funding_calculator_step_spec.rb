@@ -32,7 +32,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
         to receive(:uploaded_file).
         and_return(file_path)
 
-      allow(Roo::Excelx).
+      expect(Roo::Excelx).
         to receive(:new).
         and_return(double(:sheet, cell: 'Version 5'))
 
@@ -40,6 +40,19 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
 
       expect(subject.errors[:base]).
         to include 'The partnership funding calculator file used is the wrong version. The file used must be version 8. Download the correct partnership funding calculator'
+    end
+
+    context 'virus found' do
+      it 'does not validate the calculator version' do
+        allow(subject).
+          to receive(:virus_info).
+          and_return('Some virus')
+
+        expect(Roo::Excelx).
+          not_to receive(:new)
+
+        subject.valid?
+      end
     end
   end
 
