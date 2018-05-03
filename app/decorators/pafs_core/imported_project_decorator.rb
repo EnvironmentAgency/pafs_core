@@ -5,6 +5,10 @@ module PafsCore
       PafsCore::Urgency, PafsCore::StandardOfProtection,
       PafsCore::EnvironmentalOutcomes
 
+    def project_status=(value)
+      project.create_state(state: value)
+    end
+
     def reference_number=(value)
       project.reference_number = value.upcase unless value.nil?
     end

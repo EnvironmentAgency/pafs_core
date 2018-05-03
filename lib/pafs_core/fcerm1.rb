@@ -2,7 +2,7 @@
 
 module PafsCore
   module Fcerm1
-    FIRST_DATA_ROW = 7
+    FIRST_DATA_ROW = 6
 
     FCERM1_COLUMN_MAP = [
       { column: "A",  field_name: :reference_number },
@@ -149,7 +149,10 @@ module PafsCore
       { column: "JV", field_name: :fish_or_eel_amount },
       { column: "JW", field_name: :improve_river_amount },
       { column: "JX", field_name: :improve_habitat_amount },
-      { column: "JY", field_name: :create_habitat_amount }
+      { column: "JY", field_name: :create_habitat_amount },
+
+      # Project Status
+      { column: "KL", field_name: :project_status },
     ].freeze
 
     A2Z = ("A".."Z").to_a.freeze

@@ -268,6 +268,10 @@ module PafsCore
       end
     end
 
+    def project_status
+      project.status
+    end
+
     private
     def project
       __getobj__
