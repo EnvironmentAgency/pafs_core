@@ -3,15 +3,36 @@
 require "rails_helper"
 require 'roo'
 
+A2Z = ("A".."Z").to_a.freeze
+
+def column_index(column_code)
+  if column_code.length == 1
+    A2Z.index(column_code)
+  else
+    n = A2Z.index(column_code[0])
+    m = A2Z.index(column_code[1])
+    26 + (n * 26) + m
+  end
+end
+
 RSpec.describe PafsCore::SpreadsheetService do
   subject { PafsCore::SpreadsheetService.new }
 
   describe "#generate_multi_xlsx" do
     let(:program_upload) { PafsCore::ProgramUploadService.new }
-
     let(:filename) { 'expected_program_spreadsheet.xlsx' }
-
     let(:content_type) { "text/plain" }
+
+    let(:file_path) { File.join(Rails.root, "..", "fixtures", filename) }
+    let(:file) { File.open(file_path) }
+    let(:projects) { PafsCore::Project.all }
+    let(:expected) { subject.generate_multi_xlsx(projects) }
+
+    let(:test_project_1) { PafsCore::Project.find_by(name: 'Test Project 1') }
+    let(:test_project_2) { PafsCore::Project.find_by(name: 'Test Project 2') }
+    let(:test_project_3) { PafsCore::Project.find_by(name: 'Test Project 3') }
+    let(:test_project_4) { PafsCore::Project.find_by(name: 'Test Project 4') }
+    let(:test_project_5) { PafsCore::Project.find_by(name: 'Test Project 5') }
 
     let(:uploaded_file) do
       ActionDispatch::Http::UploadedFile.new(tempfile: File.open(file_path),
@@ -26,16 +47,8 @@ RSpec.describe PafsCore::SpreadsheetService do
       }
     end
 
-    let(:file_path) { File.join(Rails.root, "..", "fixtures", filename) }
-    let(:file) { File.open(file_path) }
-    let(:projects) { PafsCore::Project.all }
-    let(:expected) { subject.generate_multi_xlsx(projects) }
-
-    let(:test_project_1) { PafsCore::Project.find_by(name: 'Test Project 1') }
-    let(:test_project_2) { PafsCore::Project.find_by(name: 'Test Project 2') }
-    let(:test_project_3) { PafsCore::Project.find_by(name: 'Test Project 3') }
-    let(:test_project_4) { PafsCore::Project.find_by(name: 'Test Project 4') }
-    let(:test_project_5) { PafsCore::Project.find_by(name: 'Test Project 5') }
+    let(:pso_area) { PafsCore::Area.find_by(name: 'PSO Test Area') }
+    let(:rma_area) { PafsCore::Area.find_by(name: 'RMA Test Area') }
 
     before(:each) do
       file_path = "#{Rails.root}/../fixtures/test_areas.csv"
@@ -45,9 +58,6 @@ RSpec.describe PafsCore::SpreadsheetService do
         record = program_upload.upload(program_uploads_params)
         program_upload.process_spreadsheet(record)
       end
-
-      pso_area = PafsCore::Area.find_by(name: 'PSO Test Area')
-      rma_area = PafsCore::Area.find_by(name: 'RMA Test Area')
 
       pso_area.area_projects.create(project: test_project_1, owner: true)
       pso_area.area_projects.create(project: test_project_2, owner: true)
@@ -63,20 +73,21 @@ RSpec.describe PafsCore::SpreadsheetService do
     let(:fifth_row) { expected.worksheets[0][10] }
 
     it 'has a national project number' do
-      expect(first_row[0].value).to eql(test_project_1.reference_number)
-      expect(second_row[0].value).to eql(test_project_2.reference_number)
-      expect(third_row[0].value).to eql(test_project_5.reference_number)
-      expect(fourth_row[0].value).to eql(test_project_3.reference_number)
-      expect(fifth_row[0].value).to eql(test_project_4.reference_number)
+      expect(first_row[column_index('A')].value).to eql(test_project_1.reference_number)
+      expect(second_row[column_index('A')].value).to eql(test_project_2.reference_number)
+      expect(third_row[column_index('A')].value).to eql(test_project_5.reference_number)
+      expect(fourth_row[column_index('A')].value).to eql(test_project_3.reference_number)
+      expect(fifth_row[column_index('A')].value).to eql(test_project_4.reference_number)
     end
 
     it 'has a project name' do
-      expect(first_row[1].value).to eql(test_project_1.name)
-      expect(second_row[1].value).to eql(test_project_2.name)
-      expect(third_row[1].value).to eql(test_project_5.name)
-      expect(fourth_row[1].value).to eql(test_project_3.name)
-      expect(fifth_row[1].value).to eql(test_project_4.name)
+      expect(first_row[column_index('B')].value).to eql(test_project_1.name)
+      expect(second_row[column_index('B')].value).to eql(test_project_2.name)
+      expect(third_row[column_index('B')].value).to eql(test_project_5.name)
+      expect(fourth_row[column_index('B')].value).to eql(test_project_3.name)
+      expect(fifth_row[column_index('B')].value).to eql(test_project_4.name)
     end
+
     it 'has a office of national statistics region'
     it 'has a regional flood and coastal committee'
     it 'has a environment agency area'
