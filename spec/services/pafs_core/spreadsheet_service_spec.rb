@@ -34,6 +34,12 @@ RSpec.describe PafsCore::SpreadsheetService do
     let(:test_project_4) { PafsCore::Project.find_by(name: 'Test Project 4') }
     let(:test_project_5) { PafsCore::Project.find_by(name: 'Test Project 5') }
 
+    let(:spreadsheet_presenter_1) { PafsCore::SpreadsheetPresenter.new(test_project_1) }
+    let(:spreadsheet_presenter_2) { PafsCore::SpreadsheetPresenter.new(test_project_2) }
+    let(:spreadsheet_presenter_3) { PafsCore::SpreadsheetPresenter.new(test_project_3) }
+    let(:spreadsheet_presenter_4) { PafsCore::SpreadsheetPresenter.new(test_project_4) }
+    let(:spreadsheet_presenter_5) { PafsCore::SpreadsheetPresenter.new(test_project_5) }
+
     let(:uploaded_file) do
       ActionDispatch::Http::UploadedFile.new(tempfile: File.open(file_path),
                                              filename: filename.dup,
@@ -73,19 +79,19 @@ RSpec.describe PafsCore::SpreadsheetService do
     let(:fifth_row) { expected.worksheets[0][10] }
 
     it 'has a national project number' do
-      expect(first_row[column_index('A')].value).to eql(test_project_1.reference_number)
-      expect(second_row[column_index('A')].value).to eql(test_project_2.reference_number)
-      expect(third_row[column_index('A')].value).to eql(test_project_5.reference_number)
-      expect(fourth_row[column_index('A')].value).to eql(test_project_3.reference_number)
-      expect(fifth_row[column_index('A')].value).to eql(test_project_4.reference_number)
+      expect(first_row[column_index('A')].value).to eql(spreadsheet_presenter_1.reference_number)
+      expect(second_row[column_index('A')].value).to eql(spreadsheet_presenter_2.reference_number)
+      expect(third_row[column_index('A')].value).to eql(spreadsheet_presenter_5.reference_number)
+      expect(fourth_row[column_index('A')].value).to eql(spreadsheet_presenter_3.reference_number)
+      expect(fifth_row[column_index('A')].value).to eql(spreadsheet_presenter_4.reference_number)
     end
 
     it 'has a project name' do
-      expect(first_row[column_index('B')].value).to eql(test_project_1.name)
-      expect(second_row[column_index('B')].value).to eql(test_project_2.name)
-      expect(third_row[column_index('B')].value).to eql(test_project_5.name)
-      expect(fourth_row[column_index('B')].value).to eql(test_project_3.name)
-      expect(fifth_row[column_index('B')].value).to eql(test_project_4.name)
+      expect(first_row[column_index('B')].value).to eql(spreadsheet_presenter_1.name)
+      expect(second_row[column_index('B')].value).to eql(spreadsheet_presenter_2.name)
+      expect(third_row[column_index('B')].value).to eql(spreadsheet_presenter_5.name)
+      expect(fourth_row[column_index('B')].value).to eql(spreadsheet_presenter_3.name)
+      expect(fifth_row[column_index('B')].value).to eql(spreadsheet_presenter_4.name)
     end
 
     it 'has a office of national statistics region'
@@ -284,19 +290,53 @@ RSpec.describe PafsCore::SpreadsheetService do
     it 'has a OM4c Total'
     it 'has a Does the project relate to a designated site'
     it 'has a OM4d Kilometers of WFD water body enhanced'
-    it 'has a Does project remove a barrier to migration for fish or eels'
-    it 'has a OM4e: Kilometers of water body opened up to fish or el passage'
-    it 'has a OM4f: Kilometers of river habitat (including SSSI) enhanced'
-    it 'has a OM4g: Hectares of habitat (including SSSI) enhanced'
-    it 'has a OM4h: Hectares of habitat created'
-    it 'has a TPE 19/20 - 20/21 Total'
-    it 'has a GIA + GROWTH 19/20 - 20/21 total'
-    it 'has a Contributions 19/20 - 20/21 total'
-    it 'has a OM2+3 19/20 - 20/21 total'
-    it 'has a TPE 6 Total'
-    it 'has a GIA + GROWTH 6 year total'
-    it 'has a Contributions 6 year total'
-    it 'has a OM2+3 6 total'
-    it 'has a PAFS Status'
+
+    it 'includes column JU' do
+      expect(first_row[column_index('JU')].value).to eql(spreadsheet_presenter_1.remove_fish_or_eel_barrier)
+      expect(second_row[column_index('JU')].value).to eql(spreadsheet_presenter_2.remove_fish_or_eel_barrier)
+      expect(third_row[column_index('JU')].value).to eql(spreadsheet_presenter_5.remove_fish_or_eel_barrier)
+      expect(fourth_row[column_index('JU')].value).to eql(spreadsheet_presenter_3.remove_fish_or_eel_barrier)
+      expect(fifth_row[column_index('JU')].value).to eql(spreadsheet_presenter_4.remove_fish_or_eel_barrier)
+    end
+
+    it 'includes column JV' do
+      expect(first_row[column_index('JV')].value).to eql(spreadsheet_presenter_1.fish_or_eel_amount)
+      expect(second_row[column_index('JV')].value).to eql(spreadsheet_presenter_2.fish_or_eel_amount)
+      expect(third_row[column_index('JV')].value).to eql(spreadsheet_presenter_5.fish_or_eel_amount)
+      expect(fourth_row[column_index('JV')].value).to eql(spreadsheet_presenter_3.fish_or_eel_amount)
+      expect(fifth_row[column_index('JV')].value).to eql(spreadsheet_presenter_4.fish_or_eel_amount)
+    end
+
+    it 'includes column JW' do
+      expect(first_row[column_index('JW')].value).to eql(spreadsheet_presenter_1.improve_river_amount)
+      expect(second_row[column_index('JW')].value).to eql(spreadsheet_presenter_2.improve_river_amount)
+      expect(third_row[column_index('JW')].value).to eql(spreadsheet_presenter_5.improve_river_amount)
+      expect(fourth_row[column_index('JW')].value).to eql(spreadsheet_presenter_3.improve_river_amount)
+      expect(fifth_row[column_index('JW')].value).to eql(spreadsheet_presenter_4.improve_river_amount)
+    end
+
+    it 'includes column JX' do
+      expect(first_row[column_index('JX')].value).to eql(spreadsheet_presenter_1.improve_habitat_amount)
+      expect(second_row[column_index('JX')].value).to eql(spreadsheet_presenter_2.improve_habitat_amount)
+      expect(third_row[column_index('JX')].value).to eql(spreadsheet_presenter_5.improve_habitat_amount)
+      expect(fourth_row[column_index('JX')].value).to eql(spreadsheet_presenter_3.improve_habitat_amount)
+      expect(fifth_row[column_index('JX')].value).to eql(spreadsheet_presenter_4.improve_habitat_amount)
+    end
+
+    it 'includes column JY' do
+      expect(first_row[column_index('JY')].value).to eql(spreadsheet_presenter_1.create_habitat_amount)
+      expect(second_row[column_index('JY')].value).to eql(spreadsheet_presenter_2.create_habitat_amount)
+      expect(third_row[column_index('JY')].value).to eql(spreadsheet_presenter_5.create_habitat_amount)
+      expect(fourth_row[column_index('JY')].value).to eql(spreadsheet_presenter_3.create_habitat_amount)
+      expect(fifth_row[column_index('JY')].value).to eql(spreadsheet_presenter_4.create_habitat_amount)
+    end
+
+    it 'includes column KL' do
+      expect(first_row[column_index('KL')].value.to_s).to eql(spreadsheet_presenter_1.state.state)
+      expect(second_row[column_index('KL')].value.to_s).to eql(spreadsheet_presenter_2.state.state)
+      expect(third_row[column_index('KL')].value.to_s).to eql(spreadsheet_presenter_5.state.state)
+      expect(fourth_row[column_index('KL')].value.to_s).to eql(spreadsheet_presenter_3.state.state)
+      expect(fifth_row[column_index('KL')].value.to_s).to eql(spreadsheet_presenter_4.state.state)
+    end
   end
 end
