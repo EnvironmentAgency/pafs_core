@@ -2,7 +2,7 @@
 
 module PafsCore
   module Fcerm1
-    FIRST_DATA_ROW = 7
+    FIRST_DATA_ROW = 6
 
     FCERM1_COLUMN_MAP = [
       { column: "A",  field_name: :reference_number },
