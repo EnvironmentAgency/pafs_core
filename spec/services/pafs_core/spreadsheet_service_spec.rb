@@ -3,8 +3,6 @@
 require "rails_helper"
 require 'roo'
 
-A2Z = ("A".."Z").to_a.freeze
-
 class SpreadsheetMapperHelper
   extend PafsCore::Fcerm1
 end
