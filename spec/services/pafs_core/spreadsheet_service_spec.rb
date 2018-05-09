@@ -19,7 +19,7 @@ RSpec.describe PafsCore::SpreadsheetService do
 
     let(:file_path) { File.join(Rails.root, "..", "fixtures", filename) }
     let(:file) { File.open(file_path) }
-    let(:projects) { PafsCore::Project.all }
+    let(:projects) { PafsCore::Project.all.order(:name) }
     let(:expected) { subject.generate_multi_xlsx(projects) }
 
     let(:test_project_1) { PafsCore::Project.find_by(name: 'Test Project 1') }
