@@ -1,7 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 require "rails_helper"
-require 'roo'
 
 class SpreadsheetMapperHelper
   extend PafsCore::Fcerm1
