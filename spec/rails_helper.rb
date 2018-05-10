@@ -101,6 +101,9 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.configure_rspec_metadata!
   config.ignore_hosts "codeclimate.com"
+  config.default_cassette_options = {
+    :match_requests_on => [:method, :host, :path]
+  }
 end
 
 WebMock.disable_net_connect!(allow_localhost: true)

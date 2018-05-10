@@ -1,0 +1,213 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.postcodes.io/postcodes?lat=54.155079&limit=1&lon=-3.185137
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.11.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.5
+      Date:
+      - Tue, 01 May 2018 13:45:27 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '827'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"33b-8w9U8kyb02uNLav+HVQEtH1ExBQ"
+      X-Gnu:
+      - Michael J Blanchard
+    body:
+      encoding: UTF-8
+      string: '{"status":200,"result":[{"postcode":"LA15 8AU","quality":1,"eastings":322711,"northings":473946,"country":"England","nhs_ha":"North
+        West","longitude":-3.18499584502145,"latitude":54.155493668341,"european_electoral_region":"North
+        West","primary_care_trust":"Cumbria Teaching","region":"North West","lsoa":"Barrow-in-Furness
+        002B","msoa":"Barrow-in-Furness 002","incode":"8AU","outcode":"LA15","distance":47.06810128,"parliamentary_constituency":"Barrow
+        and Furness","admin_district":"Barrow-in-Furness","parish":"Dalton Town with
+        Newton","admin_county":"Cumbria","admin_ward":"Dalton South","ccg":"NHS Morecambe
+        Bay","nuts":"West Cumbria","codes":{"admin_district":"E07000027","admin_county":"E10000006","admin_ward":"E05003148","parish":"E04002443","parliamentary_constituency":"E14000543","ccg":"E38000216","nuts":"UKD11"}}]}'
+    http_version: 
+  recorded_at: Tue, 01 May 2018 13:45:10 GMT
+- request:
+    method: get
+    uri: https://api.postcodes.io/postcodes?lat=53.800989&limit=1&lon=-2.315752
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.11.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.5
+      Date:
+      - Tue, 01 May 2018 13:45:27 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '784'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"310-XPJil0O8PXGyP/zK1DzB0CXfjRc"
+      X-Gnu:
+      - Michael J Blanchard
+    body:
+      encoding: UTF-8
+      string: '{"status":200,"result":[{"postcode":"BB12 8EN","quality":1,"eastings":379280,"northings":433858,"country":"England","nhs_ha":"North
+        West","longitude":-2.31606812743605,"latitude":53.8006100964343,"european_electoral_region":"North
+        West","primary_care_trust":"East Lancashire Teaching","region":"North West","lsoa":"Burnley
+        004C","msoa":"Burnley 004","incode":"8EN","outcode":"BB12","distance":47.03582851,"parliamentary_constituency":"Burnley","admin_district":"Burnley","parish":"Padiham","admin_county":"Lancashire","admin_ward":"Gawthorpe","ccg":"NHS
+        East Lancashire","nuts":"East Lancashire","codes":{"admin_district":"E07000117","admin_county":"E10000017","admin_ward":"E05005157","parish":"E04005138","parliamentary_constituency":"E14000609","ccg":"E38000050","nuts":"UKD46"}}]}'
+    http_version: 
+  recorded_at: Tue, 01 May 2018 13:45:11 GMT
+- request:
+    method: get
+    uri: https://api.postcodes.io/postcodes?lat=50.824108&limit=1&lon=-0.176971
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.11.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.5
+      Date:
+      - Tue, 01 May 2018 13:45:28 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '840'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"348-akCZAdlbxdHIDuwFXSjfp1ZQ64A"
+      X-Gnu:
+      - Michael J Blanchard
+    body:
+      encoding: UTF-8
+      string: '{"status":200,"result":[{"postcode":"BN3 2WP","quality":1,"eastings":528522,"northings":104371,"country":"England","nhs_ha":"South
+        East Coast","longitude":-0.176638879880678,"latitude":50.8246239001514,"european_electoral_region":"South
+        East","primary_care_trust":"Brighton and Hove City","region":"South East","lsoa":"Brighton
+        and Hove 028A","msoa":"Brighton and Hove 028","incode":"2WP","outcode":"BN3","distance":61.97910681,"parliamentary_constituency":"Hove","admin_district":"Brighton
+        and Hove","parish":"Brighton and Hove, unparished area","admin_county":null,"admin_ward":"Central
+        Hove","ccg":"NHS Brighton and Hove","nuts":"Brighton and Hove","codes":{"admin_district":"E06000043","admin_county":"E99999999","admin_ward":"E05002421","parish":"E43000034","parliamentary_constituency":"E14000755","ccg":"E38000021","nuts":"UKJ21"}}]}'
+    http_version: 
+  recorded_at: Tue, 01 May 2018 13:45:12 GMT
+- request:
+    method: get
+    uri: https://api.postcodes.io/postcodes?lat=51.165247&limit=1&lon=-3.723795
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.11.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.5
+      Date:
+      - Tue, 01 May 2018 13:45:29 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '28'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"1c-C4NcFMR9ZJvtLuqE6P6UsNsSIg8"
+      X-Gnu:
+      - Michael J Blanchard
+    body:
+      encoding: UTF-8
+      string: '{"status":200,"result":null}'
+    http_version: 
+  recorded_at: Tue, 01 May 2018 13:45:12 GMT
+- request:
+    method: get
+    uri: https://api.postcodes.io/postcodes?lat=51.374086&limit=1&lon=1.123861
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.11.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.13.5
+      Date:
+      - Tue, 01 May 2018 13:45:29 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '28'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"1c-C4NcFMR9ZJvtLuqE6P6UsNsSIg8"
+      X-Gnu:
+      - Michael J Blanchard
+    body:
+      encoding: UTF-8
+      string: '{"status":200,"result":null}'
+    http_version: 
+  recorded_at: Tue, 01 May 2018 13:45:13 GMT
+recorded_with: VCR 3.0.3

@@ -18,6 +18,7 @@ group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'guard-rspec', require: false
+  gem 'database_cleaner'
 end
 
 group :test do

@@ -1,0 +1,5 @@
+name,"parent area","type","sub type"
+England,,Country,
+EA Test Area,England,EA Area,
+PSO Test Area,EA Test Area,PSO Area,
+RMA Test Area,PSO Test Area,RMA,Local Authority
