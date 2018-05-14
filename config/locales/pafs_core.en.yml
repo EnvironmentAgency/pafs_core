@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    attributes:
+      pafs_core/account_request:
+        first_name: "First name"
+        last_name: "Last name"
+        email: "Email"
+        telephone_number: "Telephone number"
+        organisation: 'Organisation (or Environment Agency team)'
+        job_title: "Job title"
