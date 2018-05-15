@@ -293,7 +293,7 @@ en:
           heading: Will the project address a barrier to migration for eels?
 # fish or eel amount
         fish_or_eel_amount:
-          heading: How many kilometres of river is the project likely to open to fish or eel passage?
+          heading: How many kilometres of river will the project open to fish or eel passage?
 # urgency
         urgency:
           heading: Is the project urgent for any of the following reasons?
