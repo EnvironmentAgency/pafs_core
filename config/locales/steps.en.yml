@@ -263,7 +263,7 @@ en:
           heading: Will the project protect or improve a length of river or priority river habitat?
 # improve spa or sac
         improve_spa_or_sac:
-          heading: Will the project protect or improve a Special Protected Area or Special Area of Conservation?
+          heading: Will the project enhance a Special Protected Area or Special Area of Conservation?
           lede: Special Protected Areas and Special Areas of Conservation are sites designated by the European Commission for the protection of birds and habitat.
 # improve sssi
         improve_sssi:
