@@ -287,7 +287,7 @@ en:
           heading: How many hectares of habitat is the project likely to create?
 # remove fish barrier
         remove_fish_barrier:
-          heading: Will the project remove a barrier to migration for fish?
+          heading: Will the project address a barrier to migration for fish?
 # remove eel barrier
         remove_eel_barrier:
           heading: Will the project remove a barrier to migration for eels?
