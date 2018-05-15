@@ -267,7 +267,7 @@ en:
           lede: Special Protected Areas and Special Areas of Conservation are sites designated by the European Commission for the protection of birds and habitat.
 # improve sssi
         improve_sssi:
-          heading: Will the project protect or improve a Site of Special Scientific Interest?
+          heading: Will the project enhance a Site of Special Scientific Interest?
           lede: Sites of Special Scientific Interest are areas protected by law to conserve their wildlife or geology.
 # improve hpi
         improve_hpi:
