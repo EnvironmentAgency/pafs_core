@@ -284,7 +284,7 @@ en:
           heading: Will the project create habitat?
 # habitat creation amount
         habitat_creation_amount:
-          heading: How many hectares of habitat is the project likely to create?
+          heading: How many hectares of habitat will the project create?
 # remove fish barrier
         remove_fish_barrier:
           heading: Will the project address a barrier to migration for fish?
