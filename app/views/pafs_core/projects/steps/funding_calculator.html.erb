@@ -2,7 +2,7 @@
   <div class="grid-row">
     <div class="column-two-thirds">
       <%
-        partial = if @project.funding_calculator_file_name.present?
+        partial = if @project.valid?
                     "summary"
                   else
                     "upload"

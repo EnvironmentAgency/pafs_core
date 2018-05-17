@@ -86,8 +86,8 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     context "when a virus free file is selected" do
       let(:storage) { double("storage") }
       before(:each) do
-        expect(PafsCore::FileStorageService).to receive(:new) { storage }
-        expect(storage).to receive(:upload) { true }
+        allow(PafsCore::DevelopmentFileStorageService).to receive(:new) { storage }
+        allow(storage).to receive(:upload) { true }
         subject.funding_calculator_file_name = nil
       end
 
@@ -126,8 +126,8 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     context "when a virus infected file is selected" do
       let(:storage) { double("storage") }
       before(:each) do
-        expect(PafsCore::FileStorageService).to receive(:new) { storage }
-        expect(storage).to receive(:upload) do
+        allow(PafsCore::DevelopmentFileStorageService).to receive(:new) { storage }
+        allow(storage).to receive(:upload) do
           raise PafsCore::VirusFoundError.new(@tempfile.path, "nAsTyVirus")
         end
       end
@@ -144,7 +144,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     context "when a virus scanner issue prevented the file from being scanned" do
       let(:storage) { double("storage") }
       before(:each) do
-        expect(PafsCore::FileStorageService).to receive(:new) { storage }
+        expect(PafsCore::DevelopmentFileStorageService).to receive(:new) { storage }
         expect(storage).to receive(:upload) do
           raise PafsCore::VirusScannerError.new("A problem occurred")
         end
