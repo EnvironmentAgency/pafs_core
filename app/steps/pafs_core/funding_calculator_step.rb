@@ -83,6 +83,7 @@ module PafsCore
         sheet = ::Roo::Excelx.new(self.uploaded_file)
 
         unless sheet.cell('B', 3) == 'Version 8 January 2014'
+          self.funding_calculator_file_name = ''
           errors.add(:base, "The partnership funding calculator file used is the wrong version. The file used must be version 8. Download the correct partnership funding calculator")
         end
       end
