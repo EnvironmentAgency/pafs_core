@@ -54,6 +54,19 @@ module PafsCore
       formulae_map = [
         { 'BJ': [ 'JO',] },
         { 'BI': [ 'JM',] },
+        { 'BL': [ 'BZ', 'CN', 'DB', 'DP', 'ED', 'ER', 'FF', 'FT', ] },
+        { 'BM': [ 'CA', 'CO', 'DC', 'DQ', 'EE', 'ES', 'FG', 'FU', ] },
+        { 'BN': [ 'CB', 'CP', 'DD', 'DR', 'EF', 'ET', 'FH', 'FV', ] },
+        { 'BO': [ 'CC', 'CQ', 'DE', 'DS', 'EG', 'EU', 'FI', 'FW', ] },
+        { 'BP': [ 'CD', 'CR', 'DF', 'DT', 'EH', 'EV', 'FJ', 'FX', ] },
+        { 'BQ': [ 'CE', 'CS', 'DG', 'DU', 'EI', 'EW', 'FK', 'FY', ] },
+        { 'BR': [ 'CF', 'CT', 'DH', 'DV', 'EJ', 'EX', 'FL', 'FZ', ] },
+        { 'BS': [ 'CG', 'CU', 'DI', 'DW', 'EK', 'EY', 'FM', 'GA', ] },
+        { 'BT': [ 'CH', 'CV', 'DJ', 'DX', 'EL', 'EZ', 'FN', 'GB', ] },
+        { 'BU': [ 'CI', 'CW', 'DK', 'DY', 'EM', 'FA', 'FO', 'GC', ] },
+        { 'BV': [ 'CJ', 'CX', 'DL', 'DZ', 'EN', 'FB', 'FP', 'GD', ] },
+        { 'BW': [ 'CK', 'CY', 'DM', 'EA', 'EO', 'FC', 'FQ', 'GE', ] },
+        { 'BX': [ 'CL', 'CZ', 'DN', 'EB', 'EP', 'FD', 'FR', 'GF', ] },
       ]
       formulae_map.each do |formula_hash|
         column = formula_hash.keys.first.to_s
