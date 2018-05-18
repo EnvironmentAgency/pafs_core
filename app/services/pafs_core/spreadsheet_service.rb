@@ -51,7 +51,10 @@ module PafsCore
     def fix_worksheet(sheet)
       # HACK: for some reason the formula in column BJ (index 61) is not recognised by RubyXL
       #       so we'll poke in the correct formula here
-      sheet[FIRST_DATA_ROW][61].change_contents(0, "JO#{FIRST_DATA_ROW + 1}")
+      sheet[FIRST_DATA_ROW][column_index('BJ')].change_contents(0, "JO#{FIRST_DATA_ROW + 1}")
+      # HACK: for some reason the formula in column BI is not recognised by RubyXL
+      #       so we'll poke in the correct formula here
+      sheet[FIRST_DATA_ROW][column_index('BI')].change_contents(0, "JM#{FIRST_DATA_ROW + 1}")
     end
 
     def copy_previous_row(sheet, row_no)
