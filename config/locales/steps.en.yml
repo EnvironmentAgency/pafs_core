@@ -257,17 +257,17 @@ en:
           heading: Will the project protect or improve surface water or groundwater?
 # surface and groundwater amount
         surface_and_groundwater_amount:
-          heading: How many kilometres of surface water or groundwater is the project likely to protect or improve?
+          heading: How many kilometres of surface water (or fluvial water body) will the project enhance?
 # improve river
         improve_river:
           heading: Will the project protect or improve a length of river or priority river habitat?
 # improve spa or sac
         improve_spa_or_sac:
-          heading: Will the project protect or improve a Special Protected Area or Special Area of Conservation?
+          heading: Will the project enhance a Special Protected Area or Special Area of Conservation?
           lede: Special Protected Areas and Special Areas of Conservation are sites designated by the European Commission for the protection of birds and habitat.
 # improve sssi
         improve_sssi:
-          heading: Will the project protect or improve a Site of Special Scientific Interest?
+          heading: Will the project enhance a Site of Special Scientific Interest?
           lede: Sites of Special Scientific Interest are areas protected by law to conserve their wildlife or geology.
 # improve hpi
         improve_hpi:
@@ -275,25 +275,25 @@ en:
           lede: Habitats of Principal Importance are the most threatened priority habitats needing conservation action.
 # improve habitat amount
         improve_habitat_amount:
-          heading: How many hectares of habitat is the project likely to protect or improve?
+          heading: How many hectares of habitat (including SSSI) will the project enhance?
 # improve river amount
         improve_river_amount:
-          heading: How many kilometres of river or priority river habitat is the project likely to protect or improve?
+          heading: How many kilometres of river (including SSSI) will the project enhance?
 # habitat creation
         habitat_creation:
           heading: Will the project create habitat?
 # habitat creation amount
         habitat_creation_amount:
-          heading: How many hectares of habitat is the project likely to create?
+          heading: How many hectares of habitat will the project create?
 # remove fish barrier
         remove_fish_barrier:
-          heading: Will the project remove a barrier to migration for fish?
+          heading: Will the project address a barrier to migration for fish?
 # remove eel barrier
         remove_eel_barrier:
-          heading: Will the project remove a barrier to migration for eels?
+          heading: Will the project address a barrier to migration for eels?
 # fish or eel amount
         fish_or_eel_amount:
-          heading: How many kilometres of river is the project likely to open to fish or eel passage?
+          heading: How many kilometres of river will the project open to fish or eel passage?
 # urgency
         urgency:
           heading: Is the project urgent for any of the following reasons?
