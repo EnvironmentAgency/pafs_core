@@ -65,6 +65,10 @@ RSpec.describe PafsCore::SpreadsheetService do
       expect(first_row[SpreadsheetMapperHelper.column_index('B')].value).to eql(spreadsheet_presenter_1.name)
     end
 
+    it 'includes column BI' do
+      expect(first_row[SpreadsheetMapperHelper.column_index('BI')].value).to eql(first_row[SpreadsheetMapperHelper.column_index('JM')].value)
+    end
+
     it 'includes column JS' do
       expect(first_row[SpreadsheetMapperHelper.column_index('JS')].value).to eql(spreadsheet_presenter_1.designated_site)
     end

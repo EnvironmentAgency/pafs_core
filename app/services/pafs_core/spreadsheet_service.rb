@@ -49,9 +49,17 @@ module PafsCore
     end
 
     def fix_worksheet(sheet)
-      # HACK: for some reason the formula in column BJ (index 61) is not recognised by RubyXL
+      # HACK: for some reason the formula in column BJ, BI, BL-BX are not recognised by RubyXL
       #       so we'll poke in the correct formula here
-      sheet[FIRST_DATA_ROW][61].change_contents(0, "JO#{FIRST_DATA_ROW + 1}")
+      formulae_map = [
+        { 'BJ': [ 'JO',] },
+        { 'BI': [ 'JM',] },
+      ]
+      formulae_map.each do |formula_hash|
+        column = formula_hash.keys.first.to_s
+        cells = formula_hash.values.first.collect { |cell| "#{cell}#{FIRST_DATA_ROW + 1}" }.join("+")
+        sheet[FIRST_DATA_ROW][column_index(column)].change_contents(0, cells)
+      end
     end
 
     def copy_previous_row(sheet, row_no)
