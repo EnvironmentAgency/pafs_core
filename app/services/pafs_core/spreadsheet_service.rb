@@ -53,7 +53,7 @@ module PafsCore
       #       so we'll poke in the correct formula here
       formulae_map = [
         { 'BJ': [ 'JO',] },
-        { 'BI': [ 'JM',] },
+        { 'BI': [ 'JN',] },
         { 'BL': [ 'BZ', 'CN', 'DB', 'DP', 'ED', 'ER', 'FF', 'FT', ] },
         { 'BM': [ 'CA', 'CO', 'DC', 'DQ', 'EE', 'ES', 'FG', 'FU', ] },
         { 'BN': [ 'CB', 'CP', 'DD', 'DR', 'EF', 'ET', 'FH', 'FV', ] },
