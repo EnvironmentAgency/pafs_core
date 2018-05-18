@@ -11,7 +11,7 @@ RSpec.describe PafsCore::OtherEaContributorsStep, type: :model do
       subject.other_ea_contributor_names = nil
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:other_ea_contributor_names]).
-        to include "^Tell us about the contributions from other Environment Agency functions or sources."
+        to include "^Tell us about the expected contributions from other Environment Agency functions or sources."
     end
   end
 

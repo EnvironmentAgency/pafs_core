@@ -6,7 +6,7 @@ module PafsCore
              to: :project
 
     validates :other_ea_contributor_names,
-      presence: { message: "^Tell us about the contributions from other Environment Agency functions or sources." }
+      presence: { message: "^Tell us about the expected contributions from other Environment Agency functions or sources." }
 
   private
     def step_params(params)
