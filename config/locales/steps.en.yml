@@ -10,13 +10,13 @@ en:
 # project type
         project_type:
           heading: What type of project are you proposing?
-          def_label: Creating a new flood or coastal erosion risk management asset, or improving the standard of service of an existing one
+          def_label: Create a new flood or coastal erosion risk management asset, or improve the standard of service of an existing one
           cm_label: Restore the standard of service of a flood or coastal erosion risk management asset by refurbishment or replacement
-          plp_label: Property level protection for properties within the 'very significant' flood band where there is a 5% or greater chance of flooding
+          plp_label: Add property level protection for properties within the 'very significant' flood band where there is a 5% or greater chance of flooding
           # Removed by PM-207 26 Jan 2017 brg_label: Work done to bridges to enable flood and coastal erosion risk management
-          str_label: Strategy for complex flood or coastal erosion risk situations across several interconnected areas
-          env_with_households_label: Environmental project that also benefits households
-          env_without_households_label: Environmental project that doesn't benefit any households
+          str_label: Produce a strategy for complex flood or coastal erosion risk situations across several interconnected areas
+          env_with_households_label: Carry out an environmental project that also benefits households
+          env_without_households_label: Carry out an environmental project that doesn't benefit any households
           project_type_supporting_text: For projects covering more than one type select the type that provides the majority of the benefits.
 # financial year
         financial_year:
