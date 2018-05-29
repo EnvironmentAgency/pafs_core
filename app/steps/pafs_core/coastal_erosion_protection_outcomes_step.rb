@@ -5,7 +5,10 @@ module PafsCore
     include PafsCore::Risks, PafsCore::Outcomes, PafsCore::FinancialYear
     delegate :project_type,
              :project_protects_households?,
+             :reduced_risk_of_households_for_coastal_erosion,
+             :reduced_risk_of_households_for_coastal_erosion=,
              to: :project
+
     validate :at_least_one_value, :values_make_sense, :sensible_number_of_houses
 
     def before_view(params)
@@ -40,8 +43,8 @@ module PafsCore
     def at_least_one_value
       errors.add(
         :base,
-        "In the applicable year(s), tell us how many households are at a reduced risk of coastal erosion (column A)."
-      ) if coastal_total_protected_households.zero?
+        "In the applicable year(s), tell us how many households are at a reduced risk of coastal erosion (column A), OR if this does not apply select the checkbox."
+      ) if coastal_total_protected_households.zero? and !project.reduced_risk_of_households_for_coastal_erosion?
     end
 
     private
@@ -80,7 +83,7 @@ module PafsCore
     def step_params(params)
       ActionController::Parameters.new(params)
                                   .require(:coastal_erosion_protection_outcomes_step)
-                                  .permit(coastal_erosion_protection_outcomes_attributes:
+                                  .permit(:reduced_risk_of_households_for_coastal_erosion, coastal_erosion_protection_outcomes_attributes:
                                     [
                                       :id,
                                       :financial_year,

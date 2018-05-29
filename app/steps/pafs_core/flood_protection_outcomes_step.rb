@@ -5,6 +5,8 @@ module PafsCore
     delegate :project_end_financial_year,
              :project_type,
              :project_protects_households?,
+             :reduced_risk_of_households_for_floods,
+             :reduced_risk_of_households_for_floods=,
              to: :project
 
     validate :at_least_one_value, :values_make_sense, :sensible_number_of_houses
@@ -43,9 +45,8 @@ module PafsCore
     def at_least_one_value
       errors.add(
         :base,
-        "In the applicable year(s), tell us how many households moved to a lower flood\
-        risk category (column A)."
-      ) if flooding_total_protected_households.zero?
+        "In the applicable year(s), tell us how many households moved to a lower flood risk category (column A), OR if this does not apply select the checkbox."
+      ) if flooding_total_protected_households.zero? and !project.reduced_risk_of_households_for_floods?
     end
 
     private
@@ -85,7 +86,7 @@ module PafsCore
     def step_params(params)
       ActionController::Parameters.new(params)
                                   .require(:flood_protection_outcomes_step)
-                                  .permit(flood_protection_outcomes_attributes:
+                                  .permit(:reduced_risk_of_households_for_floods, flood_protection_outcomes_attributes:
                                     [
                                       :id,
                                       :financial_year,

@@ -193,6 +193,7 @@ en:
         flood_protection_outcomes:
           heading: How many households affected by flooding is the project likely to benefit?
           lede: Don't include houses built or converted after 1 January 2012.
+          reduced_risk_of_households_for_floods_label: My project does not move any households to a lower flood risk category
           financial_year_label: Financial year (April to March)
           households_at_reduced_risk_label: How many households will move to a lower flood risk category?
           households_moved_from_very_significant_and_significant_to_moderate_or_low_label: Of the households in column A, how many will move out of the very significant or significant category to the moderate or low category?
@@ -210,6 +211,7 @@ en:
         coastal_erosion_protection_outcomes:
           heading: How many households affected coastal erosion is the project likely to benefit?
           lede: Don't include houses built or converted after 1 January 2012.
+          reduced_risk_of_households_for_coastal_erosion_label: My project does not reduce the risk of coastal erosion for any households
           financial_year_label: Financial year (April to March)
           households_at_reduced_risk_label: How many households will be at a reduced risk of coastal erosion?
           households_protected_from_loss_in_next_20_years_label: Of the households in column A, how many will be protected from loss within the next 20 years?
