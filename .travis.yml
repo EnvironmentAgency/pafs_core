@@ -9,8 +9,9 @@ before_script:
   - git config --global user.name "Travis Test"
   - git config --global user.email travis@example.com
 script:
-  - >-
-    bundle exec rake spec
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake spec
 
 services:
   - postgresql
