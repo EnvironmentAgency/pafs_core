@@ -2,6 +2,12 @@
 <div id="dashboard">
   <h1 class="heading-large">Your proposals</h1>
 
+  <div class="column-three-quarters">
+    <%= form_tag(pafs_core.projects_path, method: "get", class: "search-bar") do %>
+      <%= text_field_tag(:q, params[:q] || "", class: "form-control") %>
+      <%= submit_tag("Search", class: "button button-secondary") %>
+    <% end %>
+  </div>
   <% if rma_user? %>
       <div class="grid-row">
         <div class="column-two-thirds">
