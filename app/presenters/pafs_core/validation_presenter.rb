@@ -222,7 +222,7 @@ module PafsCore
     end
 
     def check_flooding
-      if flooding_total_protected_households > 0
+      if flooding_total_protected_households > 0 || project.reduced_risk_of_households_for_floods?
         true
       else
         risks_error
@@ -230,7 +230,7 @@ module PafsCore
     end
 
     def check_coastal_erosion
-      if coastal_total_protected_households > 0
+      if coastal_total_protected_households > 0 || project.reduced_risk_of_households_for_coastal_erosion?
         true
       else
         risks_error
