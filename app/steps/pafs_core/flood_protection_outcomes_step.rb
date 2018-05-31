@@ -5,17 +5,38 @@ module PafsCore
     delegate :project_end_financial_year,
              :project_type,
              :project_protects_households?,
+             :reduced_risk_of_households_for_floods?,
              :reduced_risk_of_households_for_floods,
              :reduced_risk_of_households_for_floods=,
              to: :project
 
     validate :at_least_one_value, :values_make_sense, :sensible_number_of_houses
 
+    validate :has_values, if: :reduced_risk_of_households_for_floods?
+
     def before_view(params)
       setup_flood_protection_outcomes
     end
 
     private
+
+    def has_values
+      values = flood_protection_outcomes.collect do |outcome|
+        if outcome.households_at_reduced_risk.present?  || outcome.moved_from_very_significant_and_significant_to_moderate_or_low.present? || outcome.households_protected_from_loss_in_20_percent_most_deprived.present?
+          true
+        else
+          nil
+        end
+      end.compact!
+
+      if values.include?(true)
+        errors.add(
+          :base,
+          "In the applicable year(s), tell us how many households moved to a lower flood risk category (column A), OR if this does not apply select the checkbox."
+        )
+      end
+    end
+
     def values_make_sense
       b_too_big = []
       c_too_big = []
@@ -49,7 +70,6 @@ module PafsCore
       ) if flooding_total_protected_households.zero? and !project.reduced_risk_of_households_for_floods?
     end
 
-    private
     def sensible_number_of_houses
       limit = 1000000
       a_insensible = []
