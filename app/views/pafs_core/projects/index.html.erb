@@ -3,18 +3,18 @@
   <h1 class="heading-large">Your proposals</h1>
 
   <% if rma_user? %>
-      <div class="grid-row">
-        <div class="column-two-thirds">
-          <div class="panel panel-indent panel-border-narrow panel-border-short">
-            For submission deadlines please contact your local partnership and strategic overview officer.
-          </div>
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <div class="panel panel-indent panel-border-narrow panel-border-short">
+          For submission deadlines please contact your local partnership and strategic overview officer.
         </div>
       </div>
+    </div>
   <% end %>
 
   <div class="column-three-quarters">
     <%= form_tag(pafs_core.projects_path, method: "get", class: "search-bar") do %>
-      <%= text_field_tag(:q, params[:q] || "", class: "form-control") %>
+      <%= text_field_tag(:q, params[:q] || "", placeholder: "Enter a project number or name", minlength: 1, maxlength: 30, class: "form-control") %>
       <%= submit_tag("Search", class: "button button-secondary") %>
     <% end %>
   </div>
@@ -30,55 +30,57 @@
   <% end %>
 
   <section>
-    <table class="dashboard">
-      <thead>
-      <tr>
-        <th scope="col" class="project-number">
-          <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "reference_number", params[:sort_order], "updated_at", "desc") %>
-          <%= link_to "National project number", pafs_core.projects_path(sort_col: "reference_number", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
-          <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
-        </th>
-        <th scope="col" class="sortable-heading">
-          <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "name", params[:sort_order], "updated_at", "desc") %>
-          <%= link_to "Project name" , pafs_core.projects_path(sort_col: "name", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
-          <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
-        </th>
-
-        <th scope="col">Created by</th>
-        <th scope="col">
-          <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "updated_at", params[:sort_order], "updated_at", "desc") %>
-          <%= link_to "Last updated", pafs_core.projects_path(sort_col: "updated_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
-          <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
-        </th>
-
-        <% unless ea_user? %>
-          <th scope="col">Status</th>
-        <% end %>
-
-        <% if pso_user? %>
-          <th scope="col">In current programme</th>
-        <% end %>
-      </tr>
-      </thead>
-      <tbody>
-      <% @projects.each do |project| %>
+    <% unless @projects.empty? %>
+      <table class="dashboard">
+        <thead>
           <tr>
-            <td><%= link_to project.reference_number, pafs_core.project_path(project), class: "project-link" %></td>
-            <td><%= project.name %></td>
-            <td><%= project.owner.name unless project.owner.blank? %></td>
-            <td><%= l(project.updated_at) %></td>
+            <th scope="col" class="project-number">
+              <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "reference_number", params[:sort_order], "updated_at", "desc") %>
+              <%= link_to "National project number", pafs_core.projects_path(sort_col: "reference_number", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
+              <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
+            </th>
+            <th scope="col" class="sortable-heading">
+              <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "name", params[:sort_order], "updated_at", "desc") %>
+              <%= link_to "Project name" , pafs_core.projects_path(sort_col: "name", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
+              <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
+            </th>
+
+            <th scope="col">Created by</th>
+            <th scope="col">
+              <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "updated_at", params[:sort_order], "updated_at", "desc") %>
+              <%= link_to "Last updated", pafs_core.projects_path(sort_col: "updated_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
+              <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
+            </th>
+
             <% unless ea_user? %>
-              <td><%= status_label_for(project.submission_state.current_state) %></td>
+              <th scope="col">Status</th>
             <% end %>
+
             <% if pso_user? %>
-              <td><%= project.consented? ? "Y" : "N" %></td>
+              <th scope="col">In current programme</th>
             <% end %>
           </tr>
-      <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @projects.each do |project| %>
+            <tr>
+              <td><%= link_to project.reference_number, pafs_core.project_path(project), class: "project-link" %></td>
+              <td><%= project.name %></td>
+              <td><%= project.owner.name unless project.owner.blank? %></td>
+              <td><%= l(project.updated_at) %></td>
+              <% unless ea_user? %>
+                <td><%= status_label_for(project.submission_state.current_state) %></td>
+              <% end %>
+              <% if pso_user? %>
+                <td><%= project.consented? ? "Y" : "N" %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
     <div class="grid-row page-nav">
-      <div class="column-one-third">
+      <div class="pagination column-one-third">
         <%= page_entries_info @projects %>
       </div>
       <div class="column-two-thirds">
@@ -86,6 +88,11 @@
           <%= paginate @projects, left: 0, right: 0, window: 2 %>
         </div>
       </div>
+      <% if @projects.empty? %>
+        <div class="column-three-quarters">
+          <p>Please try searching again or check your spelling</p>
+        </div>
+    <% end %>
     </div>
   </section>
 </div>
