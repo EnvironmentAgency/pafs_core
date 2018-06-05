@@ -59,6 +59,15 @@ module PafsCore
               .joins(:area_projects)
               .merge(PafsCore::AreaProject.where(area_id: areas))
 
+      query = query
+              .where(
+                [
+                  "lower(pafs_core_projects.name) LIKE ? OR lower(reference_number) LIKE ?",
+                  "%#{options[:q].downcase}%",
+                  "%#{options[:q].downcase}%"
+                ]
+      ) unless options[:q].nil?
+
       query = query.joins(:state).merge(PafsCore::State.where(state: options[:state])) unless options[:state].nil?
 
       query.order("#{sort_col}": sort_order)
