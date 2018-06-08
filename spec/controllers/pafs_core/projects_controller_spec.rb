@@ -83,7 +83,7 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       it "redirects to the next step or summary" do
         patch :save, id: @project.to_param, step: "project_name",
           project_name_step: { name: "Haystack" }
-        expect(response).to redirect_to project_path(id: @project.to_param)
+        expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'project-type')
       end
     end
 

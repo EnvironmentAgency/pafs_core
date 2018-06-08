@@ -101,8 +101,12 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
       # each step is responsible for managing their params safely
       next_step = navigator.next_step(@project.step, @project)
       if next_step == :summary
+        step = navigator.next_step_raw(@project.step, @project)
+        anchor = navigator.step_anchor(step)
+        anchor = anchor.nil? ? '' : anchor.values.first
+
         # we're at the end so return to project summary
-        redirect_to project_path(id: @project.to_param)
+        redirect_to project_path(id: @project.to_param, anchor: anchor.to_s.dasherize)
       else
         redirect_to project_step_path(id: @project.to_param, step: next_step)
       end

@@ -66,7 +66,34 @@ module PafsCore
       Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new(project, user)
     end
 
+    def step_anchor(step)
+      step_anchors.find {|s| !s[step].nil? }
+    end
+
   private
+
+    def step_anchors
+      @anchor_steps ||= define_step_anchors
+    end
+
+    def define_step_anchors
+      [
+        { summary_1:  :project_type },
+        { summary_2:  :financial_year },
+        { summary_3:  :location },
+        { summary_4:  :key_dates },
+        { summary_5:  :funding_sources },
+        { summary_6:  :earliest_start },
+        { summary_7:  :risks },
+        { summary_8:  :standard_of_protection },
+        { summary_9:  :approach },
+        { summary_91: :approach },
+        { summary_10: :environmental_outcomes },
+        { summary_11: :urgency },
+        { summary_12: :funding_calculator },
+      ]
+    end
+
     def sequence
       @sequence ||= define_sequence
     end
