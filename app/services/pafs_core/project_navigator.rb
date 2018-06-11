@@ -78,19 +78,20 @@ module PafsCore
 
     def define_step_anchors
       [
-        { summary_1:  :project_type },
-        { summary_2:  :financial_year },
-        { summary_3:  :location },
-        { summary_4:  :key_dates },
-        { summary_5:  :funding_sources },
-        { summary_6:  :earliest_start },
-        { summary_7:  :risks },
-        { summary_8:  :standard_of_protection },
-        { summary_9:  :approach },
-        { summary_91: :approach },
-        { summary_10: :environmental_outcomes },
-        { summary_11: :urgency },
-        { summary_12: :funding_calculator },
+        { summary_1:  :project_name },
+        { summary_2:  :project_type },
+        { summary_3:  :financial_year },
+        { summary_4:  :location },
+        { summary_5:  :key_dates },
+        { summary_6:  :funding_sources },
+        { summary_7:  :earliest_start },
+        { summary_8:  :risks },
+        { summary_9:  :standard_of_protection },
+        { summary_91: :standard_of_protection },
+        { summary_10: :approach },
+        { summary_11: :environmental_outcomes },
+        { summary_12: :urgency },
+        { summary_13: :funding_calculator },
       ]
     end
 
