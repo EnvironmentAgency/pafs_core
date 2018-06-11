@@ -83,7 +83,7 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
       it "redirects to the next step or summary" do
         patch :save, id: @project.to_param, step: "project_name",
           project_name_step: { name: "Haystack" }
-        expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'project-type')
+        expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'project-name')
       end
     end
 
@@ -99,9 +99,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it "redirects to the project type" do
+        it "redirects to the project name" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'project-type')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'project-name')
         end
       end
 
@@ -120,7 +120,7 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
 
         it "redirects to the project type" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'financial-year')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'project-type')
         end
       end
 
@@ -137,9 +137,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it "redirects to the project location" do
+        it "redirects to the financial year" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'location')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'financial-year')
         end
       end
 
@@ -152,9 +152,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it "redirects to the important dates" do
+        it "redirects to the location" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'key-dates')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'location')
         end
       end
 
@@ -171,12 +171,12 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the funding and sources' do
+        it 'redirects to the important dates' do
           allow_any_instance_of(PafsCore::Project).to receive(:start_construction_year).and_return(2020)
           allow_any_instance_of(PafsCore::Project).to receive(:start_construction_month).and_return(8)
 
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'funding-sources')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'key-dates')
         end
       end
 
@@ -280,11 +280,11 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           patch :save, step_params
         end
 
-        it 'redirects to the earliest start' do
+        it 'redirects to the funding sources' do
           allow_any_instance_of(PafsCore::Project).to receive(:project_end_financial_year).and_return(2020)
 
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'earliest-start')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'funding-sources')
         end
       end
 
@@ -301,9 +301,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the risks' do
+        it 'redirects to the earliest date' do
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'risks')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'earliest-start')
         end
       end
 
@@ -402,15 +402,15 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the stand of protection' do
+        it 'redirects to the risks' do
           allow_any_instance_of(PafsCore::Project).to receive(:project_end_financial_year).and_return(2020)
 
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'standard-of-protection')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'risks')
         end
       end
 
-      context 'saving a stand of protection' do
+      context 'saving a standard of protection' do
         let(:params) do
           {
             standard_of_protection_after_step: {
@@ -423,9 +423,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the approach' do
+        it 'redirects to the standard of protection' do
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'approach')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'standard-of-protection')
         end
       end
 
@@ -441,9 +441,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the environmental benefits' do
+        it 'redirects to the approach' do
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'environmental-outcomes')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'approach')
         end
       end
 
@@ -460,9 +460,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the environmental benefits' do
+        it 'redirects to the environmental outcomes' do
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'urgency')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'environmental-outcomes')
         end
       end
 
@@ -479,9 +479,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the PF calculator' do
+        it 'redirects to the project urgency' do
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'funding-calculator')
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'urgency')
         end
       end
 
@@ -494,9 +494,9 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the top of the page' do
+        it 'redirects to the funding calculator' do
           patch :save, params
-          expect(response).to redirect_to project_path(id: @project.to_param)
+          expect(response).to redirect_to project_path(id: @project.to_param, anchor: 'funding-calculator')
         end
       end
     end
