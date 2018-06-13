@@ -318,7 +318,9 @@ module PafsCore
     end
 
     def format_2_part_date(dt)
-      "%02d/%d" % [project.send("#{dt}_month"), project.send("#{dt}_year")]
+      if project.send("#{dt}_month") && project.send("#{dt}_year")
+        "%02d/%d" % [project.send("#{dt}_month"), project.send("#{dt}_year")]
+      end
     end
 
     def squish_int_float(v)
