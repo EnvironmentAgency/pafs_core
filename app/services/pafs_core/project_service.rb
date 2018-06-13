@@ -30,6 +30,12 @@ module PafsCore
         first!
     end
 
+    def downloadable_projects
+      PafsCore::Project.joins(:state).
+        joins(:area_projects).
+        merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user)))
+    end
+
     def submitted_projects
       PafsCore::Project.joins(:state).
         merge(PafsCore::State.submitted).
