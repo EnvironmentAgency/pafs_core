@@ -38,12 +38,14 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
 
   describe "PATCH save" do
     before(:each) do
-      @project = FactoryGirl.create(:bootstrap)
       @pso = FactoryGirl.create(:pso_area, parent_id: 1, name: "PSO Essex")
       @rma = FactoryGirl.create(:rma_area, parent_id: @pso.id)
       @user = FactoryGirl.create(:user)
+      @project = FactoryGirl.create(:bootstrap, creator: @user)
       @user.user_areas.create(area_id: @rma.id, primary: true)
       @nav = PafsCore::BootstrapNavigator.new(@user)
+
+      allow(controller).to receive(:current_resource) { @user }
     end
 
     it "assigns @project with appropriate step class" do

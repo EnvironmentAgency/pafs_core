@@ -7,6 +7,9 @@ en:
           heading: What is the project's name?
           description: The project name should be meaningful and understandable and shouldn't include abbreviations. For example, South Chesham River Colne Flood Alleviation Scheme or Clacton-on-Sea Coastal Erosion Project Phase 4.
           project_name_label: Project name
+        project_area:
+          heading: Which PSO area is the project lead?
+          description: ''
 # project type
         project_type:
           heading: What type of project are you proposing?
