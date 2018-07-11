@@ -64,6 +64,7 @@ module PafsCore
     def define_sequence
       Dibble.sequence do |s|
         s.add :project_name
+        s.add :project_area, if: ->(p) { p.user.user_areas.count > 1 }
         s.add :project_type
         s.add :financial_year
         s.add :financial_year_alternative, unless: ->(p) { p.step == :financial_year }

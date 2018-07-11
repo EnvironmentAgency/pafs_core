@@ -15,9 +15,15 @@ module PafsCore
     end
 
     def create_project(attrs = {})
-      p = PafsCore::Project.create!(initial_attributes.merge(attrs))
-      p.area_projects.create!(area_id: user.primary_area.id, owner: true)
-      p
+      project = PafsCore::Project.create!(initial_attributes.merge(attrs))
+      area = find_project_area(project)
+      project.area_projects.create!(area_id: area.id, owner: true)
+
+      project
+    end
+
+    def find_project_area(project)
+      (project.rma_name) ? PafsCore::Area.find_by_name(project.rma_name) : project.creator.primary_area
     end
 
     def find_project(id)

@@ -13,6 +13,7 @@ en:
     pipeline: "Funding after 2021"
     reference_number: "Number"
     project_name: "Name"
+    project_area: "Area"
     project_type: "Type"
     financial_year: "Last financial year to %{year}"
     financial_year_alternative: "Last financial year after %{year}"

@@ -9,6 +9,10 @@ FactoryGirl.define do
       name "My fantastic flood prevention scheme"
     end
 
+    factory :project_area_step, class: PafsCore::ProjectAreaStep do
+      rma_name "PSO Wessex"
+    end
+
     factory :project_type_step, class: PafsCore::ProjectTypeStep do
       project_type PafsCore::PROJECT_TYPES.first
     end
