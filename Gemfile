@@ -10,6 +10,7 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
+gem 'sprockets-rails'
 gem "dibble", "~> 0.1",
   git: "https://github.com/tonyheadford/dibble",
   branch: "develop"
