@@ -8,6 +8,8 @@ module PafsCore
     validate :area_is_set
     validates_uniqueness_of :user_id, scope: :area_id
 
+    default_scope { order(primary: :desc) }
+
     def self.primary_area
       self.includes(:area).where(primary: true)
     end
