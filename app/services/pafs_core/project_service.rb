@@ -15,7 +15,7 @@ module PafsCore
     end
 
     def create_project(attrs = {})
-      project = PafsCore::Project.create!(initial_attributes.merge(attrs))
+      project = PafsCore::Project.create!(initial_attributes(attrs['rma_name']).merge(attrs))
       area = find_project_area(project)
       project.area_projects.create!(area_id: area.id, owner: true)
 
@@ -146,17 +146,17 @@ module PafsCore
     end
 
   private
-    def initial_attributes
+    def initial_attributes(area_name = nil)
       {
-        reference_number: self.class.generate_reference_number(derive_rfcc_code_from_user),
+        reference_number: self.class.generate_reference_number(derive_rfcc_code_from_user(area_name)),
         version: 1,
         creator: user
       }
     end
 
-    def derive_rfcc_code_from_user
-      raise RuntimeError, "User has no RFCC area code" unless user.rfcc_code
-      user.rfcc_code
+    def derive_rfcc_code_from_user(area_name)
+      raise RuntimeError, "User has no RFCC area code" unless user.rfcc_code(area_name)
+      user.rfcc_code(area_name)
     end
   end
 end

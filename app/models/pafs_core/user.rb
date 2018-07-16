@@ -23,9 +23,14 @@ module PafsCore
       "#{first_name} #{last_name}"
     end
 
-    def rfcc_code
-      # find the PSO area under which this user belongs
-      area = primary_area
+    def rfcc_code(area_name = nil)
+      area = nil
+      if area_name
+        area = PafsCore::Area.find_by_name(area_name)
+      else
+        # find the PSO area under which this user belongs
+        area = primary_area
+      end
       if !area.ea_area?
         area = area.parent if area.rma?
         PafsCore::PSO_RFCC_MAP.fetch(area.name)
