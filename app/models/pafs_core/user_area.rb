@@ -6,7 +6,7 @@ module PafsCore
     belongs_to :area
 
     validate :area_is_set
-    validates_uniqueness_of :user_id, scope: :area_id
+    validates_uniqueness_of :user_id, scope: :area_id,  message: '^Unable to assign area multiple times'
 
     default_scope { order(primary: :desc) }
 

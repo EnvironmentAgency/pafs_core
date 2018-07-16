@@ -7,8 +7,16 @@ RSpec.describe PafsCore::UserArea, type: :model do
   describe "attributes" do
     subject { FactoryGirl.create(:user_area) }
 
-    it { is_expected.to_not validate_presence_of :primary }
-    it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:area_id) }
+    it 'validates presence of' do
+      expect(subject).to_not validate_presence_of :primary
+    end
+
+    it do
+      expect(subject)
+        .to validate_uniqueness_of(:user_id)
+        .scoped_to(:area_id)
+        .with_message("^Unable to assign area multiple times")
+    end
 
     it "validates that :area_id is present" do
       subject.area_id = nil
