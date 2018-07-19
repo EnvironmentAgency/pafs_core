@@ -45,7 +45,7 @@ module PafsCore
     end
 
     def find_apt_projects
-      project_service.submitted_projects
+      project_service.downloadable_projects
     end
 
     def search(options = {})
