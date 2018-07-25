@@ -24,11 +24,13 @@
           <h2 class="heading-medium" role="heading" id="approach"><%= project.summary_label(:approach_title) %></h2>
         </div>
         <div class="column-one-quarter">
-          <div class="add-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :approach) do -%>
-              Add<span class="visually-hidden"> <%= project.summary_label(:approach_title).downcase %></span>
-            <% end -%>
-          </div>
+          <% unless project.archived? %>
+            <div class="add-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :approach) do -%>
+                Add<span class="visually-hidden"> <%= project.summary_label(:approach_title).downcase %></span>
+              <% end -%>
+            </div>
+          <% end -%>
         </div>
       </div>
     </div>
