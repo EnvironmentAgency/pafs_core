@@ -14,8 +14,8 @@ RSpec.describe PafsCore::ProjectService do
   describe "#search" do
     it "returns all projects for a given user" do
       # Create 2 projects against the user
-      subject.create_project
-      subject.create_project
+      subject.create_project.create_state(state: :draft)
+      subject.create_project.create_state(state: :draft)
 
       results = subject.search
       expect(results.count).to eq(2)
