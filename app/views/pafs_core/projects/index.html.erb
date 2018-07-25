@@ -40,7 +40,7 @@
             <th scope="col">
               <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "updated_at", params[:sort_order], "updated_at", "desc") %>
              <%= link_to "Last updated", pafs_core.projects_path(sort_col: "updated_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
-              <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
+              <span class="sortable-arrow"><%=h raw(sort_properties_for_col[:curr_arrow]) %></span>
             </th>
 
             <% unless ea_user? %>
