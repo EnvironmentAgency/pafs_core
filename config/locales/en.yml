@@ -52,6 +52,8 @@ en:
         heading: "Your project application number"
         lede: "Here is your project application number"
         info: "Your unique project application number has been saved automatically."
+      status:
+        archived_label: "Archived"
   shared:
     phase_banner:
       feedback: feedback

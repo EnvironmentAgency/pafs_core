@@ -58,9 +58,10 @@ module PafsCore
     def submission_state
       machine = Bstard.define do |fsm|
         fsm.initial current_state
+        fsm.event :archived, :draft => :archived
         fsm.event :complete, :draft => :completed, :updatable => :updated
         fsm.event :submit, :completed => :submitted, :updated => :finished
-        fsm.event :unlock, :completed => :draft, :submitted => :draft
+        fsm.event :unlock, :archived => :draft, :completed => :draft, :submitted => :draft
         fsm.event :refresh, :completed => :updatable, :submitted => :updatable
         fsm.when :any do |_event, _prev_state, new_state|
           state.state = new_state
@@ -69,6 +70,10 @@ module PafsCore
       end
     end
     # rubocop:enable Style/HashSyntax
+
+    def archived?
+      submission_state.archived?
+    end
 
     def draft?
       submission_state.draft?

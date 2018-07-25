@@ -1,33 +1,6 @@
-<% content_for :page_title, make_page_title("Your project proposals") %>
+<% content_for :page_title, make_page_title("Archived Proposals") %>
 <div id="dashboard">
-  <h1 class="heading-large">Your proposals</h1>
-
-  <% if rma_user? %>
-    <div class="grid-row">
-      <div class="column-two-thirds">
-        <div class="panel panel-indent panel-border-narrow panel-border-short">
-          For submission deadlines please contact your local partnership and strategic overview officer.
-        </div>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="column-three-quarters">
-    <%= form_tag(pafs_core.projects_path, method: "get", class: "search-bar") do %>
-      <%= text_field_tag(:q, params[:q] || "", placeholder: "Enter a project number or name", minlength: 1, maxlength: 30, class: "form-control") %>
-      <%= submit_tag("Search", class: "button button-secondary") %>
-    <% end %>
-  </div>
-
-  <% if ea_user? %>
-    <div class="download-all-proposals-link">
-      <%= link_to t('download_all_proposals_label'), pafs_core.multi_downloads_path %>
-    </div>
-  <% else %>
-    <div class="create-new-project">
-      <%= link_to t('create_a_new_project_label'), pafs_core.new_bootstrap_path, class: "button" %>
-    </div>
-  <% end %>
+  <h1 class="heading-large">Archived Proposals</h1>
 
   <section>
     <% unless @projects.empty? %>
@@ -81,7 +54,7 @@
       </div>
       <% if @projects.empty? %>
         <div class="column-three-quarters">
-          <p>Please try searching again or check your spelling</p>
+          <p>Archive a project in the proposal overview</p>
         </div>
     <% end %>
     </div>
