@@ -18,6 +18,16 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   end
 
   # GET
+  def archive
+    @project = navigator.find(params[:id])
+    if @project.submission_state.archived!
+      redirect_to pafs_core.confirm_project_path(@project)
+    else
+      render :show
+    end
+  end
+
+  # GET
   def pipeline
   end
 
@@ -54,7 +64,9 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
 
   def confirm
     @project = navigator.find(params[:id])
-    if @project.completed?
+    if @project.archived?
+      render "confirm_archive"
+    elsif @project.completed?
       if current_resource.primary_area.rma?
         render "confirm_rma"
       else

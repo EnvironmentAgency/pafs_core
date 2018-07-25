@@ -25,7 +25,13 @@
           <dt>Last updated:</dt>
           <dd><%= format_date @project.updated_at %></dd>
           <dt>Status:</dt>
-          <dd><%= status_label_for(@project.status) %></dd>
+          <dd>
+            <% if ea_user? || (pso_user? && @project.archived?) %>
+              <%= status_label_for(@project.status) %> <%= link_to t("unlock_project_label"), unlock_project_path(id: @project.to_param) %>
+            <% elsif ea_user? || (pso_user? && @project.draft?) %>
+              <%= status_label_for(@project.status) %> <%= link_to("Archive", pafs_core.archive_project_path(@project)) %>
+            <% end %>
+          </dd>
         </dl>
       </div>
     </div>

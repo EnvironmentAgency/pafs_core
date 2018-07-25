@@ -2,7 +2,7 @@
 module PafsCore
   class State < ActiveRecord::Base
     belongs_to :project, inverse_of: :state
-    validates :state, inclusion: { in: %w[draft completed submitted updatable updated finished] }
+    validates :state, inclusion: { in: %w[draft completed submitted updatable updated archived finished] }
 
     def self.submitted
       where(state: "submitted")

@@ -48,6 +48,11 @@ module PafsCore
       project_service.downloadable_projects
     end
 
+    def archived(options = {})
+      options[:state] = "archived"
+      project_service.search(options)
+    end
+
     def search(options = {})
       options[:state] = "submitted" if user.primary_area.ea_area?
       project_service.search(options)

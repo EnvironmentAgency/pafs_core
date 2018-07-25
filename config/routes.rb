@@ -10,6 +10,8 @@ PafsCore::Engine.routes.draw do
     resources :downloads, only: :index
   end
 
+  resources :archives, only: :index
+
   resources :projects do
     collection do
       get :pipeline
@@ -25,6 +27,7 @@ PafsCore::Engine.routes.draw do
           get :delete_benefit_area
         end
       end
+      get :archive
       get :submit
       get :complete
       get :unlock
