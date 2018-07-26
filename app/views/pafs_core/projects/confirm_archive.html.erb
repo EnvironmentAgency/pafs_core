@@ -5,14 +5,14 @@
       <%= render partial: "confirm_banner", locals: { reference_number: nil, title: "Proposal has been archived" } %>
       <h2 class="heading-medium">What happens next?</h2>
       <ul class="list list-bullet">
-        <li>This proposal has moved to your <%= link_to(t("archive_dashboard_link"), pafs_core.archives_path) %> and is no longer visible in your proposals list.</li>
+        <li>This proposal has moved to your <%= link_to("archive", pafs_core.archives_path) %> and is no longer visible in your proposals list.</li>
         <li>Archived proposals cannot be edited or submitted.</li>
       </ul>
       <h2 class="heading-medium">If you need to change your proposal</h2>
       <ul class="list list-bullet">
         <li>Use the archive link in the banner to see your archived proposals.</li>
-        <li>Return to the proposal overview page and click on the 'revert to draft' link.</li>
-        <li>The proposal will reappear in your proposals and can then be edited.</li>
+        <li>Return to the <%= link_to("proposal overview", project_path(@project)) %> page and click on the 'revert to draft' link.</li>
+        <li>The proposal will reappear in <%= link_to("your proposals", projects_path) %> and can then be edited.</li>
       </ul>
     </div>
   </div>

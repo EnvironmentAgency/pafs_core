@@ -27,7 +27,7 @@
           <dt>Status:</dt>
           <dd>
             <% if (rma_user? || pso_user?) && @project.archived? %>
-              <%= status_label_for(@project.status) %> | <%= link_to t("unlock_project_label"), unlock_project_path(id: @project.to_param) %>
+              <%= status_label_for(@project.status) %> | <%= link_to "Revert to draft", unlock_project_path(id: @project.to_param) %>
             <% elsif (rma_user? || pso_user?) && @project.draft? %>
               <%= status_label_for(@project.status) %> | <%= link_to("Archive", pafs_core.archive_project_path(@project)) %>
             <% else %>
