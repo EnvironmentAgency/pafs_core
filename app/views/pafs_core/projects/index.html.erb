@@ -39,7 +39,7 @@
             <th scope="col">Created by</th>
             <th scope="col">
               <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "updated_at", params[:sort_order], "updated_at", "desc") %>
-             <%= link_to "Last updated", pafs_core.projects_path(sort_col: "updated_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
+              <%= link_to "Last updated", pafs_core.projects_path(sort_col: "updated_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
               <span class="sortable-arrow"><%=h raw(sort_properties_for_col[:curr_arrow]) %></span>
             </th>
 
@@ -77,6 +77,7 @@
       <div class="column-two-thirds">
         <div class="pagination-area">
           <%= paginate @projects, left: 0, right: 0, window: 2 %>
+          <%= link_to('Show All', pafs_core.projects_path(all: true), class: "button") %>
         </div>
       </div>
       <% if @projects.empty? %>
@@ -88,7 +89,7 @@
             <li>looking in your archive</li>
           </ul>
         </div>
-    <% end %>
+      <% end %>
     </div>
   </section>
 </div>
