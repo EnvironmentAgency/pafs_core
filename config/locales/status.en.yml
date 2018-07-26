@@ -5,7 +5,9 @@ en:
         draft_label: "Draft"
         completed_label: "Review"
         submitted_label: "Submitted"
+        archived_label: "Archived"
         rma:
           draft_label: "Draft"
           completed_label: "Submitted"
           submitted_label: "Submitted"
+          archived_label: "Archived"
