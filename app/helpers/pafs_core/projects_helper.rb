@@ -19,8 +19,8 @@ module PafsCore
 
     def status_label_for(state)
       scope = "pafs_core.projects.status"
-      scope = scope + ".rma" if rma_user?
-      t("#{state}_label", scope: scope)
+      scope = scope + ".rma" if current_resource.present? && rma_user?
+      I18n.t("#{state}_label", scope: scope)
     end
 
     def funding_value_label(fv)

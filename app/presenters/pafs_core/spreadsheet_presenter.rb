@@ -5,7 +5,7 @@ module PafsCore
       PafsCore::Outcomes, PafsCore::Urgency, PafsCore::StandardOfProtection,
       PafsCore::EnvironmentalOutcomes
    
-    include ProjectsHelper
+    include PafsCore::ProjectsHelper
 
     # name
     # reference_number
@@ -342,6 +342,12 @@ module PafsCore
 
     def y_or_n(val)
       val ? "Y" : "N"
+    end
+
+    def current_resource
+      # NOOP
+      # Used to make sure we can use the state label helper method
+      # #TODO Review whether this could be done better.
     end
   end
 end

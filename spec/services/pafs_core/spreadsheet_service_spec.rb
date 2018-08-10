@@ -110,7 +110,7 @@ RSpec.describe PafsCore::SpreadsheetService do
     end
 
     it 'includes column KL' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('KL')].value.to_s).to eql(spreadsheet_presenter_1.state.state)
+      expect(first_row[SpreadsheetMapperHelper.column_index('KL')].value.to_s).to eql(spreadsheet_presenter_1.state.state.capitalize)
     end
   end
 end
