@@ -4,6 +4,8 @@ module PafsCore
     include PafsCore::FundingSources, PafsCore::Risks,
       PafsCore::Outcomes, PafsCore::Urgency, PafsCore::StandardOfProtection,
       PafsCore::EnvironmentalOutcomes
+   
+    include ProjectsHelper
 
     # name
     # reference_number
@@ -269,7 +271,7 @@ module PafsCore
     end
 
     def project_status
-      project.status
+      status_label_for(project.status)
     end
 
     private
