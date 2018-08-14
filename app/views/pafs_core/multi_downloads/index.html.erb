@@ -5,7 +5,23 @@
   <% if @downloads.count == 1 %>
     There is <span class="bold-small">1</span> proposal available for the area programme.
   <% else %>
-    There are <span class="bold-small"><%= @downloads.count %></span> proposals available for the area programme.
+    <p>
+      There are <span class="bold-small"><%= @downloads.count %></span> proposals available for the area programme of which:
+    </p>
+    <dl>
+      <dt>
+        <%= @projects.collect { |p| (p.state.state == 'submitted') ? p : nil }.compact!.count %> are status Submitted</ br>
+      </dt>
+      <dt>
+        <%= @projects.collect { |p| (p.state.state == 'draft') ? p : nil }.compact!.count %> are status Draft</ br>
+      </dt>
+      <dt>
+        <%= @projects.collect { |p| (p.state.state == 'review') ? p : nil }.compact!.count %> are status Review</ br>
+      </dt>
+      <dt>
+        <%= @projects.collect { |p| (p.state.state == 'archived') ? p : nil }.compact!.count %> are status Archived</ br>
+      </dt>
+    </dl>
   <% end %>
 </div>
 <%= render partial: @downloads.documentation_state.current_state.to_s, locals: { downloads: @downloads } %>
