@@ -10,16 +10,16 @@
     </p>
     <dl>
       <dt>
-        <%= @projects.collect { |p| (p.state.state == 'submitted') ? p : nil }.compact!.count %> are status Submitted</ br>
+        <%= @submitted.nil? ? 0 : @submitted.count %> are status Submitted</ br>
       </dt>
       <dt>
-        <%= @projects.collect { |p| (p.state.state == 'draft') ? p : nil }.compact!.count %> are status Draft</ br>
+        <%= @drafts.nil? ? 0 : @drafts.count %> are status Draft</ br>
       </dt>
       <dt>
-        <%= @projects.collect { |p| (p.state.state == 'review') ? p : nil }.compact!.count %> are status Review</ br>
+        <%= @review.nil? ? 0 : @review.count %> are status Review</ br>
       </dt>
       <dt>
-        <%= @projects.collect { |p| (p.state.state == 'archived') ? p : nil }.compact!.count %> are status Archived</ br>
+        <%= @archived.nil? ? 0 : @archived.count %> are status Archived</ br>
       </dt>
     </dl>
   <% end %>
