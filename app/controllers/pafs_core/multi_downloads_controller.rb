@@ -5,8 +5,8 @@ class PafsCore::MultiDownloadsController < PafsCore::ApplicationController
   include PafsCore::Files
 
   def index
-    @downloads = PafsCore::ProjectsDownloadPresenter.new(download_service.download_info,
-      navigator.find_apt_projects.count)
+    @projects = navigator.find_apt_projects
+    @downloads = PafsCore::ProjectsDownloadPresenter.new(download_service.download_info, @projects.count)
   end
 
   def generate
