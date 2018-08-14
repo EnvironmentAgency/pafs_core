@@ -6,6 +6,12 @@ class PafsCore::MultiDownloadsController < PafsCore::ApplicationController
 
   def index
     @projects = navigator.find_apt_projects
+
+    @submitted = @projects.collect { |p| (p.state.state == 'submitted') ? p : nil }.compact!
+    @drafts = @projects.collect { |p| (p.state.state == 'draft') ? p : nil }.compact!
+    @review = @projects.collect { |p| (p.state.state == 'review') ? p : nil }.compact!
+    @archived = @projects.collect { |p| (p.state.state == 'archived') ? p : nil }.compact!
+
     @downloads = PafsCore::ProjectsDownloadPresenter.new(download_service.download_info, @projects.count)
   end
 
