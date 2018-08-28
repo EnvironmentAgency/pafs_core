@@ -23,6 +23,10 @@ module PafsCore
       "#{apt_storage_path(area.id)}/#{apt_fcerm1_filename}"
     end
 
+    def apt_funding_calculator_filename
+      "funding_calculator.zip"
+    end
+
     def apt_fcerm1_filename
       "fcerm1_proposals.xlsx"
     end
@@ -47,6 +51,10 @@ module PafsCore
       "area_programme/#{area_id}"
     end
 
+    def apt_pf_calculator_filename(area)
+      "#{apt_storage_path(area.id)}/#{apt_funding_calculator_filename}"
+    end
+
     def generate_fcerm1(project, format)
       builder = PafsCore::SpreadsheetService.new
       builder.send("generate_#{format}", project)
@@ -66,6 +74,26 @@ module PafsCore
         projects.each do |project|
           fetch_benefit_area_file_for(project) do |data, filename, _content_type|
             zf.get_output_stream(filename) { |f| f.write(data) }
+          end
+        end
+      end
+
+      # store file
+      storage.upload_data(File.read(tmpfile.path), filename)
+    ensure
+      tmpfile.close
+      tmpfile.unlink
+    end
+
+    def generate_proposals_funding_calculator_file(projects, filename)
+      tmpfile = Tempfile.new
+      # make tmpfile an empty Zipfile
+      Zip::OutputStream.open(tmpfile) { |_| }
+      # now we can open the temporary zipfile
+      Zip::File.open(tmpfile.path, Zip::File::CREATE) do |zf|
+        projects.each do |project|
+          fetch_funding_calculator_for(project) do |data, project_filename, _content_type|
+            zf.get_output_stream(project_filename) { |f| f.write(data) }
           end
         end
       end

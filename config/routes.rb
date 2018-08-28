@@ -40,6 +40,7 @@ PafsCore::Engine.routes.draw do
       get :generate
       get :proposals
       get :benefit_areas
+      get :funding_calculators
       get :moderations
     end
   end
