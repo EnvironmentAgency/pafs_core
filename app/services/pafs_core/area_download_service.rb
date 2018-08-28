@@ -58,6 +58,9 @@ module PafsCore
         download_info.benefit_areas_filename = apt_benefit_areas_storage_filename(area)
         generate_benefit_areas_file(projects, download_info.benefit_areas_filename)
 
+        download_info.funding_calculator_filename = apt_pf_calculator_filename(area)
+        generate_proposals_funding_calculator_file(projects, download_info.funding_calculator_filename)
+
         # Generate moderation archive (only for urgent projects)
         download_info.number_of_proposals_with_moderation = calc_moderation_count(projects)
 
@@ -88,6 +91,16 @@ module PafsCore
           yield file_data, apt_fcerm1_filename
         else
           raise "Expecting block for apt fcerm1 download"
+        end
+      end
+    end
+
+    def fetch_funding_calculators
+      fetch_file(apt_pf_calculator_filename(area)) do |file_data, _filename|
+        if block_given?
+          yield file_data, "application/zip", apt_funding_calculator_filename
+        else
+          raise "Expecting block for apt funding calculator download"
         end
       end
     end

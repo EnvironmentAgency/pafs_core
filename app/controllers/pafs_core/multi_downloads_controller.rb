@@ -33,6 +33,17 @@ class PafsCore::MultiDownloadsController < PafsCore::ApplicationController
     end
   end
 
+  def funding_calculators
+    info = download_service.download_info
+    if info.documentation_state.ready?
+      download_service.fetch_funding_calculators do |data, data_type, filename|
+        send_data data, type: data_type, filename: filename
+      end
+    else
+      redirect_to pafs_core.multi_downloads_path
+    end
+  end
+
   def benefit_areas
     info = download_service.download_info
     if info.documentation_state.ready?
