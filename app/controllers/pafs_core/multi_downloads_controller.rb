@@ -5,6 +5,10 @@ class PafsCore::MultiDownloadsController < PafsCore::ApplicationController
   include PafsCore::Files
 
   def index
+    # We seem to be aggressively caching projects, so we delete the cache here so we can get the correct numbers
+    # FIXME: Determine a better way of handling caching.
+    Rails.cache.delete("/projects")
+
     @projects = navigator.find_apt_projects
 
     @submitted = @projects.collect { |p| (p.state.state == 'submitted') ? p : nil }.compact!
