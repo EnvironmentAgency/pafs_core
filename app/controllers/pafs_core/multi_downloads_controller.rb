@@ -7,7 +7,7 @@ class PafsCore::MultiDownloadsController < PafsCore::ApplicationController
   def index
     # We seem to be aggressively caching projects, so we delete the cache here so we can get the correct numbers
     # FIXME: Determine a better way of handling caching.
-    Rails.cache.delete("/projects")
+    # Rails.cache.delete("/projects")
 
     @projects = navigator.find_apt_projects
 
