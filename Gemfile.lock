@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/defra/defra_validators
+  revision: da1f675629af76849814a4e5e761332a9e4d8fef
+  branch: add_grid_reference_validator
+  specs:
+    defra_validators (0.1.1)
+      activemodel
+      os_map_ref
+
+GIT
   remote: https://github.com/tonyheadford/dibble
   revision: 06fe3d0811b6f601607b2b9aa61f6c3f8b4965a1
   branch: develop
@@ -162,6 +171,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    os_map_ref (0.4.2)
     overcommit (0.38.0)
       childprocess (~> 0.5.8)
       iniparse (~> 1.4)
@@ -274,6 +284,7 @@ DEPENDENCIES
   capybara
   codeclimate-test-reporter (~> 0.6)
   database_cleaner
+  defra_validators!
   dibble (~> 0.1)!
   dotenv
   factory_girl_rails (~> 4.0)
