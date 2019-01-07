@@ -58,8 +58,8 @@ module PafsCore
       project.consented = (value == "Y" || value == "y")
     end
 
-    def grid_reference=(value)
       # perform lookup and update location values
+    def grid_reference=(value)
       if value.blank?
         project.errors.add(:grid_reference, "^No grid reference supplied")
       else

@@ -24,6 +24,34 @@ module PafsCore
           expect(subject).to be_valid
         end
       end
+
+      context 'invalid grid reference' do
+        let(:grid_reference) { "not a grid reference" }
+        let(:expected_errors_message) do
+          "^The National Grid Reference must be 2 letters followed by 10 digits"
+        end
+
+        it 'has the expected message' do
+          subject.valid?
+
+          expect(subject.errors[:grid_reference]).to include(expected_errors_message)
+        end
+
+        context 'blank grid reference' do
+          let(:grid_reference) { "" }
+          let(:expected_errors_message) { "^Tell us the project's National Grid Reference" }
+
+          it 'is invalid' do
+            expect(subject).not_to be_valid
+          end
+
+          it 'has the expected error message' do
+            subject.valid?
+
+            expect(subject.errors[:grid_reference]).to include(expected_errors_message)
+          end
+        end
+      end
     end
     # describe "attributes" do
     #   subject { FactoryGirl.build(:location_step) }

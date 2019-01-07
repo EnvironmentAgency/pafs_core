@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/defra/defra_validators
-  revision: da1f675629af76849814a4e5e761332a9e4d8fef
+  revision: 526739f87560d841ae9468aeae3da67d7a848582
   branch: add_grid_reference_validator
   specs:
     defra_validators (0.1.1)
