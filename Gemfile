@@ -16,6 +16,9 @@ gem "dibble", "~> 0.1",
   branch: "develop"
 
 gem 'rubyzip'
+gem 'defra_validators',
+  git: "https://github.com/defra/defra_validators",
+  branch: "add_grid_reference_validator"
 
 group :development, :test do
   gem 'byebug'

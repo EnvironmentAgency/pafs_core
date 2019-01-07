@@ -9,6 +9,10 @@ module PafsCore
              to: :project
 
     validate :grid_reference_is_supplied
+    validates :grid_reference,
+      "defra_validators/grid_reference": {
+                                           message: "^The National Grid Reference must be 2 letters followed by 10 digits"
+    }
 
     def update(params)
       @javascript_enabled = !!params.fetch(:js_enabled, false)
