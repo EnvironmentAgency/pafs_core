@@ -279,7 +279,7 @@ DEPENDENCIES
   guard-rspec
   overcommit
   pafs_core!
-  pg
+  pg (= 0.20.0)
   pry
   pry-rails
   rspec-rails
