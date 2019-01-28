@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "spec/factories/**/*", "spec/support/**/*", "LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 4.2.7.1"
+  s.add_dependency "rails", "~> 4.2.11"
   s.add_dependency "clamav-client", "~> 3.0"
   s.add_dependency "aws-sdk", "~> 2"
   s.add_dependency "rack-cors"
@@ -26,9 +26,9 @@ Gem::Specification.new do |s|
   s.add_dependency "bstard"
   s.add_dependency "faraday"
   s.add_dependency "kaminari"
-  s.add_dependency "nokogiri", "~> 1.8.2"
+  s.add_dependency "nokogiri", "~> 1.8.5"
   s.add_dependency "secure_headers", "~> 3.6"
-  s.add_development_dependency "pg"
+  s.add_development_dependency "pg", "0.20.0"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "factory_girl_rails", "~> 4.0"
   s.add_development_dependency "shoulda-matchers", "~> 3.1"
