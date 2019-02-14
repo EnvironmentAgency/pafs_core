@@ -15,10 +15,10 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
       projects_per_page = params.fetch(:per, 10)
     end
 
-    @sort_col = params[:sort_col].nil? ? "" : params[:sort_col]>
-    @sort_order = params[:sort_order].nil? ? "" : params[:sort_order]>
-
     @projects = @projects.page(page).per(projects_per_page)
+
+    @project_sort_column = params[:sort_col].nil? ? "" : params[:sort_col]
+    @project_sort_order = params[:sort_order].nil? ? "" : params[:sort_order]
   end
 
   def show
