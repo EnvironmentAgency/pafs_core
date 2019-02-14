@@ -37,12 +37,12 @@
             <th scope="col" class="project-number">National project number</th>
             <th scope="col" class="sortable-heading">Project name</th>
             <th scope="col">
-              <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "created_at", params[:sort_order], "created_at", "desc") %>
+              <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(URI.escape(params[:sort_col]), "created_at", URI.escape(params[:sort_order]), "created_at", "desc") %>
               <%= link_to "Created by", pafs_core.projects_path(sort_col: "created_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
               <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
             </th>
             <th scope="col">
-              <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(params[:sort_col], "updated_at", params[:sort_order], "updated_at", "desc") %>
+              <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(URI.escape(params[:sort_col]), "updated_at", URI.escape(params[:sort_order]), "updated_at", "desc") %>
               <%= link_to "Last updated", pafs_core.projects_path(sort_col: "updated_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
               <span class="sortable-arrow"><%=h raw(sort_properties_for_col[:curr_arrow]) %></span>
             </th>
