@@ -283,7 +283,7 @@ DEPENDENCIES
   pry
   pry-rails
   rspec-rails
-  rubyzip
+  rubyzip (~> 1.2.2)
   shoulda-matchers (~> 3.1)
   simplecov
   sprockets-rails
