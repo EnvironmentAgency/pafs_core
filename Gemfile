@@ -15,7 +15,7 @@ gem "dibble", "~> 0.1",
   git: "https://github.com/tonyheadford/dibble",
   branch: "develop"
 
-gem 'rubyzip'
+gem 'rubyzip', "~> 1.2.2"
 
 group :development, :test do
   gem 'byebug'
