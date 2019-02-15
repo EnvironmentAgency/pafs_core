@@ -37,10 +37,14 @@
             <th scope="col" class="project-number">National project number</th>
             <th scope="col" class="sortable-heading">Project name</th>
             <th scope="col">
-              <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(@project_sort_column, "created_at", @project_sort_order, "created_at", "desc") %>
+              <% if pso_user? %>
+              <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(@project_sort_column, "rma_name", @project_sort_order, "rma_name", "desc") %>
 
-              <%= link_to "Created by", pafs_core.projects_path(sort_col: "created_at", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
+              <%= link_to "Created by", pafs_core.projects_path(sort_col: "rma_name", sort_order: sort_properties_for_col[:next_sort_order]), class: "sortable-link" %>
               <span class="sortable-arrow"><%= raw(sort_properties_for_col[:curr_arrow]) %></span>
+              <% else %>
+              Created by
+              <% end %>
             </th>
             <th scope="col">
               <% sort_properties_for_col = get_next_sort_order_and_curr_arrow(@project_sort_column, "updated_at", @project_sort_order, "updated_at", "desc") %>
