@@ -16,9 +16,6 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     end
 
     @projects = @projects.page(page).per(projects_per_page)
-
-    @project_sort_column = params[:sort_col].nil? ? "" : URI.escape(params[:sort_col])
-    @project_sort_order = params[:sort_order].nil? ? "" : URI.escape(params[:sort_order])
   end
 
   def show
