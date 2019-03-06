@@ -25,6 +25,7 @@ require "pafs_core/files"
 require "pafs_core/fcerm1"
 require "pafs_core/email"
 require "pafs_core/custom_headers"
+require "pafs_core/mapper/fcerm"
 require "core_ext/time/financial"
 require "core_ext/date/financial"
 
