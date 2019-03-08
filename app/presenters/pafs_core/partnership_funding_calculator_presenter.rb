@@ -7,16 +7,13 @@ class PafsCore::PartnershipFundingCalculatorPresenter
   attr_accessor :pv_appraisal_approach
 
   def initialize(project:)
-    file = fetch_funding_calculator_for(project) do |data, filename, content_type|
+    fetch_funding_calculator_for(project) do |data, filename, content_type|
       file = Tempfile.new(filename)
       file.write(data)
       file.close
 
-
-      file
+      self.mapper = PafsCore::Mapper::PartnershipFundingCalculator.new(calculator_file: File.open(file))
     end
-
-    self.mapper = PafsCore::Mapper::PartnershipFundingCalculator.new(calculator_file: File.open(file))
   end
 
   def attributes
