@@ -3,7 +3,20 @@ require 'rails_helper'
 RSpec.describe PafsCore::Camc3Presenter do
   subject { described_class.new(project: project) }
 
-  let(:project) { (FactoryGirl.create(:full_project, project_end_financial_year: 2027)) }
+  let(:project) do
+    FactoryGirl.create(
+      :full_project,
+      {
+        project_end_financial_year: 2027,
+        funding_calculator_file_name: calculator_file
+      }
+    )
+  end
+
+  let(:calculator_file) do
+    "calculator.xlsx"
+  end
+
   let(:funding_values) do
     [
       {year: -1, value: 2000},
@@ -44,6 +57,13 @@ RSpec.describe PafsCore::Camc3Presenter do
       { year: 2027, value: 0 },
       { year: 2028, value: 0 },
     ]
+  end
+
+  before(:each) do
+    allow_any_instance_of(PafsCore::Files)
+      .to receive(:fetch_funding_calculator_for)
+      .with(project)
+      .and_return(File.open(File.join(Rails.root, '..', 'fixtures', calculator_file)))
   end
 
   describe '#households_at_reduced_risk' do

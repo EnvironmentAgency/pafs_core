@@ -10,7 +10,7 @@ module PafsCore
         self.calculator_file = calculator_file
         self.data = {}
 
-        calculator = Roo::Excelx.new(calculator_file.path)
+        calculator = Roo::Spreadsheet.open(calculator_file.path, extension: :xlsx)
         self.sheet = calculator.sheet("PF Calculator")
 
         extract_data(calculator)

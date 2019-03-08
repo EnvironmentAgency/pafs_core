@@ -3,6 +3,7 @@ class PafsCore::Camc3Presenter
     self.project = project
 
     self.fcerm1_presenter = PafsCore::SpreadsheetPresenter.new(project)
+    self.pf_calculator_presenter = PafsCore::PartnershipFundingCalculatorPresenter.new(project: project)
   end
 
   def households_at_reduced_risk
@@ -57,13 +58,13 @@ class PafsCore::Camc3Presenter
       households_protected_from_loss_in_20_percent_most_deprived: households_protected_from_loss_in_20_percent_most_deprived,
       coastal_households_at_reduced_risk: coastal_households_at_reduced_risk,
       coastal_households_protected_from_loss_in_20_percent_most_deprived: coastal_households_protected_from_loss_in_20_percent_most_deprived
-    }
+    }.merge(pf_calculator_presenter.attributes)
   end
 
   protected
 
   attr_accessor :project
-  attr_accessor :fcerm1_presenter
+  attr_accessor :fcerm1_presenter, :pf_calculator_presenter
 
   def financial_years
     [
