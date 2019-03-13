@@ -29,7 +29,7 @@ module PafsCore
         end
       end.compact!
 
-      if values.include?(true)
+      if values.present? && values.include?(true)
         errors.add(
           :base,
           "In the applicable year(s), tell us how many households moved to a lower flood risk category (column A), OR if this does not apply select the checkbox."
