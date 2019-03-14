@@ -2,13 +2,13 @@ module PafsCore
   module Mapper
     class PartnershipFundingCalculator
       attr_accessor :calculator_file
-      attr_accessor :data
+      attr_accessor :attributes
 
       attr_accessor :sheet
 
       def initialize(calculator_file:)
         self.calculator_file = calculator_file
-        self.data = {}
+        self.attributes = {}
 
         calculator = Roo::Spreadsheet.open(calculator_file.path, extension: :xlsx)
         self.sheet = calculator.sheet("PF Calculator")
@@ -17,7 +17,7 @@ module PafsCore
       end
 
       def extract_data(calculator)
-        @data = {
+        @attributes = {
           pv_appraisal_approach:                                      sheet.cell('H', 32),
           pv_design_and_construction_costs:                           sheet.cell('H', 33),
           pv_post_construction_costs:                                 sheet.cell('H', 36),

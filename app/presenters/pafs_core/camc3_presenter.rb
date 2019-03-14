@@ -3,6 +3,7 @@ class PafsCore::Camc3Presenter
     self.project = project
 
     self.fcerm1_presenter = PafsCore::SpreadsheetPresenter.new(project)
+    self.fcerm1_mapper = PafsCore::Mapper::Fcerm1.new(project: self.fcerm1_presenter)
     self.pf_calculator_presenter = PafsCore::PartnershipFundingCalculatorPresenter.new(project: project)
   end
 
@@ -52,19 +53,24 @@ class PafsCore::Camc3Presenter
   end
 
   def attributes
-    {
-      households_at_reduced_risk: households_at_reduced_risk,
-      moved_from_very_significant_and_significant_to_moderate_or_low: moved_from_very_significant_and_significant_to_moderate_or_low,
-      households_protected_from_loss_in_20_percent_most_deprived: households_protected_from_loss_in_20_percent_most_deprived,
-      coastal_households_at_reduced_risk: coastal_households_at_reduced_risk,
-      coastal_households_protected_from_loss_in_20_percent_most_deprived: coastal_households_protected_from_loss_in_20_percent_most_deprived
-    }.merge(pf_calculator_presenter.attributes)
+    fcerm1_mapper.attributes
+      .merge(pf_calculator_presenter.attributes)
+      .merge(
+        {
+          households_at_reduced_risk: households_at_reduced_risk,
+          moved_from_very_significant_and_significant_to_moderate_or_low: moved_from_very_significant_and_significant_to_moderate_or_low,
+          households_protected_from_loss_in_20_percent_most_deprived: households_protected_from_loss_in_20_percent_most_deprived,
+          coastal_households_at_reduced_risk: coastal_households_at_reduced_risk,
+          coastal_households_protected_from_loss_in_20_percent_most_deprived: coastal_households_protected_from_loss_in_20_percent_most_deprived
+        }
+    )
   end
 
   protected
 
   attr_accessor :project
   attr_accessor :fcerm1_presenter, :pf_calculator_presenter
+  attr_accessor :fcerm1_mapper
 
   def financial_years
     [
