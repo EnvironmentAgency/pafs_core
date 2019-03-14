@@ -18,7 +18,7 @@ PATH
       rack-cors
       rails (~> 4.2.11.1)
       roo (~> 2.7.0)
-      rubyXL
+      rubyXL (~> 3.3.33)
       secure_headers (~> 3.6)
 
 GEM
@@ -230,7 +230,7 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
-    rubyXL (3.4.2)
+    rubyXL (3.3.33)
       nokogiri (>= 1.4.4)
       rubyzip (>= 1.1.6)
     ruby_dep (1.5.0)
