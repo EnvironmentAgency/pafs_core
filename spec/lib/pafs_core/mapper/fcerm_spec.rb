@@ -67,14 +67,6 @@ RSpec.describe PafsCore::Mapper::Fcerm1 do
     expect(subject.risk_source).to eql(presenter.main_risk)
   end
 
-  it "package reference"
-  it "secondary risk source"
-  it "package reference"
-  it "additional details"
-  it "scheme arrangements"
-  it "new builds"
-  it "environmental considerations"
-
   it "moderation code" do
     expect(subject.moderation_code).to eql(presenter.moderation_code)
   end
