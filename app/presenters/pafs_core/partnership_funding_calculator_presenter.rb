@@ -17,6 +17,6 @@ class PafsCore::PartnershipFundingCalculatorPresenter
   end
 
   def attributes
-    mapper.data
+    mapper.attributes
   end
 end
