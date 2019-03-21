@@ -55,6 +55,10 @@ module PafsCore
         project.package_reference
       end
 
+      def constituency
+        project.constituency
+      end
+
       def pafs_county
         project.county
       end
@@ -140,6 +144,7 @@ module PafsCore
           coastal_group: coastal_group,
           risk_source: risk_source,
           moderation_code: moderation_code,
+          constituency: constituency,
           pafs_county: pafs_county,
           earliest_funding_profile_date: earliest_funding_profile_date,
           aspirational_gateway_1: aspirational_gateway_1,
