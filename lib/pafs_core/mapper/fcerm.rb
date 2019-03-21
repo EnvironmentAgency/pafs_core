@@ -153,7 +153,7 @@ module PafsCore
           aspirational_gateway_4: aspirational_gateway_4,
           problem_and_proposed_solution: problem_and_proposed_solution,
           flooding_standard_of_protection_before: flooding_standard_of_protection_before,
-          floodiung_standard_of_protection_after: flooding_standard_of_protection_after,
+          flooding_standard_of_protection_after:  flooding_standard_of_protection_after,
           coastal_erosion_standard_of_protection_before: coastal_erosion_standard_of_protection_before,
           coastal_erosion_standard_of_protection_after: coastal_erosion_standard_of_protection_after,
           strategic_approach: strategic_approach,
