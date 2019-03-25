@@ -43,6 +43,15 @@ class PafsCore::Camc3Presenter
     end
   end
 
+  def coastal_households_protected_from_loss_in_next_20_years
+    financial_years.collect do |year|
+      {
+        year: year,
+        value: fcerm1_presenter.coastal_households_protected_from_loss_in_next_20_years(year)
+      }
+    end
+  end
+
   def coastal_households_protected_from_loss_in_20_percent_most_deprived
     financial_years.collect do |year|
       {
@@ -57,11 +66,24 @@ class PafsCore::Camc3Presenter
       .merge(pf_calculator_presenter.attributes)
       .merge(
         {
-          households_at_reduced_risk: households_at_reduced_risk,
-          moved_from_very_significant_and_significant_to_moderate_or_low: moved_from_very_significant_and_significant_to_moderate_or_low,
-          households_protected_from_loss_in_20_percent_most_deprived: households_protected_from_loss_in_20_percent_most_deprived,
-          coastal_households_at_reduced_risk: coastal_households_at_reduced_risk,
-          coastal_households_protected_from_loss_in_20_percent_most_deprived: coastal_households_protected_from_loss_in_20_percent_most_deprived
+          outcome_measures_2: {
+            households_at_reduced_risk: households_at_reduced_risk,
+          },
+          outcome_measures_2b: {
+            moved_from_very_significant_and_significant_to_moderate_or_low: moved_from_very_significant_and_significant_to_moderate_or_low,
+          },
+          outcome_measures_2c: {
+            households_protected_from_loss_in_20_percent_most_deprived: households_protected_from_loss_in_20_percent_most_deprived,
+          },
+          outcome_measures_3: {
+            coastal_households_at_reduced_risk: coastal_households_at_reduced_risk,
+          },
+          outcome_measures_3b: {
+            coastal_households_protected_from_loss_in_next_20_years: coastal_households_protected_from_loss_in_next_20_years
+          },
+          outcome_measures_3c: {
+            coastal_households_protected_from_loss_in_20_percent_most_deprived: coastal_households_protected_from_loss_in_20_percent_most_deprived
+          }
         }
     )
   end

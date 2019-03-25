@@ -56,7 +56,7 @@ module PafsCore
       end
 
       def constituency
-        project.constituency
+        project.parliamentary_constituency
       end
 
       def pafs_county
@@ -157,7 +157,17 @@ module PafsCore
           coastal_erosion_standard_of_protection_before: coastal_erosion_standard_of_protection_before,
           coastal_erosion_standard_of_protection_after: coastal_erosion_standard_of_protection_after,
           strategic_approach: strategic_approach,
-          duration_of_benefits: duration_of_benefits
+          duration_of_benefits: duration_of_benefits,
+          outcome_measures_4: {
+            hectares_of_net_water_dependent_habitat_created: project.hectares_of_net_water_dependent_habitat_created,
+            hectares_of_net_water_intertidal_habitat_created: project.hectares_of_net_water_intertidal_habitat_created,
+            kilometres_of_protected_river_improved: project.kilometres_of_protected_river_improved,
+            improve_surface_or_groundwater_amount: project.improve_surface_or_groundwater_amount,
+            remove_fish_or_eel_barrier: project.remove_fish_or_eel_barrier,
+            fish_or_eel_amount: project.fish_or_eel_amount,
+            improve_habitat_amount: project.improve_habitat_amount,
+            create_habitat_amount: project.create_habitat_amount,
+          }
         }
       end
     end
