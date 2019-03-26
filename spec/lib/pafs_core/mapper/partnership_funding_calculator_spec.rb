@@ -41,110 +41,110 @@ RSpec.describe PafsCore::Mapper::PartnershipFundingCalculator do
     end
 
     it "has QBOM220MB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:before][:most_deprived_20][:moderate_risk]).to eql(12)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:before][:most_deprived_20][:moderate_risk]).to eql(12)
     end
 
     it "has QBOM22140MB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:before][:most_deprived_21_40][:moderate_risk]).to eql(12)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:before][:most_deprived_21_40][:moderate_risk]).to eql(12)
     end
 
     it "has QBOM260MB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:before][:least_deprived_60][:moderate_risk]).to eql(12)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:before][:least_deprived_60][:moderate_risk]).to eql(12)
     end
 
     it "has QBOM220SB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:before][:most_deprived_20][:significant_risk]).to eql(22)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:before][:most_deprived_20][:significant_risk]).to eql(22)
     end
 
     it "has QBOM22140SB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:before][:most_deprived_21_40][:significant_risk]).to eql(22)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:before][:most_deprived_21_40][:significant_risk]).to eql(22)
     end
 
     it "has QBOM260SB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:before][:least_deprived_60][:significant_risk]).to eql(22)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:before][:least_deprived_60][:significant_risk]).to eql(22)
     end
 
     it "has QBOM220VSB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:before][:most_deprived_20][:very_significant_risk]).to eql(11)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:before][:most_deprived_20][:very_significant_risk]).to eql(11)
     end
 
     it "has QBOM22140VSB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:before][:most_deprived_21_40][:very_significant_risk]).to eql(11)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:before][:most_deprived_21_40][:very_significant_risk]).to eql(11)
     end
 
     it "has QBOM260VSB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:before][:least_deprived_60][:very_significant_risk]).to eql(11)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:before][:least_deprived_60][:very_significant_risk]).to eql(11)
     end
 
     it "has QBOM220MA" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:after][:most_deprived_20][:moderate_risk]).to eql(11)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:after][:most_deprived_20][:moderate_risk]).to eql(11)
     end
 
     it "has QBOM22140MA" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:after][:most_deprived_21_40][:moderate_risk]).to eql(11)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:after][:most_deprived_21_40][:moderate_risk]).to eql(11)
     end
 
     it "has QBOM260MA" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:after][:least_deprived_60][:moderate_risk]).to eql(11)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:after][:least_deprived_60][:moderate_risk]).to eql(11)
     end
 
     it "has QBOM220SA" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:after][:most_deprived_20][:significant_risk]).to eql(11)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:after][:most_deprived_20][:significant_risk]).to eql(11)
     end
 
     it "has QBOM22140SA" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:after][:most_deprived_21_40][:significant_risk]).to eql(11)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:after][:most_deprived_21_40][:significant_risk]).to eql(11)
     end
 
     it "has QBOM260SA" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:after][:least_deprived_60][:significant_risk]).to eql(11)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:after][:least_deprived_60][:significant_risk]).to eql(11)
     end
 
     it "has QBOM220VSA" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:after][:most_deprived_20][:very_significant_risk]).to eql(10)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:after][:most_deprived_20][:very_significant_risk]).to eql(10)
     end
 
     it "has QBOM22140VSA" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:after][:most_deprived_21_40][:very_significant_risk]).to eql(10)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:after][:most_deprived_21_40][:very_significant_risk]).to eql(10)
     end
 
     it "has QBOM260VSA" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_2][:after][:least_deprived_60][:very_significant_risk]).to eql(10)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:after][:least_deprived_60][:very_significant_risk]).to eql(10)
     end
 
     it "has QBOM320LTB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_3][:before_construction][:most_deprived_20][:long_time_loss]).to eql(12)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_20][:long_time_loss]).to eql(12)
     end
 
     it "has QBOM32140LTB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_3][:before_construction][:most_deprived_21_40][:long_time_loss]).to eql(12)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_21_40][:long_time_loss]).to eql(12)
     end
     it "has QBOM360LTB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_3][:before_construction][:least_deprived_60][:long_time_loss]).to eql(12)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:least_deprived_60][:long_time_loss]).to eql(12)
     end
 
     it "has QBOM320MTB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_3][:before_construction][:most_deprived_20][:medium_term_loss]).to eql(1)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_20][:medium_term_loss]).to eql(1)
     end
 
     it "has QBOM32140MTB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_3][:before_construction][:most_deprived_21_40][:medium_term_loss]).to eql(1)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_21_40][:medium_term_loss]).to eql(1)
     end
 
     it "has QBOM360MTB" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_3][:before_construction][:least_deprived_60][:medium_term_loss]).to eql(1)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:least_deprived_60][:medium_term_loss]).to eql(1)
     end
 
     it "has QBOM4a" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_4][:hectares_of_net_water_dependent_habitat_created]).to eql(1.0)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om4][:hectares_of_net_water_dependent_habitat_created]).to eql(1.0)
     end
 
     it "has QBOM4b" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_4][:hectares_of_net_water_intertidal_habitat_created]).to eql(1.0)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om4][:hectares_of_net_water_intertidal_habitat_created]).to eql(1.0)
     end
 
     it "has QBOM4c" do
-      expect(subject.attributes[:qualifying_benefits][:outcome_measures_4][:kilometres_of_protected_river_improved]).to eql(1.0)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om4][:kilometres_of_protected_river_improved]).to eql(1.0)
     end
   end
 end

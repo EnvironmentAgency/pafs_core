@@ -66,23 +66,49 @@ class PafsCore::Camc3Presenter
       .merge(pf_calculator_presenter.attributes)
       .merge(
         {
-          outcome_measures_2: {
-            households_at_reduced_risk: households_at_reduced_risk,
-          },
-          outcome_measures_2b: {
-            moved_from_very_significant_and_significant_to_moderate_or_low: moved_from_very_significant_and_significant_to_moderate_or_low,
-          },
-          outcome_measures_2c: {
-            households_protected_from_loss_in_20_percent_most_deprived: households_protected_from_loss_in_20_percent_most_deprived,
-          },
-          outcome_measures_3: {
-            coastal_households_at_reduced_risk: coastal_households_at_reduced_risk,
-          },
-          outcome_measures_3b: {
-            coastal_households_protected_from_loss_in_next_20_years: coastal_households_protected_from_loss_in_next_20_years
-          },
-          outcome_measures_3c: {
-            coastal_households_protected_from_loss_in_20_percent_most_deprived: coastal_households_protected_from_loss_in_20_percent_most_deprived
+          outcome_measures: {
+            om2: {
+              households_at_reduced_risk: households_at_reduced_risk,
+            },
+            om2b: {
+              moved_from_very_significant_and_significant_to_moderate_or_low: moved_from_very_significant_and_significant_to_moderate_or_low,
+            },
+            om2c: {
+              households_protected_from_loss_in_20_percent_most_deprived: households_protected_from_loss_in_20_percent_most_deprived,
+            },
+            om3: {
+              coastal_households_at_reduced_risk: coastal_households_at_reduced_risk,
+            },
+            om3b: {
+              coastal_households_protected_from_loss_in_next_20_years: coastal_households_protected_from_loss_in_next_20_years
+            },
+            om3c: {
+              coastal_households_protected_from_loss_in_20_percent_most_deprived: coastal_households_protected_from_loss_in_20_percent_most_deprived
+            },
+            om4a: {
+              hectares_of_net_water_dependent_habitat_created: fcerm1_presenter.hectares_of_net_water_dependent_habitat_created,
+            },
+            om4b: {
+              hectares_of_net_water_intertidal_habitat_created: fcerm1_presenter.hectares_of_net_water_intertidal_habitat_created,
+            },
+            om4c: {
+              kilometres_of_protected_river_improved: fcerm1_presenter.kilometres_of_protected_river_improved,
+            },
+            om4d: {
+              improve_surface_or_groundwater_amount: fcerm1_presenter.improve_surface_or_groundwater_amount,
+            },
+            om4e: {
+              remove_fish_or_eel_barrier: fcerm1_presenter.remove_fish_or_eel_barrier,
+            },
+            om4f: {
+              fish_or_eel_amount: fcerm1_presenter.fish_or_eel_amount,
+            },
+            om4g: {
+              improve_habitat_amount: fcerm1_presenter.improve_habitat_amount,
+            },
+            om4h: {
+             tcreate_habitat_amount: fcerm1_presenter.create_habitat_amount,
+            },
           }
         }
     )
