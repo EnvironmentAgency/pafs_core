@@ -55,6 +55,10 @@ module PafsCore
         project.package_reference
       end
 
+      def constituency
+        project.parliamentary_constituency
+      end
+
       def pafs_county
         project.county
       end
@@ -140,6 +144,7 @@ module PafsCore
           coastal_group: coastal_group,
           risk_source: risk_source,
           moderation_code: moderation_code,
+          constituency: constituency,
           pafs_county: pafs_county,
           earliest_funding_profile_date: earliest_funding_profile_date,
           aspirational_gateway_1: aspirational_gateway_1,
@@ -148,7 +153,7 @@ module PafsCore
           aspirational_gateway_4: aspirational_gateway_4,
           problem_and_proposed_solution: problem_and_proposed_solution,
           flooding_standard_of_protection_before: flooding_standard_of_protection_before,
-          floodiung_standard_of_protection_after: flooding_standard_of_protection_after,
+          flooding_standard_of_protection_after:  flooding_standard_of_protection_after,
           coastal_erosion_standard_of_protection_before: coastal_erosion_standard_of_protection_before,
           coastal_erosion_standard_of_protection_after: coastal_erosion_standard_of_protection_after,
           strategic_approach: strategic_approach,

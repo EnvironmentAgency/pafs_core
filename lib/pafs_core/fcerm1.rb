@@ -132,7 +132,7 @@ module PafsCore
         date_range: true,
         if: ->(p) { p.project_protects_households? } },
 
-      # From PF calculator
+      # From PF calculator OM4A-C JM-JO
       { column: "JM", field_name: :hectares_of_net_water_dependent_habitat_created, import: false },
       { column: "JN", field_name: :hectares_of_net_water_intertidal_habitat_created, import: false },
       { column: "JO", field_name: :kilometres_of_protected_river_improved, import: false },
@@ -144,6 +144,8 @@ module PafsCore
 
       # # spa/sac, sssi or none
       { column: "JS", field_name: :designated_site },
+
+      # OM4D-H
       { column: "JT", field_name: :improve_surface_or_groundwater_amount },
       { column: "JU", field_name: :remove_fish_or_eel_barrier },
       { column: "JV", field_name: :fish_or_eel_amount },

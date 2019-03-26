@@ -25,8 +25,8 @@ module PafsCore
           pv_public_contributions_secured_to_date:                    sheet.cell('H', 41),
           pv_private_contributions_secured_to_date:                   sheet.cell('H', 42),
           pv_funding_from_other_ea_functions_sources_secured_to_date: sheet.cell('H', 43),
-          qualifying_benefits: {
-            outcome_measures_2: {
+          qualifying_benefits_outcome_measures: {
+            om2: {
               before: {
                 most_deprived_20: {
                   moderate_risk:          sheet.cell('E', 52),
@@ -62,7 +62,7 @@ module PafsCore
                 }
               }
             },
-            outcome_measures_3: {
+            om3: {
               before_construction: {
                 most_deprived_20: {
                   long_time_loss:         sheet.cell('F', 68),
@@ -78,7 +78,7 @@ module PafsCore
                 },
               }
             },
-            outcome_measures_4: {
+            om4: {
               hectares_of_net_water_dependent_habitat_created:  sheet.cell('C', 81),
               hectares_of_net_water_intertidal_habitat_created: sheet.cell('C', 82),
               kilometres_of_protected_river_improved:           sheet.cell('C', 83),
