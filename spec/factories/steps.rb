@@ -18,7 +18,7 @@ FactoryGirl.define do
     end
 
     factory :financial_year_step, class: PafsCore::FinancialYearStep do
-      project_end_financial_year 2018
+      project_end_financial_year Date.today.year
     end
 
     factory :financial_year_alternative_step, class: PafsCore::FinancialYearAlternativeStep do

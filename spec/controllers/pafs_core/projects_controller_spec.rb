@@ -129,7 +129,7 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           {
             "financial_year_step": {
               "id": "4",
-              "project_end_financial_year": "2018"
+              "project_end_financial_year": Date.today.year
             },
             "commit": "Save and continue",
             "id": @project.to_param,
