@@ -2,6 +2,7 @@ class PafsCore::Camc3Presenter
   def initialize(project:)
     self.project = project
 
+    self.funding_sources_mapper = PafsCore::Mapper::FundingSources.new(project: project)
     self.fcerm1_presenter = PafsCore::SpreadsheetPresenter.new(project)
     self.fcerm1_mapper = PafsCore::Mapper::Fcerm1.new(project: self.fcerm1_presenter)
     self.pf_calculator_presenter = PafsCore::PartnershipFundingCalculatorPresenter.new(project: project)
@@ -64,6 +65,7 @@ class PafsCore::Camc3Presenter
   def attributes
     fcerm1_mapper.attributes
       .merge(pf_calculator_presenter.attributes)
+      .merge(funding_sources_mapper.attributes)
       .merge(
         {
           outcome_measures: {
@@ -119,6 +121,7 @@ class PafsCore::Camc3Presenter
   attr_accessor :project
   attr_accessor :fcerm1_presenter, :pf_calculator_presenter
   attr_accessor :fcerm1_mapper
+  attr_accessor :funding_sources_mapper
 
   def financial_years
     [
