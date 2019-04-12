@@ -109,8 +109,8 @@ RSpec.describe PafsCore::SpreadsheetService do
       expect(first_row[SpreadsheetMapperHelper.column_index('JY')].value).to eql(spreadsheet_presenter_1.create_habitat_amount)
     end
 
-    it 'includes column KL' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('KL')].value.to_s).to eql(spreadsheet_presenter_1.state.state.capitalize)
+    it 'includes column KK' do
+      expect(first_row[SpreadsheetMapperHelper.column_index('KK')].value.to_s).to eql(spreadsheet_presenter_1.state.state.capitalize)
     end
   end
 end
