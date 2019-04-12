@@ -4,6 +4,8 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   # NOTE: this should be added via a decorator in consuming qpp if needed
   # before_action :authenticate_user!
 
+  helper_method :project_sort_order, :project_sort_column
+
   def index
     # dashboard page
     # (filterable) list of projects
@@ -147,6 +149,13 @@ private
     @navigator ||= PafsCore::ProjectNavigator.new current_resource
   end
 
+  def project_sort_column
+    params[:sort_col].to_s
+  end
+
+  def project_sort_order
+    params[:sort_order].to_s
+  end
   # def asite
   #   @asite ||= PafsCore::AsiteService.new current_resource
   # end
