@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "clamav-client", "~> 3.0"
   s.add_dependency "aws-sdk", "~> 2"
   s.add_dependency "rack-cors"
+  s.add_dependency "rack", "1.6.11"
   s.add_dependency "roo", "~> 2.7.0"
   s.add_dependency "rubyXL", "~> 3.3.33"
   s.add_dependency "bstard"
