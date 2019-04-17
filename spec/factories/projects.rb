@@ -5,6 +5,8 @@ FactoryGirl.define do
     reference_number { PafsCore::ProjectService.generate_reference_number("TH") }
     version 0
 
+    state
+
     factory :full_project do
       reference_number { PafsCore::ProjectService.generate_reference_number("SO") }
       version 0

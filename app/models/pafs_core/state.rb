@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 module PafsCore
   class State < ActiveRecord::Base
+    VALID_STATES = %w[draft completed submitted updatable updated archived finished].freeze
+
     belongs_to :project, inverse_of: :state
-    validates :state, inclusion: { in: %w[draft completed submitted updatable updated archived finished] }
+    validates :state, inclusion: { in: VALID_STATES }
 
     def self.submitted
       where(state: "submitted")
