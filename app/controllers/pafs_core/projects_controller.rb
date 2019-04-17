@@ -10,8 +10,9 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     # dashboard page
     # (filterable) list of projects
     @projects = navigator.search(params)
+
     if params[:all]
-      projects_per_page = @projects.count
+      projects_per_page = @projects.any? ? @projects.size : 1
     else
       page = params.fetch(:page, 1)
       projects_per_page = params.fetch(:per, 10)
