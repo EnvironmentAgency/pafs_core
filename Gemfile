@@ -21,9 +21,9 @@ group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'guard-rspec', require: false
-  gem 'database_cleaner'
 end
 
 group :test do
   gem "codeclimate-test-reporter", "~> 0.6", require: false
+  gem 'database_cleaner'
 end
