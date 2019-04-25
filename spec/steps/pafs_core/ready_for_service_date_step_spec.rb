@@ -3,21 +3,21 @@ require "rails_helper"
 
 RSpec.describe PafsCore::ReadyForServiceDateStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:ready_for_service_date_step) }
+    subject { FactoryBot.build(:ready_for_service_date_step) }
 
     it_behaves_like "a project step"
   end
 
   describe "#update" do
     let(:project) {
-      FactoryGirl.create(
+      FactoryBot.create(
         :project,
         start_construction_month: 1,
         start_construction_year: 2012
       )
     }
 
-    subject { FactoryGirl.create(:ready_for_service_date_step, project: project) }
+    subject { FactoryBot.create(:ready_for_service_date_step, project: project) }
     let(:params) {
       HashWithIndifferentAccess.new({
         ready_for_service_date_step: {

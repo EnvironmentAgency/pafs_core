@@ -23,7 +23,7 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
   end
 
   describe "GET step" do
-    before(:each) { @project = FactoryGirl.create(:bootstrap) }
+    before(:each) { @project = FactoryBot.create(:bootstrap) }
 
     it "assigns @project with the appropriate step class" do
       get :step, id: @project.to_param, step: "project_name"
@@ -38,10 +38,10 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
 
   describe "PATCH save" do
     before(:each) do
-      @pso = FactoryGirl.create(:pso_area, parent_id: 1, name: "PSO Essex")
-      @rma = FactoryGirl.create(:rma_area, parent_id: @pso.id)
-      @user = FactoryGirl.create(:user)
-      @project = FactoryGirl.create(:bootstrap, creator: @user)
+      @pso = FactoryBot.create(:pso_area, parent_id: 1, name: "PSO Essex")
+      @rma = FactoryBot.create(:rma_area, parent_id: @pso.id)
+      @user = FactoryBot.create(:user)
+      @project = FactoryBot.create(:bootstrap, creator: @user)
       @user.user_areas.create(area_id: @rma.id, primary: true)
       @nav = PafsCore::BootstrapNavigator.new(@user)
 

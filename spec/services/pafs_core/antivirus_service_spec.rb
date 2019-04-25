@@ -25,7 +25,7 @@ RSpec.describe PafsCore::AntivirusService do
   describe "#scan" do
     context "when a virus is found" do
       it "raises a PafsCore::VirusFoundError" do
-        expect(clamav).to receive(:execute) { [FactoryGirl.build(:virus_found)] }
+        expect(clamav).to receive(:execute) { [FactoryBot.build(:virus_found)] }
         expect(ClamAV::Client).to receive(:new) { clamav }
         expect { subject.scan("path/to/suspect_file.xls") }.to raise_error PafsCore::VirusFoundError
       end
@@ -33,7 +33,7 @@ RSpec.describe PafsCore::AntivirusService do
 
     context "when the virus scanner generates an error" do
       it "raises a PafsCore::VirusScannerError" do
-        expect(clamav).to receive(:execute) { [FactoryGirl.build(:virus_error)] }
+        expect(clamav).to receive(:execute) { [FactoryBot.build(:virus_error)] }
         expect(ClamAV::Client).to receive(:new) { clamav }
         expect { subject.scan("path/to/file") }.to raise_error PafsCore::VirusScannerError
       end
@@ -41,7 +41,7 @@ RSpec.describe PafsCore::AntivirusService do
 
     context "when no virii are found" do
       it "returns true" do
-        expect(clamav).to receive(:execute) { [FactoryGirl.build(:virus_clear)] }
+        expect(clamav).to receive(:execute) { [FactoryBot.build(:virus_clear)] }
         expect(ClamAV::Client).to receive(:new) { clamav }
         expect(subject.scan("path/to/a/clean_file")).to eq true
       end

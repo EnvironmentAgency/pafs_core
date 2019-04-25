@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::OtherEaContributorsStep, type: :model do
-  subject { FactoryGirl.build(:other_ea_contributors_step) }
+  subject { FactoryBot.build(:other_ea_contributors_step) }
 
   describe "attributes" do
     it_behaves_like "a project step"
@@ -16,7 +16,7 @@ RSpec.describe PafsCore::OtherEaContributorsStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:other_ea_contributors_step) }
+    subject { FactoryBot.create(:other_ea_contributors_step) }
     let(:params) {
       HashWithIndifferentAccess.new(
         { other_ea_contributors_step: {

@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::ImproveSpaOrSacStep, type: :model do
-  subject { FactoryGirl.build(:improve_spa_or_sac_step) }
+  subject { FactoryBot.build(:improve_spa_or_sac_step) }
 
   describe "attributes" do
     it_behaves_like "a project step"

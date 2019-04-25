@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require "clamav/client"
-FactoryGirl.define do
+FactoryBot.define do
   factory :virus_clear, class: ClamAV::SuccessResponse do
     initialize_with { new("path/to/clean_file.xls") }
   end

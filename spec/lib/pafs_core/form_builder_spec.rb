@@ -5,7 +5,7 @@ class TestHelper < ActionView::Base; end
 
 RSpec.describe PafsCore::FormBuilder, type: :feature do
   let(:helper) { TestHelper.new }
-  let(:project) { FactoryGirl.build :project_name_step, name: nil }
+  let(:project) { FactoryBot.build :project_name_step, name: nil }
   let(:builder) { described_class.new project.step, project, helper, {} }
 
   describe "#error_header" do
@@ -99,7 +99,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
   end
 
   describe "#check_box" do
-    let(:project) { FactoryGirl.build :funding_sources_step }
+    let(:project) { FactoryBot.build :funding_sources_step }
 
     before(:each) do
       allow(helper).to receive(:t) { "my label" }
@@ -156,7 +156,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
   end
 
   describe "#radio_button" do
-    let(:project) { FactoryGirl.build :earliest_start_step }
+    let(:project) { FactoryBot.build :earliest_start_step }
 
     before(:each) do
       allow(helper).to receive(:t) { "my label" }
@@ -207,7 +207,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
   end
 
   describe "#radio_button_group" do
-    let(:project) { FactoryGirl.build :earliest_start_step }
+    let(:project) { FactoryBot.build :earliest_start_step }
 
     before(:each) do
       allow(helper).to receive(:t) { "my label" }
@@ -270,7 +270,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
   end
 
   describe "#percent_field" do
-    let(:project) { FactoryGirl.build :standard_of_protection_step }
+    let(:project) { FactoryBot.build :standard_of_protection_step }
 
     before(:each) do
       project.valid?
@@ -296,7 +296,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
   end
 
   describe "#month_and_year" do
-    let(:project) { FactoryGirl.build :earliest_date_step }
+    let(:project) { FactoryBot.build :earliest_date_step }
 
     before(:each) do
       project.valid?
@@ -379,7 +379,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
   end
 
   describe "#error_message" do
-    let(:project) { FactoryGirl.build :project_name_step }
+    let(:project) { FactoryBot.build :project_name_step }
     context "when the attribute has errors" do
       before(:each) do
         project.name = nil
@@ -397,7 +397,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
   end
 
   describe "#text_area" do
-    let(:project) { FactoryGirl.build :public_contributors_step }
+    let(:project) { FactoryBot.build :public_contributors_step }
     let(:options) { { rows: "2", cols: "40" } }
 
     before(:each) do

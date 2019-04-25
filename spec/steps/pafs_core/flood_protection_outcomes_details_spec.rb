@@ -3,11 +3,11 @@ require "rails_helper"
 
 RSpec.describe PafsCore::FloodProtectionOutcomesSummaryStep, type: :model do
   before(:each) do
-    @project = FactoryGirl.create(:project)
+    @project = FactoryBot.create(:project)
     @project.project_end_financial_year = 2022
     @project.fluvial_flooding = true
-    @fpo1 = FactoryGirl.create(:flood_protection_outcomes, financial_year: 2017, project_id: @project.id)
-    @fpo2 = FactoryGirl.create(:flood_protection_outcomes, financial_year: 2020, project_id: @project.id)
+    @fpo1 = FactoryBot.create(:flood_protection_outcomes, financial_year: 2017, project_id: @project.id)
+    @fpo2 = FactoryBot.create(:flood_protection_outcomes, financial_year: 2020, project_id: @project.id)
     @fpo1.households_at_reduced_risk = 100
     @fpo1.moved_from_very_significant_and_significant_to_moderate_or_low = 50
     @fpo1.households_protected_from_loss_in_20_percent_most_deprived = 25

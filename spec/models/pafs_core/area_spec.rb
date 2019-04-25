@@ -23,46 +23,46 @@ RSpec.describe PafsCore::Area, type: :model do
       },
     ]
     area = area_levels.sample
-    subject { FactoryGirl.create(area[:level], parent_id: area[:parent_id]) }
+    subject { FactoryBot.create(area[:level], parent_id: area[:parent_id]) }
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_presence_of :area_type }
     it { is_expected.to validate_inclusion_of(:area_type).in_array(PafsCore::Area::AREA_TYPES) }
 
     context "Country" do
-      subject { FactoryGirl.create(:country) }
+      subject { FactoryBot.create(:country) }
 
       it { is_expected.to validate_absence_of :parent_id }
       it { is_expected.to_not validate_presence_of :sub_type }
     end
 
     context "EA area" do
-      subject { FactoryGirl.create(:ea_area, parent_id: 1) }
+      subject { FactoryBot.create(:ea_area, parent_id: 1) }
       it { is_expected.to validate_presence_of :parent_id }
       it { is_expected.to_not validate_presence_of :sub_type }
     end
 
     context "PSO area" do
-      subject { FactoryGirl.create(:pso_area, parent_id: 1) }
+      subject { FactoryBot.create(:pso_area, parent_id: 1) }
       it { is_expected.to validate_presence_of :parent_id }
       it { is_expected.to_not validate_presence_of :sub_type }
     end
 
     context "RMA area" do
-      subject { FactoryGirl.create(:rma_area, parent_id: 1) }
+      subject { FactoryBot.create(:rma_area, parent_id: 1) }
       it { is_expected.to validate_presence_of :parent_id }
       it { is_expected.to validate_presence_of :sub_type }
     end
   end
 
   describe "#country?" do
-    subject { FactoryGirl.create(:country) }
+    subject { FactoryBot.create(:country) }
     it "returns true when :area_type == 'Country'" do
       expect(subject.country?).to eq true
     end
   end
 
   describe ".ea_areas" do
-    subject { FactoryGirl.create(:ea_area, parent_id: 1) }
+    subject { FactoryBot.create(:ea_area, parent_id: 1) }
 
     it "returns EA areas" do
       subject.reload
@@ -73,14 +73,14 @@ RSpec.describe PafsCore::Area, type: :model do
   end
 
   describe "#ea_area?" do
-    subject { FactoryGirl.create(:ea_area, parent_id: 1) }
+    subject { FactoryBot.create(:ea_area, parent_id: 1) }
     it "returns true when :area_type == 'EA Area'" do
       expect(subject.ea_area?).to eq true
     end
   end
 
   describe ".pso_areas" do
-    subject { FactoryGirl.create(:pso_area, parent_id: 1) }
+    subject { FactoryBot.create(:pso_area, parent_id: 1) }
 
     it "returns PSO areas" do
       subject.reload
@@ -91,14 +91,14 @@ RSpec.describe PafsCore::Area, type: :model do
   end
 
   describe "#pso_area?" do
-    subject { FactoryGirl.create(:pso_area, parent_id: 1) }
+    subject { FactoryBot.create(:pso_area, parent_id: 1) }
     it "returns true when :area_type == 'PSO Area'" do
       expect(subject.pso_area?).to eq true
     end
   end
 
   describe ".rma_areas" do
-    subject { FactoryGirl.create(:rma_area, parent_id: 1) }
+    subject { FactoryBot.create(:rma_area, parent_id: 1) }
 
     it "returns rma areas" do
       subject.reload
@@ -109,7 +109,7 @@ RSpec.describe PafsCore::Area, type: :model do
   end
 
   describe "#rma?" do
-    subject { FactoryGirl.create(:rma_area, parent_id: 1) }
+    subject { FactoryBot.create(:rma_area, parent_id: 1) }
     it "returns true when :area_type == 'RMA'" do
       expect(subject.rma?).to eq true
     end

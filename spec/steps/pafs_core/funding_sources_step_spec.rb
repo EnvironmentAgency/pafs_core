@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::FundingSourcesStep, type: :model do
-  subject { FactoryGirl.build(:funding_sources_step) }
+  subject { FactoryBot.build(:funding_sources_step) }
 
   describe "attributes" do
     it_behaves_like "a project step"
@@ -17,7 +17,7 @@ RSpec.describe PafsCore::FundingSourcesStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:funding_sources_step) }
+    subject { FactoryBot.create(:funding_sources_step) }
     let(:params) {
       HashWithIndifferentAccess.new({ funding_sources_step: { growth_funding: "1" }})
     }

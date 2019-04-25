@@ -3,11 +3,11 @@ require "rails_helper"
 
 RSpec.describe PafsCore::Project, type: :model do
   before(:each) do
-    @project = FactoryGirl.create(:project)
+    @project = FactoryBot.create(:project)
     @project.project_end_financial_year = 2022
     @project.coastal_erosion = true
-    @cepo1 = FactoryGirl.create(:coastal_erosion_protection_outcomes, financial_year: 2017, project_id: @project.id)
-    @cepo2 = FactoryGirl.create(:coastal_erosion_protection_outcomes, financial_year: 2020, project_id: @project.id)
+    @cepo1 = FactoryBot.create(:coastal_erosion_protection_outcomes, financial_year: 2017, project_id: @project.id)
+    @cepo2 = FactoryBot.create(:coastal_erosion_protection_outcomes, financial_year: 2020, project_id: @project.id)
     @cepo1.households_at_reduced_risk = 100
     @cepo1.households_protected_from_loss_in_next_20_years = 50
     @cepo1.households_protected_from_loss_in_20_percent_most_deprived = 25

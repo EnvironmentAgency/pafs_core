@@ -5,7 +5,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::UserArea, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.create(:user_area) }
+    subject { FactoryBot.create(:user_area) }
 
     it 'validates presence of' do
       expect(subject).to_not validate_presence_of :primary

@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe PafsCore::ProjectNavigator do
   before(:each) do
-    @pso = FactoryGirl.create(:pso_area, parent_id: 1, name: "PSO Essex")
-    @rma = FactoryGirl.create(:rma_area, parent_id: @pso.id)
-    @user = FactoryGirl.create(:user)
+    @pso = FactoryBot.create(:pso_area, parent_id: 1, name: "PSO Essex")
+    @rma = FactoryBot.create(:rma_area, parent_id: @pso.id)
+    @user = FactoryBot.create(:user)
     @user.user_areas.create(area_id: @rma.id, primary: true)
   end
   subject { PafsCore::ProjectNavigator.new @user }
@@ -51,9 +51,9 @@ RSpec.describe PafsCore::ProjectNavigator do
   end
 
   describe "#build_project_step" do
-    let(:raw_project) { FactoryGirl.build(:project) }
+    let(:raw_project) { FactoryBot.build(:project) }
     let(:project_step) { subject.start_new_project }
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
 
     it "wraps a project record with the requested :step" do
       expect(raw_project).to be_a PafsCore::Project

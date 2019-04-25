@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-FactoryGirl.define do
+FactoryBot.define do
   factory :coastal_erosion_protection_outcomes, class: PafsCore::CoastalErosionProtectionOutcome do
     project_id 1
     financial_year 2020

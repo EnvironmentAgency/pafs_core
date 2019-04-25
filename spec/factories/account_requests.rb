@@ -1,6 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
-FactoryGirl.define do
+FactoryBot.define do
   factory :account_request, class: PafsCore::AccountRequest do
     first_name "Big"
     last_name "Nev"

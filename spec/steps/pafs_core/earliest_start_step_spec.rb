@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::EarliestStartStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:earliest_start_step) }
+    subject { FactoryBot.build(:earliest_start_step) }
 
     it_behaves_like "a project step"
 
@@ -15,7 +15,7 @@ RSpec.describe PafsCore::EarliestStartStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:earliest_start_step) }
+    subject { FactoryBot.create(:earliest_start_step) }
     let(:true_params) { HashWithIndifferentAccess.new({ earliest_start_step: { could_start_early: "true"}})}
     let(:false_params) { HashWithIndifferentAccess.new({ earliest_start_step: { could_start_early: "false"}})}
     let(:error_params) { HashWithIndifferentAccess.new({ earliest_start_step: { could_start_early: nil }})}

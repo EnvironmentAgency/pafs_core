@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:standard_of_protection_step) }
+    subject { FactoryBot.build(:standard_of_protection_step) }
 
     it_behaves_like "a project step"
 
@@ -24,7 +24,7 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:standard_of_protection_step) }
+    subject { FactoryBot.create(:standard_of_protection_step) }
     let(:params) do
       HashWithIndifferentAccess.new({
         standard_of_protection_step: {
@@ -52,7 +52,7 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
   end
 
   describe "#flood_risk_options" do
-    subject { FactoryGirl.build(:standard_of_protection_step) }
+    subject { FactoryBot.build(:standard_of_protection_step) }
 
     it "should return an array of options" do
       array_of_options = [:very_significant, :significant, :moderate, :low]

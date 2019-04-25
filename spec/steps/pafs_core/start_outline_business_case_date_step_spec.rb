@@ -3,13 +3,13 @@ require "rails_helper"
 
 RSpec.describe PafsCore::StartOutlineBusinessCaseDateStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:start_outline_business_case_date_step) }
+    subject { FactoryBot.build(:start_outline_business_case_date_step) }
 
     it_behaves_like "a project step"
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:start_outline_business_case_date_step) }
+    subject { FactoryBot.create(:start_outline_business_case_date_step) }
     let(:params) {
       HashWithIndifferentAccess.new({
         start_outline_business_case_date_step: {

@@ -1,6 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
-FactoryGirl.define do
+FactoryBot.define do
   factory :user_area, class: PafsCore::UserArea do
     user_id 1
     area_id 1

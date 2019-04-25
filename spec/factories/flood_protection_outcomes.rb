@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-FactoryGirl.define do
+FactoryBot.define do
   factory :flood_protection_outcomes, class: PafsCore::FloodProtectionOutcome do
     project_id 1
     financial_year 2020

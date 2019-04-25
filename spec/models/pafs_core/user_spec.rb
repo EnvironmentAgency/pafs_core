@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::User, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.create(:user) }
+    subject { FactoryBot.create(:user) }
 
     it { is_expected.to validate_presence_of :first_name }
 
@@ -17,17 +17,17 @@ RSpec.describe PafsCore::User, type: :model do
   end
 
   describe "#full_name" do
-    subject { FactoryGirl.build(:user) }
+    subject { FactoryBot.build(:user) }
     it "returns :first_name and :last_name" do
       expect(subject.full_name).to eq("#{subject.first_name} #{subject.last_name}")
     end
   end
 
   describe "areas" do
-    subject { FactoryGirl.create(:user) }
-    let(:primary_area) { FactoryGirl.create(:rma_area, parent_id: 1) }
-    let(:secondary_area) { FactoryGirl.create(:rma_area, parent_id: 1) }
-    let(:outside_area) { FactoryGirl.create(:rma_area, parent_id: 1) }
+    subject { FactoryBot.create(:user) }
+    let(:primary_area) { FactoryBot.create(:rma_area, parent_id: 1) }
+    let(:secondary_area) { FactoryBot.create(:rma_area, parent_id: 1) }
+    let(:outside_area) { FactoryBot.create(:rma_area, parent_id: 1) }
 
     describe "#areas" do
       it "should return the correct areas" do

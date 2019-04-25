@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :state, class: PafsCore::State do
     state { 'draft' }
 

@@ -4,7 +4,7 @@ RSpec.describe PafsCore::Camc3Presenter do
   subject { described_class.new(project: project) }
 
   let(:project) do
-    FactoryGirl.create(
+    FactoryBot.create(
       :full_project,
       {
         project_end_financial_year: 2027,

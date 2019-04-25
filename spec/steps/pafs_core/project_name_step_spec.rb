@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::ProjectNameStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:project_name_step) }
+    subject { FactoryBot.build(:project_name_step) }
 
     it_behaves_like "a project step"
 
@@ -11,7 +11,7 @@ RSpec.describe PafsCore::ProjectNameStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:project_name_step) }
+    subject { FactoryBot.create(:project_name_step) }
     let(:params) { HashWithIndifferentAccess.new({ project_name_step: { name: "Wigwam waste water" }})}
     let(:error_params) { HashWithIndifferentAccess.new({ project_name_step: { name: nil }})}
 

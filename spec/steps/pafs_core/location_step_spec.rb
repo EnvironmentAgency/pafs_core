@@ -4,13 +4,13 @@ require "rails_helper"
 
 RSpec.describe PafsCore::LocationStep, type: :model do
   # describe "attributes" do
-  #   subject { FactoryGirl.build(:location_step) }
+  #   subject { FactoryBot.build(:location_step) }
   #
   #   it_behaves_like "a project step"
   # end
 
   # describe "#benefit_area" do
-  #   subject { FactoryGirl.create(:location_step) }
+  #   subject { FactoryBot.create(:location_step) }
   #
   #   context "with a defined benefit_area" do
   #     it "should return the benefit_area" do
@@ -29,7 +29,7 @@ RSpec.describe PafsCore::LocationStep, type: :model do
   # end
 
   # describe "#update", :vcr do
-  #   subject { FactoryGirl.create(:location_step) }
+  #   subject { FactoryBot.create(:location_step) }
   #   let(:params) {
   #     HashWithIndifferentAccess.new({
   #       location_step: {

@@ -12,7 +12,7 @@ module PafsCore
     end
 
     initializer "pafs_core.factories", :after => "factory_girl.set_factory_paths" do
-      FactoryGirl.definition_file_paths << File.expand_path('../../../spec/factories', __FILE__) if defined?(FactoryGirl)
+      FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories', __FILE__) if defined?(FactoryBot)
     end
   end
 end

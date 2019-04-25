@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::ImproveRiverStep, type: :model do
-  subject { FactoryGirl.build(:improve_river_step) }
+  subject { FactoryBot.build(:improve_river_step) }
 
   describe "attributes" do
     it_behaves_like "a project step"

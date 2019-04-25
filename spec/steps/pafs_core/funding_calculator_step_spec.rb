@@ -8,7 +8,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
   end
 
   describe "attributes" do
-    subject { FactoryGirl.build(:funding_calculator_step) }
+    subject { FactoryBot.build(:funding_calculator_step) }
 
     let(:file_path) { File.join(Rails.root, '..', 'fixtures', 'calculator.xlsl') }
 
@@ -57,7 +57,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:funding_calculator_step) }
+    subject { FactoryBot.create(:funding_calculator_step) }
     let(:filename) { "new_file.xlsx" }
     let(:content_type) { "text/plain" }
     let(:temp_file) do
@@ -162,7 +162,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
 
   # describe "#download" do
   #   let(:storage) { double("storage") }
-  #   subject { FactoryGirl.build(:funding_calculator_step) }
+  #   subject { FactoryBot.build(:funding_calculator_step) }
   #   before(:each) do
   #     @upload_path = File.join(subject.storage_path, subject.funding_calculator_file_name)
   #     expect(PafsCore::FileStorageService).to receive(:new) { storage }
@@ -198,7 +198,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
 
   # describe "#delete_calculator" do
   #   let(:storage) { double("storage") }
-  #   subject { FactoryGirl.build(:funding_calculator_step) }
+  #   subject { FactoryBot.build(:funding_calculator_step) }
   #   before(:each) do
   #     expect(PafsCore::FileStorageService).to receive(:new) { storage }
   #   end

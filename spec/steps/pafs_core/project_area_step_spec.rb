@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::ProjectAreaStep, type: :model do
-  subject { FactoryGirl.build(:project_area_step, rma_name: 'PSO Wessex') }
+  subject { FactoryBot.build(:project_area_step, rma_name: 'PSO Wessex') }
 
   describe '#attributes' do
     it_behaves_like "a project step"
@@ -15,7 +15,7 @@ RSpec.describe PafsCore::ProjectAreaStep, type: :model do
   describe '#valid?' do
 
     context 'RMA name not set' do
-      subject { FactoryGirl.build(:project_area_step, rma_name: nil) }
+      subject { FactoryBot.build(:project_area_step, rma_name: nil) }
 
       it 'must have a RMA name' do
         expect(subject).not_to be_valid

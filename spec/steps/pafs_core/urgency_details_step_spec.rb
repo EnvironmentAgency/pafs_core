@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::UrgencyDetailsStep, type: :model do
   before(:each) do
-    @project = FactoryGirl.build(:urgency_details_step)
+    @project = FactoryBot.build(:urgency_details_step)
     # required to be valid
     @project.project.update_attributes(urgency_reason: "health_and_safety")
     @project.project.save

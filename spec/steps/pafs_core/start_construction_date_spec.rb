@@ -3,21 +3,21 @@ require "rails_helper"
 
 RSpec.describe PafsCore::StartConstructionDateStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:start_construction_date_step) }
+    subject { FactoryBot.build(:start_construction_date_step) }
 
     it_behaves_like "a project step"
   end
 
   describe "#update" do
     let(:project) {
-      FactoryGirl.create(
+      FactoryBot.create(
         :project,
         award_contract_month: 1,
         award_contract_year: 2012
       )
     }
 
-    subject { FactoryGirl.create(:start_construction_date_step, project: project) }
+    subject { FactoryBot.create(:start_construction_date_step, project: project) }
     let(:params) {
       HashWithIndifferentAccess.new({
         start_construction_date_step: {

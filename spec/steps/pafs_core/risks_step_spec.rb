@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::RisksStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:risks_step) }
+    subject { FactoryBot.build(:risks_step) }
 
     it_behaves_like "a project step"
 
@@ -15,7 +15,7 @@ RSpec.describe PafsCore::RisksStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:risks_step) }
+    subject { FactoryBot.create(:risks_step) }
     let(:params) {
       HashWithIndifferentAccess.new(
         { risks_step: {

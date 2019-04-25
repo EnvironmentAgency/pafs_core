@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::SurfaceAndGroundwaterStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:surface_and_groundwater_step) }
+    subject { FactoryBot.build(:surface_and_groundwater_step) }
 
     it_behaves_like "a project step"
 
@@ -16,7 +16,7 @@ RSpec.describe PafsCore::SurfaceAndGroundwaterStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:surface_and_groundwater_step) }
+    subject { FactoryBot.create(:surface_and_groundwater_step) }
     let(:true_params) { make_params("true") }
     let(:false_params) { make_params("false") }
     let(:error_params) { make_params(nil) }

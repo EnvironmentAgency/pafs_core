@@ -5,7 +5,7 @@ require "rails_helper"
 module PafsCore
   RSpec.describe AccountRequest, type: :model do
     describe "attributes" do
-      subject { FactoryGirl.create(:account_request) }
+      subject { FactoryBot.create(:account_request) }
 
       it { is_expected.to validate_presence_of(:first_name).with_message("^Tell us your first name.") }
       it { is_expected.to validate_presence_of(:last_name).with_message("^Tell us your last name.") }

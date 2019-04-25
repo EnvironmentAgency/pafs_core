@@ -4,7 +4,7 @@ RSpec.describe PafsCore::Mapper::FundingSources do
   subject { described_class.new(project: project) }
 
   let(:project) do
-    (FactoryGirl.create(:full_project, funding_values: [FactoryGirl.create(:full_funding_values)]))
+    (FactoryBot.create(:full_project, funding_values: [FactoryBot.create(:full_funding_values)]))
   end
 
   describe '#attributes' do
