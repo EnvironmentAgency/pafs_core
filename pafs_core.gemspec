@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "bstard"
   s.add_dependency "faraday"
   s.add_dependency "kaminari"
-  s.add_dependency "nokogiri", "~> 1.8.5"
+  s.add_dependency "nokogiri", "~> 1.10.3"
   s.add_dependency "secure_headers", "~> 3.6"
   s.add_development_dependency "pg", "0.20.0"
   s.add_development_dependency "rspec-rails"
