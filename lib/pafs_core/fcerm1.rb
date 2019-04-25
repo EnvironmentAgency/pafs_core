@@ -154,7 +154,7 @@ module PafsCore
       { column: "JY", field_name: :create_habitat_amount },
 
       # Project Status
-      { column: "KL", field_name: :project_status },
+      { column: "KK", field_name: :project_status },
     ].freeze
 
     A2Z = ("A".."Z").to_a.freeze
