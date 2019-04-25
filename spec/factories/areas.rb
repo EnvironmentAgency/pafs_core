@@ -7,7 +7,7 @@ FactoryBot.define do
     end
 
     factory :country do
-      area_type "Country"
+      area_type { "Country" }
 
       trait :with_ea_areas do
         after(:create) do |country|
@@ -35,7 +35,7 @@ FactoryBot.define do
     end
 
     factory :ea_area do
-      area_type "EA Area"
+      area_type { "EA Area" }
 
       trait :with_pso_areas do
         after(:create) do |area|
@@ -57,7 +57,7 @@ FactoryBot.define do
     end
 
     factory :pso_area do
-      area_type "PSO Area"
+      area_type { "PSO Area" }
 
       trait :with_rma_areas do
         after(:create) do |pso_area|
@@ -90,8 +90,8 @@ FactoryBot.define do
     end
 
     factory :rma_area do
-      area_type "RMA"
-      sub_type "Local Authority"
+      area_type { "RMA" }
+      sub_type { "Local Authority" }
 
       trait :with_project do
         after(:create) do |rma_area|
