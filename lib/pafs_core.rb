@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "pafs_core/engine"
 require "pafs_core/configuration"
 require "pafs_core/rfcc_codes"
@@ -25,6 +26,7 @@ require "pafs_core/files"
 require "pafs_core/fcerm1"
 require "pafs_core/email"
 require "pafs_core/custom_headers"
+require "pafs_core/data_migration/remove_duplicate_states"
 require "pafs_core/mapper/fcerm"
 require "pafs_core/mapper/funding_sources"
 require "pafs_core/mapper/partnership_funding_calculator"
