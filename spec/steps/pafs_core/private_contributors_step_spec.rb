@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::PrivateContributorsStep, type: :model do
-  subject { FactoryGirl.build(:private_contributors_step) }
+  subject { FactoryBot.build(:private_contributors_step) }
 
   describe "attributes" do
     it_behaves_like "a project step"
@@ -15,7 +15,7 @@ RSpec.describe PafsCore::PrivateContributorsStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:private_contributors_step) }
+    subject { FactoryBot.create(:private_contributors_step) }
     let(:params) {
       HashWithIndifferentAccess.new(
         { private_contributors_step: {

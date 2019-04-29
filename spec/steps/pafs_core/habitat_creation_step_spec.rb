@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::HabitatCreationStep, type: :model do
-  subject { FactoryGirl.build(:habitat_creation_step) }
+  subject { FactoryBot.build(:habitat_creation_step) }
 
   describe "attributes" do
     it_behaves_like "a project step"

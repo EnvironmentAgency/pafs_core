@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::FundingCalculatorSummaryStep, type: :model do
   before(:each) do
-    @step = FactoryGirl.build(:funding_calculator_summary_step)
+    @step = FactoryBot.build(:funding_calculator_summary_step)
     @step.project.funding_calculator_file_name = "calc.xls"
     @step.project.funding_calculator_updated_at = 1.day.ago
   end

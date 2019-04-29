@@ -5,7 +5,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::ProjectTypeStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:project_type_step) }
+    subject { FactoryBot.build(:project_type_step) }
 
     it_behaves_like "a project step"
 
@@ -27,7 +27,7 @@ RSpec.describe PafsCore::ProjectTypeStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:project_type_step) }
+    subject { FactoryBot.create(:project_type_step) }
     let(:params) { HashWithIndifferentAccess.new({ project_type_step: { project_type: "STR" }})}
     let(:error_params) { HashWithIndifferentAccess.new({ project_type_step: { project_type: "ABC" }})}
 

@@ -7,13 +7,13 @@ RSpec.describe PafsCore::MapStep, type: :model do
   after(:all) { @tempfile.close! }
 
   describe "attributes" do
-    subject { FactoryGirl.build(:map_step) }
+    subject { FactoryBot.build(:map_step) }
 
     it_behaves_like "a project step"
   end
 
   describe "#benefit_area" do
-    subject { FactoryGirl.build(:map_step) }
+    subject { FactoryBot.build(:map_step) }
 
     context "when there is a defined benefit_area" do
       it "should get the correct benefit area" do
@@ -30,7 +30,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
   end
 
   describe "#benefit_area_centre" do
-    subject { FactoryGirl.build(:map_step) }
+    subject { FactoryBot.build(:map_step) }
 
     context "when the benefit_area_centre is set" do
       it "should get the correct benefit_area_centre" do
@@ -50,7 +50,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:map_step) }
+    subject { FactoryBot.create(:map_step) }
     let(:params) {
       HashWithIndifferentAccess.new({
         map_step: {
@@ -88,7 +88,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
 
   describe "#delete_benefit_area_file" do
     let(:benefit_area_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, "../fixtures/map.png"))) }
-    subject { FactoryGirl.build(:map_step) }
+    subject { FactoryBot.build(:map_step) }
 
     context "when an uploaded file exists" do
       it "removes the file from storage" do

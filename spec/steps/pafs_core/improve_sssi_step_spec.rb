@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::ImproveSssiStep, type: :model do
-  subject { FactoryGirl.build(:improve_sssi_step) }
+  subject { FactoryBot.build(:improve_sssi_step) }
 
   describe "attributes" do
     it_behaves_like "a project step"

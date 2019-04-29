@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::ProgramUpload, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.create(:program_upload) }
+    subject { FactoryBot.create(:program_upload) }
 
     it { is_expected.to validate_numericality_of :number_of_records }
 

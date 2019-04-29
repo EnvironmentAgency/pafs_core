@@ -5,7 +5,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::MainRiskStep, type: :model do
   before(:each) do
-    @project = FactoryGirl.build(:main_risk_step)
+    @project = FactoryBot.build(:main_risk_step)
     # required to be valid
     @project.project.update_attributes(groundwater_flooding: true)
     @project.project.save

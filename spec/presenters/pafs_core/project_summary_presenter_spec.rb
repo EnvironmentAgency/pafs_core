@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::ProjectSummaryPresenter do
-  subject { PafsCore::ProjectSummaryPresenter.new(FactoryGirl.build(:project)) }
+  subject { PafsCore::ProjectSummaryPresenter.new(FactoryBot.build(:project)) }
 
   let(:flood_options) do
     ["Very significant",
@@ -789,13 +789,13 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
   end
 
   def make_flood_outcome(year, project_id)
-    FactoryGirl.create(:flood_protection_outcomes,
+    FactoryBot.create(:flood_protection_outcomes,
                        financial_year: year,
                        project_id: project_id)
   end
 
   def make_coastal_outcome(year, project_id)
-    FactoryGirl.create(:coastal_erosion_protection_outcomes,
+    FactoryBot.create(:coastal_erosion_protection_outcomes,
                        financial_year: year,
                        project_id: project_id)
   end

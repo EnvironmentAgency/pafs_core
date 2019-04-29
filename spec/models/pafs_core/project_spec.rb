@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::Project, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.create(:project) }
+    subject { FactoryBot.create(:project) }
 
     it { is_expected.to validate_presence_of :reference_number }
 
@@ -24,7 +24,7 @@ RSpec.describe PafsCore::Project, type: :model do
   end
 
   describe "#flooding?" do
-    subject { FactoryGirl.create(:project) }
+    subject { FactoryBot.create(:project) }
 
     it "is expected to return true if the project protects against any kind of flooding" do
       subject.reservoir_flooding = true

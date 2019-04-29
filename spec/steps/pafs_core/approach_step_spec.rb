@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::ApproachStep, type: :model do
-  subject { FactoryGirl.build(:approach_step) }
+  subject { FactoryBot.build(:approach_step) }
 
   describe "attributes" do
     it_behaves_like "a project step"

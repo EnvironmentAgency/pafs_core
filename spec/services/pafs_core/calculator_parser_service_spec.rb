@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::CalculatorParserService do
-  let(:project) { FactoryGirl.create(:project) }
+  let(:project) { FactoryBot.create(:project) }
   describe "#parse" do
     it "should parse the calculator and update the project values" do
       file_path = [Rails.root, "..", "fixtures", "calculator.xlsx"].join("/")

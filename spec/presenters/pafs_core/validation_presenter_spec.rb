@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::ValidationPresenter do
-  subject { PafsCore::ValidationPresenter.new(FactoryGirl.build(:full_project)) }
+  subject { PafsCore::ValidationPresenter.new(FactoryBot.build(:full_project)) }
 
   let(:flood_options) do
     ["Very significant",
@@ -190,7 +190,7 @@ RSpec.describe PafsCore::ValidationPresenter do
           subject.send("#{r}=", nil)
         end
         subject.fluvial_flooding = true
-        subject.flood_protection_outcomes << FactoryGirl.build(:flood_protection_outcomes)
+        subject.flood_protection_outcomes << FactoryBot.build(:flood_protection_outcomes)
       end
 
       context "when a single risk is selected" do
@@ -235,13 +235,13 @@ RSpec.describe PafsCore::ValidationPresenter do
   describe "#funding_calculator_complete?"
 
   def make_flood_outcome(year, project_id)
-    FactoryGirl.create(:flood_protection_outcomes,
+    FactoryBot.create(:flood_protection_outcomes,
                        financial_year: year,
                        project_id: project_id)
   end
 
   def make_coastal_outcome(year, project_id)
-    FactoryGirl.create(:coastal_erosion_protection_outcomes,
+    FactoryBot.create(:coastal_erosion_protection_outcomes,
                        financial_year: year,
                        project_id: project_id)
   end

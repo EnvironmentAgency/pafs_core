@@ -3,14 +3,14 @@ require "rails_helper"
 
 RSpec.describe PafsCore::FundingValuesSummaryStep, type: :model do
   before(:each) do
-    @project = FactoryGirl.create(:project)
+    @project = FactoryBot.create(:project)
     @project.fcerm_gia = true
     @project.project_end_financial_year = 2022
-    @fv1 = FactoryGirl.create(:previous_year, project_id: @project.id)
-    @fv2 = FactoryGirl.create(:funding_values, project_id: @project.id, financial_year: 2016)
-    @fv3 = FactoryGirl.create(:funding_values, project_id: @project.id, financial_year: 2017)
-    @fv4 = FactoryGirl.create(:funding_values, project_id: @project.id, financial_year: 2018)
-    @fv5 = FactoryGirl.create(:funding_values, project_id: @project.id, financial_year: 2019)
+    @fv1 = FactoryBot.create(:previous_year, project_id: @project.id)
+    @fv2 = FactoryBot.create(:funding_values, project_id: @project.id, financial_year: 2016)
+    @fv3 = FactoryBot.create(:funding_values, project_id: @project.id, financial_year: 2017)
+    @fv4 = FactoryBot.create(:funding_values, project_id: @project.id, financial_year: 2018)
+    @fv5 = FactoryBot.create(:funding_values, project_id: @project.id, financial_year: 2019)
     @project.funding_values << @fv1
     @project.funding_values << @fv2
     @project.funding_values << @fv3
@@ -39,7 +39,7 @@ RSpec.describe PafsCore::FundingValuesSummaryStep, type: :model do
   describe "#current_funding_values" do
     subject { PafsCore::FundingValuesSummaryStep.new @project }
     it "returns funding_values without any that are later than the project_end_financial_year" do
-      outside_values = FactoryGirl.create(:funding_values, project_id: @project.id, financial_year: 2021)
+      outside_values = FactoryBot.create(:funding_values, project_id: @project.id, financial_year: 2021)
       subject.project.funding_values << outside_values
       subject.project.project_end_financial_year = 2020
       subject.project.save

@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::FinancialYearStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:financial_year_step) }
+    subject { FactoryBot.build(:financial_year_step) }
 
     it_behaves_like "a project step"
 
@@ -40,7 +40,7 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:financial_year_step) }
+    subject { FactoryBot.create(:financial_year_step) }
     let(:params) { HashWithIndifferentAccess.new({ financial_year_step: { project_end_financial_year: "2020" }})}
     let(:error_params) { HashWithIndifferentAccess.new({ financial_year_step: { project_end_financial_year: "1983" }})}
 
@@ -56,7 +56,7 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
   end
 
   describe "#financial_year_options" do
-    subject { FactoryGirl.build(:financial_year_step) }
+    subject { FactoryBot.build(:financial_year_step) }
 
     it "should return the correct set of financial year options" do
       current_financial_year = Time.current.uk_financial_year

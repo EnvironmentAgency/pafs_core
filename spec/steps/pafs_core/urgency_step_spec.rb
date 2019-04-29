@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::UrgencyStep, type: :model do
   describe "attributes" do
-    subject { FactoryGirl.build(:urgency_step) }
+    subject { FactoryBot.build(:urgency_step) }
 
     it_behaves_like "a project step"
 
@@ -27,7 +27,7 @@ RSpec.describe PafsCore::UrgencyStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryGirl.create(:urgency_step) }
+    subject { FactoryBot.create(:urgency_step) }
     let(:params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "legal_need" }})}
     let(:error_params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "ABC" }})}
 

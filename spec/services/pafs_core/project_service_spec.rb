@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe PafsCore::ProjectService do
   before(:each) do
-    @pso = FactoryGirl.create(:pso_area, parent_id: 1, name: "PSO Essex")
-    @rma = FactoryGirl.create(:rma_area, parent_id: @pso.id)
-    @user = FactoryGirl.create(:user)
+    @pso = FactoryBot.create(:pso_area, parent_id: 1, name: "PSO Essex")
+    @rma = FactoryBot.create(:rma_area, parent_id: @pso.id)
+    @user = FactoryBot.create(:user)
     @user.user_areas.create(area_id: @rma.id, primary: true)
   end
   subject { PafsCore::ProjectService.new(@user) }
@@ -81,7 +81,7 @@ RSpec.describe PafsCore::ProjectService do
   end
 
   describe "#all_projects_for" do
-    let(:country) { FactoryGirl.create(:country, :with_full_hierarchy) }
+    let(:country) { FactoryBot.create(:country, :with_full_hierarchy) }
     let(:ea_area_1) { country.children.first }
     let(:ea_area_2) { country.children.second }
     let(:pso_area_1) { ea_area_1.children.first }
@@ -148,7 +148,7 @@ RSpec.describe PafsCore::ProjectService do
   end
 
   describe "#area_ids_for_user" do
-    let(:country) { FactoryGirl.create(:country, :with_full_hierarchy) }
+    let(:country) { FactoryBot.create(:country, :with_full_hierarchy) }
     let(:ea_area_1) { country.children.first }
     let(:ea_area_2) { country.children.second }
     let(:pso_area_1) { ea_area_1.children.first }

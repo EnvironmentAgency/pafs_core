@@ -4,7 +4,7 @@ require "rails_helper"
 #require_relative "./shared_step_spec"
 
 RSpec.describe PafsCore::BasicStep, type: :model do
-  subject { FactoryGirl.build(:basic_step) }
+  subject { FactoryBot.build(:basic_step) }
 
   it_behaves_like "a project step"
 
@@ -39,7 +39,7 @@ RSpec.describe PafsCore::BasicStep, type: :model do
   end
 
   describe "#save!" do
-    subject { FactoryGirl.build(:basic_step) }
+    subject { FactoryBot.build(:basic_step) }
 
     it "saves the record when validations passed" do
       expect { subject.save! }.to change { PafsCore::Project.count }

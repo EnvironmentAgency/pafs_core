@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::RemoveEelBarrierStep, type: :model do
-  subject { FactoryGirl.build(:remove_eel_barrier_step) }
+  subject { FactoryBot.build(:remove_eel_barrier_step) }
 
   describe "attributes" do
     it_behaves_like "a project step"

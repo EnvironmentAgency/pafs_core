@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::FishOrEelAmountStep, type: :model do
-  subject { FactoryGirl.build(:fish_or_eel_amount_step) }
+  subject { FactoryBot.build(:fish_or_eel_amount_step) }
 
   describe "attributes" do
     it_behaves_like "a project step"

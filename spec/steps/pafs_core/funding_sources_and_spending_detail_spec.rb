@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::Project, type: :model do
   before(:each) do
-    @project = FactoryGirl.create(:project)
+    @project = FactoryBot.create(:project)
     @project.fcerm_gia = true
     @project.local_levy = true
     @project.public_contributions = true
@@ -13,8 +13,8 @@ RSpec.describe PafsCore::Project, type: :model do
     @project.internal_drainage_boards = true
     @project.not_yet_identified = true
     @project.project_end_financial_year = 2022
-    @fv1 = FactoryGirl.create(:funding_values, project_id: @project.id, financial_year: 2018)
-    @fv2 = FactoryGirl.create(:funding_values, project_id: @project.id, financial_year: 2019)
+    @fv1 = FactoryBot.create(:funding_values, project_id: @project.id, financial_year: 2018)
+    @fv2 = FactoryBot.create(:funding_values, project_id: @project.id, financial_year: 2019)
     @fv1.fcerm_gia = 1000
     @fv1.local_levy = 1000
     @fv1.public_contributions = 1000
