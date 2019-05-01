@@ -79,8 +79,8 @@ RSpec.describe PafsCore::Camc3Presenter do
     it 'has the forecast for the households at reduced risks' do
       expect(subject.households_at_reduced_risk).to eql(outcome_measurements)
     end
-
   end
+
   describe '#moved_from_very_significant_and_significant_to_moderate_or_low' do
     before(:each) do
       funding_values.each do |hash|
@@ -111,6 +111,7 @@ RSpec.describe PafsCore::Camc3Presenter do
     end
 
   end
+
   describe '#coastal_households_at_reduced_risk' do
     before(:each) do
       funding_values.each do |hash|

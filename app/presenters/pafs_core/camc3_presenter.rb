@@ -100,10 +100,10 @@ class PafsCore::Camc3Presenter
               improve_surface_or_groundwater_amount: fcerm1_presenter.improve_surface_or_groundwater_amount,
             },
             om4e: {
-              remove_fish_or_eel_barrier: fcerm1_presenter.remove_fish_or_eel_barrier,
+              fish_or_eel_amount: fcerm1_presenter.fish_or_eel_amount,
             },
             om4f: {
-              fish_or_eel_amount: fcerm1_presenter.fish_or_eel_amount,
+              kilometers_of_river_habitat_enhanced: fcerm1_presenter.improve_river_amount,
             },
             om4g: {
               improve_habitat_amount: fcerm1_presenter.improve_habitat_amount,
