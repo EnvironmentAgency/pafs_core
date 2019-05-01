@@ -10,6 +10,7 @@ en:
         reservoir_flooding: "Reservoir Flooding"
         coastal_erosion: "Coastal Erosion"
       moderation:
+        not_urgent: "Not Urgent"
         statutory_need: "Statutory Requirement"
         legal_need: "Legal Agreement"
         health_and_safety: "Health & Safety"
