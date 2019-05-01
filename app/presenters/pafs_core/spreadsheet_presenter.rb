@@ -61,7 +61,7 @@ module PafsCore
       if urgent?
         I18n.t(project.urgency_reason, scope: "pafs_core.fcerm1.moderation")
       else
-        ""
+        I18n.t(:not_urgent, scope: "pafs_core.fcerm1.moderation")
       end
     end
 
