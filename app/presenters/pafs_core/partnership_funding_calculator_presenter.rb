@@ -17,6 +17,8 @@ class PafsCore::PartnershipFundingCalculatorPresenter
   end
 
   def attributes
+    return {} if mapper.nil?
+
     mapper.attributes
   end
 end
