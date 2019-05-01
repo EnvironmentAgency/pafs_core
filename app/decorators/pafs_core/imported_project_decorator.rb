@@ -44,6 +44,7 @@ module PafsCore
       # urgency_reason derived from value
       if value.blank?
         project.urgency_reason = "not_urgent"
+        project.urgency_details = nil
       else
         reason = urgency_from_string(value)
         if reason.nil?

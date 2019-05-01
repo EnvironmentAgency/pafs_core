@@ -37,6 +37,22 @@ RSpec.describe PafsCore::UrgencyStep, type: :model do
       expect(subject.urgency_reason).to eq "legal_need"
     end
 
+    it 'does not change the urgency_details when urgent' do
+      expect do
+        subject.update(params)
+      end.not_to change { subject.urgency_details }
+    end
+
+    context 'when setting the project to not_urgent' do
+      let(:params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "not_urgent" }})}
+
+      it 'clears the urgency_details from the project' do
+        expect do
+          subject.update(params)
+        end.to change { subject.urgency_details }.to nil
+      end
+    end
+
     it "returns false when validation fails" do
       expect(subject.update(error_params)).to eq false
     end
