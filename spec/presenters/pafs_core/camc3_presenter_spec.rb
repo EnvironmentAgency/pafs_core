@@ -66,6 +66,12 @@ RSpec.describe PafsCore::Camc3Presenter do
       .and_return(File.open(File.join(Rails.root, '..', 'fixtures', calculator_file)))
   end
 
+  describe 'urgency_details' do
+    it 'renders in the generated json' do
+      expect(subject.attributes).to have_key(:urgency_details)
+    end
+  end
+
   describe '#households_at_reduced_risk' do
     before(:each) do
       funding_values.each do |hash|

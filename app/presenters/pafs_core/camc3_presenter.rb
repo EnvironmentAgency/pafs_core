@@ -68,6 +68,7 @@ class PafsCore::Camc3Presenter
       .merge(funding_sources_mapper.attributes)
       .merge(
         {
+          urgency_details: fcerm1_presenter.urgency_details,
           outcome_measures: {
             om2: {
               households_at_reduced_risk: households_at_reduced_risk,

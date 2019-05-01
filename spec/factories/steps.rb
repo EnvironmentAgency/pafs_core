@@ -171,6 +171,7 @@ FactoryBot.define do
 
     factory :urgency_step, class: PafsCore::UrgencyStep do
       urgency_reason { "health_and_safety" }
+      urgency_details { "This is the description" }
     end
 
     factory :urgency_details_step, class: PafsCore::UrgencyDetailsStep do
