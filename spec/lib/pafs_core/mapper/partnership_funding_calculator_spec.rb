@@ -40,6 +40,10 @@ RSpec.describe PafsCore::Mapper::PartnershipFundingCalculator do
       expect(subject.attributes[:pv_funding_from_other_ea_functions_sources_secured_to_date]).to eql(200)
     end
 
+    it "has a PV Whole life benefit" do
+      expect(subject.attributes[:pv_whole_life_benefits]).to eql(1234)
+    end
+
     it "has QBOM220MB" do
       expect(subject.attributes[:qualifying_benefits_outcome_measures][:om2][:before][:most_deprived_20][:moderate_risk]).to eql(12)
     end

@@ -25,6 +25,7 @@ module PafsCore
           pv_public_contributions_secured_to_date:                    sheet.cell('H', 41),
           pv_private_contributions_secured_to_date:                   sheet.cell('H', 42),
           pv_funding_from_other_ea_functions_sources_secured_to_date: sheet.cell('H', 43),
+          pv_whole_life_benefits: sheet.cell('H', 29),
           qualifying_benefits_outcome_measures: {
             om2: {
               before: {
