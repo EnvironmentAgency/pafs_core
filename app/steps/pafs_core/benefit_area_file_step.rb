@@ -20,6 +20,8 @@ module PafsCore
         uploaded_file = step_params(params).fetch(:benefit_area_file, nil)
         if uploaded_file
           return false unless filetype_valid?(uploaded_file)
+          return false unless contins_required_gis_files(uploaded_file)
+
           begin
             old_file = benefit_area_file_name
             # virus check and upload to S3
@@ -51,12 +53,30 @@ module PafsCore
         permit(:benefit_area_file)
     end
 
+    EXPECTED_EXTENSIONS = %w(dbf shx shp).freeze
+
+    def contins_required_gis_files(uploaded_file)
+      Zip::File.open(uploaded_file.tempfile.path) do |zip_file|
+        entries = zip_file.entries.map(&:name)
+
+        EXPECTED_EXTENSIONS.each do |ext|
+          next if entries.select{|entry| entry.match(/\.#{ext}$/)}.any?
+
+          errors.add(:base, "The selected file must be a zip file containing a shapefile")
+          return false
+        end
+      end
+
+      true
+    rescue Zip::Error
+      errors.add(:base, "The selected file must be a zip file containing a shapefile")
+      return false
+    end
+
     def filetype_valid?(file)
       return true if valid_benefit_area_file?(file.original_filename)
 
-      errors.add(:base, "This file type is not supported. Upload a shapefile "\
-                        "or an inmage file using one of the following formats: "\
-                        "zip, jpg, png, svg or bmp.")
+      errors.add(:base, "This file type is not supported. Upload a .zip shapefile ")
       false
     end
 
