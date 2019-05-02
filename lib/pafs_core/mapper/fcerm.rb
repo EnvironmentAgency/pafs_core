@@ -35,6 +35,10 @@ module PafsCore
         project.rma_name
       end
 
+      def email
+        project.creator&.email
+      end
+
       def lrma_type
         project.rma_type
       end
@@ -141,6 +145,7 @@ module PafsCore
           pafs_ea_area: pafs_ea_area,
           lrma_name: lrma_name,
           lrma_type: lrma_type,
+          email: email,
           coastal_group: coastal_group,
           risk_source: risk_source,
           moderation_code: moderation_code,

@@ -72,6 +72,12 @@ RSpec.describe PafsCore::Camc3Presenter do
     end
   end
 
+  describe 'email' do
+    it 'renders in the generated json' do
+      expect(subject.attributes).to have_key(:email)
+    end
+  end
+
   describe '#households_at_reduced_risk' do
     before(:each) do
       funding_values.each do |hash|

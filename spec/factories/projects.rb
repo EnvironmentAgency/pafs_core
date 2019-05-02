@@ -6,6 +6,7 @@ FactoryBot.define do
     version { 0 }
 
     state
+    creator factory: :user
 
     factory :full_project do
       reference_number { PafsCore::ProjectService.generate_reference_number("SO") }
