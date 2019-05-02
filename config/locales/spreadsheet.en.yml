@@ -14,7 +14,7 @@ en:
         statutory_need: "Statutory Requirement"
         legal_need: "Legal Agreement"
         health_and_safety: "Health & Safety"
-        emergency_works: "Other"
+        emergency_works: "Emergency"
         time_limited: "Time Constrained Contribution"
       standard_of_protection:
         less_than_one_year: "Less than 1 year"
