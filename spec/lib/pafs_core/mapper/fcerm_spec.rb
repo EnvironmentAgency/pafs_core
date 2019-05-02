@@ -51,6 +51,10 @@ RSpec.describe PafsCore::Mapper::Fcerm1 do
     expect(subject.pafs_ea_area).to eql(presenter.ea_area)
   end
 
+  it "pafs email" do
+    expect(subject.email).to eql(project.creator.email)
+  end
+
   it "pafs lrma name" do
     expect(subject.lrma_name).to eql(presenter.rma_name)
   end
