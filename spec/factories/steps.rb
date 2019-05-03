@@ -91,7 +91,7 @@ FactoryBot.define do
       benefit_area { "[[432123, 132453], [444444, 134444], [456543, 123432]]" }
       benefit_area_centre { [457733, 221751] }
       benefit_area_zoom_level { 23 }
-      benefit_area_file_name { "map.png" }
+      benefit_area_file_name { 'shapefile.zip' }
     end
 
     factory :benefit_area_file_summary_step, class: PafsCore::BenefitAreaFileSummaryStep do
