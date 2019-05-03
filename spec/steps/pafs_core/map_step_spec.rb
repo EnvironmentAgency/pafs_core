@@ -51,6 +51,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:map_step) }
+
     let(:params) {
       HashWithIndifferentAccess.new({
         map_step: {
@@ -61,7 +62,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
       })
     }
 
-    let(:benefit_area_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, "../fixtures/map.png"))) }
+    let(:benefit_area_file) { fixture_file_upload('shapefile.zip') }
 
     let(:file_params) {
       HashWithIndifferentAccess.new({
@@ -87,7 +88,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
   end
 
   describe "#delete_benefit_area_file" do
-    let(:benefit_area_file) { Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, "../fixtures/map.png"))) }
+    let(:benefit_area_file) { fixture_file_upload('shapefile.zip', 'application/zip') }
     subject { FactoryBot.build(:map_step) }
 
     context "when an uploaded file exists" do
