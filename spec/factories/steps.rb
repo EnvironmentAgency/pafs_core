@@ -87,6 +87,9 @@ FactoryBot.define do
       project_location_zoom_level { 15 }
     end
 
+    factory :benefit_area_file_step, class: PafsCore::BenefitAreaFileStep do
+    end
+
     factory :map_step, class: PafsCore::MapStep do
       benefit_area { "[[432123, 132453], [444444, 134444], [456543, 123432]]" }
       benefit_area_centre { [457733, 221751] }
