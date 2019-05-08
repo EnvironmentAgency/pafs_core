@@ -2,6 +2,7 @@
 module PafsCore
   class BenefitAreaFileStep < BasicStep
     include PafsCore::FileTypes, PafsCore::FileStorage
+
     delegate :benefit_area_file_name, :benefit_area_file_name=,
              :benefit_area_content_type, :benefit_area_content_type=,
              :benefit_area_file_size, :benefit_area_file_size=,
@@ -11,6 +12,7 @@ module PafsCore
 
     attr_reader :funding_calculator
     attr_accessor :virus_info
+
     validate :virus_free_benefit_area_present
 
     def update(params)
@@ -20,9 +22,11 @@ module PafsCore
         uploaded_file = step_params(params).fetch(:benefit_area_file, nil)
         if uploaded_file
           return false unless filetype_valid?(uploaded_file)
-          return false unless contins_required_gis_files(uploaded_file)
 
           begin
+            antivirus.scan(uploaded_file.tempfile.path)
+            return false unless contins_required_gis_files(uploaded_file)
+
             old_file = benefit_area_file_name
             # virus check and upload to S3
             filename = File.basename(uploaded_file.original_filename)
@@ -47,6 +51,11 @@ module PafsCore
       end
     end
   private
+
+    def antivirus
+      PafsCore::AntivirusService.new user
+    end
+  
     def step_params(params)
       ActionController::Parameters.new(params).
         require(:benefit_area_file_step).
