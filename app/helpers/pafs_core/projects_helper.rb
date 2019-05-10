@@ -23,6 +23,18 @@ module PafsCore
       I18n.t("#{state}_label", scope: scope)
     end
 
+    def force_pso_to_use_pol?
+      ENV.fetch('FORCE_PSO_TO_POL', false)
+    end
+
+    def can_change_project_state?
+      rma_user? || (pso_user? && !force_pso_to_use_pol?)
+    end
+
+    def can_edit_project_sections?
+      !(pso_user? && force_pso_to_use_pol?)
+    end
+
     def funding_value_label(fv)
       t("#{fv}_label", scope: "pafs_core.projects.steps.funding_values")
     end

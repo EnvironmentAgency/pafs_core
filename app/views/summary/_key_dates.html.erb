@@ -33,12 +33,14 @@
         </div>
         <div class="column-one-quarter">
           <% if project.draft? %>
-          <div class="change-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :start_outline_business_case_date) do -%>
-              Change<span class="visually-hidden"> the <%= t(".start_outline_business_case_label").downcase %></span>
+            <% if can_edit_project_sections? -%>
+              <div class="change-link">
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :start_outline_business_case_date) do -%>
+                  Change<span class="visually-hidden"> the <%= t(".start_outline_business_case_label").downcase %></span>
+                <% end -%>
+              </div>
             <% end -%>
-          </div>
-            <% end -%>
+          <% end -%>
         </div>
       </div>
     </div>
@@ -50,11 +52,13 @@
         </div>
         <div class="column-one-quarter">
           <% unless project.archived? %>
-            <div class="add-link">
-              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :start_outline_business_case_date) do -%>
-                Add<span class="visually-hidden"> the important dates</span>
-              <% end -%>
-            </div>
+            <% if can_edit_project_sections? -%>
+              <div class="add-link">
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :start_outline_business_case_date) do -%>
+                  Add<span class="visually-hidden"> the important dates</span>
+                <% end -%>
+              </div>
+            <% end -%>
           <% end -%>
         </div>
       </div>

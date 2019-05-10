@@ -7,11 +7,13 @@
       </div>
       <div class="column-one-third">
         <% if project.draft? %>
-          <div class="change-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :financial_year) do -%>
-              Change<span class="visually-hidden"> the last financial year the project will spend funds</span>
-            <% end -%>
-          </div>
+          <% if can_edit_project_sections? -%>
+            <div class="change-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :financial_year) do -%>
+                Change<span class="visually-hidden"> the last financial year the project will spend funds</span>
+              <% end -%>
+            </div>
+          <% end -%>
         <% end -%>
       </div>
     </div>

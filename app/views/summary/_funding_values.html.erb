@@ -14,11 +14,13 @@
       </div>
       <div class="column-one-third">
         <% if project.draft? %>
-          <div class="change-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_values) do -%>
-              Change<span class="visually-hidden"> the funding values</span>
-            <% end -%>
-          </div>
+          <% if can_edit_project_sections? -%>
+            <div class="change-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_values) do -%>
+                Change<span class="visually-hidden"> the funding values</span>
+              <% end -%>
+            </div>
+          <% end -%>
         <% end -%>
       </div>
     </div>
@@ -30,11 +32,13 @@
         </div>
         <div class="column-one-quarter">
           <% unless project.archived? %>
-            <div class="add-link">
-              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_values) do -%>
-                Add<span class="visually-hidden"> the funding values</span>
-              <% end -%>
-            </div>
+            <% if can_edit_project_sections? -%>
+              <div class="add-link">
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :funding_values) do -%>
+                  Add<span class="visually-hidden"> the funding values</span>
+                <% end -%>
+              </div>
+            <% end -%>
           <% end -%>
         </div>
       </div>
