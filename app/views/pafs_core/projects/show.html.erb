@@ -1,87 +1,50 @@
 <% content_for :page_title, make_page_title(t("proposal_overview", scope: "page_titles")) %>
+
 <section id="project-summary" class="font-xsmall project-summary">
   <%= pafs_form_for @project do |f| %>
     <%= f.error_header("Check your proposal details", "", @project.articles) %>
-  <header class="summary-heading">
-    <div class="grid-row">
-      <div class="column-one-half">
-        <h1 class="heading-large">Proposal overview</h1>
-      </div>
-      <% if ea_user? || (pso_user? && (@project.submitted? || @project.completed?)) %>
+    <header class="summary-heading">
+      <div class="grid-row">
         <div class="column-one-half">
-          <div class="project-documents-download-link">
-            <%= link_to "Download proposal documents", pafs_core.downloads_path(@project) %>
-          </div>
+          <h1 class="heading-large">Proposal overview</h1>
         </div>
-      <% end %>
-    </div>
-  </header>
-  <section>
-    <div class="grid-row">
-      <div class="column-two-thirds">
-        <dl class="project-overview-head">
-          <dt>National project number:</dt>
-          <dd><%= @project.reference_number %></dd>
-          <dt>Last updated:</dt>
-          <dd><%= format_date @project.updated_at %></dd>
-          <dt>Status:</dt>
-          <dd>
-            <% if can_change_project_state? && @project.archived? %>
-              <%= status_label_for(@project.status) %> | <%= link_to "Revert to draft", unlock_project_path(id: @project.to_param) %>
-            <% elsif can_change_project_state? && @project.draft? %>
-              <%= status_label_for(@project.status) %> | <%= link_to("Archive", pafs_core.archive_project_path(@project)) %>
-            <% else %>
-              <%= status_label_for(@project.status) %>
-            <% end %>
-          </dd>
-        </dl>
+        <% if ea_user? || (pso_user? && (@project.submitted? || @project.completed?)) %>
+          <div class="column-one-half">
+            <div class="project-documents-download-link">
+              <%= link_to "Download proposal documents", pafs_core.downloads_path(@project) %>
+            </div>
+          </div>
+        <% end %>
       </div>
-    </div>
-  </section>
-  <% @project.articles.each do |item| %>
-    <div class="project-part">
-      <%= f.form_group item do %>
-        <%= f.error_message item %>
-        <%= render partial: "summary/#{item}", locals: { project: @project } %>
-      <% end -%>
-    </div>
-  <% end %>
+    </header>
+
+    <section>
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <dl class="project-overview-head">
+            <dt>National project number:</dt>
+            <dd><%= @project.reference_number %></dd>
+            <dt>Last updated:</dt>
+            <dd><%= format_date @project.updated_at %></dd>
+            <dt>Status:</dt>
+            <dd>
+              <%= project_status_line(@project) %>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <% @project.articles.each do |item| %>
+      <div class="project-part">
+        <%= f.form_group item do %>
+          <%= f.error_message item %>
+          <%= render partial: "summary/#{item}", locals: { project: @project } %>
+        <% end -%>
+      </div>
+    <% end %>
+
+    <%= render partial: 'submit_project', locals: { project: @project } %>
   <% end -%>
 </section>
-<% if can_change_project_state? && @project.draft? %>
-  <section aria-labelledby="submission">
-    <div class="grid-row submission">
-      <div class="column-three-quarters">
-        <h2 class="heading-medium" role="heading" id="submission">
-          <%= @project.summary_label(:submission_title) %>
-        </h2>
-      </div>
-      <div class="column-two-thirds">
-        <p><%= @project.summary_label(:submission_notice) %></p>
-        <%= render partial: "summary/data_notice", locals: { project: @project } %>
-        <%= link_to t("complete_project_label"),
-          complete_project_path(id: @project.to_param), class: "button submit-proposal" %>
-      </div>
-    </div>
-  </section>
-  <% elsif pso_user? && !force_pso_to_use_pol? && @project.completed? %>
-  <section aria-label="controls">
-    <div class="grid-row">
-      <div class="column-two-thirds space-kids">
-        <%= link_to t("submit_project_label"),
-          submit_project_path(id: @project.to_param), class: "button submit-proposal" %>
-        <%= link_to t("unlock_project_label"),
-          unlock_project_path(id: @project.to_param), class: "button submit-proposal" %>
-      </div>
-    </div>
-  </section>
-<% elsif pso_user? && !force_pso_to_use_pol? && @project.submitted? %>
-  <section aria-label="controls">
-    <div class="grid-row">
-      <div class="column-two-thirds">
-        <%= link_to t("unlock_project_label"),
-          unlock_project_path(id: @project.to_param), class: "button submit-proposal" %>
-      </div>
-    </div>
-  </section>
-<% end -%>
+
