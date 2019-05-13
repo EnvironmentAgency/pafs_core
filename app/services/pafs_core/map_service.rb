@@ -32,7 +32,6 @@ module PafsCore
 
     def connection
       Faraday.new(url: "https://api.postcodes.io") do |faraday|
-        faraday.response :logger
         faraday.adapter Faraday.default_adapter
       end
     end
