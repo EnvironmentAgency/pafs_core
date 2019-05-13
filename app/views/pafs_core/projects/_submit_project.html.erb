@@ -18,7 +18,7 @@
       </div>
     </div>
   </section>
-  <% elsif pso_user? && !force_pso_to_use_pol? && @project.completed? %>
+<% elsif pso_user? && !force_pso_to_use_pol? && @project.completed? %>
   <section aria-label="controls">
     <div class="grid-row">
       <div class="column-two-thirds space-kids">
@@ -49,3 +49,4 @@
       </div>
     </div>
   </section>
+<% end %>

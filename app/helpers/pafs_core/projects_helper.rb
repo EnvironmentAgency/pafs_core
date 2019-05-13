@@ -37,7 +37,7 @@ module PafsCore
 
     def project_status_change_link(project)
       return unless project.archived? || project.draft?
-      return content_tag(:span, 'EA Projects are now managed in PoL') if pso_user && force_pso_to_use_pol?
+      return content_tag(:span, 'EA Projects are now managed in PoL') if pso_user? && force_pso_to_use_pol?
       return unless rma_user? || pso_user?
 
       return link_to("Revert to draft", unlock_project_path(id: project.to_param)) if project.archived?
