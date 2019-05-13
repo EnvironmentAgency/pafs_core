@@ -26,9 +26,9 @@
           <dd><%= format_date @project.updated_at %></dd>
           <dt>Status:</dt>
           <dd>
-            <% if (rma_user? || pso_user?) && @project.archived? %>
+            <% if can_change_project_state? && @project.archived? %>
               <%= status_label_for(@project.status) %> | <%= link_to "Revert to draft", unlock_project_path(id: @project.to_param) %>
-            <% elsif (rma_user? || pso_user?) && @project.draft? %>
+            <% elsif can_change_project_state? && @project.draft? %>
               <%= status_label_for(@project.status) %> | <%= link_to("Archive", pafs_core.archive_project_path(@project)) %>
             <% else %>
               <%= status_label_for(@project.status) %>
@@ -48,7 +48,7 @@
   <% end %>
   <% end -%>
 </section>
-<% if @project.draft? %>
+<% if can_change_project_state? && @project.draft? %>
   <section aria-labelledby="submission">
     <div class="grid-row submission">
       <div class="column-three-quarters">
@@ -64,7 +64,7 @@
       </div>
     </div>
   </section>
-<% elsif pso_user? && @project.completed? %>
+  <% elsif pso_user? && !force_pso_to_use_pol? && @project.completed? %>
   <section aria-label="controls">
     <div class="grid-row">
       <div class="column-two-thirds space-kids">
@@ -75,7 +75,7 @@
       </div>
     </div>
   </section>
-<% elsif pso_user? && @project.submitted? %>
+<% elsif pso_user? && !force_pso_to_use_pol? && @project.submitted? %>
   <section aria-label="controls">
     <div class="grid-row">
       <div class="column-two-thirds">

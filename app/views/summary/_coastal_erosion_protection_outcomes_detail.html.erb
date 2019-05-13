@@ -7,21 +7,21 @@
         <div class="scroll-horz">
           <table>
             <thead>
-            <tr>
-              <th class="financial-year-column"><%= project.summary_label(:financial_year_label) %></th>
-              <th class="risk-summary-heading"><%= project.summary_label(:households_at_reduced_risk_label) %></th>
-              <th class="risk-summary-heading"><%= project.summary_label(:households_protected_from_loss_in_next_20_years_label) %></th>
-              <th class="risk-summary-heading"><%= project.summary_label(:households_protected_from_loss_in_20_percent_most_deprived_label) %></th>
-            </tr>
-            <tr>
-              <td></td>
-              <th class="risk-summary-subheading">A</th>
-              <th class="risk-summary-subheading">B</th>
-              <th class="risk-summary-subheading">C</th>
-            </tr>
+              <tr>
+                <th class="financial-year-column"><%= project.summary_label(:financial_year_label) %></th>
+                <th class="risk-summary-heading"><%= project.summary_label(:households_at_reduced_risk_label) %></th>
+                <th class="risk-summary-heading"><%= project.summary_label(:households_protected_from_loss_in_next_20_years_label) %></th>
+                <th class="risk-summary-heading"><%= project.summary_label(:households_protected_from_loss_in_20_percent_most_deprived_label) %></th>
+              </tr>
+              <tr>
+                <td></td>
+                <th class="risk-summary-subheading">A</th>
+                <th class="risk-summary-subheading">B</th>
+                <th class="risk-summary-subheading">C</th>
+              </tr>
             </thead>
             <tbody>
-            <% project.current_coastal_erosion_protection_outcomes.each do |fo| %>
+              <% project.current_coastal_erosion_protection_outcomes.each do |fo| %>
                 <tr>
                   <td class="financial_year">
                     <%= formatted_financial_year(fo.financial_year) %>
@@ -38,15 +38,15 @@
 
                   </td>
                 </tr>
-            <% end %>
+              <% end %>
             </tbody>
             <tfoot>
-            <tr>
-              <td><%= project.summary_label(:households_total_label) %></td>
-              <td class="numeric households-at-reduced-risk-total"><%= number_with_delimiter project.total_households_coastal_protected_by_category(:households_at_reduced_risk)%></td>
-              <td class="numeric moved-from-very-significant-and-significant-to-moderate-or-low-total"><%= number_with_delimiter project.total_households_coastal_protected_by_category(:households_protected_from_loss_in_next_20_years)%></td>
-              <td class="numeric households-protected-from-loss-in-20-percent-most-deprived-total"><%= number_with_delimiter project.total_households_coastal_protected_by_category(:households_protected_from_loss_in_20_percent_most_deprived)%></td>
-            </tr>
+              <tr>
+                <td><%= project.summary_label(:households_total_label) %></td>
+                <td class="numeric households-at-reduced-risk-total"><%= number_with_delimiter project.total_households_coastal_protected_by_category(:households_at_reduced_risk)%></td>
+                <td class="numeric moved-from-very-significant-and-significant-to-moderate-or-low-total"><%= number_with_delimiter project.total_households_coastal_protected_by_category(:households_protected_from_loss_in_next_20_years)%></td>
+                <td class="numeric households-protected-from-loss-in-20-percent-most-deprived-total"><%= number_with_delimiter project.total_households_coastal_protected_by_category(:households_protected_from_loss_in_20_percent_most_deprived)%></td>
+              </tr>
             </tfoot>
           </table>
         </div>

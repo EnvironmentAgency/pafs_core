@@ -7,11 +7,13 @@
       </div>
       <div class="column-one-third">
         <% if project.draft? %>
-          <div class="change-link">
-            <%= link_to pafs_core.project_step_path(id: project.to_param, step: :project_type) do -%>
-              Change<span class="visually-hidden"> the project type</span>
-            <% end -%>
-          </div>
+          <% if can_edit_project_sections? -%>
+            <div class="change-link">
+              <%= link_to pafs_core.project_step_path(id: project.to_param, step: :project_type) do -%>
+                Change<span class="visually-hidden"> the project type</span>
+              <% end -%>
+            </div>
+          <% end -%>
         <% end -%>
       </div>
     </div>
