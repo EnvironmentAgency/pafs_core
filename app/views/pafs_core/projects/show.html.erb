@@ -1,7 +1,8 @@
 <% content_for :page_title, make_page_title(t("proposal_overview", scope: "page_titles")) %>
-  <section id="project-summary" class="font-xsmall project-summary">
-    <%= pafs_form_for @project do |f| %>
-      <%= f.error_header("Check your proposal details", "", @project.articles) %>
+
+<section id="project-summary" class="font-xsmall project-summary">
+  <%= pafs_form_for @project do |f| %>
+    <%= f.error_header("Check your proposal details", "", @project.articles) %>
     <header class="summary-heading">
       <div class="grid-row">
         <div class="column-one-half">
@@ -16,6 +17,7 @@
         <% end %>
       </div>
     </header>
+
     <section>
       <div class="grid-row">
         <div class="column-two-thirds">
@@ -26,18 +28,13 @@
             <dd><%= format_date @project.updated_at %></dd>
             <dt>Status:</dt>
             <dd>
-              <% if can_change_project_state? && @project.archived? %>
-                <%= status_label_for(@project.status) %> | <%= link_to "Revert to draft", unlock_project_path(id: @project.to_param) %>
-              <% elsif can_change_project_state? && @project.draft? %>
-                <%= status_label_for(@project.status) %> | <%= link_to("Archive", pafs_core.archive_project_path(@project)) %>
-              <% else %>
-                <%= status_label_for(@project.status) %>
-              <% end %>
+              <%= project_status_line(@project) %>
             </dd>
           </dl>
         </div>
       </div>
     </section>
+
     <% @project.articles.each do |item| %>
       <div class="project-part">
         <%= f.form_group item do %>
@@ -46,7 +43,8 @@
         <% end -%>
       </div>
     <% end %>
-  </section>
 
-  <%= render partial: 'submit_project', locals: { project: @project } %>
-<% end -%>
+    <%= render partial: 'submit_project', locals: { project: @project } %>
+  <% end -%>
+</section>
+

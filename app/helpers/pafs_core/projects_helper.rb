@@ -35,6 +35,30 @@ module PafsCore
       !(pso_user? && force_pso_to_use_pol?)
     end
 
+    def project_status_change_link(project)
+      return unless project.archived? || project.draft?
+      return content_tag(:span, 'EA Projects are now managed in PoL') if pso_user && force_pso_to_use_pol?
+      return unless rma_user? || pso_user?
+
+      return link_to("Revert to draft", unlock_project_path(id: project.to_param)) if project.archived?
+      return link_to("Archive", pafs_core.archive_project_path(project)) if project.draft?
+    end
+
+    def project_status_line(project)
+      out = [
+        status_label_for(project.status),
+      ]
+
+      project_change_link = project_status_change_link(project)
+
+      out << [
+        ' | ',
+        project_change_link
+      ] if project_change_link
+
+      out.compact.join.html_safe
+    end
+
     def funding_value_label(fv)
       t("#{fv}_label", scope: "pafs_core.projects.steps.funding_values")
     end
