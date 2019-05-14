@@ -93,7 +93,7 @@
           </h2>
         </div>
         <div class="column-one-quarter">
-          <% unless project.archived %>
+          <% unless project.archived? %>
             <% if can_edit_project_sections? -%>
               <div class="add-link">
                 <%= link_to pafs_core.project_step_path(id: project.to_param, step: :location) do -%>
