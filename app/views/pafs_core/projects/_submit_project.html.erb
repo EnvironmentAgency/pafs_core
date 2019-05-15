@@ -1,21 +1,25 @@
 <% if (pso_user? || rma_user?) && @project.draft? %>
   <section aria-labelledby="submission">
     <div class="grid-row submission">
-      <div class="column-three-quarters">
-        <h2 class="heading-medium" role="heading" id="submission">
-          <%= @project.summary_label(:submission_title) %>
-        </h2>
-      </div>
-      <div class="column-two-thirds">
-        <% if pso_user? && force_pso_to_use_pol? %>
-          <p>EA Projects are now managed in PoL</p>
-        <% else %>
-          <p><%= @project.summary_label(:submission_notice) %></p>
-          <%= render partial: "summary/data_notice", locals: { project: @project } %>
-          <%= link_to t("complete_project_label"),
-            complete_project_path(id: @project.to_param), class: "button submit-proposal" %>
-        <% end %>
-      </div>
+      <% if pso_user? && force_pso_to_use_pol? %>
+        <div class="column-three-quarters">
+          <h2 class="heading-medium" role="heading" id="submission">
+            <p>EA Projects are now managed in PoL</p>
+          </h2>
+        </div>
+      <% else %>
+        <div class="column-three-quarters">
+          <h2 class="heading-medium" role="heading" id="submission">
+            <%= @project.summary_label(:submission_title) %>
+          </h2>
+        </div>
+        <div class="column-two-thirds">
+            <p><%= @project.summary_label(:submission_notice) %></p>
+            <%= render partial: "summary/data_notice", locals: { project: @project } %>
+            <%= link_to t("complete_project_label"),
+              complete_project_path(id: @project.to_param), class: "button submit-proposal" %>
+        </div>
+      <% end %>
     </div>
   </section>
 <% elsif pso_user? && !force_pso_to_use_pol? && @project.completed? %>
