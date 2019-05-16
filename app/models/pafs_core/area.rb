@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 module PafsCore
   class Area < ActiveRecord::Base
-    AREA_TYPES = ["Country",
-                  "EA Area",
-                  "PSO Area",
-                  "RMA"].freeze
+    AREA_TYPES = [
+      COUNTRY_AREA = "Country",
+      EA_AREA      = "EA Area",
+      PSO_AREA     = "PSO Area",
+      RMA_AREA     = "RMA"
+    ].freeze
 
     validates_presence_of :name, :area_type
     validates_uniqueness_of :name

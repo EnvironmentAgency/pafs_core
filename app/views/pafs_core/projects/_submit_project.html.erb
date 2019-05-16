@@ -1,13 +1,7 @@
-<% if (pso_user? || rma_user?) && @project.draft? %>
+<% if @project.draft? %>
   <section aria-labelledby="submission">
     <div class="grid-row submission">
-      <% if pso_user? && force_pso_to_use_pol? %>
-        <div class="column-three-quarters">
-          <h2 class="heading-medium" role="heading" id="submission">
-            <p>EA Projects are now managed in PoL</p>
-          </h2>
-        </div>
-      <% else %>
+      <% if can_change_project_state?(@project) %>
         <div class="column-three-quarters">
           <h2 class="heading-medium" role="heading" id="submission">
             <%= @project.summary_label(:submission_title) %>
@@ -19,10 +13,16 @@
             <%= link_to t("complete_project_label"),
               complete_project_path(id: @project.to_param), class: "button submit-proposal" %>
         </div>
+      <% else %>
+        <div class="column-three-quarters">
+          <h2 class="heading-medium" role="heading" id="submission">
+            <p>EA Projects are now managed in PoL</p>
+          </h2>
+        </div>
       <% end %>
     </div>
   </section>
-<% elsif pso_user? && !force_pso_to_use_pol? && @project.completed? %>
+<% elsif !project.pso? && !force_pso_to_use_pol? && @project.completed? %>
   <section aria-label="controls">
     <div class="grid-row">
       <div class="column-two-thirds space-kids">

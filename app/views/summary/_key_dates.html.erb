@@ -33,7 +33,7 @@
         </div>
         <div class="column-one-quarter">
           <% if project.draft? %>
-            <% if can_edit_project_sections? -%>
+            <% if can_edit_project_sections?(project) -%>
               <div class="change-link">
                 <%= link_to pafs_core.project_step_path(id: project.to_param, step: :start_outline_business_case_date) do -%>
                   Change<span class="visually-hidden"> the <%= t(".start_outline_business_case_label").downcase %></span>
@@ -52,7 +52,7 @@
         </div>
         <div class="column-one-quarter">
           <% unless project.archived? %>
-            <% if can_edit_project_sections? -%>
+            <% if can_edit_project_sections?(project) -%>
               <div class="add-link">
                 <%= link_to pafs_core.project_step_path(id: project.to_param, step: :start_outline_business_case_date) do -%>
                   Add<span class="visually-hidden"> the important dates</span>

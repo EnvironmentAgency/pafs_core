@@ -8,7 +8,7 @@
         </div>
         <div class="column-one-quarter">
           <% if project.draft? %>
-            <% if can_edit_project_sections? -%>
+            <% if can_edit_project_sections?(project) -%>
               <div class="change-link">
                 <%= link_to pafs_core.project_step_path(id: project.to_param, step: :approach) do -%>
                   Change<span class="visually-hidden"> <%= project.summary_label(:approach_title).downcase %></span>
@@ -27,7 +27,7 @@
         </div>
         <div class="column-one-quarter">
           <% unless project.archived? %>
-            <% if can_edit_project_sections? -%>
+            <% if can_edit_project_sections?(project) -%>
               <div class="add-link">
                 <%= link_to pafs_core.project_step_path(id: project.to_param, step: :approach) do -%>
                   Add<span class="visually-hidden"> <%= project.summary_label(:approach_title).downcase %></span>
