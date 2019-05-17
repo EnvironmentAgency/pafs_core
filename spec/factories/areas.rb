@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :area, class: PafsCore::Area do
     sequence :name do |n|
-      "area #{n}"
+      PafsCore::PSO_RFCC_MAP.keys[n % PafsCore::PSO_RFCC_MAP.keys.size]
     end
 
     factory :country do
@@ -36,6 +36,7 @@ FactoryBot.define do
 
     factory :ea_area do
       area_type { "EA Area" }
+      parent { PafsCore::Area.country || create(:country) }
 
       trait :with_pso_areas do
         after(:create) do |area|
@@ -58,6 +59,7 @@ FactoryBot.define do
 
     factory :pso_area do
       area_type { "PSO Area" }
+      parent { PafsCore::Area.country || create(:country) }
 
       trait :with_rma_areas do
         after(:create) do |pso_area|
@@ -92,6 +94,8 @@ FactoryBot.define do
     factory :rma_area do
       area_type { "RMA" }
       sub_type { "Local Authority" }
+
+      parent { PafsCore::Area.country || create(:country) }
 
       trait :with_project do
         after(:create) do |rma_area|

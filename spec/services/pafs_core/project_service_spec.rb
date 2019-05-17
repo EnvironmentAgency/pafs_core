@@ -3,13 +3,14 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::ProjectService do
+  let(:pso_area_1) { create(:pso_area) }
+  let(:rma_area_1) { create(:rma_area, parent_id: pso_area_1.id) }
+  let(:user) { create(:user) }
+
   before(:each) do
-    @pso = FactoryBot.create(:pso_area, parent_id: 1, name: "PSO Essex")
-    @rma = FactoryBot.create(:rma_area, parent_id: @pso.id)
-    @user = FactoryBot.create(:user)
-    @user.user_areas.create(area_id: @rma.id, primary: true)
+    user.user_areas.create(area_id: rma_area_1.id, primary: true)
   end
-  subject { PafsCore::ProjectService.new(@user) }
+  subject { PafsCore::ProjectService.new(user) }
 
   describe "#search" do
     it "returns all projects for a given user" do
@@ -21,7 +22,7 @@ RSpec.describe PafsCore::ProjectService do
       expect(results.count).to eq(2)
 
       results.each do |result|
-        expect(result.creator_id).to eq(@user.id)
+        expect(result.creator_id).to eq(user.id)
       end
     end
 
@@ -42,13 +43,27 @@ RSpec.describe PafsCore::ProjectService do
   end
 
   describe "#new_project" do
+    let(:reference_number) { "#{PafsCore::PSO_RFCC_MAP[pso_area_1.name]}C501E" }
+    let(:project) { subject.new_project }
+
     it "builds a new project model without saving to the database" do
-      p = nil
-      expect { p = subject.new_project }.to_not change { PafsCore::Project.count }
-      expect(p).to be_a PafsCore::Project
-      expect(p.reference_number).to start_with "AEC501E"
-      expect(p.version).to eq(1)
-      expect(p.creator_id).to eq(@user.id)
+      expect { project }.to_not change { PafsCore::Project.count }
+    end
+
+    it 'builds the correct type of object' do
+      expect(project).to be_a PafsCore::Project
+    end
+
+    it 'initializes the project version correctly' do
+      expect(project.version).to eq(1)
+    end
+
+    it 'assigns the project creator correctly' do
+      expect(project.creator_id).to eq(user.id)
+    end
+
+    it 'generates the reference number correctly' do
+      expect(project.reference_number).to start_with reference_number
     end
   end
 
@@ -61,7 +76,7 @@ RSpec.describe PafsCore::ProjectService do
       expect(p).to be_a PafsCore::Project
       expect(p.reference_number).to_not be_nil
       expect(p.version).to eq(1)
-      expect(p.creator_id).to eq(@user.id)
+      expect(p.creator_id).to eq(user.id)
     end
   end
 
@@ -166,45 +181,45 @@ RSpec.describe PafsCore::ProjectService do
 
     context "as a country" do
       it "should return the area :ids in my tree" do
-        @user.user_areas.first.update_attributes(area_id: country.id)
-        @user.touch
+        user.user_areas.first.update_attributes(area_id: country.id)
+        user.touch
         areas = [country.id,
                  ea_area_1.id, ea_area_2.id,
                  pso_area_1.id, pso_area_2.id, pso_area_3.id, pso_area_4.id,
                  rma_area_1.id, rma_area_2.id, rma_area_3.id, rma_area_4.id,
                  rma_area_5.id, rma_area_6.id, rma_area_7.id, rma_area_8.id]
 
-        expect(subject.area_ids_for_user(@user).sort).to eq areas.sort
+        expect(subject.area_ids_for_user(user).sort).to eq areas.sort
       end
     end
 
     context "as an EA area" do
       it "should return the area :ids in my sub-tree" do
-        @user.user_areas.first.update_attributes(area_id: ea_area_1.id)
-        @user.touch
+        user.user_areas.first.update_attributes(area_id: ea_area_1.id)
+        user.touch
         areas = [ea_area_1.id,
                  pso_area_1.id, pso_area_2.id,
                  rma_area_1.id, rma_area_2.id, rma_area_3.id, rma_area_4.id]
-        expect(subject.area_ids_for_user(@user).sort).to eq areas.sort
+        expect(subject.area_ids_for_user(user).sort).to eq areas.sort
       end
     end
 
     context "as a PSO area" do
       it "should return the area :ids in my sub-tree" do
-        @user.user_areas.first.update_attributes(area_id: pso_area_1.id)
-        @user.touch
+        user.user_areas.first.update_attributes(area_id: pso_area_1.id)
+        user.touch
         areas = [pso_area_1.id,
                  rma_area_1.id, rma_area_2.id]
-        expect(subject.area_ids_for_user(@user).sort).to eq areas.sort
+        expect(subject.area_ids_for_user(user).sort).to eq areas.sort
       end
     end
 
     context "as an RMA area" do
       it "should return the area :ids in my sub-tree" do
-        @user.user_areas.first.update_attributes(area_id: rma_area_1.id)
-        @user.touch
+        user.user_areas.first.update_attributes(area_id: rma_area_1.id)
+        user.touch
         areas = [rma_area_1.id]
-        expect(subject.area_ids_for_user(@user)).to eq areas
+        expect(subject.area_ids_for_user(user)).to eq areas
       end
     end
   end
