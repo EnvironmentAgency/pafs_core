@@ -5,8 +5,14 @@ FactoryBot.define do
     reference_number { PafsCore::ProjectService.generate_reference_number("TH") }
     version { 0 }
 
-    state
+    association :state, :draft
     creator factory: :user
+
+    PafsCore::State::VALID_STATES.each do |valid_state|
+      trait valid_state do
+        association :state, valid_state.to_sym
+      end
+    end
 
     factory :full_project do
       reference_number { PafsCore::ProjectService.generate_reference_number("SO") }

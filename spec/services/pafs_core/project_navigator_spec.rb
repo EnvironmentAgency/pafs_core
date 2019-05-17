@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::ProjectNavigator do
   before(:each) do
-    @pso = FactoryBot.create(:pso_area, parent_id: 1, name: "PSO Essex")
+    @pso = FactoryBot.create(:pso_area, parent_id: 1)
     @rma = FactoryBot.create(:rma_area, parent_id: @pso.id)
     @user = FactoryBot.create(:user)
     @user.user_areas.create(area_id: @rma.id, primary: true)
