@@ -38,7 +38,7 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
 
   describe "PATCH save" do
     before(:each) do
-      @pso = FactoryBot.create(:pso_area, parent_id: 1, name: "PSO Essex")
+      @pso = FactoryBot.create(:pso_area, parent_id: 1)
       @rma = FactoryBot.create(:rma_area, parent_id: @pso.id)
       @user = FactoryBot.create(:user)
       @project = FactoryBot.create(:bootstrap, creator: @user)
