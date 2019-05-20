@@ -29,7 +29,7 @@
             </div>
             <div class="column-one-quarter">
               <% if project.draft? %>
-                <% if can_edit_project_sections? -%>
+                <% if can_edit_project_sections?(project) -%>
                   <div class="change-link">
                     <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection) do -%>
                       Change<span class="visually-hidden"> flooding <%= project.summary_label(:standard_of_protection_title).downcase %></span>
@@ -65,7 +65,7 @@
           </div>
           <div class="column-one-quarter">
             <% if project.draft? %>
-              <% if can_edit_project_sections? -%>
+              <% if can_edit_project_sections?(project) -%>
                 <div class="change-link">
                   <%= link_to pafs_core.project_step_path(id: project.to_param, step: :standard_of_protection_coastal) do -%>
                     Change<span class="visually-hidden"> coastal erosion <%= project.summary_label(:standard_of_protection_title).downcase %></span>
@@ -87,7 +87,7 @@
         </div>
         <div class="column-one-quarter">
           <% unless project.archived? %>
-            <% if can_edit_project_sections? -%>
+            <% if can_edit_project_sections?(project) -%>
               <div class="add-link">
                 <%= link_to pafs_core.project_step_path(id: project.to_param, step: project.standard_of_protection_step) do -%>
                   Add<span class="visually-hidden"> <%= project.summary_label(:standard_of_protection_title).downcase %> details</span>

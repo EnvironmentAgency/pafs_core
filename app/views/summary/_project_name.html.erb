@@ -7,7 +7,7 @@
       </div>
       <div class="column-one-quarter">
         <% if project.draft? %>
-          <% if can_edit_project_sections? -%>
+          <% if can_edit_project_sections?(project) -%>
             <div class="change-link">
               <%= link_to pafs_core.project_step_path(id: project.to_param, step: :project_name) do -%>
                 Change<span class="visually-hidden"> the project name</span>

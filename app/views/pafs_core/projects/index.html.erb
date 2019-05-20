@@ -24,13 +24,13 @@
       <%= link_to t('download_all_proposals_label'), pafs_core.multi_downloads_path %>
     </div>
   <% else %>
-    <% if can_change_project_state? %>
+    <% if can_create_project? %>
       <div class="create-new-project">
         <%= link_to t('create_a_new_project_label'), pafs_core.new_bootstrap_path, class: "button" %>
       </div>
     <% else %>
       <div class="create-new-project">
-        Go to PoL to Create New Project Proposals
+        To create a new proposal please go to PoL
       </div>
     <% end %>
   <% end %>

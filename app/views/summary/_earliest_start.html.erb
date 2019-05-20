@@ -16,7 +16,7 @@
         </div>
         <div class="column-one-third">
           <% if project.draft? %>
-            <% if can_edit_project_sections? -%>
+            <% if can_edit_project_sections?(project) -%>
               <div class="change-link">
                 <%= link_to pafs_core.project_step_path(id: project.to_param, step: :earliest_start) do -%>
                   Change<span class="visually-hidden"> whether the project could start earlier without impacting deliverability or outcomes</span>
@@ -35,7 +35,7 @@
         </div>
         <div class="column-one-quarter">
           <% unless project.archived? %>
-            <% if can_edit_project_sections? -%>
+            <% if can_edit_project_sections?(project) -%>
               <div class="add-link">
                 <%= link_to pafs_core.project_step_path(id: project.to_param, step: :earliest_start) do -%>
                   Add<span class="visually-hidden"> whether the project could start earlier without impacting deliverability or outcomes</span>

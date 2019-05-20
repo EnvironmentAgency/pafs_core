@@ -127,6 +127,30 @@ module PafsCore
       households
     end
 
+    def ea?
+      # It looks like Projects could belong to more than one area.
+      # If this project does belong to an EA area, we can return true
+      # in this test as it is an EA project even if it is also
+      # a PSO or RMA project
+      areas.map(&:area_type).include?(PafsCore::Area::EA_AREA)
+    end
+
+    def pso?
+      # It looks like Projects could belong to more than one area.
+      # If this project does belong to an PSO area, we can return true
+      # in this test as it is an PSO project even if it is also
+      # a RMA or EA project
+      areas.map(&:area_type).include?(PafsCore::Area::PSO_AREA)
+    end
+
+    def rma?
+      # It looks like Projects could belong to more than one area.
+      # If this project does belong to an RMA area, we can return true
+      # in this test as it is an RMA project even if it is also
+      # a PSO or EA project
+      areas.map(&:area_type).include?(PafsCore::Area::RMA_AREA)
+    end
+
   private
     def set_slug
       self.slug = reference_number.parameterize.upcase

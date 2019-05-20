@@ -27,17 +27,21 @@ module PafsCore
       ENV.fetch('FORCE_PSO_TO_POL', false)
     end
 
-    def can_change_project_state?
+    def can_change_project_state?(project)
+      (rma_user? || pso_user?) && (!project.pso? || (project.pso? && !force_pso_to_use_pol?))
+    end
+
+    def can_create_project?
       rma_user? || (pso_user? && !force_pso_to_use_pol?)
     end
 
-    def can_edit_project_sections?
-      !(pso_user? && force_pso_to_use_pol?)
+    def can_edit_project_sections?(project)
+      !(project.pso? && force_pso_to_use_pol?)
     end
 
     def project_status_change_link(project)
       return unless project.archived? || project.draft?
-      return content_tag(:span, 'EA Projects are now managed in PoL') if pso_user? && force_pso_to_use_pol?
+      return content_tag(:span, 'EA Projects are now managed in PoL') if project.pso? && force_pso_to_use_pol?
       return unless rma_user? || pso_user?
 
       return link_to("Revert to draft", unlock_project_path(id: project.to_param)) if project.archived?
