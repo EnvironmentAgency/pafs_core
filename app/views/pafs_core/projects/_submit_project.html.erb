@@ -22,7 +22,7 @@
       <% end %>
     </div>
   </section>
-<% elsif !project.pso? && !force_pso_to_use_pol? && @project.completed? %>
+<% elsif pso_user? && can_change_project_state?(project) && @project.completed? %>
   <section aria-label="controls">
     <div class="grid-row">
       <div class="column-two-thirds space-kids">
@@ -44,7 +44,7 @@
       <% end -%>
     </div>
   </section>
-<% elsif pso_user? && !force_pso_to_use_pol? && @project.submitted? %>
+<% elsif pso_user? && can_change_project_state?(project) && @project.submitted? %>
   <section aria-label="controls">
     <div class="grid-row">
       <div class="column-two-thirds">
