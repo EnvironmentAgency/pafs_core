@@ -2,6 +2,8 @@
 module PafsCore
   class FundingValue < ActiveRecord::Base
     belongs_to :project
+    has_many :funding_contributors, dependent: :destroy
+
     validates :fcerm_gia,
               :local_levy,
               :internal_drainage_boards,
