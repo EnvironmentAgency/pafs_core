@@ -9,7 +9,7 @@ FactoryBot.define do
     creator factory: :user
 
     PafsCore::State::VALID_STATES.each do |valid_state|
-      trait valid_state do
+      trait valid_state.to_sym do
         association :state, valid_state.to_sym
       end
     end
