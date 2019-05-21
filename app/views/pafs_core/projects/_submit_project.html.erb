@@ -31,17 +31,6 @@
         <%= link_to t("unlock_project_label"),
           unlock_project_path(id: @project.to_param), class: "button submit-proposal" %>
       </div>
-    <div class="column-two-thirds">
-      <% if pso_user? && force_pso_to_use_pol? -%>
-        <p>EA Projects are now managed in PoL</p>
-      <% end -%>
-
-      <% if rma_user? || (pso_user? && !force_pso_to_use_pol?) -%>
-        <p><%= project.summary_label(:submission_notice) %></p>
-        <%= render partial: "summary/data_notice", locals: { project: project } %>
-        <%= link_to t("complete_project_label"),
-          complete_project_path(id: project.to_param), class: "button submit-proposal" %>
-      <% end -%>
     </div>
   </section>
 <% elsif pso_user? && can_change_project_state?(project) && @project.submitted? %>
