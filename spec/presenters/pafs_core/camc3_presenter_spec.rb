@@ -72,6 +72,12 @@ RSpec.describe PafsCore::Camc3Presenter do
     end
   end
 
+  describe 'national_grid_reference' do
+    it 'renders in the generated json' do
+      expect(subject.attributes).to have_key(:national_grid_reference)
+    end
+  end
+
   describe 'email' do
     it 'renders in the generated json' do
       expect(subject.attributes).to have_key(:email)

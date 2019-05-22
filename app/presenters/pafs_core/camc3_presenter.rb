@@ -68,6 +68,7 @@ class PafsCore::Camc3Presenter
       .merge(funding_sources_mapper.attributes)
       .merge(
         {
+          national_grid_reference: project.grid_reference,
           urgency_details: fcerm1_presenter.urgency_details,
           outcome_measures: {
             om2: {
