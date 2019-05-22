@@ -13,7 +13,7 @@ en:
         not_urgent: "Not Urgent"
         statutory_need: "Statutory Requirement"
         legal_need: "Legal Agreement"
-        health_and_safety: "Health & Safety"
+        health_and_safety: "Health and Safety"
         emergency_works: "Emergency"
         time_limited: "Time Constrained Contribution"
       standard_of_protection:
