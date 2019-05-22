@@ -14,6 +14,10 @@ FactoryBot.define do
       end
     end
 
+    trait :with_no_shapefile do
+      benefit_area_file_name { nil }
+    end
+
     factory :full_project do
       reference_number { PafsCore::ProjectService.generate_reference_number("SO") }
       version { 0 }
