@@ -6,6 +6,7 @@ RSpec.describe PafsCore::Camc3Presenter do
   let(:project) do
     FactoryBot.create(
       :full_project,
+      :with_no_shapefile,
       {
         project_end_financial_year: 2027,
         funding_calculator_file_name: calculator_file
@@ -64,6 +65,36 @@ RSpec.describe PafsCore::Camc3Presenter do
       .to receive(:fetch_funding_calculator_for)
       .with(project)
       .and_return(File.open(File.join(Rails.root, '..', 'fixtures', calculator_file)))
+  end
+
+  describe 'shapefile' do
+    context 'with a shapefile attached' do
+      let(:shapefile) { 'shapefile.zip' }
+      let(:upload) { ShapefileUpload::Upload.new(project, shapefile) }
+      let(:base64_shapefile) { Base64.strict_encode64(upload.data) }
+
+      before do
+        upload.perform
+      end
+
+      it 'renders in the generated json' do
+        expect(subject.attributes).to have_key(:shapefile)
+      end
+
+      it 'renders the shapefile value as null' do
+        expect(subject.attributes[:shapefile]).to eql(base64_shapefile)
+      end
+    end
+
+    context 'without a shapefile attached' do
+      it 'renders in the generated json' do
+        expect(subject.attributes).to have_key(:shapefile)
+      end
+
+      it 'renders the shapefile value as null' do
+        expect(subject.attributes[:shapefile]).to be_nil
+      end
+    end
   end
 
   describe 'urgency_details' do

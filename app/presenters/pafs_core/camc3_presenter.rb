@@ -1,3 +1,5 @@
+require 'pafs_core/shapefile_serializer'
+
 class PafsCore::Camc3Presenter
   def initialize(project:)
     self.project = project
@@ -62,6 +64,10 @@ class PafsCore::Camc3Presenter
     end
   end
 
+  def base64_shapefile
+    @base64_shapefile ||= PafsCore::ShapefileSerializer.serialize(project)
+  end
+
   def attributes
     fcerm1_mapper.attributes
       .merge(pf_calculator_presenter.attributes)
@@ -69,6 +75,7 @@ class PafsCore::Camc3Presenter
       .merge(
         {
           national_grid_reference: project.grid_reference,
+          shapefile: base64_shapefile,
           urgency_details: fcerm1_presenter.urgency_details,
           outcome_measures: {
             om2: households_at_reduced_risk,
