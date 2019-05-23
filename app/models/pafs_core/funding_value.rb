@@ -4,9 +4,9 @@ module PafsCore
     belongs_to :project
 
     has_many :funding_contributors, dependent: :destroy
-    has_many :public_contributions, -> { where(type: FundingSources::PUBLIC_CONTRIBUTIONS) }, class_name: 'PafsCore::FundingContributor'
-    has_many :private_contributions, -> { where(type: FundingSources::PRIVATE_CONTRIBUTIONS) }, class_name: 'PafsCore::FundingContributor'
-    has_many :ea_contributions, -> { where(type: FundingSources::EA_CONTRIBUTIONS) }, class_name: 'PafsCore::FundingContributor'
+    has_many :public_contributions, -> { where(contributor_type: FundingSources::PUBLIC_CONTRIBUTIONS) }, class_name: 'PafsCore::FundingContributor'
+    has_many :private_contributions, -> { where(contributor_type: FundingSources::PRIVATE_CONTRIBUTIONS) }, class_name: 'PafsCore::FundingContributor'
+    has_many :ea_contributions, -> { where(contributor_type: FundingSources::EA_CONTRIBUTIONS) }, class_name: 'PafsCore::FundingContributor'
 
     validates :fcerm_gia,
               :local_levy,
