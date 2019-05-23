@@ -26,7 +26,7 @@ module PafsCore
             internal_drainage_boards: values.internal_drainage_boards,
             public_contributions: serialize_contributors(values.public_contributions),
             private_contributions: serialize_contributors(values.private_contributions),
-            other_ea_contributions: serialize_contributors(values.other_ea_contributions),
+            other_ea_contributions: serialize_contributors(values.ea_contributions),
             growth_funding: values.growth_funding,
             not_yet_identified: values.not_yet_identified
           }
@@ -34,12 +34,14 @@ module PafsCore
       end
 
       def serialize_contributors(contributors)
+        return nil if contributors.nil?
+
         contributors.map do |contributor|
           {
             name: contributor.name,
             amount: contributor.amount,
-            secured: contributor.secured,
-            constrained: contributor.constrained
+            secured: !!contributor.secured,
+            constrained: !!contributor.constrained
           }
         end
       end

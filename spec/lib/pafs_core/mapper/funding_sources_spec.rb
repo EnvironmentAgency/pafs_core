@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PafsCore::Mapper::FundingSources do
+RSpec.describe PafsCore::Mapper::FundingSources, focus: true do
   subject { described_class.new(project: project) }
 
   let(:funding_values) { [ create(:funding_value) ] }
