@@ -24,35 +24,24 @@ module PafsCore
             fcerm_gia: values.fcerm_gia,
             local_levy: values.local_levy,
             internal_drainage_boards: values.internal_drainage_boards,
-            public_contributions: serialize_contributors(
-              name: project.public_contributor_names,
-              value: values.public_contributions
-            ),
-            private_contributions: serialize_contributors(
-              name: project.private_contributor_names,
-              value: values.private_contributions
-            ),
-            other_ea_contributions: serialize_contributors(
-              name: project.other_ea_contributor_names,
-              value: values.other_ea_contributions
-            ),
+            public_contributions: serialize_contributors(values.public_contributions),
+            private_contributions: serialize_contributors(values.private_contributions),
+            other_ea_contributions: serialize_contributors(values.other_ea_contributions),
             growth_funding: values.growth_funding,
             not_yet_identified: values.not_yet_identified
           }
         end
       end
 
-      def serialize_contributors(name:, value:)
-        return nil if name.strip.blank?
-
-        [
+      def serialize_contributors(contributors)
+        contributors.map do |contributor|
           {
-            name: name,
-            amount: value.to_i,
-            secured: false,
-            constrained: false
+            name: contributor.name,
+            amount: contributor.amount,
+            secured: contributor.secured,
+            constrained: contributor.constrained
           }
-        ]
+        end
       end
     end
   end
