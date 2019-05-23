@@ -79,12 +79,12 @@ FactoryBot.define do
             pso_area.area_projects.create(project: project, owner: true)
             FactoryBot.create(:coastal_erosion_protection_outcomes, financial_year: -1, project_id: project.id)
             FactoryBot.create(:flood_protection_outcomes, financial_year: -1, project_id: project.id)
-            FactoryBot.create(:full_funding_values, financial_year: -1, project_id: project.id)
+            FactoryBot.create(:funding_value, :previous_year, project: project)
             (0..11).each do |n|
               year = 2016 + n
               FactoryBot.create(:coastal_erosion_protection_outcomes, financial_year: year, project_id: project.id)
               FactoryBot.create(:flood_protection_outcomes, financial_year: year, project_id: project.id)
-              FactoryBot.create(:full_funding_values, financial_year: year, project_id: project.id)
+              FactoryBot.create(:funding_value, financial_year: year, project: project)
             end
           end
         end
@@ -118,12 +118,12 @@ FactoryBot.define do
             rma_area.area_projects.create(project: project, owner: true)
             FactoryBot.create(:coastal_erosion_protection_outcomes, financial_year: -1, project_id: project.id)
             FactoryBot.create(:flood_protection_outcomes, financial_year: -1, project_id: project.id)
-            FactoryBot.create(:full_funding_values, financial_year: -1, project_id: project.id)
+            FactoryBot.create(:funding_value, :previous_year, project: project)
             (0..11).each do |n|
               year = 2016 + n
               FactoryBot.create(:coastal_erosion_protection_outcomes, financial_year: year, project_id: project.id)
               FactoryBot.create(:flood_protection_outcomes, financial_year: year, project_id: project.id)
-              FactoryBot.create(:full_funding_values, financial_year: year, project_id: project.id)
+              FactoryBot.create(:funding_value, financial_year: year, project: project)
             end
           end
         end
