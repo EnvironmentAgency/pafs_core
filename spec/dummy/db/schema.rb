@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 20190619134726) do
 
   create_table "pafs_core_funding_contributors", force: :cascade do |t|
     t.string   "name"
+    t.string   "type"
     t.integer  "funding_value_id"
     t.integer  "amount"
     t.boolean  "secured"
@@ -134,7 +135,9 @@ ActiveRecord::Schema.define(version: 20190619134726) do
     t.datetime "updated_at",       null: false
   end
 
+  add_index "pafs_core_funding_contributors", ["funding_value_id", "type"], name: "funding_contributors_on_funding_value_id_and_type", using: :btree
   add_index "pafs_core_funding_contributors", ["funding_value_id"], name: "index_pafs_core_funding_contributors_on_funding_value_id", using: :btree
+  add_index "pafs_core_funding_contributors", ["type"], name: "index_pafs_core_funding_contributors_on_type", using: :btree
 
   create_table "pafs_core_funding_values", force: :cascade do |t|
     t.integer "project_id"
