@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe PafsCore::Mapper::FundingSources do
   subject { described_class.new(project: project) }
 
-  let(:project) do
-    (FactoryBot.create(:full_project, funding_values: [FactoryBot.create(:full_funding_values)]))
-  end
+  let(:funding_values) { [ create(:funding_value) ] }
+  let(:project) { create(:full_project, funding_values: funding_values) }
 
   describe '#attributes' do
     let(:expected_funding_values) do
