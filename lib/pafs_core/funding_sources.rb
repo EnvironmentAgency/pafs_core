@@ -1,14 +1,25 @@
 # frozen_string_literal: true
 module PafsCore
   module FundingSources
-    FUNDING_SOURCES = [:fcerm_gia,
-                       :local_levy,
-                       :public_contributions,
-                       :private_contributions,
-                       :other_ea_contributions,
-                       :growth_funding,
-                       :internal_drainage_boards,
-                       :not_yet_identified].freeze
+
+    FUNDING_SOURCES = [
+      GRANT_IN_AID =          :fcerm_gia,
+      LOCAL_LEVY =            :local_levy,
+      GROWTH_FUNDING =        :growth_funding,
+      PUBLIC_CONTRIBUTIONS =  :public_contributions,
+      PRIVATE_CONTRIBUTIONS = :private_contributions,
+      EA_CONTRIBUTIONS =      :other_ea_contributions,
+      INTERNAL_DRAINAGE =     :internal_drainage_boards,
+      NOT_IDENTIFIED =        :not_yet_identified
+    ].freeze
+
+    # These funding sources are stored as separeate records for each contributor
+    # rather than a single total. They therefore need summing to get to the total.
+    AGGREGATE_SOURCES = [
+      PUBLIC_CONTRIBUTIONS,
+      PRIVATE_CONTRIBUTIONS,
+      EA_CONTRIBUTIONS
+    ].freeze
 
     FUNDING_SOURCES.each do |fs|
       delegate fs, "#{fs}=", "#{fs}?", to: :project
