@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 20190619134726) do
     t.string   "name"
     t.integer  "funding_value_id"
     t.integer  "amount"
+    t.boolean  "secured"
+    t.boolean  "constrained"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
