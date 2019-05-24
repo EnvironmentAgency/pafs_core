@@ -27,12 +27,16 @@ module PafsCore
       ENV.fetch('FORCE_PSO_TO_POL', false)
     end
 
+    def pso_can_create_project?
+      !ENV.fetch('PSO_CANNOT_CREATE_PROJECTS', false)
+    end
+
     def can_change_project_state?(project)
       (rma_user? || pso_user?) && (!project.pso? || (project.pso? && !force_pso_to_use_pol?))
     end
 
     def can_create_project?
-      rma_user? || (pso_user? && !force_pso_to_use_pol?)
+      rma_user? || (pso_user? && pso_can_create_project?)
     end
 
     def can_edit_project_sections?(project)
