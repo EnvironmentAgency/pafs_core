@@ -34,7 +34,7 @@ module PafsCore
       end
 
       def serialize_contributors(contributors)
-        return nil if contributors.nil?
+        return nil if contributors.empty?
 
         contributors.map do |contributor|
           {
