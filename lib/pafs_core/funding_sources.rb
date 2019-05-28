@@ -42,7 +42,7 @@ module PafsCore
     end
 
     def total_for(fs)
-      current_funding_values.reduce(0) { |sum, fv| sum + (fv.send(fs) || 0) }
+      current_funding_values.reduce(0) { |sum, fv| sum + fv.send("#{fs}_total") }
     end
 
     def grand_total
