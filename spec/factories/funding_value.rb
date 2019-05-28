@@ -9,6 +9,24 @@ FactoryBot.define do
     internal_drainage_boards { 606060 }
     not_yet_identified { 707070 }
 
+    trait :with_public_contributor do
+      after(:create) do |fv|
+        create(:funding_contributor, :public_contributor, funding_value: fv)
+      end
+    end
+
+    trait :with_private_contributor do
+      after(:create) do |fv|
+        create(:funding_contributor, :private_contributor, funding_value: fv)
+      end
+    end
+
+    trait :with_other_ea_contributor do
+      after(:create) do |fv|
+        create(:funding_contributor, :other_ea_contributor, funding_value: fv)
+      end
+    end
+
     trait :previous_year do
       financial_year { -1 }
     end
