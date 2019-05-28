@@ -1,5 +1,5 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "bstard"
 
 module PafsCore
@@ -110,7 +110,7 @@ module PafsCore
     def total_for_funding_source(fs)
       source_total = 0
       funding_values.each do |fv|
-        source_total = source_total + fv[fs].to_i
+        source_total = source_total + fv.public_send("#{fs}_total")
       end
       source_total
     end
