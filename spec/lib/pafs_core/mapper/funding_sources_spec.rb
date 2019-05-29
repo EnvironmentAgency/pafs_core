@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PafsCore::Mapper::FundingSources, focus: true do
+RSpec.describe PafsCore::Mapper::FundingSources do
   subject { described_class.new(project: project) }
 
   let(:funding_values) { [ create(:funding_value) ] }
@@ -15,24 +15,9 @@ RSpec.describe PafsCore::Mapper::FundingSources, focus: true do
             fcerm_gia: values.fcerm_gia,
             local_levy: values.local_levy,
             internal_drainage_boards: values.internal_drainage_boards,
-            public_contributions: [{
-              name: project.public_contributor_names,
-              amount: values.public_contributions,
-              secured: false,
-              constrained: false
-            }],
-            private_contributions: [{
-              name: project.private_contributor_names,
-              amount: values.private_contributions,
-              secured: false,
-              constrained: false
-            }],
-            other_ea_contributions: [{
-              name: project.other_ea_contributor_names,
-              amount: values.other_ea_contributions,
-              secured: false,
-              constrained: false
-            }],
+            public_contributions: nil,
+            private_contributions: nil,
+            other_ea_contributions: nil,
             growth_funding: values.growth_funding,
             not_yet_identified: values.not_yet_identified
           }
