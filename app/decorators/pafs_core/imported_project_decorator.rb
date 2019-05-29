@@ -273,6 +273,8 @@ module PafsCore
     end
 
     def populate_funding_values_for(fv_type, values)
+      return if AGGREGATE_SOURCES.include?(fv_type)
+
       [-1].concat((2015..2027).to_a).each_with_index do |year, i|
         fv = project.funding_values.find_or_create_by(financial_year: year)
         fv.send("#{fv_type}=", values[i])
