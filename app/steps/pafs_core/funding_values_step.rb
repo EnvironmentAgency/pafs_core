@@ -49,7 +49,11 @@ module PafsCore
           fv.destroy
         else
           unselected_funding_sources.each do |fs|
-            fv.send("#{fs}=", nil)
+            if FundingSources::AGGREGATE_SOURCES.include?(fs)
+              fv.send("#{fs}=", [])
+            else
+              fv.send("#{fs}=", nil)
+            end
           end
         end
       end
