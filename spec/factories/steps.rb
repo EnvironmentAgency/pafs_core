@@ -53,18 +53,6 @@ FactoryBot.define do
       funding_sources_visited { true }
     end
 
-    factory :public_contributors_step, class: PafsCore::PublicContributorsStep do
-      public_contributor_names { "Mary, Mungo and Midge" }
-    end
-
-    factory :private_contributors_step, class: PafsCore::PrivateContributorsStep do
-      private_contributor_names { "Bungle, Zippy and George" }
-    end
-
-    factory :other_ea_contributors_step, class: PafsCore::OtherEaContributorsStep do
-      other_ea_contributor_names { "Wigwam Teepee" }
-    end
-
     factory :earliest_start_step, class: PafsCore::EarliestStartStep do
       could_start_early { true }
     end
