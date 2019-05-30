@@ -4,6 +4,8 @@ module PafsCore
   class FundingContributorsStep < BasicStep
     delegate :funding_values, to: :project
 
+    validate :at_least_one_name
+
     def funding_source
       :public_contributions
     end
@@ -46,6 +48,12 @@ module PafsCore
     end
 
     private
+
+    def at_least_one_name
+      return if funding_contributors.select{ |name| !name.strip.blank? }.size > 0
+
+      errors.add(:base, "Please add at least one contributor")
+    end
 
     def step_params(params)
       ActionController::Parameters.new(params).require("#{step}_step").permit(name: [])["name"]
