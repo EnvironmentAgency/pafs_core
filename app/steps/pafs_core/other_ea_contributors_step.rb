@@ -1,18 +1,9 @@
 # frozen_string_literal: true
+
 module PafsCore
-  class OtherEaContributorsStep < BasicStep
-    delegate :other_ea_contributor_names,
-             :other_ea_contributor_names=,
-             to: :project
-
-    validates :other_ea_contributor_names,
-      presence: { message: "^Tell us about the expected contributions from other Environment Agency functions or sources." }
-
-  private
-    def step_params(params)
-      ActionController::Parameters.new(params).
-        require(:other_ea_contributors_step).
-        permit(:other_ea_contributor_names)
+  class OtherEaContributorsStep < FundingContributorsStep
+    def funding_source
+      :other_ea_contributions
     end
   end
 end

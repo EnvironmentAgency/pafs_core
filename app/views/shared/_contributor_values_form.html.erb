@@ -5,11 +5,6 @@
         <%= f.error_header %>
         <h1 class="heading-large"><%= heading %></h1>
         <div class="step-form">
-          <% project.funding_contributors.each do |contributor| %>
-            <div class="form-group">
-              <%= f.text_field :name, value: contributor, multiple: true %>
-            </div>
-          <% end %>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
           </div>
