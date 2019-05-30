@@ -22,22 +22,6 @@ module PafsCore
       years.concat((2015..project_end_financial_year).to_a)
       years.each { |y| build_missing_year(y) }
     end
-
-    def clean_unselected_funding_sources
-      funding_values.each do |fv|
-        if fv.financial_year > project_end_financial_year
-          fv.destroy
-        else
-          unselected_funding_sources.each do |fs|
-            if FundingSources::AGGREGATE_SOURCES.include?(fs)
-              fv.send("#{fs}=", [])
-            else
-              fv.send("#{fs}=", nil)
-            end
-          end
-        end
-      end
-    end
   end
 end
 
