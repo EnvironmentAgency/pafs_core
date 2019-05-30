@@ -9,6 +9,14 @@ FactoryBot.define do
     internal_drainage_boards { 606060 }
     not_yet_identified { 707070 }
 
+    trait :blank do
+      fcerm_gia { nil }
+      local_levy { nil }
+      growth_funding { nil }
+      internal_drainage_boards { nil }
+      not_yet_identified { nil }
+    end
+
     trait :with_public_contributor do
       after(:create) do |fv|
         create(:funding_contributor, :public_contributor, funding_value: fv)
