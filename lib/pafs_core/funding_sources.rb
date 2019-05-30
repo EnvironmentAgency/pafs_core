@@ -52,5 +52,21 @@ module PafsCore
     def funding_source_label(fs)
       I18n.t(fs, scope: "funding_sources")
     end
+
+    def clean_unselected_funding_sources
+      funding_values.each do |fv|
+        if fv.financial_year > project_end_financial_year
+          fv.destroy
+        else
+          unselected_funding_sources.each do |fs|
+            if FundingSources::AGGREGATE_SOURCES.include?(fs)
+              fv.send("#{fs}=", [])
+            else
+              fv.send("#{fs}=", nil)
+            end
+          end
+        end
+      end
+    end
   end
 end
