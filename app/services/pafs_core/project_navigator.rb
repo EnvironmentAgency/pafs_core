@@ -129,9 +129,16 @@ module PafsCore
         s.add :summary_5
 
         s.add :funding_sources
-        s.add :public_contributors, if: :public_contributions?
-        s.add :private_contributors, if: :private_contributions?
-        s.add :other_ea_contributors, if: :other_ea_contributions?
+
+        s.add :public_contributors, if: ->(p) { p.project.public_contributions? }
+        s.add :public_contributor_values, if: ->(p) { p.project.public_contributions? }
+
+        s.add :private_contributors, if: ->(p) { p.project.private_contributions? }
+        s.add :private_contributor_values, if: ->(p) { false }
+
+        s.add :other_ea_contributors, if: ->(p) { false }
+        s.add :other_ea_contributor_values, if: ->(p) { false }
+
         s.add :funding_values
         s.add :funding_values_summary, if: :javascript_disabled?
         s.add :summary_6
