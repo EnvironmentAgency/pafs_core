@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class FundingValuesStep < BasicStep
     include PafsCore::FundingSources

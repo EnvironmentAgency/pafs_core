@@ -5,18 +5,26 @@ require "rails_helper"
 describe PafsCore::FundingContributorsStep, type: :model do
   subject { described_class.new(project) }
 
-  let(:project) { create(:project, :with_funding_values) }
+  let(:project) do 
+    create(
+      :project, 
+      :with_funding_values, 
+      project_end_financial_year: 2020,
+      public_contributions: true
+    )
+  end
 
   let(:perform) { subject.update(params) }
   let(:params) { { funding_contributors_step: { name: contributor_names} } }
 
   context 'when no contributors have been set (new project)' do
+    let(:project) { create(:project, project_end_financial_year: 2020) }
     let(:contributor_names) { [] }
 
     it_behaves_like "a project step"
 
     it 'initializes with a single empty name' do
-      expect(subject.funding_contributors).to eql([''])
+      expect(subject.current_funding_contributors).to eql([''])
     end
 
     it 'requires at least one contributor to be set' do
@@ -55,7 +63,9 @@ describe PafsCore::FundingContributorsStep, type: :model do
     let(:funding_value) { project.funding_values.first }
 
     before do
-      create(:funding_contributor, funding_value: funding_value, name: 'EnviroCo Ltd')
+      project.funding_values.each do |fv|
+        create(:funding_contributor, funding_value: fv, name: 'EnviroCo Ltd')
+      end
     end
 
     it 'adds the contributor to a correct funding value' do
