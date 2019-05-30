@@ -1,5 +1,5 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   class BasicStep
     include ActiveModel::Model, ActiveRecord::AttributeAssignment
