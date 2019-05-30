@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::FundingValuesStep, type: :model do
@@ -6,11 +7,11 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
     @project = FactoryBot.create(:project)
     @project.fcerm_gia = true
     @project.project_end_financial_year = 2022
-    @fv1 = FactoryBot.create(:funding_value, :previous_year, project: @project)
-    @fv2 = FactoryBot.create(:funding_value, project: @project, financial_year: 2016)
-    @fv3 = FactoryBot.create(:funding_value, project: @project, financial_year: 2017)
-    @fv4 = FactoryBot.create(:funding_value, project: @project, financial_year: 2018)
-    @fv5 = FactoryBot.create(:funding_value, project: @project, financial_year: 2019)
+    @fv1 = FactoryBot.create(:funding_value, :blank, :previous_year, project: @project)
+    @fv2 = FactoryBot.create(:funding_value, :blank, project: @project, financial_year: 2016)
+    @fv3 = FactoryBot.create(:funding_value, :blank, project: @project, financial_year: 2017)
+    @fv4 = FactoryBot.create(:funding_value, :blank, project: @project, financial_year: 2018)
+    @fv5 = FactoryBot.create(:funding_value, :blank, project: @project, financial_year: 2019)
     @project.funding_values << @fv1
     @project.funding_values << @fv2
     @project.funding_values << @fv3
