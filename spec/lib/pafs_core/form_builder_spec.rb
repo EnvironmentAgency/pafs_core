@@ -397,21 +397,21 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
   end
 
   describe "#text_area" do
-    let(:project) { FactoryBot.build :public_contributors_step }
+    let(:project) { FactoryBot.build :project_name_step }
     let(:options) { { rows: "2", cols: "40" } }
 
     before(:each) do
-      project.project.public_contributions = true
+      project.name = 'Test'
       project.valid?
       allow(helper).to receive(:t) { "my label" }
-      @output = builder.text_area(:public_contributor_names, options)
+      @output = builder.text_area(:name, options)
     end
 
     context "when the attribute has errors" do
       before(:each) do
-        project.public_contributor_names = nil
+        project.name = nil
         project.valid?
-        @output = builder.text_area(:public_contributor_names, options)
+        @output = builder.text_area(:name, options)
       end
 
       it "isn't valid" do
@@ -432,17 +432,17 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
     end
 
     it "outputs a textarea control" do
-      expect(@output).to have_css("textarea#public_contributors_public_contributor_names")
+      expect(@output).to have_css("textarea#project_name_name")
     end
 
     it "outputs a label for the attribute" do
-      expect(@output).to have_css("label[for='public_contributors_public_contributor_names']")
+      expect(@output).to have_css("label[for='project_name_name']")
     end
 
     context "when options contain a :label key" do
       let(:label_text) { "My lovely label" }
       it "outputs a label for the attribute using the specified text" do
-        @output = builder.text_area(:public_contributor_names, options.merge({ label: label_text }))
+        @output = builder.text_area(:name, options.merge({ label: label_text }))
         expect(@output).to have_css("label", text: label_text)
       end
     end
@@ -450,7 +450,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
     context "when hint text is supplied" do
       let(:hint) { "Always warm the pot" }
       before(:each) do
-        @output = builder.text_area(:public_contributor_names, options.merge({ hint: hint }))
+        @output = builder.text_area(:name, options.merge({ hint: hint }))
       end
 
       it "outputs the hint text in a paragraph" do
