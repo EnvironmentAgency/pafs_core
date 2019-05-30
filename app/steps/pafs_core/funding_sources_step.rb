@@ -12,14 +12,7 @@ module PafsCore
     def update(params)
       result = false
       assign_attributes(step_params(params).merge(funding_sources_visited: true))
-      if valid?
-        public_contributor_names = nil unless public_contributions?
-        private_contributor_names = nil unless private_contributions?
-        other_ea_contributor_names = nil unless other_ea_contributions?
-
-        result = project.save
-      end
-      result
+      project.save if valid?
     end
 
   private
