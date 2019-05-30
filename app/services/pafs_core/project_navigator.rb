@@ -140,6 +140,7 @@ module PafsCore
         s.add :other_ea_contributor_values, if: ->(p) { false }
 
         s.add :funding_values
+
         s.add :funding_values_summary, if: :javascript_disabled?
         s.add :summary_6
 
