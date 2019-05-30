@@ -28,6 +28,30 @@ FactoryBot.define do
       submitted_to_pol { nil }
     end
 
+    trait :with_funding_values do
+      create_funding_values { true }
+    end
+
+    transient do
+      public_contribution_count { 0 }
+      private_contribution_count { 0 }
+      other_ea_contribution_count { 0 }
+      create_funding_values { false }
+    end
+
+    after(:create) do |project, builder|
+      if builder.create_funding_values
+        (2015..2020).to_a.push(-1).each do |fy|
+          project.funding_values.create!(
+            financial_year: fy,
+            public_contributions: build_list(:funding_contributor, builder.public_contribution_count),
+            private_contributions: build_list(:funding_contributor, builder.private_contribution_count),
+            other_ea_contributions: build_list(:funding_contributor, builder.other_ea_contribution_count)
+          )
+        end
+      end
+    end
+
     factory :full_project do
       reference_number { PafsCore::ProjectService.generate_reference_number("SO") }
       version { 0 }
@@ -43,16 +67,10 @@ FactoryBot.define do
       ready_for_service_year { 2029 }
       fcerm_gia { true }
       local_levy { true }
-      public_contributions { true }
-      private_contributions { true }
-      other_ea_contributions { true }
       growth_funding { true }
       internal_drainage_boards { true }
       not_yet_identified { true }
       funding_sources_visited { true }
-      public_contributor_names { "Mary, Mungo and Midge" }
-      private_contributor_names { "Bungle, Zippy and George" }
-      other_ea_contributor_names { "Wigwam Teepee" }
       could_start_early { true }
       earliest_start_month { 3 }
       earliest_start_year { 2017 }
