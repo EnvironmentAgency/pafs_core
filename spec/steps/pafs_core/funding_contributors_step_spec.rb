@@ -13,6 +13,8 @@ describe PafsCore::FundingContributorsStep, type: :model do
   context 'when no contributors have been set (new project)' do
     let(:contributor_names) { [] }
 
+    it_behaves_like "a project step"
+
     it 'initializes with a single empty name' do
       expect(subject.funding_contributors).to eql([''])
     end
