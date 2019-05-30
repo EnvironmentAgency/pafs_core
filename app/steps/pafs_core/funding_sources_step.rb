@@ -10,9 +10,9 @@ module PafsCore
     validate :at_least_one_funding_source_is_selected
 
     def update(params)
-      result = false
       assign_attributes(step_params(params).merge(funding_sources_visited: true))
-      project.save if valid?
+
+      valid? ? project.save : false
     end
 
   private
