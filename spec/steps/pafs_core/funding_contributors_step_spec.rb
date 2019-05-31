@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe PafsCore::FundingContributorsStep, type: :model do
+describe PafsCore::FundingContributorsStep, type: :model, focus: true do
   subject { described_class.new(project) }
 
   let(:project) do 
@@ -29,6 +29,26 @@ describe PafsCore::FundingContributorsStep, type: :model do
 
     it 'requires at least one contributor to be set' do
       expect(subject.valid?).to be_falsey
+    end
+  end
+
+  context 'not changing the selected contributors' do
+    let(:contributor_names) { ["EnviroCo Ltd", "CWI"] }
+    let(:funding_value) { project.funding_values.first }
+
+    before do
+      project.funding_values.each do |fv|
+        create(:funding_contributor, funding_value: fv, name: 'EnviroCo Ltd')
+        create(:funding_contributor, funding_value: fv, name: 'CWI')
+      end
+
+      project.reload
+    end
+
+    it 'does not change any funding contributor records' do
+      expect do
+        perform
+      end.not_to change { PafsCore::FundingContributor.order(:id).to_json }
     end
   end
 
