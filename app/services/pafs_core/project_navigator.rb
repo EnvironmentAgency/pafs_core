@@ -134,10 +134,10 @@ module PafsCore
         s.add :public_contributor_values, if: ->(p) { p.project.public_contributions? }
 
         s.add :private_contributors, if: ->(p) { p.project.private_contributions? }
-        s.add :private_contributor_values, if: ->(p) { false }
+        s.add :private_contributor_values, if: ->(p) { p.project.private_contributions? }
 
-        s.add :other_ea_contributors, if: ->(p) { false }
-        s.add :other_ea_contributor_values, if: ->(p) { false }
+        s.add :other_ea_contributors, if: ->(p) { p.project.other_ea_contributions? }
+        s.add :other_ea_contributor_values, if: ->(p) { p.project.other_ea_contributions? }
 
         s.add :funding_values
 
