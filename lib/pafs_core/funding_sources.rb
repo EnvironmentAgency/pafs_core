@@ -34,7 +34,7 @@ module PafsCore
     end
 
     def selected_funding_sources
-      FUNDING_SOURCES.select { |s| send "#{s}?" }
+      FUNDING_SOURCES.select { |s| project.public_send "#{s}?" }
     end
 
     def unselected_funding_sources
