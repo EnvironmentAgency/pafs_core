@@ -26,7 +26,7 @@ module PafsCore
           :id,
           :financial_year,
           :total
-        ].concat(FUNDING_SOURCES)
+        ].concat(FUNDING_SOURCES - AGGREGATE_SOURCES)
       )
     end
 
@@ -36,7 +36,7 @@ module PafsCore
         # have been selected yet
         errors.add(:base, "You must select at least one funding source first")
       else
-        selected_funding_sources.each do |fs|
+        (selected_funding_sources - AGGREGATE_SOURCES).each do |fs|
           found = false
           funding_values.each do |fv|
             val = fv.send(fs)
