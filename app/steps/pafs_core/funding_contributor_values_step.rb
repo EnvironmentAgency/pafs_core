@@ -15,11 +15,11 @@ module PafsCore
       end
     end
 
-    private
-
     def param_key
       :private_contributor_values_step
     end
+
+    private
 
     def step_params(params)
       ActionController::Parameters.new(params).require(param_key).permit(

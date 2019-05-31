@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe PafsCore::FundingContributorsStep, type: :model, focus: true do
+describe PafsCore::FundingContributorsStep, type: :model do
   subject { described_class.new(project) }
 
   let(:project) do 

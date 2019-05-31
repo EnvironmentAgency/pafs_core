@@ -2,8 +2,8 @@
 
 module PafsCore
   class PrivateContributorValuesStep < FundingContributorValuesStep
-    def funding_source
-      :private_contributors
+    def param_key
+      :private_contributor_values_step
     end
   end
 end
