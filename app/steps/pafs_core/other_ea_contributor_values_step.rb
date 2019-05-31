@@ -2,8 +2,8 @@
 
 module PafsCore
   class OtherEaContributorValuesStep < FundingContributorValuesStep
-    def funding_source
-      :other_ea_contributors
+    def param_key
+      :other_ea_contributor_values_step
     end
   end
 end
