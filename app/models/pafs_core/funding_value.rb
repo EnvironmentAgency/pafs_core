@@ -29,7 +29,7 @@ module PafsCore
     FundingSources::FUNDING_SOURCES.each do |source|
       define_method("#{source}_total") do
         return public_send(source).to_i unless FundingSources::AGGREGATE_SOURCES.include?(source)
-        (public_send(source) || []).map(&:amount).sum.to_i
+        (public_send(source) || []).map(&:amount).compact.sum.to_i
       end
     end
 
