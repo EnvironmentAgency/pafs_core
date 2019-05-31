@@ -19,6 +19,7 @@ module PafsCore
     has_many :area_projects, dependent: :destroy
     has_many :areas, through: :area_projects
     has_many :funding_values, dependent: :destroy
+    has_many :funding_contributors, through: :funding_values
     has_many :flood_protection_outcomes, dependent: :destroy
     has_many :coastal_erosion_protection_outcomes, dependent: :destroy
     has_one :state, inverse_of: :project, dependent: :destroy
