@@ -5,7 +5,7 @@
         <%= f.error_header %>
         <h1 class="heading-large"><%= heading %></h1>
         <div class="step-form">
-          <% project.funding_contributors.each do |contributor| %>
+          <% project.current_funding_contributors.each do |contributor| %>
             <div class="form-group">
               <%= f.text_field :name, value: contributor, multiple: true %>
             </div>
