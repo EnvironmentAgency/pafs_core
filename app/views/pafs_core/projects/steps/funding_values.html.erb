@@ -30,16 +30,22 @@
                           <%= formatted_financial_year(builder.object.financial_year) %>
                         </td>
                         <% @project.selected_funding_sources.each do |fs| %>
-                          <td class="<%= funding_table_cell(builder.object.financial_year, fs) %>">
-                            <%= builder.label fs, class: "visuallyhidden" do -%>
-                              <%= "#{t(".#{fs}_label")} #{ formatted_financial_year(builder.object.financial_year) }" -%>
-                            <% end -%>
-                            <%= builder.number_field_without_label(fs,
-                                                                   class: "funding-value",
-                                                                   min: 0,
-                                                                   step: 1)
-                                                                   %>
-                          </td>
+                          <% if PafsCore::FundingSources::AGGREGATE_SOURCES.include?(fs) %>
+                            <td>
+                              <%= builder.object.send(fs).sum(:amount) %>
+                            </td>
+                          <% else %>
+                            <td class="<%= funding_table_cell(builder.object.financial_year, fs) %>">
+                              <%= builder.label fs, class: "visuallyhidden" do -%>
+                                <%= "#{t(".#{fs}_label")} #{ formatted_financial_year(builder.object.financial_year) }" -%>
+                              <% end -%>
+                              <%= builder.number_field_without_label(fs,
+                                                                    class: "funding-value",
+                                                                    min: 0,
+                                                                    step: 1)
+                                                                    %>
+                            </td>
+                          <% end %>
                         <% end %>
                         <td class="row-total numeric <%= fy_total_class(builder.object.financial_year) %>">
                           <%= builder.object.total %>
