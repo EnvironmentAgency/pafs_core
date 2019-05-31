@@ -27,6 +27,7 @@ module PafsCore
     accepts_nested_attributes_for :funding_values, allow_destroy: true
     accepts_nested_attributes_for :flood_protection_outcomes, allow_destroy: true
     accepts_nested_attributes_for :coastal_erosion_protection_outcomes, allow_destroy: true
+    accepts_nested_attributes_for :funding_contributors
 
     before_validation :set_slug, on: :create
 

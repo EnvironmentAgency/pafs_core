@@ -5,6 +5,60 @@
         <%= f.error_header %>
         <h1 class="heading-large"><%= heading %></h1>
         <div class="step-form">
+          <% project.funding_contributors.pluck(:name).uniq.each do |contributor_name| %>
+            <h2><%= contributor_name %></h2>
+            <%= f.form_group :base do %>
+              <%= f.error_message(:base) %>
+              <div class="scroll-horz">
+                <fieldset>
+                  <legend class="visuallyhidden">What is the estimated spend for each financial year</legend>
+                  <table class="funding-contributor-table">
+                    <thead>
+                      <tr>
+                        <th class="financial-year-column"><%= t(".financial_year_label") %></th>
+                        <th class="estimated-spend"><%= t(".estimated_spend_label") %></th>
+                        <th class="secured"><%= t(".secured_label") %></th>
+                        <th class="time-constrained-column"><%= t(".time_constrained_label") %></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% 
+                          contributors = project.funding_contributors.where(
+                            name: contributor_name, 
+                            contributor_type: funding_source
+                          ).to_a
+                      %>
+
+                      <% contributors.each do |contributor| %>
+                        <%= f.fields_for 'funding_contributors[]', contributor do |builder| %>
+                          <tr>
+                            <td class="financial_year">
+                              <%= formatted_financial_year(builder.object.funding_value.financial_year) %>
+                            </td>
+                            <td class="amount">
+                              <%= builder.text_field :amount %>
+                            </td>
+                            <td class="secured">
+                              <%= builder.check_box :secured %>
+                            </td>
+                            <td class="constrained">
+                              <%= builder.check_box :constrained %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      <% end %>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td><%= t(".total_label") %></td>
+                        <td class="numeric grand-total">Total</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </fieldset>
+              </div>
+            <% end %>
+          <% end %>
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
           </div>
