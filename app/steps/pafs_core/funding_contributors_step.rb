@@ -5,8 +5,6 @@ module PafsCore
     include PafsCore::FundingSources
     include PafsCore::FundingValues
 
-    validate :at_least_one_name
-
     def funding_source
       :public_contributions
     end
@@ -31,30 +29,40 @@ module PafsCore
     def create_new_contributors(params)
       (step_params(params) - current_funding_contributors).each do |name|
         funding_values.find_each do |fv|
+          next if name.strip.blank?
           fv.send(funding_source).create(name: name)
         end
       end
     end
 
     def update(params)
-      setup_funding_values
-      clean_unselected_funding_sources
+      return false unless at_least_one_name(params)
 
-      funding_values.reload
-      delete_removed_contributors(params)
-      create_new_contributors(params)
+      PafsCore::FundingContributor.transaction do
+        setup_funding_values
+        clean_unselected_funding_sources
+
+        funding_values.reload
+        delete_removed_contributors(params)
+        create_new_contributors(params)
+      end
     end
 
     private
 
-    def at_least_one_name
-      return if current_funding_contributors.select{ |name| !name.strip.blank? }.size > 0
+    def at_least_one_name(params)
+      return true if step_params(params).size > 0
 
       errors.add(:base, "Please add at least one contributor")
+      false
     end
 
     def step_params(params)
-      ActionController::Parameters.new(params).require("#{step}_step").permit(name: [])["name"]
+      @step_params ||= ActionController::Parameters.new(params).
+                        permit("#{step}_step" => { name: [] }).
+                        fetch("#{step}_step", nil).
+                        fetch("name", []).
+                        select { |name| !name.strip.blank? }
     end
   end
 end
