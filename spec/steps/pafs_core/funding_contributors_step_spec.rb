@@ -28,7 +28,7 @@ describe PafsCore::FundingContributorsStep, type: :model do
     end
 
     it 'requires at least one contributor to be set' do
-      expect(subject.valid?).to be_falsey
+      expect(perform).to be_falsey
     end
   end
 
