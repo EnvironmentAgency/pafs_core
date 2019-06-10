@@ -1,4 +1,13 @@
 en:
+  shared:
+    contributor_values_form:
+      description: Spending estimates should be in pounds (e.g. £50000) and estimates at current prices. Future maintenance costs aren't required.
+      more_detail: Indicate whether the money is secured and whether it is constrained to be spent within the allocated year.
+      financial_year_label: Financial year (April to March)
+      estimated_spend_label: Estimated spend from contributor in financial year (£)
+      secured_label: Is the funding secured?
+      time_constrained_label: Is the funding Time Constrained?
+
   pafs_core:
     projects:
       steps:
@@ -97,6 +106,12 @@ en:
           growth_funding_label: Growth funding
           not_yet_identified_label: Not yet identified
           total_label: Total (£)
+        public_contributor_values:
+          heading: What is the estimated spend from Public sector contributions for each financial year?
+        private_contributor_values:
+          heading: What is the estimated spend from Private sector contributions for each financial year?
+        other_ea_contributor_values:
+          heading: What is the estimated spend for other Environment Agency sources for each financial year?
         funding_values_summary:
           heading: Confirm the estimated spend for each financial year.
 # earliest start
