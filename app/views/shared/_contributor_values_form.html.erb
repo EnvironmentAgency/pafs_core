@@ -4,8 +4,10 @@
       <%= pafs_form_for project, url: save_project_step_path(id: project.to_param, step: project.step) do |f| %>
         <%= f.error_header %>
         <h1 class="heading-large"><%= heading %></h1>
+        <p><%= t(".description") %></p>
+        <p><%= t(".more_detail") %></p>
         <div class="step-form">
-          <% project.funding_contributors.pluck(:name).uniq.each do |contributor_name| %>
+          <% project.funding_contributors.where(contributor_type: funding_source).uniq.pluck(:name).each do |contributor_name| %>
             <h2><%= contributor_name %></h2>
             <%= f.form_group :base do %>
               <%= f.error_message(:base) %>
@@ -36,13 +38,23 @@
                               <%= formatted_financial_year(builder.object.funding_value.financial_year) %>
                             </td>
                             <td class="amount">
-                              <%= builder.text_field :amount %>
+                              <%= builder.text_field :amount, label: { class: 'visuallyhidden' } %>
                             </td>
                             <td class="secured">
-                              <%= builder.check_box :secured %>
+                              <fieldset class="inline">
+                                <%= builder.radio_button_group(:secured, [ 
+                                  { value: "true", options: { label: t("yes_option") } },
+                                  { value: "false", options: { label: t("no_option") } }
+                                ]) %>
+                              </fieldset>
                             </td>
                             <td class="constrained">
-                              <%= builder.check_box :constrained %>
+                              <fieldset class="inline">
+                                <%= builder.radio_button_group(:constrained, [ 
+                                  { value: "true", options: { label: t("yes_option") } },
+                                  { value: "false", options: { label: t("no_option") } }
+                                ]) %>
+                              </fieldset>
                             </td>
                           </tr>
                         <% end %>
