@@ -60,7 +60,7 @@ module PafsCore
     def step_params(params)
       @step_params ||= ActionController::Parameters.new(params).
                         permit("#{step}_step" => { name: [] }).
-                        fetch("#{step}_step", nil).
+                        fetch("#{step}_step", {}).
                         fetch("name", []).
                         select { |name| !name.strip.blank? }
     end
