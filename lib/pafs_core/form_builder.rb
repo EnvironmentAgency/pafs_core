@@ -121,7 +121,7 @@ module PafsCore
 
     def radio_button(attribute, value, options = {})
       attribute = attribute.to_sym
-      label_opts = { class: "block-label", value: value }
+      label_opts = { class: options.fetch(:label_class, "block-label"), value: value }
       label_opts[:data] = { target: options.fetch(:target) } if options.include?(:target)
       # label_opts[:data] = { target: content_id("#{attribute}-#{value}") } if block_given?
 
