@@ -679,3 +679,13 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
 .risk-summary-subheading {
   text-align: right;
 }
+
+ol.instructions {
+  list-style-type: decimal;
+  padding-left: 2em;
+  margin: 1em 0;
+
+  li {
+    margin-bottom: 0.5em;
+  }
+}
