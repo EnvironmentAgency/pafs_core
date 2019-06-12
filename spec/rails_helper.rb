@@ -17,6 +17,7 @@ require "shoulda-matchers"
 require "vcr"
 require "webmock/rspec"
 require "spec_helper"
+require "climate_control"
 
 Rails.backtrace_cleaner.remove_silencers!
 

@@ -30,6 +30,8 @@ require "pafs_core/data_migration/remove_duplicate_states"
 require "pafs_core/mapper/fcerm"
 require "pafs_core/mapper/funding_sources"
 require "pafs_core/mapper/partnership_funding_calculator"
+require "pafs_core/pol/azure_oauth"
+require "pafs_core/pol/azure_vault_client"
 require "core_ext/time/financial"
 require "core_ext/date/financial"
 
