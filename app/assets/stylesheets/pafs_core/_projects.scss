@@ -186,6 +186,18 @@ $icon-shadow-colour: rgba(0, 0, 0, 0.4);
   margin-bottom: 1.5em;
 }
 
+.funding-contributor-table {
+  .funding-value {
+    text-align: right;
+  }
+
+  .secured, .constrained {
+    fieldset {
+      white-space: nowrap;
+    }
+  }
+}
+
 .funding-table, .funding-table-summary, .protection-outcomes-table, .protection-outcomes-table-summary {
   th {
     vertical-align: top;
