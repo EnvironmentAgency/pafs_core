@@ -1,14 +1,16 @@
 <div class="step-container">
   <div class="grid-row">
-    <div class="column-two-thirds">
-      <%= pafs_form_for project, url: save_project_step_path(id: project.to_param, step: project.step) do |f| %>
+    <%= pafs_form_for project, url: save_project_step_path(id: project.to_param, step: project.step) do |f| %>
+      <div class="column-two-thirds">
         <%= f.error_header %>
         <h1 class="heading-large"><%= heading %></h1>
         <p><%= t(".description") %></p>
         <p><%= t(".more_detail") %></p>
+      </div>
+      <div class="column-three-quarters">
         <div class="step-form">
           <% project.funding_contributors.where(contributor_type: funding_source).uniq.pluck(:name).each do |contributor_name| %>
-            <h2><%= contributor_name %></h2>
+            <h3><%= contributor_name %></h3>
             <%= f.form_group :base do %>
               <%= f.error_message(:base) %>
               <div class="scroll-horz">
@@ -28,42 +30,44 @@
                           contributors = project.funding_contributors.where(
                             name: contributor_name, 
                             contributor_type: funding_source
-                          ).to_a
-                      %>
+                      ).to_a
+                    %>
 
-                      <% contributors.each do |contributor| %>
-                        <%= f.fields_for 'funding_contributors[]', contributor do |builder| %>
-                          <tr>
-                            <td class="financial_year">
-                              <%= formatted_financial_year(builder.object.funding_value.financial_year) %>
-                            </td>
-                            <td class="amount">
-                              <%= builder.text_field :amount, label: { class: 'visuallyhidden' } %>
-                            </td>
-                            <td class="secured">
-                              <fieldset class="inline">
-                                <%= builder.radio_button_group(:secured, [ 
-                                  { value: "true", options: { label: t("yes_option") } },
-                                  { value: "false", options: { label: t("no_option") } }
-                                ]) %>
-                              </fieldset>
-                            </td>
-                            <td class="constrained">
-                              <fieldset class="inline">
-                                <%= builder.radio_button_group(:constrained, [ 
-                                  { value: "true", options: { label: t("yes_option") } },
-                                  { value: "false", options: { label: t("no_option") } }
-                                ]) %>
-                              </fieldset>
-                            </td>
-                          </tr>
-                        <% end %>
-                      <% end %>
+                  <% contributors.each do |contributor| %>
+                    <%= f.fields_for 'funding_contributors[]', contributor do |builder| %>
+                      <tr>
+                        <td class="financial_year">
+                          <%= formatted_financial_year(builder.object.funding_value.financial_year) %>
+                        </td>
+                        <td class="amount numeric">
+                          <%= builder.number_field_without_label :amount, class: 'funding-value', min: 0, step: 1 %>
+                        </td>
+                        <td class="secured">
+                          <fieldset class="inline">
+                            <%= builder.radio_button_group(:secured, [ 
+                              { value: "true", options: { label: t("yes_option"), label_class: 'inline-block' } },
+                              { value: "false", options: { label: t("no_option"), label_class: 'inline_block' } }
+                            ]) %>
+                          </fieldset>
+                        </td>
+                        <td class="constrained">
+                          <fieldset class="inline">
+                            <%= builder.radio_button_group(:constrained, [ 
+                              { value: "true", options: { label: t("yes_option"), label_class: 'inline_block' } },
+                              { value: "false", options: { label: t("no_option"), label_class: 'inline_block' } }
+                            ]) %>
+                          </fieldset>
+                        </td>
+                      </tr>
+                    <% end %>
+                  <% end %>
                     </tbody>
                     <tfoot>
                       <tr>
                         <td><%= t(".total_label") %></td>
                         <td class="numeric grand-total">Total</td>
+                        <td></td>
+                        <td></td>
                       </tr>
                     </tfoot>
                   </table>
@@ -74,8 +78,8 @@
           <div class="form-group">
             <%= f.submit t("save_and_continue_label"), class: 'button' %>
           </div>
-        <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
