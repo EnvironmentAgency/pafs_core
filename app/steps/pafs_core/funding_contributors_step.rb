@@ -41,8 +41,9 @@ module PafsCore
       PafsCore::FundingContributor.transaction do
         setup_funding_values
         clean_unselected_funding_sources
-
+        funding_values.map(&:save!)
         funding_values.reload
+
         delete_removed_contributors(params)
         create_new_contributors(params)
       end

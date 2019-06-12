@@ -18,8 +18,9 @@ function FundingValuesTable(table_selector) {
 
   self.updateRowTotal = function(row) {
     var values = [];
-    $(selector).find("tbody > tr:nth-child(" + row + ") > td").each(function() {
-      push_field_value(this, values);
+    $(selector).find("tbody > tr:nth-child(" + row + ") > td").not( ":last" ).each(function(index) {
+      push_field_value(this, values, this);
+      push_text_value(this, values);
     });
     $(selector).find("tbody > tr:nth-child(" + row + ") > td:last-child").text(format_number(sum_array(values)));
   }
@@ -28,6 +29,7 @@ function FundingValuesTable(table_selector) {
     var values = [];
     $(selector).find("tbody > tr > td:nth-child(" + column + ")").each(function() {
       push_field_value(this, values);
+      push_text_value(this, values);
     });
     $(selector).find("tfoot > tr:last-child > td:nth-child(" + column + ")").text(format_number(sum_array(values)));
   }
