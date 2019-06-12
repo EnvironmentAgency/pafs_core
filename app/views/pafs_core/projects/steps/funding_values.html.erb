@@ -31,7 +31,7 @@
                         </td>
                         <% @project.selected_funding_sources.each do |fs| %>
                           <% if PafsCore::FundingSources::AGGREGATE_SOURCES.include?(fs) %>
-                            <td>
+                            <td class="numeric">
                               <%= builder.object.send(fs).sum(:amount) %>
                             </td>
                           <% else %>
