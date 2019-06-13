@@ -153,7 +153,16 @@ module PafsCore
       areas.map(&:area_type).include?(PafsCore::Area::RMA_AREA)
     end
 
-  private
+    %w(private public other_ea).each do |contributor_type|
+      define_method "#{contributor_type}_contributor_names" do
+        funding_contributors.where(
+          contributor_type: "#{contributor_type}_contributions"
+        ).pluck(:name).uniq.join(', ')
+      end
+    end
+
+    private
+
     def set_slug
       self.slug = reference_number.parameterize.upcase
     end
