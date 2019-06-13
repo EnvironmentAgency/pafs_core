@@ -39,7 +39,7 @@ module PafsCore
         contributors.map do |contributor|
           {
             name: contributor.name,
-            amount: contributor.amount,
+            amount: contributor.amount.to_i,
             secured: !!contributor.secured,
             constrained: !!contributor.constrained
           }
