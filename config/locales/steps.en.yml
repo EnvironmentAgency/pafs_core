@@ -7,6 +7,7 @@ en:
       estimated_spend_label: Estimated spend from contributor in financial year (£)
       secured_label: Is the funding secured?
       time_constrained_label: Is the funding Time Constrained?
+      total_label: Total (£)
 
   pafs_core:
     projects:
