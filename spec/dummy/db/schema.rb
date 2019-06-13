@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(version: 20190619134726) do
     t.boolean  "public_contributions"
     t.string   "public_contributor_names"
     t.boolean  "private_contributions"
+
     t.string   "private_contributor_names"
     t.boolean  "other_ea_contributions"
     t.string   "other_ea_contributor_names"
