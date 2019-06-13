@@ -157,15 +157,15 @@ module PafsCore
     end
 
     def public_contributions(year)
-      funding_for(year).sum(:public_contributions)
+      funding_for(year).joins(:public_contributions).sum('pafs_core_funding_contributors.amount')
     end
 
     def private_contributions(year)
-      funding_for(year).sum(:private_contributions)
+      funding_for(year).joins(:private_contributions).sum('pafs_core_funding_contributors.amount')
     end
 
     def other_ea_contributions(year)
-      funding_for(year).sum(:other_ea_contributions)
+      funding_for(year).joins(:other_ea_contributions).sum('pafs_core_funding_contributors.amount')
     end
 
     def not_yet_identified(year)
