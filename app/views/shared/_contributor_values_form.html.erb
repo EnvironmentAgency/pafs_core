@@ -30,41 +30,41 @@
                             contributors = project.funding_contributors.where(
                               name: contributor_name, 
                               contributor_type: funding_source
-                        ).to_a
-                      %>
+                            ).joins(:funding_value).order('pafs_core_funding_values.financial_year').to_a
+                        %>
 
-                    <% contributors.each do |contributor| %>
-                      <%= f.fields_for 'funding_contributors[]', contributor do |builder| %>
-                        <tr>
-                          <td class="financial_year">
-                            <%= formatted_financial_year(builder.object.funding_value.financial_year) %>
-                          </td>
-                          <td class="amount numeric">
-                            <%= builder.number_field_without_label :amount, class: 'funding-value', min: 0, step: 1 %>
-                          </td>
-                          <td class="secured">
-                            <fieldset class="inline">
-                              <%= builder.radio_button_group(:secured, [ 
-                                { value: "true", options: { label: t("yes_option"), label_class: 'inline-block' } },
-                                { value: "false", options: { label: t("no_option"), label_class: 'inline_block' } }
-                              ]) %>
-                            </fieldset>
-                          </td>
-                          <td class="constrained">
-                            <fieldset class="inline">
-                              <%= builder.radio_button_group(:constrained, [ 
-                                { value: "true", options: { label: t("yes_option"), label_class: 'inline_block' } },
-                                { value: "false", options: { label: t("no_option"), label_class: 'inline_block' } }
-                              ]) %>
-                            </fieldset>
-                          </td>
-                        </tr>
-                      <% end %>
-                    <% end %>
+                        <% contributors.each do |contributor| %>
+                          <%= f.fields_for 'funding_contributors[]', contributor do |builder| %>
+                            <tr>
+                              <td class="financial_year">
+                                <%= formatted_financial_year(builder.object.funding_value.financial_year) %>
+                              </td>
+                              <td class="amount numeric">
+                                <%= builder.number_field_without_label :amount, class: 'funding-value', min: 0, step: 1 %>
+                              </td>
+                              <td class="secured">
+                                <fieldset class="inline">
+                                  <%= builder.radio_button_group(:secured, [ 
+                                    { value: "true", options: { label: t("yes_option"), label_class: 'inline-block' } },
+                                    { value: "false", options: { label: t("no_option"), label_class: 'inline_block' } }
+                                  ]) %>
+                                </fieldset>
+                              </td>
+                              <td class="constrained">
+                                <fieldset class="inline">
+                                  <%= builder.radio_button_group(:constrained, [ 
+                                    { value: "true", options: { label: t("yes_option"), label_class: 'inline_block' } },
+                                    { value: "false", options: { label: t("no_option"), label_class: 'inline_block' } }
+                                  ]) %>
+                                </fieldset>
+                              </td>
+                            </tr>
+                          <% end %>
+                        <% end %>
                       </tbody>
                       <tfoot>
                         <tr>
-                          <td><%= t(".total_label") %></td>
+                          <td class='data-total'><%= t(".total_label") %></td>
                           <td class="numeric grand-total">Total</td>
                           <td></td>
                           <td></td>
