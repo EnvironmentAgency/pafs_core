@@ -95,7 +95,7 @@ module PafsCore
         errors.add(:base, "The file was rejected because it may contain a virus. "\
                           "Check the file and try again")
       elsif benefit_area_file_name.blank?
-        errors.add(:base, "Upload a shapefile or image file that outlines "\
+        errors.add(:base, "Upload a shapefile that outlines "\
                           "the area the project is likely to benefit")
       end
     end
