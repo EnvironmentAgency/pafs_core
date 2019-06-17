@@ -4,7 +4,7 @@ class CreatePafsCoreFundingContributors < ActiveRecord::Migration
       t.string :name
       t.string :contributor_type
       t.integer :funding_value_id
-      t.integer :amount
+      t.integer :amount, limit: 8
       t.boolean :secured, null: false, default: false
       t.boolean :constrained, null: false, default: false
 
