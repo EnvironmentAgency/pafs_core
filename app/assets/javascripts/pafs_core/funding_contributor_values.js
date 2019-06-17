@@ -7,12 +7,31 @@ function FundingContributorValuesTable(tableElement) {
     this.table.find(".amount input").on("change", self.updateTotals.bind(this));
   }
 
-  self.updateTotals = function() {
-    var total = 0;
+  self.cleanData = function() {
     this.table.find(".amount input").each(function(_index, inputElement) {
       var value = Number($(inputElement).val());
-      if (isNaN(value)) { next }
 
+      if(value !== "") {
+        value = Number(value);
+        if(isNaN(value)) {
+          value = "";
+        } else {
+          value = Math.abs(parseInt(value));
+        }
+        $(inputElement).val(value);
+      }
+    })
+  }
+
+  self.updateTotals = function() {
+    var total = 0;
+
+    this.cleanData();
+
+    this.table.find(".amount input").each(function(_index, inputElement) {
+      var value = Number($(inputElement).val());
+
+      if (isNaN(value)) { next }
       total += value;
     })
 
