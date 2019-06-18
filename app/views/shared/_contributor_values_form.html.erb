@@ -9,7 +9,7 @@
       </div>
       <div class="column-three-quarters">
         <div class="step-form">
-          <% project.funding_contributors.where(contributor_type: funding_source).uniq.pluck(:name).each do |contributor_name| %>
+          <% project.funding_contributors.where(contributor_type: funding_source).order(:id).map(&:name).uniq.each do |contributor_name| %>
             <div class="contributor_values">
               <h3 class="heading-small"><%= contributor_name %></h3>
                 <%= f.error_message(:base) %>
