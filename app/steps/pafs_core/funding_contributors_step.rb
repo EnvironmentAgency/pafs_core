@@ -11,7 +11,7 @@ module PafsCore
 
     def current_funding_contributors
       return [''] if (fv = funding_values.first).nil?
-      return [''] if (fc = fv.send(funding_source)).empty?
+      return [''] if (fc = fv.send(funding_source).order(:id)).empty?
 
       fc.map(&:name)
     end
