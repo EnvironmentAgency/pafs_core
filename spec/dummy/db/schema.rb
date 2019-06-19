@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180709095903) do
+ActiveRecord::Schema.define(version: 20190619134726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -262,10 +262,12 @@ ActiveRecord::Schema.define(version: 20180709095903) do
     t.boolean  "reduced_risk_of_households_for_floods",            default: false, null: false
     t.boolean  "reduced_risk_of_households_for_coastal_erosion",   default: false, null: false
     t.string   "rma_name"
+    t.datetime "submitted_to_pol"
   end
 
   add_index "pafs_core_projects", ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree
   add_index "pafs_core_projects", ["slug"], name: "index_pafs_core_projects_on_slug", unique: true, using: :btree
+  add_index "pafs_core_projects", ["submitted_to_pol"], name: "index_pafs_core_projects_on_submitted_to_pol", using: :btree
 
   create_table "pafs_core_reference_counters", force: :cascade do |t|
     t.string   "rfcc_code",    default: "", null: false

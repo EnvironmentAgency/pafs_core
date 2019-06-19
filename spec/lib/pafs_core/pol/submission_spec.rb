@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe PafsCore::Pol::Submission, :vcr do
   let(:perform) { described_class.perform(project) }
-  let(:project) { double(:project) }
+  let(:project) { create(:project) }
 
   let(:url) { 'https://example.com/test' }
   let!(:post_request) { stub_request(:post, 'https://example.com/test') }
@@ -73,6 +73,37 @@ describe PafsCore::Pol::Submission, :vcr do
       expect do
         perform
       end.not_to raise_exception
+    end
+
+
+    context 'on successful submission' do
+      before do
+        stub_request(:post, 'https://example.com/test').to_return(status: 200)
+      end
+
+      it 'changes the submitted_to_pol timestamp' do
+        expect do
+          perform
+        end.to change { project.reload.submitted_to_pol }
+      end
+    end
+
+    context 'on unsuccessful submission' do
+      before do
+        stub_request(:post, 'https://example.com/test').to_return(status: 401)
+      end
+
+      it 'does not change the submitted_to_pol timestamp' do
+        expect do
+          perform
+        end.not_to change { project.reload.submitted_to_pol }
+      end
+
+      it 'does not raise an exception' do
+        expect do
+          perform
+        end.not_to raise_exception
+      end
     end
   end
 end
