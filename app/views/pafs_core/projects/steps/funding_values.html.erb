@@ -42,7 +42,8 @@
                               <%= builder.number_field_without_label(fs,
                                                                     class: "funding-value",
                                                                     min: 0,
-                                                                    step: 1)
+                                                                    step: 1,
+                                                                    value: builder.object.send(fs).to_i)
                                                                     %>
                             </td>
                           <% end %>
