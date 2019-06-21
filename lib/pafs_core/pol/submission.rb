@@ -17,15 +17,24 @@ module PafsCore
 
       def perform
         return unless submission_enabled?
+        return unless success?
 
-        connection.post do |request|
+        project.update_column(:submitted_to_pol, Time.now.utc)
+      end
+
+      private
+
+      def result
+        @result ||= connection.post do |request|
           request.headers['Content-Type'] = 'application/json'
           request.headers['x-function-key'] = api_token
           request.body = payload
         end
       end
 
-      private
+      def success?
+        result.status.in?(200..299)
+      end
 
       def json_presenter
         @json_presenter ||= PafsCore::Camc3Presenter.new(project: project)
