@@ -60,6 +60,7 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     # send files to asite
     # asite.submit_project(@project)
     PafsCore::AsiteSubmissionJob.perform_later(@project.id)
+    PafsCore::Pol::SubmissionJob.perform_later(@project.id)
 
     redirect_to pafs_core.confirm_project_path(@project)
   end

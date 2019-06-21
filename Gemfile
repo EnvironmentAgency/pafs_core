@@ -21,6 +21,7 @@ group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'guard-rspec', require: false
+  gem 'climate_control'
 end
 
 group :test do
