@@ -32,7 +32,7 @@
                         <% @project.selected_funding_sources.each do |fs| %>
                           <% if PafsCore::FundingSources::AGGREGATE_SOURCES.include?(fs) %>
                             <td class="numeric">
-                              <%= builder.object.send(fs).sum(:amount) %>
+                              <%= builder.object.send(fs).sum(:amount).to_i %>
                             </td>
                           <% else %>
                             <td class="<%= funding_table_cell(builder.object.financial_year, fs) %>">
