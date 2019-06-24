@@ -21,30 +21,6 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
     @project.save
   end
 
-  describe "attributes" do
-    subject { PafsCore::FundingValuesStep.new @project }
-    it_behaves_like "a project step"
-
-    it "validates that at least one value per column is selected" do
-      subject.project.local_levy = true
-      expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include
-      "In the applicable year(s), tell us the estimated spend for Local levy"
-    end
-
-    it "validates that positive values have been entered" do
-      subject.funding_values.build(financial_year: 2023, fcerm_gia: -200_000)
-      expect(subject.valid?).to be false
-      expect(subject.errors.messages[:base]).to include "Values must be greater than or equal to zero"
-    end
-
-    it "validates that at least one funding source is present" do
-      subject.project.fcerm_gia = nil
-      expect(subject.valid?).to eq false
-      expect(subject.errors.messages[:base]).to include "You must select at least one funding source first"
-    end
-  end
-
   describe "#update" do
     subject { PafsCore::FundingValuesStep.new @project }
 
@@ -58,39 +34,15 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
         }
       )
     }
-    let(:error_params) {
-      HashWithIndifferentAccess.new(
-        { funding_values_step: {
-            funding_values_attributes: [
-              { financial_year: 2020, local_levy: nil },
-            ]
-          }
-        }
-      )
-    }
 
-    context "when params are invalid" do
-      before(:each) { subject.project.update_attributes(local_levy: true) }
-
-      it "returns false" do
-        expect(subject.update(error_params)).to eq false
-      end
-
-      it "does not save the changes" do
-        expect { subject.update(error_params) }.not_to change { subject.funding_values.count }
-      end
+    it "saves the changes" do
+      expect { subject.update(params) }.to change { subject.funding_values.count }.by(1)
+      expect(subject.funding_values.last.financial_year).to eq 2020
+      expect(subject.funding_values.last.fcerm_gia).to eq 500_000
     end
 
-    context "when params are valid" do
-      it "saves the changes" do
-        expect { subject.update(params) }.to change { subject.funding_values.count }.by(1)
-        expect(subject.funding_values.last.financial_year).to eq 2020
-        expect(subject.funding_values.last.fcerm_gia).to eq 500_000
-      end
-
-      it "returns true" do
-        expect(subject.update(params)).to eq true
-      end
+    it "returns true" do
+      expect(subject.update(params)).to eq true
     end
 
     context "when funding_values exist for years after the :project_end_financial_year" do
