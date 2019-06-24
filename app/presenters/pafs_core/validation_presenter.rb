@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 module PafsCore
   class ValidationPresenter < PafsCore::ProjectSummaryPresenter
+    include PafsCore::FundingSources
+
     def complete?
       result = true
       articles_to_validate.each do |article|
@@ -45,11 +47,9 @@ module PafsCore
     end
 
     def funding_sources_complete?
-      if selected_funding_sources.empty? || funding_values_incomplete?
-        add_error(:funding_sources, "^Tell us the project's funding sources and estimated spend")
-      else
-        true
-      end
+      return true if funding_values_complete?
+
+      add_error(:funding_sources, "^Tell us the project's funding sources and estimated spend")
     end
 
     def earliest_start_complete?
@@ -198,17 +198,10 @@ module PafsCore
       end
     end
 
-    def funding_values_incomplete?
-      complete = selected_funding_sources.present?
-      selected_funding_sources.each do |fs|
-        found = false
-        funding_values.each do |fv|
-          val = fv.send(fs)
-          found = true if val.present?
-        end
-        complete &&= found
-      end
-      !complete
+    def funding_values_complete?
+      return false unless selected_funding_sources.present?
+
+      selected_funding_sources.all? { |fs| total_for(fs) > 0 }
     end
 
     def add_error(attr, msg)
