@@ -6,6 +6,9 @@ module PafsCore
     include PafsCore::FundingValues
     include PafsCore::FinancialYear
 
+    # This sorts the sources with the aggregated sources at the end of the array
+    SORTED_SOURCES = (FUNDING_SOURCES - AGGREGATE_SOURCES) + AGGREGATE_SOURCES
+
     validate :at_least_one_value_per_column_entered
 
     def update(params)
@@ -16,6 +19,10 @@ module PafsCore
     # override to allow us to set up the funding_values if needed
     def before_view(params)
       setup_funding_values
+    end
+
+    def sorted_sources
+      SORTED_SOURCES & selected_funding_sources
     end
 
   private
