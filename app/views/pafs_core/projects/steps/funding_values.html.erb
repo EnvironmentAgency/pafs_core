@@ -15,7 +15,7 @@
                   <thead>
                     <tr>
                       <th class="financial-year-column"><%= t(".financial_year_label") %></th>
-                      <% @project.selected_funding_sources.each do |fs| %>
+                      <% @project.sorted_sources.each do |fs| %>
                         <th class="data-column <%= "#{fs}-column" %>"><%= t(".#{fs}_label") %></th>
                       <% end %>
                       <th class="data-total"><%= t(".total_label") %></th>
@@ -29,7 +29,7 @@
                           <%= builder.hidden_field :id %>
                           <%= formatted_financial_year(builder.object.financial_year) %>
                         </td>
-                        <% @project.selected_funding_sources.each do |fs| %>
+                        <% @project.sorted_sources.each do |fs| %>
                           <% if PafsCore::FundingSources::AGGREGATE_SOURCES.include?(fs) %>
                             <td class="numeric">
                               <%= builder.object.send(fs).sum(:amount).to_i %>
