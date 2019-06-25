@@ -36,7 +36,7 @@ module PafsCore
     private
 
     def update_total
-      self.total = FundingSources::FUNDING_SOURCES.reduce(0) {|tot, f| tot += public_send("#{f}_total") }
+      total = FundingSources::FUNDING_SOURCES.map {|f| public_send("#{f}_total") }.reduce(:+)
     end
   end
 end

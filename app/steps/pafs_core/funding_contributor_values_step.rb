@@ -2,6 +2,8 @@
 
 module PafsCore
   class FundingContributorValuesStep < BasicStep
+    include PafsCore::FundingValues
+
     delegate :funding_contributors,
              :funding_contributors_attributes,
              :funding_contributors_attributes=,
@@ -13,6 +15,11 @@ module PafsCore
           funding_contributors.find(id).update!(attrs)
         end
       end
+    end
+    #
+    # override to allow us to set up the funding_values if needed
+    def before_view(params)
+      setup_funding_values
     end
 
     def param_key
