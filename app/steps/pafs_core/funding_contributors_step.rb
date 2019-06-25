@@ -10,10 +10,8 @@ module PafsCore
     end
 
     def current_funding_contributors
-      return [''] if (fv = funding_values.first).nil?
-      return [''] if (fc = fv.send(funding_source).order(:id)).empty?
-
-      fc.map(&:name)
+      fc = project.funding_contributors.where(contributor_type: funding_source).pluck(:name).uniq 
+      fc.any? ? fc : ['']
     end
 
     def funding_contributors_to_delete(params)
@@ -27,9 +25,11 @@ module PafsCore
     end
 
     def create_new_contributors(params)
-      (step_params(params) - current_funding_contributors).each do |name|
+      step_params(params).each do |name|
         funding_values.find_each do |fv|
           next if name.strip.blank?
+          next if fv.send(funding_source).where(name: name).present?
+
           fv.send(funding_source).create(name: name)
         end
       end
