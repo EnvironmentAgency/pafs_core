@@ -24,7 +24,7 @@
                   </td>
                   <% project.selected_funding_sources.each do |fs| %>
                       <td class="<%= funding_table_cell(fv.financial_year, fs) %>">
-                        <%= number_with_delimiter fv[fs] %>
+                        <%= number_with_delimiter fv.send("#{fs}_total") %>
                       </td>
                   <% end %>
                   <td class="row-total numeric <%= fy_total_class(fv.financial_year) %>">
