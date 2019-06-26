@@ -10,9 +10,6 @@ module PafsCore
       def attributes
         {
           funding_sources: {
-            public_contributions: project.public_contributor_names,
-            private_contributions: project.private_contributor_names,
-            other_ea_contributions: project.other_ea_contributor_names,
             values: funding_values
           }
         }
@@ -27,13 +24,35 @@ module PafsCore
             fcerm_gia: values.fcerm_gia,
             local_levy: values.local_levy,
             internal_drainage_boards: values.internal_drainage_boards,
-            public_contributions: values.public_contributions,
-            private_contributions: values.private_contributions,
-            other_ea_contributions: values.other_ea_contributions,
+            public_contributions: serialize_contributors(
+              name: project.public_contributor_names,
+              value: values.public_contributions
+            ),
+            private_contributions: serialize_contributors(
+              name: project.private_contributor_names,
+              value: values.private_contributions
+            ),
+            other_ea_contributions: serialize_contributors(
+              name: project.other_ea_contributor_names,
+              value: values.other_ea_contributions
+            ),
             growth_funding: values.growth_funding,
             not_yet_identified: values.not_yet_identified
           }
         end
+      end
+
+      def serialize_contributors(name:, value:)
+        return nil if name.strip.blank?
+
+        [
+          {
+            name: name,
+            amount: value.to_i,
+            secured: false,
+            constrained: false
+          }
+        ]
       end
     end
   end

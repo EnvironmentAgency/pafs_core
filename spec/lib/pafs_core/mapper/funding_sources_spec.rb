@@ -8,10 +8,6 @@ RSpec.describe PafsCore::Mapper::FundingSources do
   end
 
   describe '#attributes' do
-    let(:expected_public_contributions) { HashWithIndifferentAccess.new(project.public_contributor_names) }
-    let(:expected_private_contributions) { HashWithIndifferentAccess.new(project.private_contributor_names) }
-    let(:expected_other_ea_contributions) { HashWithIndifferentAccess.new(project.other_ea_contributor_names) }
-
     let(:expected_funding_values) do
       {
         values: project.funding_values.order(:financial_year).collect do |values|
@@ -20,26 +16,29 @@ RSpec.describe PafsCore::Mapper::FundingSources do
             fcerm_gia: values.fcerm_gia,
             local_levy: values.local_levy,
             internal_drainage_boards: values.internal_drainage_boards,
-            public_contributions: values.public_contributions,
-            private_contributions: values.private_contributions,
-            other_ea_contributions: values.other_ea_contributions,
+            public_contributions: [{
+              name: project.public_contributor_names,
+              amount: values.public_contributions,
+              secured: false,
+              constrained: false
+            }],
+            private_contributions: [{
+              name: project.private_contributor_names,
+              amount: values.private_contributions,
+              secured: false,
+              constrained: false
+            }],
+            other_ea_contributions: [{
+              name: project.other_ea_contributor_names,
+              amount: values.other_ea_contributions,
+              secured: false,
+              constrained: false
+            }],
             growth_funding: values.growth_funding,
             not_yet_identified: values.not_yet_identified
           }
         end
       }
-    end
-
-    it "contains public contributions" do
-      expect(subject.attributes).to include(expected_public_contributions)
-    end
-
-    it "contains private contributions" do
-      expect(subject.attributes).to include(expected_private_contributions)
-    end
-
-    it "contains other EA contributions" do
-      expect(subject.attributes).to include(expected_other_ea_contributions)
     end
 
     it "contains funding source values" do
