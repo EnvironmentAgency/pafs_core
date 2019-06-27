@@ -26,4 +26,8 @@ namespace :pafs do
     user = PafsCore::User.find(ENV.fetch('USER_ID'))
     PafsCore::DataMigration::GenerateFundingContributorFcerm.perform(user)
   end
+
+  task move_funding_sources: :environment do
+    PafsCore::DataMigration::MoveFundingSources.perform_all
+  end
 end
