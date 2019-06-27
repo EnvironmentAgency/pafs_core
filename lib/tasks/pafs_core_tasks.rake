@@ -5,4 +5,8 @@ namespace :pafs do
   task remove_duplicate_states: :environment do
     PafsCore::DataMigration::RemoveDuplicateStates.perform_all
   end
+
+  task move_funding_sources: :environment do
+    PafsCore::DataMigration::MoveFundingSources.perform_all
+  end
 end

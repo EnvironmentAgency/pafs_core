@@ -41,7 +41,7 @@ FactoryBot.define do
 
     after(:create) do |project, builder|
       if builder.create_funding_values
-        (2015..2020).to_a.push(-1).each do |fy|
+        (2015..builder.project_end_financial_year).to_a.push(-1).each do |fy|
           project.funding_values.create!(
             financial_year: fy,
             public_contributions: build_list(:funding_contributor, builder.public_contribution_count),
