@@ -10,7 +10,7 @@ module PafsCore
     end
 
     def current_funding_contributors
-      fc = project.funding_contributors.where(contributor_type: funding_source).pluck(:name).uniq 
+      fc = project.funding_contributors.where(contributor_type: funding_source).order(:id).pluck(:name).uniq
       fc.any? ? fc : ['']
     end
 
