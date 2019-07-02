@@ -8,7 +8,7 @@ function FundingContributorValuesTable(tableElement) {
   }
 
   self.cleanData = function() {
-    this.table.find(".amount input").each(function(_index, inputElement) {
+    this.table.find(".amount input[type='number']").each(function(_index, inputElement) {
       var value = Number($(inputElement).val());
 
       if(value !== "") {
@@ -28,7 +28,7 @@ function FundingContributorValuesTable(tableElement) {
 
     this.cleanData();
 
-    this.table.find(".amount input").each(function(_index, inputElement) {
+    this.table.find(".amount input[type='number']").each(function(_index, inputElement) {
       var value = Number($(inputElement).val());
 
       if (isNaN(value)) { next }
