@@ -27,12 +27,16 @@ module PafsCore
 
   private
 
+    def funding_values_to_check
+      selected_funding_sources - AGGREGATE_SOURCES
+    end
+
     def at_least_one_value_present(params)
       non_zero_valued_keys = step_params(params)['funding_values_attributes'].values.map do |attrs| 
         attrs.slice(*selected_funding_sources).reject{|k,v| v.to_i <= 0}
       end.map(&:keys).flatten.uniq
 
-      return true if (selected_funding_sources - non_zero_valued_keys.map(&:to_sym)).empty?
+      return true if (funding_values_to_check - non_zero_valued_keys.map(&:to_sym)).empty?
 
       errors.add(:base, "Please ensure at least one value is added for each funding source")
       false
