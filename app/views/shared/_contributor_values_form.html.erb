@@ -40,6 +40,7 @@
                                 <%= formatted_financial_year(builder.object.funding_value.financial_year) %>
                               </td>
                               <td class="amount numeric">
+                                <%= builder.hidden_field :name %>
                                 <%= builder.number_field_without_label :amount, class: 'funding-value', min: 0, step: 1 %>
                               </td>
                               <td class="secured">
