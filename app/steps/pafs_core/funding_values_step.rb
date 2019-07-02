@@ -10,6 +10,8 @@ module PafsCore
     SORTED_SOURCES = (FUNDING_SOURCES - AGGREGATE_SOURCES) + AGGREGATE_SOURCES
 
     def update(params)
+      return false unless at_least_one_value_present(params)
+
       clean_unselected_funding_sources
       super
     end
@@ -24,6 +26,18 @@ module PafsCore
     end
 
   private
+
+    def at_least_one_value_present(params)
+      non_zero_valued_keys = step_params(params)['funding_values_attributes'].values.map do |attrs| 
+        attrs.slice(*selected_funding_sources).reject{|k,v| v.to_i <= 0}
+      end.map(&:keys).flatten.uniq
+
+      return true if (selected_funding_sources - non_zero_valued_keys.map(&:to_sym)).empty?
+
+      errors.add(:base, "Please ensure at least one value is added for each funding source")
+      false
+    end
+
     def step_params(params)
       ActionController::Parameters.new(params).require(:funding_values_step).permit(
         funding_values_attributes:
