@@ -5,6 +5,12 @@ module PafsCore
     def param_key
       :other_ea_contributor_values_step
     end
+
+    private
+
+    def contributor_type
+      PafsCore::FundingSources::OTHER_EA_CONTRIBUTIONS
+    end
   end
 end
 
