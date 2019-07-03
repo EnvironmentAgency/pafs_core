@@ -9,16 +9,8 @@ module PafsCore
              :funding_contributors_attributes=,
              to: :project
 
-    def update(params)
-      return false unless at_least_one_value(params)
+    validate :at_least_one_value
 
-      PafsCore::FundingContributor.transaction do
-        step_params(params)["funding_contributors"].each do |id, attrs|
-          funding_contributors.find(id).update!(attrs)
-        end
-      end
-    end
-    #
     # override to allow us to set up the funding_values if needed
     def before_view(params)
       setup_funding_values
@@ -30,28 +22,27 @@ module PafsCore
 
     private
 
-    def at_least_one_value(params)
-      attributes = step_params(params)["funding_contributors"].values
+    def contributor_type
+      PafsCore::FundingSources::PRIVATE_CONTRIBUTIONS
+    end
 
-      contributor_names = attributes.map { |attrs| attrs['name'] }.uniq
-      contributors_with_at_least_one_value = attributes.map do |attrs| 
-        attrs['amount'].to_i > 0 ? attrs['name'] : nil
-      end.compact.uniq
+    def at_least_one_value
+      contributors = funding_contributors.to_a.select {|x| x.contributor_type == contributor_type.to_s}.group_by(&:name)
+      contributors = contributors.values.map { |v| v.map(&:amount).reduce(&:+)}
 
-      return true if (contributor_names - contributors_with_at_least_one_value).empty?
+      return true if contributors.select {|total| total == 0}.empty?
 
-      errors.add(:base, "Please ensure you enter at lease one value for every contributor")
+      errors.add(:base, "Please ensure you enter at least one value for every contributor")
       false
     end
 
     def step_params(params)
       ActionController::Parameters.new(params).require(param_key).permit(
-        funding_contributors: [
+        funding_contributors_attributes: [
           :id,
           :amount,
           :secured,
-          :constrained,
-          :name
+          :constrained
         ]
       )
     end

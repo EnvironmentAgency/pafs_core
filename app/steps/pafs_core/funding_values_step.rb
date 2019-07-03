@@ -9,9 +9,9 @@ module PafsCore
     # This sorts the sources with the aggregated sources at the end of the array
     SORTED_SOURCES = (FUNDING_SOURCES - AGGREGATE_SOURCES) + AGGREGATE_SOURCES
 
-    def update(params)
-      return false unless at_least_one_value_present(params)
+    validate :at_least_one_value
 
+    def update(params)
       clean_unselected_funding_sources
       super
     end
@@ -31,12 +31,20 @@ module PafsCore
       selected_funding_sources - AGGREGATE_SOURCES
     end
 
-    def at_least_one_value_present(params)
-      non_zero_valued_keys = step_params(params)['funding_values_attributes'].values.map do |attrs| 
-        attrs.slice(*selected_funding_sources).reject{|k,v| v.to_i <= 0}
-      end.map(&:keys).flatten.uniq
+    def at_least_one_value
+      values = funding_values.map {|x| x.attributes.slice(*funding_values_to_check.map(&:to_s))}
+      zero_valued = values.inject({}) do |a, e| 
+        e.each do |k, v| 
+          if a.key?(k)
+            a[k] = a[k].to_i + v.to_i
+          else
+            a[k] = v.to_i
+          end
+        end
+        a
+      end.select {|k, v| v == 0 }
 
-      return true if (funding_values_to_check - non_zero_valued_keys.map(&:to_sym)).empty?
+      return if zero_valued.empty?
 
       errors.add(:base, "Please ensure at least one value is added for each funding source")
       false

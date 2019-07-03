@@ -5,6 +5,12 @@ module PafsCore
     def param_key
       :public_contributor_values_step
     end
+
+    private
+
+    def contributor_type
+      PafsCore::FundingSources::PUBLIC_CONTRIBUTIONS
+    end
   end
 end
 
