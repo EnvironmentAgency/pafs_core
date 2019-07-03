@@ -9,7 +9,7 @@ module PafsCore
     private
 
     def contributor_type
-      PafsCore::FundingSources::OTHER_EA_CONTRIBUTIONS
+      PafsCore::FundingSources::EA_CONTRIBUTIONS
     end
   end
 end
