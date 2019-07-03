@@ -9,7 +9,7 @@
       </div>
       <div class="column-three-quarters">
         <div class="step-form">
-          <% project.funding_contributors.where(contributor_type: funding_source).order(:id).map(&:name).uniq.each do |contributor_name| %>
+          <% f.object.funding_contributors.where(contributor_type: funding_source).order(:id).map(&:name).uniq.each do |contributor_name| %>
             <div class="contributor_values">
               <h3 class="heading-small"><%= contributor_name %></h3>
                 <%= f.error_message(:base) %>
@@ -27,20 +27,18 @@
                       </thead>
                       <tbody>
                         <% 
-                            contributors = project.funding_contributors.where(
-                              name: contributor_name, 
-                              contributor_type: funding_source
-                            ).joins(:funding_value).order('pafs_core_funding_values.financial_year').to_a
+                            contributors = f.object.funding_contributors.to_a.select do |x| 
+                              x.name == contributor_name && x.contributor_type == funding_source.to_s
+                            end.sort { |a, b| a.funding_value.financial_year <=> b.funding_value.financial_year}
                         %>
 
                         <% contributors.each do |contributor| %>
-                          <%= f.fields_for 'funding_contributors[]', contributor do |builder| %>
+                          <%= f.fields_for :funding_contributors, contributor do |builder| %>
                             <tr>
                               <td class="financial_year">
                                 <%= formatted_financial_year(builder.object.funding_value.financial_year) %>
                               </td>
                               <td class="amount numeric">
-                                <%= builder.hidden_field :name %>
                                 <%= builder.number_field_without_label :amount, class: 'funding-value', min: 0, step: 1 %>
                               </td>
                               <td class="secured">
