@@ -29,6 +29,10 @@ module PafsCore
 
     before_validation :set_slug, on: :create
 
+    def self.submitted
+      joins(:state).merge(PafsCore::State.submitted)
+    end
+
     def self.refreshable
       joins(:state).merge(PafsCore::State.refreshable)
     end
