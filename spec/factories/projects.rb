@@ -18,6 +18,16 @@ FactoryBot.define do
       benefit_area_file_name { nil }
     end
 
+    trait :submitted_to_pol do
+      association :state, :submitted
+      submitted_to_pol { 5.minutes.ago }
+    end
+
+    trait :submission_failed do
+      association :state, :submitted
+      submitted_to_pol { nil }
+    end
+
     factory :full_project do
       reference_number { PafsCore::ProjectService.generate_reference_number("SO") }
       version { 0 }
