@@ -45,7 +45,7 @@ module PafsCore
       end
 
       def url
-        ENV.fetch('POL_SUBMISSION_URL', nil).strip
+        ENV.fetch('POL_SUBMISSION_URL', '').strip
       end
 
       def api_token
