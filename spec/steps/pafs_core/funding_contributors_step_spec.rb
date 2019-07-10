@@ -15,11 +15,11 @@ describe PafsCore::FundingContributorsStep, type: :model do
   end
 
   let(:perform) { subject.update(params) }
-  let(:params) { { funding_contributors_step: { name: contributor_names} } }
+  let(:params ) { { name: contributor_names } }
 
   context 'when no contributors have been set (new project)' do
     let(:project) { create(:project, project_end_financial_year: 2020) }
-    let(:contributor_names) { [] }
+    let(:contributor_names) { {} }
 
     it_behaves_like "a project step"
 
@@ -33,7 +33,13 @@ describe PafsCore::FundingContributorsStep, type: :model do
   end
 
   context 'not changing the selected contributors' do
-    let(:contributor_names) { ["EnviroCo Ltd", "CWI"] }
+    let(:contributor_names) do
+      {
+        "0" => { previous: "EnviroCo Ltd", current: "EnviroCo Ltd" },
+        "1" => { previous: "CWI", current: "CWI" }
+      }
+    end
+
     let(:funding_value) { project.funding_values.first }
 
     before do
@@ -53,7 +59,12 @@ describe PafsCore::FundingContributorsStep, type: :model do
   end
 
   context 'removing a funding contributor' do
-    let(:contributor_names) { ["EnviroCo Ltd"] }
+    let(:contributor_names) do
+      {
+        "0" => { previous: "EnviroCo Ltd", current: "EnviroCo Ltd" },
+      }
+    end
+
     let(:funding_value) { project.funding_values.first }
 
     before do
@@ -79,7 +90,13 @@ describe PafsCore::FundingContributorsStep, type: :model do
   end
 
   context 'adding a funding contributor' do
-    let(:contributor_names) { ["EnviroCo Ltd", "CWI"] }
+    let(:contributor_names) do
+      {
+        "0" => { previous: "EnviroCo Ltd", current: "EnviroCo Ltd" },
+        "1" => { previous: "", current: "CWI" }
+      }
+    end
+
     let(:funding_value) { project.funding_values.first }
 
     before do
@@ -98,6 +115,40 @@ describe PafsCore::FundingContributorsStep, type: :model do
       expect do
         perform
       end.to change(PafsCore::FundingContributor, :count).by(project.funding_values.count)
+    end
+  end
+
+  context 'changing a funding contributor' do
+    let(:contributor_names) do
+      {
+        "0" => { previous: "EnviroCo Ltd", current: "EnviroCo Ltd" },
+        "1" => { previous: "CWI", current: "Clean Water Initiative" }
+      }
+    end
+
+    let(:funding_value) { project.funding_values.first }
+
+    before do
+      project.funding_values.each do |fv|
+        create(:funding_contributor, funding_value: fv, name: 'EnviroCo Ltd')
+        create(:funding_contributor, funding_value: fv, name: 'CWI')
+      end
+    end
+
+    it 'does not create or delete any funding contributors' do
+      expect do
+        perform
+      end.not_to change { PafsCore::FundingContributor.all.map(&:id).sort }
+    end
+
+    it 'updates the names of the contributors' do
+      expect do
+        perform
+      end.to change { PafsCore::FundingContributor.all.order(:id).map(&:name).uniq }.from(
+        ['EnviroCo Ltd', 'CWI']
+      ).to(
+        ['EnviroCo Ltd', 'Clean Water Initiative']
+      )
     end
   end
 end
