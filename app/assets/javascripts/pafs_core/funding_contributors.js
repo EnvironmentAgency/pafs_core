@@ -10,7 +10,14 @@ function MultipleElementForm(element_selector) {
 
     evt.preventDefault();
 
-    new_element.find('input').val('');
+    new_element.find('input[type="hidden"]').val('');
+    new_element.find('input[type="text"]').val('');
+
+    var element_count = $(selector).find('input[type="hidden"]').length;
+
+    new_element.find('input[type="hidden"]').attr('name', 'name[' + element_count + '][previous]');
+    new_element.find('input[type="text"]').attr('name', 'name[' + element_count + '][current]');
+
     new_element.append(new_delete_button);
     new_element.insertBefore($(selector).find('a.add_element').parent());
   }
@@ -21,9 +28,10 @@ function MultipleElementForm(element_selector) {
   }
 
   self.initialize = function () {
-    var add_button = $("<p><a href='#' class='add_element'>Add another contributor</a></p>");
+    var add_button = $("<a href='#' class='add_element'>Add another contributor</a>");
 
     $(selector).append(add_button);
+    add_button.wrap('<p></p>');
     add_button.on('click', this.addElement.bind(this));
 
     $(selector).find('>.form-group div').each(function(index, elem) {
