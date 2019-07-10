@@ -7,8 +7,15 @@
         <div class="step-form">
           <div class="contributors form-group">
             <label class='form-label-bold'>What is the Contributor Name?</label>
-            <% project.current_funding_contributors.each do |contributor| %>
-              <%= f.text_field :name, value: contributor, class: 'column-one-half', multiple: true, label: { class: 'visually-hidden'} %>
+            <% project.current_funding_contributors.each_with_index do |contributor, index| %>
+              <div class="form-group">
+                <div>
+                  <%= fields_for "name[#{index}]", contributor do |builder| %>
+                    <%= builder.hidden_field :previous, value: contributor %>
+                    <%= builder.text_field :current, value: contributor, class: 'column-one-half' %>
+                  <% end %>
+                </div>
+              </div>
             <% end %>
           </div>
           <div class="form-group">
