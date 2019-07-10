@@ -15,7 +15,7 @@ module PafsCore
     end
 
     def funding_contributors_to_delete(params)
-      @funding_contributors_to_delete ||= current_funding_contributors - step_params(params)
+      @funding_contributors_to_delete ||= current_funding_contributors - step_params(params).map { |e| e[:current]}
     end
 
     def delete_removed_contributors(params)
@@ -27,10 +27,21 @@ module PafsCore
     def create_new_contributors(params)
       step_params(params).each do |name|
         funding_values.find_each do |fv|
-          next if name.strip.blank?
-          next if fv.send(funding_source).where(name: name).present?
+          next if name[:current].strip.blank?
+          next if fv.send(funding_source).where(name: name[:current]).present?
 
-          fv.send(funding_source).create(name: name)
+          fv.send(funding_source).create(name: name[:current])
+        end
+      end
+    end
+
+    def update_changed_contributors(params)
+      step_params(params).each do |name|
+        next if name[:previous].strip.blank?
+        next if name[:previous] == name[:current]
+
+        funding_values.find_each do |fv|
+          PafsCore::FundingContributor.where(funding_value: fv).where(name: name[:previous]).update_all(name: name[:current])
         end
       end
     end
@@ -44,6 +55,7 @@ module PafsCore
         funding_values.map(&:save!)
         funding_values.reload
 
+        update_changed_contributors(params)
         delete_removed_contributors(params)
         create_new_contributors(params)
       end
@@ -60,10 +72,9 @@ module PafsCore
 
     def step_params(params)
       @step_params ||= ActionController::Parameters.new(params).
-                        permit("#{step}_step" => { name: [] }).
-                        fetch("#{step}_step", {}).
-                        fetch("name", []).
-                        select { |name| !name.strip.blank? }
+                        permit(name: [:previous, :current]).
+                        fetch(:name, {}).values.
+                        select { |name| !name[:current].strip.blank? }
     end
   end
 end
