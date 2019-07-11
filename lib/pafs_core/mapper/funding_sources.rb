@@ -43,7 +43,7 @@ module PafsCore
       end
 
       def serialize_contributors(name:, value:)
-        return nil if name.strip.blank?
+        return nil if name.to_s.strip.blank?
 
         [
           {
