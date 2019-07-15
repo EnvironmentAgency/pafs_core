@@ -48,6 +48,7 @@ module PafsCore
 
     def update(params)
       return false unless at_least_one_name(params)
+      return false unless unique_names(params)
 
       PafsCore::FundingContributor.transaction do
         setup_funding_values
@@ -62,6 +63,13 @@ module PafsCore
     end
 
     private
+
+    def unique_names(params)
+      return true if step_params(params).map {|e| e[:current]}.uniq.size == step_params(params).size
+
+      errors.add(:base, "Please add each contributor only once")
+      false
+    end
 
     def at_least_one_name(params)
       return true if step_params(params).size > 0
