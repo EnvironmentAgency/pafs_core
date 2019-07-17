@@ -65,7 +65,7 @@ describe PafsCore::Pol::Submission, :vcr do
     it 'sets the api token header' do
       perform
       expect(post_request.with(
-        headers: {'x-function-key' => 'APITOKEN'}
+        headers: {'x-functions-key' => 'APITOKEN'}
       )).to have_been_requested.once
     end
 

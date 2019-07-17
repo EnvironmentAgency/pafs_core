@@ -27,7 +27,7 @@ module PafsCore
       def result
         @result ||= connection.post do |request|
           request.headers['Content-Type'] = 'application/json'
-          request.headers['x-function-key'] = api_token
+          request.headers['x-functions-key'] = api_token
           request.body = payload
         end
       end
