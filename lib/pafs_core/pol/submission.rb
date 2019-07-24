@@ -15,6 +15,14 @@ module PafsCore
         @project = project
       end
 
+      def status
+        result.status
+      end
+
+      def response
+        result.body
+      end
+
       def perform
         return unless submission_enabled?
         return unless success?
