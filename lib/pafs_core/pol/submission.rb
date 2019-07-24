@@ -15,6 +15,18 @@ module PafsCore
         @project = project
       end
 
+      def status
+        result.status
+      end
+
+      def response
+        result.body
+      end
+
+      def success?
+        result.status.in?(200..299)
+      end
+
       def perform
         return unless submission_enabled?
         return unless success?
@@ -30,10 +42,6 @@ module PafsCore
           request.headers['x-functions-key'] = api_token
           request.body = payload
         end
-      end
-
-      def success?
-        result.status.in?(200..299)
       end
 
       def json_presenter
