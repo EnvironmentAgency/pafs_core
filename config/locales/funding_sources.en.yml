@@ -8,3 +8,13 @@ en:
     growth_funding: "Growth funding"
     internal_drainage_boards: "Funds recovered from an internal drainage board by the Environment Agency, known as a precept"
     not_yet_identified: "Other funding sources not yet identified"
+
+    short:
+      fcerm_gia: "Grant in aid"
+      local_levy: "Local levy"
+      public_contributions: "Public sector"
+      private_contributions: "Private sector"
+      other_ea_contributions: "Other Environment Agency functions"
+      growth_funding: "Growth funding"
+      internal_drainage_boards: "Internal drainage board"
+      not_yet_identified: "Other funding sources"
