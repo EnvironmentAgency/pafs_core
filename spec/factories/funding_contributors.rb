@@ -10,9 +10,11 @@ FactoryBot.define do
     trait :public_contributor do
       contributor_type { PafsCore::FundingSources::PUBLIC_CONTRIBUTIONS }
     end
+
     trait :private_contributor do
       contributor_type { PafsCore::FundingSources::PRIVATE_CONTRIBUTIONS }
     end
+
     trait :other_ea_contributor do
       contributor_type { PafsCore::FundingSources::EA_CONTRIBUTIONS }
     end
