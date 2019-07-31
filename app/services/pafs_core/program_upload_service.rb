@@ -58,7 +58,7 @@ module PafsCore
 
         # Roo has an odd offset so we have to take 2 off our zero-based
         # FIRST_DATA_ROW value
-        xlsx.each_row_streaming(pad_cells: true,
+        xlsx.sheet(0).each_row_streaming(pad_cells: true,
                                 offset: FIRST_DATA_ROW - 1) do |row|
           next if row.nil? || row[0].blank?
           reset_errors
@@ -100,7 +100,14 @@ module PafsCore
 
           upload_record.number_of_records = row_count
           upload_record.save
+
+          project.funding_values.each do |funding_value|
+            funding_value.funding_contributors.destroy_all
+          end
         end
+
+        PafsCore::Spreadsheet::Contributors::ImportAll.new(xlsx).import
+
         upload_record.number_of_records = row_count
         upload_record.save
         upload_record.processing_state.complete!
