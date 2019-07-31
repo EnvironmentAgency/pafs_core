@@ -5,12 +5,13 @@ require "rails_helper"
 describe PafsCore::FundingContributorsStep, type: :model do
   subject { described_class.new(project) }
 
-  let(:project) do 
+  let!(:project) do 
     create(
       :project, 
       :with_funding_values, 
       project_end_financial_year: 2020,
-      public_contributions: true
+      public_contributions: true,
+      public_contribution_names: ['EnviroCo Ltd', 'CWI']
     )
   end
 
@@ -18,7 +19,7 @@ describe PafsCore::FundingContributorsStep, type: :model do
   let(:params ) { { name: contributor_names } }
 
   context 'when no contributors have been set (new project)' do
-    let(:project) { create(:project, project_end_financial_year: 2020) }
+    let!(:project) { create(:project, project_end_financial_year: 2020) }
     let(:contributor_names) { {} }
 
     it_behaves_like "a project step"
@@ -35,20 +36,9 @@ describe PafsCore::FundingContributorsStep, type: :model do
   context 'not changing the selected contributors' do
     let(:contributor_names) do
       {
-        "0" => { previous: "EnviroCo Ltd", current: "EnviroCo Ltd" },
-        "1" => { previous: "CWI", current: "CWI" }
+        "0" => { previous: project.funding_contributors.first.name, current: project.funding_contributors.first.name },
+        "1" => { previous: project.funding_contributors.last.name, current: project.funding_contributors.last.name }
       }
-    end
-
-    let(:funding_value) { project.funding_values.first }
-
-    before do
-      project.funding_values.each do |fv|
-        create(:funding_contributor, funding_value: fv, name: 'EnviroCo Ltd')
-        create(:funding_contributor, funding_value: fv, name: 'CWI')
-      end
-
-      project.reload
     end
 
     it 'does not change any funding contributor records' do
@@ -61,25 +51,8 @@ describe PafsCore::FundingContributorsStep, type: :model do
   context 'removing a funding contributor' do
     let(:contributor_names) do
       {
-        "0" => { previous: "EnviroCo Ltd", current: "EnviroCo Ltd" },
+        "0" => { previous: project.funding_contributors.first.name, current: project.funding_contributors.first.name },
       }
-    end
-
-    let(:funding_value) { project.funding_values.first }
-
-    before do
-      project.funding_values.each do |fv|
-        create(:funding_contributor, funding_value: fv, name: 'EnviroCo Ltd')
-        create(:funding_contributor, funding_value: fv, name: 'CWI')
-      end
-
-      project.reload
-    end
-
-    it 'removes the contributor to a correct funding value' do
-      expect do
-        perform
-      end.to change(funding_value.funding_contributors, :count).by(-1)
     end
 
     it 'removes the contributor to all funding values' do
@@ -90,20 +63,24 @@ describe PafsCore::FundingContributorsStep, type: :model do
   end
 
   context 'adding a funding contributor' do
+    let!(:project) do 
+      create(
+        :project, 
+        :with_funding_values, 
+        project_end_financial_year: 2020,
+        public_contributions: true,
+        public_contribution_names: ['Enviro Co']
+      )
+    end
+
     let(:contributor_names) do
       {
-        "0" => { previous: "EnviroCo Ltd", current: "EnviroCo Ltd" },
+        "0" => { previous: project.funding_contributors.first.name, current: project.funding_contributors.first.name},
         "1" => { previous: "", current: "CWI" }
       }
     end
 
     let(:funding_value) { project.funding_values.first }
-
-    before do
-      project.funding_values.each do |fv|
-        create(:funding_contributor, funding_value: fv, name: 'EnviroCo Ltd')
-      end
-    end
 
     it 'adds the contributor to a correct funding value' do
       expect do
@@ -121,18 +98,9 @@ describe PafsCore::FundingContributorsStep, type: :model do
   context 'changing a funding contributor' do
     let(:contributor_names) do
       {
-        "0" => { previous: "EnviroCo Ltd", current: "EnviroCo Ltd" },
-        "1" => { previous: "CWI", current: "Clean Water Initiative" }
+        "0" => { previous: project.funding_contributors.first.name, current: project.funding_contributors.first.name},
+        "1" => { previous: project.funding_contributors.last.name, current: "Clean Water Initiative" }
       }
-    end
-
-    let(:funding_value) { project.funding_values.first }
-
-    before do
-      project.funding_values.each do |fv|
-        create(:funding_contributor, funding_value: fv, name: 'EnviroCo Ltd')
-        create(:funding_contributor, funding_value: fv, name: 'CWI')
-      end
     end
 
     it 'does not create or delete any funding contributors' do

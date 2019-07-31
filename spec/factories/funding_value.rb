@@ -9,6 +9,13 @@ FactoryBot.define do
     internal_drainage_boards { 606060 }
     not_yet_identified { 707070 }
 
+    transient do
+      public_contribution_names { [] }
+      private_contribution_names { [] }
+      other_ea_contribution_names { [] }
+      create_funding_values { false }
+    end
+
     trait :blank do
       fcerm_gia { nil }
       local_levy { nil }
@@ -17,22 +24,30 @@ FactoryBot.define do
       not_yet_identified { nil }
     end
 
-    trait :with_public_contributor do
-      after(:create) do |fv|
-        create(:funding_contributor, :public_contributor, funding_value: fv)
+    after(:create) do |fv, builder|
+      %w[public private other_ea].each do |attr|
+        names = builder.send("#{attr}_contribution_names")
+        names.size.times do |i|
+          create(
+            :funding_contributor,
+            "#{attr}_contributor".to_sym,
+            funding_value: fv,
+            name: names[i]
+          )
+        end
       end
+    end
+
+    trait :with_public_contributor do
+      public_contribution_names { ["EnviroCo Ltd"] }
     end
 
     trait :with_private_contributor do
-      after(:create) do |fv|
-        create(:funding_contributor, :private_contributor, funding_value: fv)
-      end
+      private_contribution_names { ["EnviroCo Ltd"] }
     end
 
     trait :with_other_ea_contributor do
-      after(:create) do |fv|
-        create(:funding_contributor, :other_ea_contributor, funding_value: fv)
-      end
+      other_ea_contribution_names { ["EnviroCo Ltd"] }
     end
 
     trait :previous_year do

@@ -15,6 +15,8 @@ module PafsCore
 
       add_project_to_sheet(sheet, PafsCore::SpreadsheetPresenter.new(project),
                            FIRST_DATA_ROW)
+
+      PafsCore::Spreadsheet::Contributors::Export.new(workbook, project).generate
       workbook
     end
 
@@ -32,6 +34,9 @@ module PafsCore
           PafsCore::SpreadsheetPresenter.new(project),
           row_number
         )
+
+        PafsCore::Spreadsheet::Contributors::Export.new(workbook, project).generate
+
         row_number += 1
       end
       workbook
