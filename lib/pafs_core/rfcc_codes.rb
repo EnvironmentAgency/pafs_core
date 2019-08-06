@@ -5,7 +5,7 @@ module PafsCore
 
   # map RFCC codes to names
   RFCC_CODE_NAMES_MAP = {
-    "AC" => "Anglian Central",
+    "AC" => "Anglian Great Ouse",
     "AE" => "Anglian Eastern",
     "AN" => "Anglian Northern",
     "NO" => "Northumbria",
