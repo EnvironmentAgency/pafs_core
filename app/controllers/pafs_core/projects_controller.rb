@@ -1,5 +1,5 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 class PafsCore::ProjectsController < PafsCore::ApplicationController
   # NOTE: this should be added via a decorator in consuming qpp if needed
   # before_action :authenticate_user!
