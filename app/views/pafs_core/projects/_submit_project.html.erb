@@ -10,8 +10,13 @@
         <div class="column-two-thirds">
             <p><%= @project.summary_label(:submission_notice) %></p>
             <%= render partial: "summary/data_notice", locals: { project: @project } %>
-            <%= link_to t("submit_project_label"),
-              submit_project_path(id: @project.to_param), class: "button submit-proposal" %>
+            <% if force_pso_to_use_pol? %>
+              <%= link_to t("submit_project_label"),
+                submit_project_path(id: @project.to_param), class: "button submit-proposal" %>
+            <% else %>
+              <%= link_to t("complete_project_label"),
+                complete_project_path(id: @project.to_param), class: "button submit-proposal" %>
+            <% end %>
         </div>
       <% else %>
         <div class="column-three-quarters">
