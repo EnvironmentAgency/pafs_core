@@ -31,6 +31,10 @@ module PafsCore
       !ENV.fetch('PSO_CANNOT_CREATE_PROJECTS', false)
     end
 
+    def can_revert_to_draft?(project)
+      !force_pso_to_use_pol?
+    end
+
     def can_change_project_state?(project)
       (rma_user? || pso_user?) && (!project.pso? || (project.pso? && !force_pso_to_use_pol?))
     end
@@ -40,7 +44,7 @@ module PafsCore
     end
 
     def can_edit_project_sections?(project)
-      !(project.pso? && force_pso_to_use_pol?)
+      !project.submitted? && !project.archived? && !(force_pso_to_use_pol? && project.pso?)
     end
 
     def project_status_change_link(project)
