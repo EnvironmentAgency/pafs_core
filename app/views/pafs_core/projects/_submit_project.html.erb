@@ -38,7 +38,7 @@
       </div>
     </div>
   </section>
-<% elsif pso_user? && can_change_project_state?(project) && @project.submitted? %>
+<% elsif pso_user? && can_revert_to_draft?(project) && @project.submitted? %>
   <section aria-label="controls">
     <div class="grid-row">
       <div class="column-two-thirds">
