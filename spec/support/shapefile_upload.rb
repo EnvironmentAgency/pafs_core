@@ -12,7 +12,7 @@ module ShapefileUpload
     def uploaded_file
       @uploaded_file ||= Rack::Test::UploadedFile.new(
         File.open(
-          File.join(Rails.root, '..', 'fixtures', fixture_file_name)
+          File.join(PafsCore::Engine.root, 'spec', 'fixtures', fixture_file_name)
         )
       )
     end

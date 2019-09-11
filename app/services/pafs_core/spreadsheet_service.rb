@@ -1,5 +1,9 @@
 # frozen_string_literal: true
+
 require "rubyXL"
+require 'rubyXL/convenience_methods/cell'
+require 'rubyXL/convenience_methods/worksheet'
+
 require "csv"
 
 module PafsCore
@@ -28,7 +32,9 @@ module PafsCore
       fix_worksheet(sheet)
 
       row_number = FIRST_DATA_ROW
-      projects.each do |project|
+      projects.find_each do |project|
+        puts "#{row_number} #{project.reference_number}"
+
         add_project_to_sheet(
           sheet,
           PafsCore::SpreadsheetPresenter.new(project),
