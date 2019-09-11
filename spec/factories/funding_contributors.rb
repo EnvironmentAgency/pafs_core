@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :funding_contributor, class: 'PafsCore::FundingContributor' do
-    name { "EnviroCo Ltd" }
+    name { 'EnviroCo Ltd' }
     contributor_type { PafsCore::FundingSources::PUBLIC_CONTRIBUTIONS }
     funding_value
     amount { 1000 }

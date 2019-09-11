@@ -15,33 +15,47 @@ module PafsCore
     end
 
     def funding_contributors_to_delete(params)
-      @funding_contributors_to_delete ||= current_funding_contributors - step_params(params).map { |e| e[:current]}
+      @funding_contributors_to_delete ||= current_funding_contributors - step_params(params).map { |e| e[:current].strip}
     end
 
     def delete_removed_contributors(params)
       funding_values.find_each do |fv|
-        PafsCore::FundingContributor.where(funding_value: fv).where(name: funding_contributors_to_delete(params)).destroy_all
+        fc_to_delete = PafsCore::FundingContributor.where(
+          funding_value: fv,
+          name: funding_contributors_to_delete(params)
+        )
+
+        fc_to_delete.destroy_all
       end
     end
 
     def create_new_contributors(params)
       step_params(params).each do |name|
         funding_values.find_each do |fv|
-          next if name[:current].strip.blank?
-          next if fv.send(funding_source).where(name: name[:current]).present?
+          current_name = name[:current].strip
 
-          fv.send(funding_source).create(name: name[:current])
+          next if current_name.blank?
+          next if fv.send(funding_source).where(name: current_name).present?
+
+          fv.send(funding_source).create(name: current_name)
         end
       end
     end
 
     def update_changed_contributors(params)
       step_params(params).each do |name|
-        next if name[:previous].strip.blank?
-        next if name[:previous] == name[:current]
+        previous_name = name[:previous].strip
+        current_name = name[:current].strip
+
+        next if current_name.blank?
+        next if previous_name.blank?
+        next if previous_name == current_name
 
         funding_values.find_each do |fv|
-          PafsCore::FundingContributor.where(funding_value: fv).where(name: name[:previous]).update_all(name: name[:current])
+          PafsCore::FundingContributor.where(
+            funding_value: fv,
+            name: previous_name
+          ).update_all(name: current_name)
         end
       end
     end

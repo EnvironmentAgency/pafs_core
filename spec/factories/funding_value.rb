@@ -10,9 +10,9 @@ FactoryBot.define do
     not_yet_identified { 707070 }
 
     transient do
-      public_contribution_count { 0 }
-      private_contribution_count { 0 }
-      other_ea_contribution_count { 0 }
+      public_contribution_names { [] }
+      private_contribution_names { [] }
+      other_ea_contribution_names { [] }
       create_funding_values { false }
     end
 
@@ -25,38 +25,29 @@ FactoryBot.define do
     end
 
     after(:create) do |fv, builder|
-      create_list(
-        :funding_contributor, 
-        builder.public_contribution_count,
-        :public_contributor,
-        funding_value: fv
-      )
-
-      create_list(
-        :funding_contributor, 
-        builder.private_contribution_count, 
-        :private_contributor,
-        funding_value: fv
-      )
-
-      create_list(
-        :funding_contributor, 
-        builder.other_ea_contribution_count, 
-        :other_ea_contributor, 
-        funding_value: fv
-      )
+      %w[public private other_ea].each do |attr|
+        names = builder.send("#{attr}_contribution_names")
+        names.size.times do |i|
+          create(
+            :funding_contributor,
+            "#{attr}_contributor".to_sym,
+            funding_value: fv,
+            name: names[i]
+          )
+        end
+      end
     end
 
     trait :with_public_contributor do
-      public_contribution_count { 1 }
+      public_contribution_names { ["EnviroCo Ltd"] }
     end
 
     trait :with_private_contributor do
-      private_contribution_count { 1 }
+      private_contribution_names { ["EnviroCo Ltd"] }
     end
 
     trait :with_other_ea_contributor do
-      other_ea_contribution_count { 1 }
+      other_ea_contribution_names { ["EnviroCo Ltd"] }
     end
 
     trait :previous_year do
