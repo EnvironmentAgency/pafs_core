@@ -1,5 +1,8 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
+require File.join(PafsCore::Engine.root, 'spec', 'support', 'shapefile_upload')
+
 FactoryBot.define do
   factory :project, class: PafsCore::Project do
     reference_number { PafsCore::ProjectService.generate_reference_number("TH") }
@@ -54,6 +57,12 @@ FactoryBot.define do
       end
     end
 
+    after(:create) do |project, builder|
+      unless project.benefit_area_file_name.blank?
+        ShapefileUpload::Upload.new(project, project.benefit_area_file_name).perform
+      end
+    end
+
     factory :full_project do
       reference_number { PafsCore::ProjectService.generate_reference_number("SO") }
       version { 0 }
@@ -84,7 +93,7 @@ FactoryBot.define do
       benefit_area { "[[432123, 132453], [444444, 134444], [456543, 123432]]" }
       benefit_area_centre { [457733, 221751] }
       benefit_area_zoom_level { 23 }
-      benefit_area_file_name { "map.png" }
+      benefit_area_file_name { "shapefile.zip" }
       flood_protection_before { 1 }
       flood_protection_after { 2 }
       coastal_protection_before { 0 }
