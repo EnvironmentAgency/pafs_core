@@ -172,10 +172,13 @@ module PafsCore
     end
 
     def current_state
-      with_lock do
-        create_state(state: "draft") if state.nil?
-        state.state || "draft"
+      if state.nil?
+        with_lock do
+          create_state(state: "draft") if state.nil?
+        end
       end
+
+      state.state || "draft"
     end
   end
 end
