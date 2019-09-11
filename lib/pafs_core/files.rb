@@ -61,8 +61,12 @@ module PafsCore
     end
 
     def generate_multi_fcerm1(projects, filename)
+      puts "Generating"
       xlsx = PafsCore::SpreadsheetService.new.generate_multi_xlsx(projects)
+      puts "Generation complete"
+      puts "Uploading"
       storage.upload_data(xlsx.stream.read, filename)
+      puts "Upload complete"
     end
 
     def generate_benefit_areas_file(projects, filename)

@@ -4,7 +4,7 @@ module PafsCore
     include PafsCore::FundingSources, PafsCore::Risks,
       PafsCore::Outcomes, PafsCore::Urgency, PafsCore::StandardOfProtection,
       PafsCore::EnvironmentalOutcomes
-   
+
     include PafsCore::ProjectsHelper
 
     # name

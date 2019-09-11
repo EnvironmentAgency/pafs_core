@@ -21,4 +21,9 @@ namespace :pafs do
       File.join(Rails.root, 'lib', 'fixtures', 'project_area_migration.csv')
     )
   end
+
+  task generate_funding_contributor_fcerm: :environment do
+    user = PafsCore::User.find(ENV.fetch('USER_ID'))
+    PafsCore::DataMigration::GenerateFundingContributorFcerm.perform(user)
+  end
 end
