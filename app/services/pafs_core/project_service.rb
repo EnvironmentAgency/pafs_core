@@ -39,6 +39,7 @@ module PafsCore
     def downloadable_projects
       PafsCore::Project.joins(:state).
         joins(:area_projects).
+        includes(funding_contributors: :funding_value, area_projects: :area).
         merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user)))
     end
 
