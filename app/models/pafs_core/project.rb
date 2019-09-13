@@ -64,7 +64,7 @@ module PafsCore
         fsm.initial current_state
         fsm.event :archived, :draft => :archived
         fsm.event :complete, :draft => :completed, :updatable => :updated
-        fsm.event :submit, :completed => :submitted, :updated => :finished
+        fsm.event :submit, :draft => :submitted, :completed => :submitted, :updated => :finished
         fsm.event :unlock, :archived => :draft, :completed => :draft, :submitted => :draft
         fsm.event :refresh, :completed => :updatable, :submitted => :updatable
         fsm.when :any do |_event, _prev_state, new_state|
