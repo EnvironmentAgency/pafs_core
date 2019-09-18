@@ -66,15 +66,15 @@ module PafsCore
             om3: {
               before_construction: {
                 most_deprived_20: {
-                  long_time_loss:         sheet.cell('F', 68),
+                  long_term_loss:         sheet.cell('F', 68),
                   medium_term_loss:       sheet.cell('G', 68),
                 },
                 most_deprived_21_40: {
-                  long_time_loss:         sheet.cell('F', 69),
+                  long_term_loss:         sheet.cell('F', 69),
                   medium_term_loss:       sheet.cell('G', 68),
                 },
                 least_deprived_60: {
-                  long_time_loss:         sheet.cell('F', 70),
+                  long_term_loss:         sheet.cell('F', 70),
                   medium_term_loss:       sheet.cell('G', 68),
                 },
               }
