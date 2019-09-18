@@ -55,14 +55,14 @@ module PafsCore
     def antivirus
       PafsCore::AntivirusService.new user
     end
-  
+
     def step_params(params)
       ActionController::Parameters.new(params).
         require(:benefit_area_file_step).
         permit(:benefit_area_file)
     end
 
-    EXPECTED_EXTENSIONS = %w(dbf shx shp).freeze
+    EXPECTED_EXTENSIONS = %w(dbf shx shp prj).freeze
 
     def contins_required_gis_files(uploaded_file)
       Zip::File.open(uploaded_file.tempfile.path) do |zip_file|
