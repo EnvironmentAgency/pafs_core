@@ -150,7 +150,7 @@ en:
         benefit_area_file:
           heading: "What area is the project likely to benefit?"
           description: "Upload a shapefile. The shapefile should show the approximate area the project is likely to benefit. Draw as many separate areas as necessary, but make sure they don't overlap."
-          acceptable_file_formats: "Combine multiple file together in a single compressed folder (.zip)"
+          acceptable_file_formats: "Your shapefile files should be in a single compressed folder or zipfile (.zip) to upload successfully"
           benefit_area_file_label: "Upload a shapefile"
 # benefit area file summary
         benefit_area_file_summary:
