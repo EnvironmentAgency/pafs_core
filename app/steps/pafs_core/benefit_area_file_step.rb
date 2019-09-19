@@ -71,21 +71,21 @@ module PafsCore
         EXPECTED_EXTENSIONS.each do |ext|
           next if entries.select{|entry| entry.match(/\.#{ext}$/)}.any?
 
-          errors.add(:base, "The selected file must be a zip file containing a shapefile")
+          errors.add(:base, "The selected file must be a zip file, containing the following mandatory files: dbf. shx. shp. prj.")
           return false
         end
       end
 
       true
     rescue Zip::Error
-      errors.add(:base, "The selected file must be a zip file containing a shapefile")
+      errors.add(:base, "The selected file must be a zip file, containing the following mandatory files: dbf. shx. shp. prj.")
       return false
     end
 
     def filetype_valid?(file)
       return true if valid_benefit_area_file?(file.original_filename)
 
-      errors.add(:base, "This file type is not supported. Upload a .zip shapefile ")
+      errors.add(:base, "The selected file must be a zip file, containing the following mandatory files: dbf. shx. shp. prj.")
       false
     end
 
