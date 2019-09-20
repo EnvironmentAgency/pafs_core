@@ -28,7 +28,7 @@ module PafsCore
 
     def at_least_one_value
       contributors = funding_contributors.to_a.select {|x| x.contributor_type == contributor_type.to_s}.group_by(&:name)
-      contributors = contributors.values.map { |v| v.map(&:amount).reduce(&:+)}
+      contributors = contributors.values.map { |v| v.map(&:amount).compact.reduce(&:+)}
 
       return true if contributors.select {|total| total == 0}.empty?
 
