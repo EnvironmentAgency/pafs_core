@@ -1,4 +1,4 @@
-<p>Hello <%= @download_info.requested_by.full_name %>,</p>
+<p>Hello <%= @download_info.requested_by.try(:full_name) %>,</p>
 <p>Unfortunately, we encountered a problem and the area programme documents you requested on <%= @download_info.requested_on %>
     did not generate properly.</p>
 <p>Use the link below to generate the area programme documents again.</p>

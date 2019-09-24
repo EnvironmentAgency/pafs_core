@@ -4,7 +4,7 @@
       <ul class="list">
         <li>Area programme last generated on <%= downloads.requested_on %></li>
         <li>Containing <%= downloads.number_of_proposals_generated %> proposals</li>
-        <li>Requested by <%= downloads.requested_by.full_name %></li>
+        <li>Requested by <%= downloads.requested_by.try(:full_name) || "Unknown" %></li>
       </ul>
     </div>
   </div>

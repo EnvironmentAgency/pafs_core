@@ -2,7 +2,7 @@
   <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
     Area programme generation failed
   </h1>
-  <p>The previous request raised by <%= downloads.requested_by.full_name %> on
+  <p>The previous request raised by <%= downloads.requested_by.try(:full_name) || "Unknown" %> on
     <%= downloads.requested_on %> did not complete successfully.
   </p>
   <p>Please try again.</p>

@@ -11,11 +11,7 @@ module PafsCore
     end
 
     def requested_by
-      if download_info.user
-        download_info.user
-      else
-        "Unknown"
-      end
+      download_info.user
     end
 
     def requested_on

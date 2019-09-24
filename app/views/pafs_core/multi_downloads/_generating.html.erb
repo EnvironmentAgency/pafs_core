@@ -2,7 +2,7 @@
   <div class="column-two-thirds">
     <h2 class="heading-medium">The area programme is being generated</h2>
     <div class="headroom-shuffle-up">
-      Requested by <span class="bold-small"><%= @downloads.requested_by.full_name %></span>
+      Requested by <span class="bold-small"><%= @downloads.requested_by.try(:full_name) || "Unknown" %></span>
       on <%= @downloads.requested_on %>
     </div>
   </div>
@@ -14,7 +14,7 @@
         This may take several minutes to complete.
         Re-visit this page later to download the area programme.
       </p>
-      <% if @downloads.requested_by.email == current_resource.email %>
+      <% if @downloads.requested_by.try(:email) == current_resource.email %>
         <p>
           As the requestor, you will receive an email once the programme is ready to download.
         </p>

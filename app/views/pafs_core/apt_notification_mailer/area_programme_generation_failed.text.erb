@@ -1,4 +1,4 @@
-Hello <%= @download_info.requested_by.full_name %>,
+Hello <%= @download_info.requested_by.try(:full_name) %>,
 
 Unfortunately, we encountered a problem and the area programme documents you requested on
 <%= @download_info.requested_on %> did not generate properly.

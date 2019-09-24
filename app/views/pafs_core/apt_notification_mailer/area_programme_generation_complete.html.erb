@@ -1,4 +1,4 @@
-<p>Hello <%= @download_info.requested_by.full_name %>,</p>
+<p>Hello <%= @download_info.requested_by.try(:full_name) %>,</p>
 <p>The area programme documents you requested on <%= @download_info.requested_on %> are now available to download.</p>
 <p>Use the link below to view and download these documents.</p>
 <p><%= link_to nil, pafs_core.multi_downloads_url %></p>
