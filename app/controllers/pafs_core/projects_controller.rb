@@ -54,15 +54,20 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
 
   def submit
     # PSO mark proposal as submitted to APT
-    @project = navigator.find(params[:id])
-    @project.submission_state.submit!
+    @project = PafsCore::ValidationPresenter.new navigator.find(params[:id])
 
-    # send files to asite
-    # asite.submit_project(@project)
-    PafsCore::AsiteSubmissionJob.perform_later(@project.id)
-    PafsCore::Pol::SubmissionJob.perform_later(@project.id)
+    if @project.complete?
+      @project.submission_state.submit!
 
-    redirect_to pafs_core.confirm_project_path(@project)
+      # send files to asite
+      # asite.submit_project(@project)
+      PafsCore::AsiteSubmissionJob.perform_later(@project.id)
+      PafsCore::Pol::SubmissionJob.perform_later(@project.id)
+
+      redirect_to pafs_core.confirm_project_path(@project)
+    else
+      render :show
+    end
   end
 
   def unlock
