@@ -6,7 +6,7 @@ module PafsCore::Spreadsheet::Contributors::Coerce
       return -1 if value == 'Previous years'
       fail('unknown year') if matches.nil?
 
-      matches[1]
+      matches[0]
     end
 
     def matches

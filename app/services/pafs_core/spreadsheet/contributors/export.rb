@@ -34,7 +34,7 @@ module PafsCore::Spreadsheet::Contributors
     def financial_year(value)
       return 'Previous years' if value == -1
 
-      "#{value - 1} - #{value}"
+      "#{value} - #{value + 1}"
     end
 
     def sheet
