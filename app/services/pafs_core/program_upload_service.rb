@@ -66,6 +66,11 @@ module PafsCore
           project = build_project_from_row(row)
           item = create_upload_item(upload_record, project)
 
+          if project.project_end_financial_year && project.project_end_financial_year < Date.today.year
+            errors[:project_end_financial_year] = "Financial year is in the past"
+            next
+          end
+
           if project.valid?
             # we need to ensure a couple of things are set up
             # project_type
