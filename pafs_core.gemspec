@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "aws-sdk", "~> 2"
   s.add_dependency "rack-cors"
   s.add_dependency "roo", "~> 2.7.0"
-  s.add_dependency "rubyXL", "~> 3.3.33"
+  s.add_dependency "rubyXL", "~> 3.4"
   s.add_dependency "bstard"
   s.add_dependency "faraday"
   s.add_dependency "kaminari"
