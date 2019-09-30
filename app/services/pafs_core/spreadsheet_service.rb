@@ -32,8 +32,8 @@ module PafsCore
       fix_worksheet(sheet)
 
       row_number = FIRST_DATA_ROW
-      projects.each do |project|
-        puts project.reference_number
+      projects.find_each do |project|
+        puts "#{row_number} #{project.reference_number}"
 
         add_project_to_sheet(
           sheet,
