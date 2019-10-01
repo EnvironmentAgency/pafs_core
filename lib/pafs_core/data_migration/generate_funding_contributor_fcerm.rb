@@ -18,7 +18,9 @@ module PafsCore
       def perform
         PafsCore::AreaDownload.transaction do
           download_info.save!
+          puts ">> ---- generate_multi_fcerm1"
           generate_multi_fcerm1(projects, download_info.fcerm1_filename)
+          puts "<< ---- generate_multi_fcerm1"
           download_info.documentation_state.complete!
           download_info.save!
         end
