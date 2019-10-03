@@ -81,14 +81,12 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     @project = navigator.find(params[:id])
     if @project.archived?
       render "confirm_archive"
-    elsif @project.completed?
+    elsif @project.completed? || @project.submitted?
       if current_resource.primary_area.rma?
         render "confirm_rma"
       else
         render "confirm_pso"
       end
-    elsif @project.submitted?
-      render "confirm_area"
     else
       redirect_to pafs_core.project_path(@project)
     end
