@@ -71,11 +71,11 @@ module PafsCore
                 },
                 most_deprived_21_40: {
                   long_term_loss:         sheet.cell('F', 69),
-                  medium_term_loss:       sheet.cell('G', 68),
+                  medium_term_loss:       sheet.cell('G', 69),
                 },
                 least_deprived_60: {
                   long_term_loss:         sheet.cell('F', 70),
-                  medium_term_loss:       sheet.cell('G', 68),
+                  medium_term_loss:       sheet.cell('G', 70),
                 },
               }
             },
