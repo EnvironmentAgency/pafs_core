@@ -12,8 +12,8 @@ RSpec.describe PafsCore::CalculatorParserService do
       subject.parse(file, project)
 
       expect(project.strategic_approach).to eq(true)
-      expect(project.raw_partnership_funding_score).to eq(28.532857936396443)
-      expect(project.adjusted_partnership_funding_score).to eq(29.44238044303537)
+      expect(project.raw_partnership_funding_score).to eq(59.30776823629341)
+      expect(project.adjusted_partnership_funding_score).to eq(61.19828162789538)
       expect(project.pv_whole_life_costs).to eq(25897.0)
       expect(project.pv_whole_life_benefits).to eq(1234)
       expect(project.duration_of_benefits).to eq(50)

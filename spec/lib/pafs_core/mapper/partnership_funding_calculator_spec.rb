@@ -117,26 +117,26 @@ RSpec.describe PafsCore::Mapper::PartnershipFundingCalculator do
     end
 
     it "has QBOM320LTB" do
-      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_20][:long_term_loss]).to eql(12)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_20][:long_term_loss]).to eql(10)
     end
 
     it "has QBOM32140LTB" do
       expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_21_40][:long_term_loss]).to eql(12)
     end
     it "has QBOM360LTB" do
-      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:least_deprived_60][:long_term_loss]).to eql(12)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:least_deprived_60][:long_term_loss]).to eql(14)
     end
 
     it "has QBOM320MTB" do
-      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_20][:medium_term_loss]).to eql(1)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_20][:medium_term_loss]).to eql(11)
     end
 
     it "has QBOM32140MTB" do
-      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_21_40][:medium_term_loss]).to eql(1)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:most_deprived_21_40][:medium_term_loss]).to eql(13)
     end
 
     it "has QBOM360MTB" do
-      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:least_deprived_60][:medium_term_loss]).to eql(1)
+      expect(subject.attributes[:qualifying_benefits_outcome_measures][:om3][:before_construction][:least_deprived_60][:medium_term_loss]).to eql(15)
     end
 
     it "has QBOM4a" do
