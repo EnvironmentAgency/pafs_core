@@ -5,11 +5,6 @@
       <%= render partial: "confirm_banner",
         locals: { reference_number: @project.reference_number,
                   title: "Proposal under review" } %>
-      <h2 class="heading-medium">What happens next?</h2>
-      <ul class="list list-bullet">
-        <li>Review your proposal</li>
-        <li>Return to the <%= link_to "proposal overview", project_path(@project) %> page and click the 'Mark as submitted' button</li>
-      </ul>
 
       <h2 class="heading-medium">If you need to change your proposal</h2>
       <ul class="list list-bullet">
