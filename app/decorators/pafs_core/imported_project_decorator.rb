@@ -6,7 +6,7 @@ module PafsCore
       PafsCore::EnvironmentalOutcomes
 
     def project_status=(value)
-      project.create_state(state: value)
+      PafsCore::Projects::StatusUpdate.new(project, value).perform
     end
 
     def reference_number=(value)
