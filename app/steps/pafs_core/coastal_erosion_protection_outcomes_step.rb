@@ -21,19 +21,15 @@ module PafsCore
     private
 
     def has_values
-      values = coastal_erosion_protection_outcomes.collect do |outcome|
-        if outcome.households_at_reduced_risk.present?  || outcome.households_protected_from_loss_in_next_20_years.present? || outcome.households_protected_from_loss_in_20_percent_most_deprived.present?
-          true
-        else
-          nil
+      coastal_erosion_protection_outcomes.each do |outcome|
+        %i[households_at_reduced_risk households_protected_from_loss_in_next_20_years households_protected_from_loss_in_20_percent_most_deprived].each do |attr|
+          if outcome.send(attr).to_i > 0
+            return errors.add(
+              :base,
+              "In the applicable year(s), tell us how many households moved to a lower flood risk category (column A), OR if this does not apply select the checkbox."
+            )
+          end
         end
-      end.compact!
-
-      if values.include?(true)
-        errors.add(
-          :base,
-          "In the applicable year(s), tell us how many households moved to a lower flood risk category (column A), OR if this does not apply select the checkbox."
-        )
       end
     end
 
