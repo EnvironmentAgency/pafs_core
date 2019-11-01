@@ -29,7 +29,10 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   # GET
   def archive
     @project = navigator.find(params[:id])
+
     if @project.submission_state.archived!
+      PafsCore::Pol::ArchiveJob.perform_later(@project.id)
+
       redirect_to pafs_core.confirm_project_path(@project)
     else
       render :show
