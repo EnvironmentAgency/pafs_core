@@ -12,7 +12,7 @@ module PafsCore
 
       def initialize(project, status)
         @project = project
-        @status = status.to_sym
+        @status = status&.to_sym
       end
 
       def coerced_status
