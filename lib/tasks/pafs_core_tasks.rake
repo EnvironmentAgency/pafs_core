@@ -18,4 +18,16 @@ namespace :pafs do
     user = PafsCore::User.find(ENV.fetch('USER_ID'))
     PafsCore::DataMigration::GenerateFundingContributorFcerm.perform(user)
   end
+
+  task update_areas: :environment do
+    PafsCore::DataMigration::UpdateAreas.perform(
+      File.join(Rails.root, 'lib', 'fixtures', 'area_migration.csv')
+    )
+  end
+
+  task update_project_areas: :environment do
+    PafsCore::DataMigration::UpdateProjects.perform(
+      File.join(Rails.root, 'lib', 'fixtures', 'project_area_migration.csv')
+    )
+  end
 end
