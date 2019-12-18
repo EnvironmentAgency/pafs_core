@@ -5,12 +5,14 @@ require 'roo'
 module PafsCore
   module Mapper
     class PartnershipFundingCalculator
+      include PafsCore::FundingCalculatorVersion
+
       attr_accessor :calculator_file
 
-      CALCULATOR_MAPS = [
-        Mapper::FundingCalculatorMaps::V8,
-        Mapper::FundingCalculatorMaps::V9,
-      ]
+      CALCULATOR_MAPS = {
+        v8: PafsCore::Mapper::FundingCalculatorMaps::V8,
+        v9: PafsCore::Mapper::FundingCalculatorMaps::V9,
+      }
 
       def self.default_attributes
         {
@@ -97,11 +99,7 @@ module PafsCore
       end
 
       def calculator_map
-        return @calculator_map if defined?(@calculator_map)
-
-        @calculator_map = CALCULATOR_MAPS.find do |map|
-          map.matches?(sheet)
-        end
+        @calculator_map ||= CALCULATOR_MAPS[calculator_version].new(sheet)
       end
 
       def attributes
