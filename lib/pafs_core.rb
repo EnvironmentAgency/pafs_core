@@ -27,6 +27,10 @@ require "pafs_core/files"
 require "pafs_core/fcerm1"
 require "pafs_core/email"
 require "pafs_core/custom_headers"
+require 'pafs_core/mapper/funding_calculator_maps/base'
+require 'pafs_core/mapper/funding_calculator_maps/v8'
+require 'pafs_core/mapper/funding_calculator_maps/v9'
+require 'pafs_core/funding_calculator_version'
 require "pafs_core/data_migration/remove_duplicate_states"
 require "pafs_core/data_migration/update_areas"
 require "pafs_core/data_migration/update_projects"
@@ -37,9 +41,9 @@ require "pafs_core/data_migration/update_pol_submission_date"
 require "pafs_core/mapper/fcerm"
 require "pafs_core/mapper/funding_sources"
 require "pafs_core/mapper/partnership_funding_calculator"
-require 'pafs_core/mapper/funding_calculator_maps/base'
-require 'pafs_core/mapper/funding_calculator_maps/v8'
-require 'pafs_core/mapper/funding_calculator_maps/v9'
+require 'pafs_core/calculator_maps/base'
+require 'pafs_core/calculator_maps/v8'
+require 'pafs_core/calculator_maps/v9'
 require "pafs_core/pol/azure_oauth"
 require "pafs_core/pol/azure_vault_client"
 require "pafs_core/pol/archive"
