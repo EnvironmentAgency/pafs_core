@@ -1,21 +1,31 @@
 language: ruby
 cache: bundler
-rvm:
-- 2.3.0
-before_script:
+rvm: 2.3.0
+
+# Travis CI clones repositories to a depth of 50 commits, which is only really
+# useful if you are performing git operations.
+# https://docs.travis-ci.com/user/customizing-the-build/#Git-Clone-Depth
+git:
+  depth: 3
+
+before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y libproj-dev
   - sudo apt-get install -y libffi-dev
+  - gem install -v 1.17.3 bundler --no-rdoc --no-ri
+
+before_script:
   - git config --global user.name "Travis Test"
   - git config --global user.email travis@example.com
-  - gem install -v 1.17.3 bundler --no-rdoc --no-ri
   - psql -c 'create database pafs_core_dummy_test;' -U postgres
+
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake spec
 
 services:
   - postgresql
+
 notifications:
   slack:
     secure: cTsubHjA23lK7Cgt2LhXyxV65UlA7hoaLRWSpXpYm6RNkqU9T8NZuSBnQj2OiDlzUc8jYn+m5Q/DLGmIhiA0jR5+Z24rHcUsfrd0t3czNCui0kajvimt2qbK5avV1jzEsVOBZVJ4B7LFtU0vwvGmGFDpP6jW8YS/MekABla9Y8Sf0TwVg6NmIhJm3PXYjrYyYHK+QADwg0JIQDiuxsvMvMLsf3j3Xk/cqVxxe3SuiX84UOvPvy2g7j520utuIPo6l7V6O1RcPjam98A7omMNrDc7VDHKj6BsLHVEVQ/WXjsLd6hvtelval7/F2QNVt9ySNd11arIwc2ga5yO1JkTbO1I5J58kszGUwJhRwmCY0kukvcpcbcoFTYzvR9ILGZ6P0RWEEAby5yOGdsiRqtI1eFEU4vutjxUOCoUOSZ8BCPlLdxM8sRyjzJ5HDeZhG6NNH6V9KKfrKIPP/vWBoVzMhRatg9k56pB9/d/F2K79e24kVPkWaASrImHE37Ne+uM8+1b0eYn4S56HQz9VTuYuAq3X1aiYrbep5AQ/p4LPi4RSS2janHixIrxuFKggLH8dJjnaDvSfZ6iopsaCZn06IZE0Cz0TVS4VOkwSBhjBnWWNN6bPVNJz665YjfxC/cPSZBVO58m+qRRB05El51x/F2UvIYaii6Tjgl22AkOArA=
