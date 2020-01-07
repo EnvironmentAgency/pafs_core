@@ -12,7 +12,7 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y libproj-dev
   - sudo apt-get install -y libffi-dev
-  - gem install -v 1.17.3 bundler --no-rdoc --no-ri
+  - gem install -v 1.17.3 bundler
 
 before_script:
   - git config --global user.name "Travis Test"
