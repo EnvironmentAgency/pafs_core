@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
   before(:all) do
-    file_path = [Rails.root, "..", "fixtures", "calculator.xlsx"].join("/")
+    file_path = [Rails.root, "..", "fixtures", "calculators", "v8.xlsx"].join("/")
     @tempfile = File.open(file_path)
   end
 
