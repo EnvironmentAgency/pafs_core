@@ -4,7 +4,7 @@ RSpec.describe PafsCore::Mapper::PartnershipFundingCalculator do
   subject { described_class.new(calculator_file: File.open(calculator_file)) }
 
   let(:calculator_file) do
-    File.join([Rails.root, "..", "fixtures", "calculator.xlsx"])
+    File.join([Rails.root, "..", "fixtures", "calculators", "v8.xlsx"])
   end
 
   it "has a spreadsheet file" do

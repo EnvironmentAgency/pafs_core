@@ -16,7 +16,7 @@ RSpec.describe PafsCore::Camc3Presenter do
   end
 
   let(:calculator_file) do
-    "calculator.xlsx"
+    "v8.xlsx"
   end
 
   let(:funding_values) do
@@ -78,7 +78,7 @@ RSpec.describe PafsCore::Camc3Presenter do
       allow_any_instance_of(PafsCore::Files)
         .to receive(:fetch_funding_calculator_for)
         .with(project)
-        .and_return(File.open(File.join(Rails.root, '..', 'fixtures', calculator_file)))
+        .and_return(File.open(File.join(Rails.root, '..', 'fixtures', 'calculators', calculator_file)))
     end
 
     it 'should create a valid json response' do
