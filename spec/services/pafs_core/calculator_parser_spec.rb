@@ -1,15 +1,16 @@
-# Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 
-RSpec.describe PafsCore::CalculatorParserService do
+RSpec.describe PafsCore::CalculatorParser do
   let(:project) { FactoryBot.create(:project) }
+  let(:file_path) { File.join(Rails.root, '..', 'fixtures', 'calculator.xlsx') }
+  let(:file) { File.open(file_path) }
+  let(:invalid_file) { Tempfile.new('tmp') }
+
   describe "#parse" do
     it "should parse the calculator and update the project values" do
-      file_path = [Rails.root, "..", "fixtures", "calculator.xlsx"].join("/")
-      file = File.open(file_path)
-
-      subject.parse(file, project)
+      described_class.parse(file, project)
 
       expect(project.strategic_approach).to eq(true)
       expect(project.raw_partnership_funding_score).to eq(59.30776823629341)
@@ -24,14 +25,15 @@ RSpec.describe PafsCore::CalculatorParserService do
     end
 
     it "should check that the calculator is an xlsx file" do
-      file = Tempfile.new("tmp")
-
-      expect { subject.parse(file, project) }.to raise_error("require an xlsx file")
-      file.unlink
+      expect { described_class.parse(invalid_file, project) }.to raise_error("require an xlsx file")
     end
   end
 
   describe "#binary_value" do
+    let(:calculator) { Roo::Excelx.new(file.path) }
+
+    subject { described_class.new(calculator, project) }
+
     it "should return the correct value" do
       expect(subject.binary_value("yes")).to eq true
       expect(subject.binary_value("YeS")).to eq true
