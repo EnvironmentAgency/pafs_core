@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe PafsCore::CalculatorParser do
   let(:project) { FactoryBot.create(:project) }
-  let(:file_path) { File.join(Rails.root, '..', 'fixtures', 'calculator.xlsx') }
+  let(:file_path) { File.join(Rails.root, '..', 'fixtures', 'calculators', 'v8.xlsx') }
   let(:file) { File.open(file_path) }
   let(:invalid_file) { Tempfile.new('tmp') }
 
