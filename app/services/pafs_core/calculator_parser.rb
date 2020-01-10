@@ -13,8 +13,14 @@ module PafsCore
       v9: PafsCore::CalculatorMaps::V9
     }
 
+    SHEET_NAMES = [
+      'PF Calculator',
+      'PF calculator'
+    ].freeze
+
     def initialize(calculator, project)
-      @sheet = calculator.sheet("PF Calculator")
+      calculator_sheet_name = calculator.sheets.grep(/PF Calculator/i).first || raise("No calculator sheet found")
+      @sheet = calculator.sheet(calculator_sheet_name)
       @project = project
     end
 
