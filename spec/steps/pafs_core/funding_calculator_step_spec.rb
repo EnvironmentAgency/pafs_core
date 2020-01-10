@@ -28,9 +28,8 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     end
 
     it 'validates the calculator version' do
-      allow(subject).
-        to receive(:uploaded_file).
-        and_return(file_path)
+      allow(subject).to receive(:expected_version).and_return('v8')
+      allow(subject).to receive(:uploaded_file).and_return(file_path)
 
       expect(Roo::Excelx).
         to receive(:new).
@@ -39,7 +38,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
       subject.valid?
 
       expect(subject.errors[:base]).
-        to include 'The partnership funding calculator file used is the wrong version. The file used must be version 8. Download the correct partnership funding calculator.'
+        to include 'The partnership funding calculator file used is the wrong version. The file used must be v8. Download the correct partnership funding calculator.'
     end
 
     context 'virus found' do
@@ -67,12 +66,12 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     end
     let(:params) do
       HashWithIndifferentAccess.new(
-        { funding_calculator_step: { funding_calculator: temp_file }}
+        { funding_calculator_step: { funding_calculator: temp_file, expected_version: 'v8' }}
       )
     end
     let(:empty_params) do
       HashWithIndifferentAccess.new(
-        { funding_calculator_step: { funding_calculator_file_name: "placeholder" }}
+        { funding_calculator_step: { funding_calculator_file_name: "placeholder", expected_version: 'v8' }}
       )
     end
     let(:continue_params) { { commit: "Continue" } }
