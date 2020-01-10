@@ -18,6 +18,8 @@ module PafsCore
         VERSION_MAP.each do |k, v|
           return k if sheet.cell(v[:column], v[:row]).to_s.match(v[:version_text])
         end
+
+        nil
       end
     end
 
