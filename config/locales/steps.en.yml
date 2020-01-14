@@ -193,6 +193,8 @@ en:
         funding_calculator:
           heading: Partnership funding calculator
           lede: The partnership funding calculator generates a score for the project based on the benefits and outcomes that it aims to deliver and any contributions that it will raise. This score is used to prioritise and allocate funding in each year.
+          version_statement: The version of the calculator you need to use depends on your project stage. Answer the question below to choose the correct version.
+          version_question: Will your outline business casebe signed off after 31st March 2020?
           download_heading: Download and complete the partnership funding calculator
           download_file_html: "<span class='visually-hidden'>Download your funding calculator named </span>%{file}"
           upload_heading: Upload the completed partnership funding calculator

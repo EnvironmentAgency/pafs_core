@@ -5,15 +5,8 @@
   <div class="step-form">
     <h1 class="heading-large"><%= t('heading', scope: scope) %></h1>
     <p><%= t('lede', scope: scope) %></p>
-    <h2 class="heading-medium"><%= t('download_heading', scope: scope) %></h2>
-    <p>Download the <%= link_to t("funding_calculator_label"), t("funding_calculator_link"), rel: "external", target: "_blank"%></p>
-    <p>To complete it, you'll need to know the:</p>
-    <ul class="list-bullet">
-      <li>estimated project benefits</li>
-      <li>estimated financial costs</li>
-      <li>expected outcomes</li>
-      <li>duration of benefits</li>
-    </ul>
+    <p><%= t('version_statement', scope: scope) %></p>
+    <p><%= t('version_question', scope: scope) %></p>
     <div class="form-group">
       <h3 class="heading-medium" id="file-upload"><%= t("upload_heading", scope: scope) %></h3>
       <%= f.form_group(:base) do %>
@@ -25,6 +18,10 @@
                                     [ { value: "v8", options: { label: t(:v8) } },
                                       { value: "v9", options: { label: t(:v9) } }]) %>
         </fieldset>
+
+        <%= render partial: 'v8' %>
+        <%= render partial: 'v9' %>
+
 
         <%= f.file_field :funding_calculator,
                          accept: @project.acceptable_funding_calculator_types,
