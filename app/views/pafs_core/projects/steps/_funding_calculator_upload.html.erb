@@ -8,27 +8,31 @@
     <p><%= t('version_statement', scope: scope) %></p>
     <p><%= t('version_question', scope: scope) %></p>
     <div class="form-group">
-      <h3 class="heading-medium" id="file-upload"><%= t("upload_heading", scope: scope) %></h3>
       <%= f.form_group(:base) do %>
         <%= f.error_message(:base) %>
 
         <fieldset class="inline">
           <legend class="visuallyhidden">Version</legend>
           <%= f.radio_button_group(:expected_version,
-                                    [ { value: "v8", options: { label: t(:v8) } },
-                                      { value: "v9", options: { label: t(:v9) } }]) %>
+                                    [ { value: "v9", options: { label: t(:yes) } },
+                                      { value: "v8", options: { label: t(:no) } }]) %>
         </fieldset>
 
-        <%= render partial: 'v8' %>
-        <%= render partial: 'v9' %>
+        <%= render partial: 'pafs_core/projects/steps/funding_calculator_upload_version/v8' %>
+        <%= render partial: 'pafs_core/projects/steps/funding_calculator_upload_version/v9' %>
 
+        <div class='upload-section'>
+          <h3 class="heading-medium" id="file-upload"><%= t("upload_heading", scope: scope) %></h3>
 
-        <%= f.file_field :funding_calculator,
-                         accept: @project.acceptable_funding_calculator_types,
-                         aria: { labelledby: "file-upload" } %>
+          <%= f.file_field :funding_calculator,
+                          accept: @project.acceptable_funding_calculator_types,
+                          aria: { labelledby: "file-upload" } %>
+        </div>
       <% end %>
     </div>
-    <%= f.submit t("upload_and_continue_label"), class: 'button' %>
+    <div class='upload-section'>
+      <%= f.submit t("upload_and_continue_label"), class: 'button' %>
+    </div>
     <div class="grid-row headroom">
       <div class="column-two-thirds">
         <details>
