@@ -1,3 +1,5 @@
+require 'roo'
+
 module PafsCore
   module Mapper
     class PartnershipFundingCalculator
