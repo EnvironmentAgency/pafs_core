@@ -79,31 +79,31 @@ RSpec.describe PafsCore::CalculatorParser do
       it 'parses and saves the raw_partnership_funding_score' do
         expect do
           perform
-        end.to change{ project.reload.raw_partnership_funding_score }.to(0.353323894729183)
+        end.to change{ project.reload.raw_partnership_funding_score }.to(5006.61972804084)
       end
 
       it 'parses and saves the adjusted_partnership_funding_score' do
         expect do
           perform
-        end.to change{ project.reload.adjusted_partnership_funding_score }.to(1.12475246615775)
+        end.to change{ project.reload.adjusted_partnership_funding_score }.to(5026.61972804084)
       end
 
       it 'parses and saves the pv_whole_life_costs' do
         expect do
           perform
-        end.to change{ project.reload.pv_whole_life_costs }.to(7650000.0)
+        end.to change{ project.reload.pv_whole_life_costs }.to(10.0)
       end
 
       it 'parses and saves the pv_whole_life_benefits' do
         expect do
           perform
-        end.to change{ project.reload.pv_whole_life_benefits }.to(37000000.0)
+        end.to change{ project.reload.pv_whole_life_benefits }.to(100.0)
       end
 
       it 'parses and saves the duration_of_benefits' do
         expect do
           perform
-        end.to change{ project.reload.duration_of_benefits }.to(50)
+        end.to change{ project.reload.duration_of_benefits }.to(6)
       end
 
       it 'zeroes the hectares_of_net_water_dependent_habitat_created' do
