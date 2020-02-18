@@ -129,6 +129,8 @@ GEM
     iniparse (1.4.4)
     jmespath (1.4.0)
     json (2.2.0)
+    json-schema (2.8.1)
+      addressable (>= 2.4)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.1.1)
@@ -277,6 +279,7 @@ DEPENDENCIES
   dotenv
   factory_bot_rails (~> 4.0)
   guard-rspec
+  json-schema
   overcommit
   pafs_core!
   pg (= 0.20.0)
@@ -291,4 +294,4 @@ DEPENDENCIES
   webmock (~> 1.24)
 
 BUNDLED WITH
-  1.17.3
+   1.17.3

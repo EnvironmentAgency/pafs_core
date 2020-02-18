@@ -22,6 +22,7 @@ group :development, :test do
   gem 'pry'
   gem 'guard-rspec', require: false
   gem 'climate_control'
+  gem 'json-schema'
 end
 
 group :test do

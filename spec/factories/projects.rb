@@ -14,6 +14,24 @@ FactoryBot.define do
       end
     end
 
+    trait :rma_area do
+      after(:build) do |project, builder|
+        create(:area_project, project: project, area: create(:rma_area), owner: true)
+      end
+    end
+
+    trait :pso_area do
+      after(:build) do |project, builder|
+        create(:area_project, project: project, area: create(:pso_area), owner: true)
+      end
+    end
+
+    trait :ea_area do
+      after(:build) do |project, builder|
+        create(:area_project, project: project, area: create(:ea_area), owner: true)
+      end
+    end
+
     trait :with_no_shapefile do
       benefit_area_file_name { nil }
     end
@@ -29,6 +47,7 @@ FactoryBot.define do
     end
 
     factory :full_project do
+      name { 'A test project' }
       reference_number { PafsCore::ProjectService.generate_reference_number("SO") }
       version { 0 }
       project_type { PafsCore::PROJECT_TYPES.first }
