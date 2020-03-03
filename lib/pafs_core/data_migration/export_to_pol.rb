@@ -25,6 +25,7 @@ module PafsCore
         projects.find_each do |project|
           begin
             submission = PafsCore::Pol::Submission.new(project)
+            submission.perform
 
             results << {
               id: project.reference_number,
