@@ -30,4 +30,8 @@ namespace :pafs do
   task move_funding_sources: :environment do
     PafsCore::DataMigration::MoveFundingSources.perform_all
   end
+
+  task update_submission_date: :environment do
+    PafsCore::DataMigration::UpdatePolSubmissionDate.perform
+  end
 end
