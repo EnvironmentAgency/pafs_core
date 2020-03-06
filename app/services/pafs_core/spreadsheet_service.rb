@@ -128,7 +128,7 @@ module PafsCore
             begin
               value = use_value ? project.send(col[:field_name]) : 0
               sheet[row_no][column_index(col[:column])].change_contents(value)
-            rescue => e
+            rescue
               raise "Boom - Project (#{project.slug}) Row no (#{row_no}) col (#{col})" \
                     " field_name (#{col[:field_name]}) value (#{value})"
             end

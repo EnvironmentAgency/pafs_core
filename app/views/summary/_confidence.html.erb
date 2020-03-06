@@ -1,0 +1,67 @@
+<article class="summary-item" aria-labelledby="confidence">
+  <% if project.confidence_started? %>
+    <div class="summary-item-content">
+      <h2 class="heading-medium" role="heading" id="confidence">
+        <%= project.summary_label(:confidence_title) %>
+      </h2>
+      <div class="grid-row">
+        <div class="column-three-quarters">
+          <table class="full-table">
+            <thead>
+              <tr>
+                <th class="visuallyhidden">Assessment</th>
+                <th class="visuallyhidden">Confidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= project.summary_label(:confidence_homes_better_protected) %></td>
+                <td class="align-right"><%= t(:label, scope: ['confidence', project.confidence_homes_better_protected]) %></td>
+              </tr>
+              <tr>
+                <td><%= project.summary_label(:confidence_homes_by_gateway_four) %></td>
+                <td class="align-right"><%= t(:label, scope: ['confidence', project.confidence_homes_by_gateway_four]) %></td>
+              </tr>
+              <tr>
+                <td><%= project.summary_label(:confidence_secured_partnership_funding) %></td>
+                <td class="align-right"><%= t(:label, scope: ['confidence', project.confidence_secured_partnership_funding]) %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="column-one-quarter">
+          <% if project.draft? %>
+            <% if can_edit_project_sections?(project) -%>
+              <div class="change-link">
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :confidence_homes_better_protected) do -%>
+                  Change<span class="visually-hidden"> the <%= project.summary_label(:confidence).downcase %></span>
+                <% end -%>
+              </div>
+            <% end -%>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="add-row">
+      <div class="grid-row">
+        <div class="column-three-quarters">
+          <h2 class="heading-medium" role="heading" id="confidence">
+            <%= project.summary_label(:confidence_title) %>
+          </h2>
+        </div>
+        <div class="column-one-quarter">
+          <% unless project.archived? %>
+            <% if can_edit_project_sections?(project) -%>
+              <div class="add-link">
+                <%= link_to pafs_core.project_step_path(id: project.to_param, step: :confidence_homes_better_protected) do -%>
+                  Add<span class="visually-hidden"> <%= project.summary_label(:confidence_title).downcase %></span>
+                <% end -%>
+              </div>
+            <% end -%>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</article>

@@ -42,7 +42,8 @@
     "national_grid_reference",
     "shapefile",
     "urgency_details",
-    "outcome_measures"
+    "outcome_measures",
+    "confidence"
   ],
   "properties": {
     "name": {
@@ -541,6 +542,25 @@
     },
     "urgency_details": {
       "type": ["string", "null"]
+    },
+    "confidence": {
+      "type": "object",
+      "required": [
+        "homes_better_protected",
+        "homes_by_gateway_four",
+        "secured_partnership_funding"
+      ],
+      "properties": {
+        "homes_better_protected": {
+          "type": ["string", "null"]
+        },
+        "homes_by_gateway_four": {
+          "type": ["string", "null"]
+        },
+        "secured_partnership_funding": {
+          "type": ["string", "null"]
+        }
+      }
     },
     "outcome_measures": {
       "type": "object",

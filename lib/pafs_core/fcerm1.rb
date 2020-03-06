@@ -153,6 +153,11 @@ module PafsCore
       { column: "JX", field_name: :improve_habitat_amount },
       { column: "JY", field_name: :create_habitat_amount },
 
+      # Confidence Assessment
+      { column: "KH", field_name: :confidence_homes_better_protected },
+      { column: "KI", field_name: :confidence_homes_by_gateway_four },
+      { column: "KJ", field_name: :confidence_secured_partnership_funding },
+
       # Project Status
       { column: "KK", field_name: :project_status },
     ].freeze

@@ -3,7 +3,8 @@ module PafsCore
   class ProjectSummaryPresenter < SimpleDelegator
     include PafsCore::FundingSources, PafsCore::Risks, PafsCore::Outcomes,
       PafsCore::Urgency, PafsCore::StandardOfProtection,
-      PafsCore::EnvironmentalOutcomes, ActionView::Helpers::NumberHelper
+      PafsCore::EnvironmentalOutcomes, PafsCore::Confidence,
+      ActionView::Helpers::NumberHelper
 
     def location_set?
       project.grid_reference.present?
@@ -123,6 +124,12 @@ module PafsCore
 
     def coastal_erosion_protection_outcomes_entered?
       coastal_erosion_protection_outcomes.count > 0
+    end
+
+    def confidence_started?
+      confidence_homes_better_protected.present? ||
+        confidence_homes_by_gateway_four.present? ||
+        confidence_secured_partnership_funding.present?
     end
 
     def environmental_outcomes_started?
@@ -267,7 +274,9 @@ module PafsCore
        :approach,
        :environmental_outcomes,
        :urgency,
-       :funding_calculator].freeze
+       :funding_calculator,
+       :confidence
+      ].freeze
     end
 
     def presentable_date(name)

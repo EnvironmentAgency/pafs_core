@@ -1,6 +1,10 @@
 en:
   pafs_core:
     summary:
+      confidence_title: "Confidence Assessment"
+      confidence_homes_better_protected: "Confidence in number of homes better protected by this project"
+      confidence_homes_by_gateway_four: "Confidence in homes being delivered by the project’s Gateway 4 (Readiness for Service) date"
+      confidence_secured_partnership_funding: "Confidence in securing the required Partnership Funding"
       standard_of_protection_title: "Standard of protection"
       flood_risk_before: "Current flood risk"
       flood_risk_after: "Flood risk when the project completes"

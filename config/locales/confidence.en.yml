@@ -1,0 +1,36 @@
+en:
+  confidence:
+    high:
+      label: High
+      explanation:
+        confidence_homes_better_protected: In construction / scheme complete and homes delivered
+        confidence_homes_by_gateway_four:
+        confidence_secured_partnership_funding:
+
+    medium_high:
+      label: Medium High
+      explanation:
+        confidence_homes_better_protected: Number of homes verified in approved business
+        confidence_homes_by_gateway_four:
+        confidence_secured_partnership_funding:
+
+    medium_low:
+      label: Medium Low
+      explanation:
+        confidence_homes_better_protected:
+        confidence_homes_by_gateway_four:
+        confidence_secured_partnership_funding:
+
+    low:
+      label: Low
+      explanation:
+        confidence_homes_better_protected:
+        confidence_homes_by_gateway_four:
+        confidence_secured_partnership_funding:
+
+    not_applicable:
+      label: 'N/A'
+      explanation:
+        confidence_homes_better_protected: No homes being delivered by scheme
+        confidence_homes_by_gateway_four: No homes being delivered by scheme
+        highconf:

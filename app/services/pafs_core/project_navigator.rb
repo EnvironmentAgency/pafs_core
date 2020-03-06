@@ -97,6 +97,7 @@ module PafsCore
         { summary_11: :environmental_outcomes },
         { summary_12: :urgency },
         { summary_13: :funding_calculator },
+        { summary_14: :confidence },
       ]
     end
 
@@ -197,6 +198,11 @@ module PafsCore
         s.add :funding_calculator, unless: ->(p) { p.funding_calculator_file_name.present? }
         s.add :funding_calculator_summary
         s.add :summary_13
+
+        s.add :confidence_homes_better_protected
+        s.add :confidence_homes_by_gateway_four
+        s.add :confidence_secured_partnership_funding
+        s.add :summary_14
       end
     end
     # rubocop:enable Metrics/AbcSize
