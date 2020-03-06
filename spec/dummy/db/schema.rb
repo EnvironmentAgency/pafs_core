@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190619134726) do
+ActiveRecord::Schema.define(version: 20200306120638) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -115,6 +116,14 @@ ActiveRecord::Schema.define(version: 20190619134726) do
     t.integer "households_protected_from_loss_in_next_20_years"
     t.integer "households_protected_from_loss_in_20_percent_most_deprived"
   end
+
+  create_table "pafs_core_contributor_details", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pafs_core_contributor_details", ["name"], name: "index_pafs_core_contributor_details_on_name", using: :btree
 
   create_table "pafs_core_flood_protection_outcomes", force: :cascade do |t|
     t.integer "project_id"
@@ -278,6 +287,9 @@ ActiveRecord::Schema.define(version: 20190619134726) do
     t.boolean  "reduced_risk_of_households_for_coastal_erosion",   default: false, null: false
     t.string   "rma_name"
     t.datetime "submitted_to_pol"
+    t.string   "confidence_homes_better_protected"
+    t.string   "confidence_homes_by_gateway_four"
+    t.string   "confidence_secured_partnership_funding"
   end
 
   add_index "pafs_core_projects", ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree

@@ -324,3 +324,13 @@ en:
           heading: Why is your project urgent?
           lede: "You previously told us that your proposed project is urgent because:"
           example_text: Limit your answer to 700 characters or fewer
+
+# Confidence assessment
+        confidence_homes_better_protected:
+          heading: Confidence in number of homes better protected by this project
+
+        confidence_homes_by_gateway_four:
+          heading: Confidence in homes being delivered by the project’s Gateway 4 (Readiness for Service) date
+
+        confidence_secured_partnership_funding:
+          heading: Confidence in securing the required Partnership Funding

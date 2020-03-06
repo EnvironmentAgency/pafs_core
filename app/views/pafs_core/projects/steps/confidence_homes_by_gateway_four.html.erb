@@ -1,0 +1,28 @@
+<% content_for :page_title, make_page_title(t("confidence_homes_by_gateway_four", scope: "page_titles")) %>
+
+<div class="step-container">
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <%= pafs_form_for @project, url: { action: "save", id: @project.to_param, step: @project.step } do |f| %>
+        <%= f.error_header %>
+        <h1 class="heading-large"><%= t('.heading') %></h1>
+        <p><%= t('.lede') %></p>
+        <div class="step-form">
+          <div class ="form-group">
+            <%= f.hidden_field :id %>
+            <fieldset>
+              <legend class="visuallyhidden"><%= t(".heading") %></legend>
+              <% PafsCore::Confidence::CONFIDENCE_VALUES.each do |value| %>
+                <% label = t(:label, scope: ['confidence', value]) %>
+                <%= f.radio_button :confidence_homes_by_gateway_four, value, label: label %>
+              <% end %>
+            </fieldset>
+          </div>
+          <div class ="form-group">
+            <%= f.submit t("save_and_continue_label"), class: 'button' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

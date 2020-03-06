@@ -74,6 +74,15 @@ class PafsCore::Camc3Presenter
       .merge(funding_sources_mapper.attributes)
       .merge(
         {
+          confidence: {
+            homes_better_protected: fcerm1_presenter.confidence_homes_better_protected,
+            homes_by_gateway_four: fcerm1_presenter.confidence_homes_by_gateway_four,
+            secured_partnership_funding: fcerm1_presenter.confidence_secured_partnership_funding
+          }
+        }
+      )
+      .merge(
+        {
           national_grid_reference: project.grid_reference,
           shapefile: base64_shapefile,
           urgency_details: fcerm1_presenter.urgency_details,

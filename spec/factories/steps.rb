@@ -175,5 +175,17 @@ FactoryBot.define do
 
     factory :funding_calculator_summary_step, class: PafsCore::FundingCalculatorSummaryStep do
     end
+
+    factory :confidence_homes_better_protected_step, class: PafsCore::ConfidenceHomesBetterProtectedStep do
+      confidence_homes_better_protected { "high" }
+    end
+
+    factory :confidence_homes_by_gateway_four_step, class: PafsCore::ConfidenceHomesByGatewayFourStep do
+      confidence_homes_by_gateway_four { "high" }
+    end
+
+    factory :confidence_secured_partnership_funding_step, class: PafsCore::ConfidenceSecuredPartnershipFundingStep do
+      confidence_secured_partnership_funding { "high" }
+    end
   end
 end

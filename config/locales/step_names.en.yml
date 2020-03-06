@@ -47,4 +47,5 @@ en:
   urgency_details_step_label: "Urgency details"
   funding_calculator_step_label: "Funding calculator"
   funding_calculator_summary_step_label: "Funding calculator"
+  confidence_step_label: "Confidence Assessment"
   summary_step_label: "Summary"

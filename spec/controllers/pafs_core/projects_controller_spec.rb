@@ -498,7 +498,26 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           expect(response).to redirect_to project_path(id: project.to_param, anchor: 'funding-calculator')
         end
       end
+
+      context 'saving a project confidence assessment' do
+        let(:params) do
+          {
+            confidence_secured_partnership_funding_step: {
+              confidence_secured_partnership_funding: 'high'
+            },
+            commit: "Save and continue",
+            id: project.to_param,
+            step: "confidence_secured_partnership_funding"
+          }
+        end
+
+        it 'redirects to the confidenxe' do
+          patch :save, params
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'confidence')
+        end
+      end
     end
+
 
     context "when given invalid data to save" do
       it "does not update the project" do
