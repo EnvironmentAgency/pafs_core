@@ -5,6 +5,7 @@ function PartnershipFundingCalcUploadSelector(instructions_selector) {
   self.showSection = function(section_name) {
     $(selector).find('.download-instructions').hide();
     $(selector).find('.' + section_name + '.download-instructions').show();
+    $(selector).find('.upload-section').show();
   }
 
   self.valueChanged = function(event) {
