@@ -4,8 +4,11 @@ module PafsCore
   module Mapper
     module FundingCalculatorMaps
       class V8 < Base
+        VERSION_NAME = '8'
+
         def extract_data
           {
+            partnership_funding_calculator_version:                     VERSION_NAME,
             pv_appraisal_approach:                                      sheet.cell('H', 32),
             pv_design_and_construction_costs:                           sheet.cell('H', 33),
             pv_post_construction_costs:                                 sheet.cell('H', 36),
