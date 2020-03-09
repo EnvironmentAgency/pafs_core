@@ -35,6 +35,14 @@ module PafsCore
       end
     end
 
+    def confidence_complete?
+      return true if confidence_homes_better_protected.present? &&
+        confidence_homes_by_gateway_four.present? &&
+        confidence_secured_partnership_funding.present?
+
+      add_error(:confidence, "^Tell us how confident you are in the project")
+    end
+
     def key_dates_complete?
       if start_outline_business_case_month.present? &&
          award_contract_month.present? &&
