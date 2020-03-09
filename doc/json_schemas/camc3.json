@@ -543,6 +543,15 @@
     "urgency_details": {
       "type": ["string", "null"]
     },
+    "carbon_cost_build": {
+      "type": ["number", "null"]
+    },
+    "carbon_cost_operation": {
+      "type": ["number", "null"]
+    },
+    "carbon_sequestered": {
+      "type": ["number", "null"]
+    },
     "confidence": {
       "type": "object",
       "required": [

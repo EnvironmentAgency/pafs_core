@@ -74,6 +74,13 @@ class PafsCore::Camc3Presenter
       .merge(funding_sources_mapper.attributes)
       .merge(
         {
+          carbon_cost_build: fcerm1_presenter.carbon_cost_build,
+          carbon_cost_operation: fcerm1_presenter.carbon_cost_operation,
+          carbon_sequestered: fcerm1_presenter.carbon_sequestered
+        }
+      )
+      .merge(
+        {
           confidence: {
             homes_better_protected: project.confidence_homes_better_protected,
             homes_by_gateway_four: project.confidence_homes_by_gateway_four,
