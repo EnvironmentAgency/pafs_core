@@ -43,6 +43,14 @@ module PafsCore
       add_error(:confidence, "^Tell us how confident you are in the project")
     end
 
+    def carbon_complete?
+      return true if (carbon_cost_build.to_i > 0) &&
+        (carbon_cost_operation.to_i > 0) &&
+        (carbon_sequestered.to_i > 0)
+
+      add_error(:carbon, "^Tell us about the carbon cost of the project")
+    end
+
     def key_dates_complete?
       if start_outline_business_case_month.present? &&
          award_contract_month.present? &&

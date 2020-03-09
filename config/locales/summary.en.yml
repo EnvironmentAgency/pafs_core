@@ -1,6 +1,10 @@
 en:
   pafs_core:
     summary:
+      carbon_title: "Carbon"
+      carbon_cost_build: "Carbon cost to build"
+      carbon_cost_operation: "Carbon cost to operate"
+      carbon_sequestered: "Carbon sequestered"
       confidence_title: "Confidence Assessment"
       confidence_homes_better_protected: "Confidence in number of homes better protected by this project"
       confidence_homes_by_gateway_four: "Confidence in homes being delivered by the project’s Gateway 4 (Readiness for Service) date"

@@ -3,7 +3,7 @@ module PafsCore
   class ProjectSummaryPresenter < SimpleDelegator
     include PafsCore::FundingSources, PafsCore::Risks, PafsCore::Outcomes,
       PafsCore::Urgency, PafsCore::StandardOfProtection,
-      PafsCore::EnvironmentalOutcomes, PafsCore::Confidence,
+      PafsCore::EnvironmentalOutcomes, PafsCore::Confidence, PafsCore::Carbon,
       ActionView::Helpers::NumberHelper
 
     def location_set?
@@ -124,6 +124,12 @@ module PafsCore
 
     def coastal_erosion_protection_outcomes_entered?
       coastal_erosion_protection_outcomes.count > 0
+    end
+
+    def carbon_started?
+      carbon_cost_build.present? ||
+        carbon_cost_operation.present? ||
+        carbon_sequestered.present?
     end
 
     def confidence_started?
@@ -275,7 +281,8 @@ module PafsCore
        :environmental_outcomes,
        :urgency,
        :funding_calculator,
-       :confidence
+       :confidence,
+       :carbon
       ].freeze
     end
 

@@ -48,4 +48,5 @@ en:
   funding_calculator_step_label: "Funding calculator"
   funding_calculator_summary_step_label: "Funding calculator"
   confidence_step_label: "Confidence Assessment"
+  carbon_step_label: "Carbon"
   summary_step_label: "Summary"

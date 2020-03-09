@@ -325,6 +325,10 @@ en:
           lede: "You previously told us that your proposed project is urgent because:"
           example_text: Limit your answer to 700 characters or fewer
 
+# Carbon
+        carbon:
+          heading: Carbon
+
 # Confidence assessment
         confidence_homes_better_protected:
           heading: Confidence in number of homes better protected by this project
