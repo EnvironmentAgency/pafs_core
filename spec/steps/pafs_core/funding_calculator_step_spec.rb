@@ -7,6 +7,8 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     @tempfile = File.open(file_path)
   end
 
+  let(:v9_calculator_file) { File.open(File.join(Rails.root, "..", "fixtures", "calculators", "v9.xlsx")) }
+
   describe "attributes" do
     subject { FactoryBot.build(:funding_calculator_step) }
 
@@ -27,13 +29,16 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
         to include "The file was rejected because it may contain a virus. Check the file and try again"
     end
 
+    it 'validates the calculator version when correct' do
+      allow(subject).to receive(:expected_version).and_return('v9')
+      allow(subject).to receive(:uploaded_file).and_return(v9_calculator_file)
+
+      expect(subject.valid?).to be_truthy
+    end
+
     it 'validates the calculator version' do
       allow(subject).to receive(:expected_version).and_return('v8')
-      allow(subject).to receive(:uploaded_file).and_return(file_path)
-
-      expect(Roo::Excelx).
-        to receive(:new).
-        and_return(double(:sheet, cell: 'Version 5'))
+      allow(subject).to receive(:uploaded_file).and_return(v9_calculator_file)
 
       subject.valid?
 
