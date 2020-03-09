@@ -87,8 +87,16 @@ module PafsCore
       end
     end
 
+    def calculator
+      @calculator ||= ::Roo::Excelx.new(self.uploaded_file)
+    end
+
+    def calculator_sheet_name
+      @calculator_sheet_name ||= calculator.sheets.grep(/PF Calculator/i).first || raise("No calculator sheet found")
+    end
+
     def sheet
-      @sheet ||= ::Roo::Excelx.new(self.uploaded_file)
+      @sheet ||= calculator.sheet(calculator_sheet_name)
     end
 
     def validate_calculator_version
