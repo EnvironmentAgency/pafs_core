@@ -274,6 +274,48 @@ module PafsCore
       status_label_for(project.status)
     end
 
+    def confidence_homes_better_protected
+      return nil if project.confidence_homes_better_protected.blank?
+
+      I18n.t(
+        :fcerm1,
+        scope: [
+          'pafs_core',
+          'confidence',
+          'homes_better_protected',
+          project.confidence_homes_better_protected
+        ]
+      )
+    end
+
+    def confidence_homes_by_gateway_four
+      return nil if project.confidence_homes_by_gateway_four.blank?
+
+      I18n.t(
+        :fcerm1,
+        scope: [
+          'pafs_core',
+          'confidence',
+          'homes_by_gateway_four',
+          project.confidence_homes_by_gateway_four
+        ]
+      )
+    end
+
+    def confidence_secured_partnership_funding
+      return nil if project.confidence_secured_partnership_funding.blank?
+
+      I18n.t(
+        :fcerm1,
+        scope: [
+          'pafs_core',
+          'confidence',
+          'secured_partnership_funding',
+          project.confidence_secured_partnership_funding
+        ]
+      )
+    end
+
     private
     def project
       __getobj__

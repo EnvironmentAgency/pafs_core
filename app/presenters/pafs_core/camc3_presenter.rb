@@ -75,9 +75,9 @@ class PafsCore::Camc3Presenter
       .merge(
         {
           confidence: {
-            homes_better_protected: fcerm1_presenter.confidence_homes_better_protected,
-            homes_by_gateway_four: fcerm1_presenter.confidence_homes_by_gateway_four,
-            secured_partnership_funding: fcerm1_presenter.confidence_secured_partnership_funding
+            homes_better_protected: project.confidence_homes_better_protected,
+            homes_by_gateway_four: project.confidence_homes_by_gateway_four,
+            secured_partnership_funding: project.confidence_secured_partnership_funding
           }
         }
       )

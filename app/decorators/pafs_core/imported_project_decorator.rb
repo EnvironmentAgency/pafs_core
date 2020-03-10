@@ -9,6 +9,18 @@ module PafsCore
       PafsCore::Projects::StatusUpdate.new(project, value).perform
     end
 
+    def confidence_homes_better_protected=(value)
+      PafsCore::Projects::ConfidenceUpdate.new(project, value, :homes_better_protected).perform
+    end
+
+    def confidence_homes_by_gateway_four=(value)
+      PafsCore::Projects::ConfidenceUpdate.new(project, value, :homes_by_gateway_four).perform
+    end
+
+    def confidence_secured_partnership_funding=(value)
+      PafsCore::Projects::ConfidenceUpdate.new(project, value, :secured_partnership_funding).perform
+    end
+
     def reference_number=(value)
       project.reference_number = value.upcase unless value.nil?
     end
