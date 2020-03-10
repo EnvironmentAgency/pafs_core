@@ -128,8 +128,7 @@ module PafsCore
 
     def carbon_started?
       carbon_cost_build.present? ||
-        carbon_cost_operation.present? ||
-        carbon_sequestered.present?
+        carbon_cost_operation.present?
     end
 
     def confidence_started?

@@ -45,8 +45,7 @@ module PafsCore
 
     def carbon_complete?
       return true if (carbon_cost_build.to_i > 0) &&
-        (carbon_cost_operation.to_i > 0) &&
-        (carbon_sequestered.to_i > 0)
+        (carbon_cost_operation.to_i > 0)
 
       add_error(:carbon, "^Tell us about the carbon cost of the project")
     end
