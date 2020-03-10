@@ -4,9 +4,9 @@ module PafsCore
   class CarbonCostBuildStep < BasicStep
     include PafsCore::Carbon
 
-    validates :carbon_cost_build, presence: { message: "^Add a carbon cost for the build" }
+    validates :carbon_cost_build, presence: { message: "^Add a numerical value for Capital carbon" }
     validates :carbon_cost_build, 
-      numericality: { message: "^Please enter a numerical value for carbon cost"},
+      numericality: { message: "^Add a numerical value for Capital carbon"},
       unless: -> { carbon_cost_build.blank? }
 
   private
