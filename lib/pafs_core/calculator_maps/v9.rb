@@ -7,7 +7,7 @@ module PafsCore
           raw_partnership_funding_score: sheet.cell("E", 19),
           adjusted_partnership_funding_score: sheet.cell("K", 19),
           pv_whole_life_costs: sheet.cell("E", 33),
-          pv_whole_life_benefits: sheet.cell("E", 37),
+          pv_whole_life_benefits: sheet.cell("E", 39),
           duration_of_benefits: sheet.cell("E", 38),
           hectares_of_net_water_dependent_habitat_created: 0,
           hectares_of_net_water_intertidal_habitat_created: 0,
