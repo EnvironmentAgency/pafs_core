@@ -155,45 +155,90 @@ module PafsCore
               },
               om4: {
                 net_change_hectares: {
-                  intertidal_habitat: {
-                    low:    sheet.cell('D', 83),
-                    medium: sheet.cell('E', 83),
-                    high:   sheet.cell('F', 83),
+                  before: {
+                    intertidal_habitat: {
+                      poor:     sheet.cell('D', 83),
+                      moderate: sheet.cell('E', 83),
+                      good:     sheet.cell('F', 83),
+                    },
+                    woodland: {
+                      poor:     sheet.cell('D', 84),
+                      moderate: sheet.cell('E', 84),
+                      good:     sheet.cell('F', 84),
+                    },
+                    wet_woodland: {
+                      poor:     sheet.cell('D', 85),
+                      moderate: sheet.cell('E', 85),
+                      good:     sheet.cell('F', 85),
+                    },
+                    wetlands_wet_grassland: {
+                      poor:     sheet.cell('D', 86),
+                      moderate: sheet.cell('E', 86),
+                      good:     sheet.cell('F', 86),
+                    },
+                    grassland: {
+                      poor:     sheet.cell('D', 87),
+                      moderate: sheet.cell('E', 87),
+                      good:     sheet.cell('F', 87),
+                    },
+                    moor_heath: {
+                      poor:     sheet.cell('D', 88),
+                      moderate: sheet.cell('E', 88),
+                      good:     sheet.cell('F', 88),
+                    },
+                    ponds_lakes: {
+                      poor:     sheet.cell('D', 89),
+                      moderate: sheet.cell('E', 89),
+                      good:     sheet.cell('F', 89),
+                    },
+                    arable_land: {
+                      poor:     sheet.cell('D', 90),
+                      moderate: sheet.cell('E', 90),
+                      good:     sheet.cell('F', 90),
+                    }
                   },
-                  woodland: {
-                    low:    sheet.cell('D', 84),
-                    medium: sheet.cell('E', 84),
-                    high:   sheet.cell('F', 84),
-                  },
-                  wet_woodland: {
-                    low:    sheet.cell('D', 85),
-                    medium: sheet.cell('E', 85),
-                    high:   sheet.cell('F', 85),
-                  },
-                  wetlands_wet_grassland: {
-                    low:    sheet.cell('D', 86),
-                    medium: sheet.cell('E', 86),
-                    high:   sheet.cell('F', 86),
-                  },
-                  grassland: {
-                    low:    sheet.cell('D', 87),
-                    medium: sheet.cell('E', 87),
-                    high:   sheet.cell('F', 87),
-                  },
-                  moor_heath: {
-                    low:    sheet.cell('D', 88),
-                    medium: sheet.cell('E', 88),
-                    high:   sheet.cell('F', 88),
-                  },
-                  ponds_lakes: {
-                    low:    sheet.cell('D', 89),
-                    medium: sheet.cell('E', 89),
-                    high:   sheet.cell('F', 89),
-                  },
-                  arable_land: {
-                    low:    sheet.cell('D', 90),
-                    medium: sheet.cell('E', 90),
-                    high:   sheet.cell('F', 90),
+
+                  after: {
+                    intertidal_habitat: {
+                      poor:     sheet.cell('H', 83),
+                      moderate: sheet.cell('I', 83),
+                      good:     sheet.cell('J', 83),
+                    },
+                    woodland: {
+                      poor:     sheet.cell('H', 84),
+                      moderate: sheet.cell('I', 84),
+                      good:     sheet.cell('J', 84),
+                    },
+                    wet_woodland: {
+                      poor:     sheet.cell('H', 85),
+                      moderate: sheet.cell('I', 85),
+                      good:     sheet.cell('J', 85),
+                    },
+                    wetlands_wet_grassland: {
+                      poor:     sheet.cell('H', 86),
+                      moderate: sheet.cell('I', 86),
+                      good:     sheet.cell('J', 86),
+                    },
+                    grassland: {
+                      poor:     sheet.cell('H', 87),
+                      moderate: sheet.cell('I', 87),
+                      good:     sheet.cell('J', 87),
+                    },
+                    moor_heath: {
+                      poor:     sheet.cell('H', 88),
+                      moderate: sheet.cell('I', 88),
+                      good:     sheet.cell('J', 88),
+                    },
+                    ponds_lakes: {
+                      poor:     sheet.cell('H', 89),
+                      moderate: sheet.cell('I', 89),
+                      good:     sheet.cell('J', 89),
+                    },
+                    arable_land: {
+                      poor:     sheet.cell('H', 90),
+                      moderate: sheet.cell('I', 90),
+                      good:     sheet.cell('J', 90),
+                    }
                   }
                 },
                 length_of_habitat_enhanced: {
