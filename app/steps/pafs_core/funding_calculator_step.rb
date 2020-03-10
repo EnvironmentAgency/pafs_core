@@ -94,12 +94,19 @@ module PafsCore
       @sheet ||= calculator.sheet(calculator_sheet_name)
     end
 
+    def expected_version_name
+      {
+        v8: 'v8 2014',
+        v9: 'v1 2020'
+      }[expected_version.to_sym]
+    end
+
     def validate_calculator_version
       return unless virus_info.nil? && self.uploaded_file
       return if calculator_version.to_s == expected_version && calculator_version.present?
 
       self.funding_calculator_file_name = ''
-      errors.add(:base, "The partnership funding calculator file used is the wrong version. The file used must be #{expected_version}. Download the correct partnership funding calculator.")
+      errors.add(:base, "The partnership funding calculator file used is the wrong version. The file used must be #{expected_version_name}. Download the correct partnership funding calculator.")
     end
   end
 end
