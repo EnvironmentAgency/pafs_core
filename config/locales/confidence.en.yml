@@ -4,62 +4,77 @@ en:
       homes_better_protected:
         high:
           label: High
+          fcerm1: 4. High
           description: In Construction/Scheme complete and home delivered
 
         medium_high:
           label: Medium High
+          fcerm1: 3. Medium High
           description: Number of homes verified in approve business case
 
         medium_low:
           label: Medium Low
+          fcerm1: 2. Medium Low
           description: Initial modelling carried out
 
         low:
           label: Low
+          fcerm1: 1. Low
           description: Based on Shapefile / Estimate
 
         not_applicable:
           label: 'N/A'
+          fcerm1: 'N/A'
           description: No homes being delivered by scheme
 
       homes_by_gateway_four:
         high:
           label: High
+          fcerm1: 4. High
           description: High confidence in delivery by specified gateway 4 date / Scheme complete and homes delivered
 
         medium_high:
           label: Medium High
+          fcerm1: 3. Medium High
           description: Low level concerns in delivery by specified gateway 4 date or profile of OMs
 
         medium_low:
           label: Medium Low
+          fcerm1: 2. Medium Low
           description: Moderate concerns in delivery by specified gateway 4 date or profile of OMs
 
         low:
           label: Low
+          fcerm1: 1. Low
           description: Significant concerns in delivery by specified gateway 4 date or profile of OMs
 
         not_applicable:
           label: 'N/A'
+          fcerm1: 'N/A'
           description: No homes being delivered by scheme
 
       secured_partnership_funding:
         high:
           label: High
+          fcerm1: 4. High
           description: Secured, or heads of terms in place / Scheme complete with funding secured
 
         medium_high:
           label: Medium High
+          fcerm1: 3. Medium High
           description: Expected that contributions will be received.  Possibly some issues to overcome; but confidence in required contributions being achieved
 
         medium_low:
           label: Medium Low
+          fcerm1: 2. Medium Low
           description: Contributors not known and/or concerns over those identified.  Optimistic a solution will be found; but not immediately obvious
 
         low:
           label: Low
+          fcerm1: 1. Low
           description: Contributors not known and significant concerns over how funding gaps will be filled
 
         not_applicable:
           label: 'N/A'
+          fcerm1: 'N/A'
           description: Scheme fully funded through Grant in Aid
