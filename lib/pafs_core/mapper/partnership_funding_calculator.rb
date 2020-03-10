@@ -90,8 +90,12 @@ module PafsCore
         self.calculator_file = calculator_file
       end
 
+      def calculator_sheet_name
+        @calculator_sheet_name ||= calculator.sheets.grep(/PF Calculator/i).first || raise("No calculator sheet found")
+      end
+
       def sheet
-        @sheet ||= calculator.sheet("PF Calculator")
+        @sheet ||= calculator.sheet(calculator_sheet_name)
       end
 
       def calculator
