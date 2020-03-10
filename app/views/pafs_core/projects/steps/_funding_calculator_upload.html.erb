@@ -6,8 +6,8 @@
     <h1 class="heading-large"><%= t('heading', scope: scope) %></h1>
     <p><%= t('lede', scope: scope) %></p>
     <p><%= t('version_statement', scope: scope) %></p>
-    <p><%= t('version_guidance', scope: scope).html_safe %></p>
-    <p><%= t('version_question', scope: scope) %></p>
+    <p><strong><%= t('version_question', scope: scope) %></strong></p>
+
     <div class="form-group">
       <%= f.form_group(:base) do %>
         <%= f.error_message(:base) %>
@@ -15,8 +15,8 @@
         <fieldset class="inline">
           <legend class="visuallyhidden">Version</legend>
           <%= f.radio_button_group(:expected_version,
-                                    [ { value: "v9", options: { label: t(:yes) } },
-                                      { value: "v8", options: { label: t(:no) } }]) %>
+                                    [ { value: "v9", options: { label: t(:yes_option) } },
+                                      { value: "v8", options: { label: t(:no_option) } }]) %>
         </fieldset>
 
         <%= render partial: 'pafs_core/projects/steps/funding_calculator_upload_version/v8' %>
@@ -36,6 +36,8 @@
     </div>
     <div class="grid-row headroom">
       <div class="column-two-thirds">
+        <p><%= t('version_guidance', scope: scope).html_safe %></p>
+
         <details>
           <summary role="button" aria-controls="calc-help-needed">
             <span class="summary"><%= t('if_you_need_help', scope: scope) %></span>
