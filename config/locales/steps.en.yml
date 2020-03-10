@@ -194,14 +194,15 @@ en:
           heading: Partnership funding calculator
           lede: The partnership funding calculator generates a score for the project based on the benefits and outcomes that it aims to deliver and any contributions that it will raise. This score is used to prioritise and allocate funding in each year.
           version_statement: The version of the calculator you need to use depends on your project stage. Answer the question below to choose the correct version.
-          version_question: Will your outline business case be signed off after 31st March 2020?
+          version_guidance: "If you are unsure which version to use check the <a href=''>partnership funding guidance</a> or contact your local partnership and strategic overview officer"
+          version_question: Will your outline business case be signed off after XX May 2020?
           download_file_html: "<span class='visually-hidden'>Download your funding calculator named </span>%{file}"
           v8:
-            download_heading: Download and complete version 8 of the partnership funding calculator
-            download_link_label: "Download version 8 of the <a href='%{url}' alt='Version 8'>partnership funding calculator</a>"
+            download_heading: Download and complete the version 8 of the partnership funding calculator 2014
+            download_link_label: "Download the <a href='%{url}' alt='Version 8'>partnership funding calculator</a>"
           v9:
-            download_heading: Download and complete version 9 of the partnership funding calculator
-            download_link_label: "Download version 9 of the <a href='%{url}' alt='Version 9'>partnership funding calculator</a>"
+            download_heading: Download and complete version 1 of the partnership calculator 2020.
+            download_link_label: "Download the <a href='%{url}' alt='Version 9'>partnership funding calculator</a>"
           upload_heading: Upload the completed partnership funding calculator
           uploaded_heading: The uploaded partnership funding calculator
           funding_calculator_label: Funding calculator
