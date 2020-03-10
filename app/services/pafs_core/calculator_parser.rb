@@ -27,8 +27,8 @@ module PafsCore
 
     def self.parse(file, project)
       if File.extname(file.path) == ".xlsx"
-        calculator = Roo::Excelx.new(file.path)
         begin
+          calculator = Roo::Excelx.new(file.path)
           new(calculator, project).extract_data
         rescue StandardError => e
           puts e
