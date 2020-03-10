@@ -21,6 +21,7 @@ module PafsCore
     attr_accessor :expected_version
 
     validate :virus_free_funding_calculator_present
+    validate :validate_calculator_sheet_present
     validate :validate_calculator_version
 
     def update(params)
@@ -92,7 +93,9 @@ module PafsCore
     end
 
     def calculator_sheet_name
-      @calculator_sheet_name ||= calculator.sheets.grep(/PF Calculator/i).first || raise("No calculator sheet found")
+      @calculator_sheet_name ||= calculator.sheets.grep(/PF Calculator/i).first
+    rescue
+      nil
     end
 
     def sheet
@@ -106,8 +109,16 @@ module PafsCore
       }[expected_version.to_sym]
     end
 
+    def validate_calculator_sheet_present
+      return if calculator_sheet_name.present?
+
+      self.funding_calculator_file_name = ''
+      errors.add(:base, "Please ensure you upload a valid partnership funding calculator")
+    end
+
     def validate_calculator_version
       return unless virus_info.nil? && self.uploaded_file
+      return unless calculator_sheet_name.present?
       return if calculator_version.to_s == expected_version && calculator_version.present?
 
       self.funding_calculator_file_name = ""
