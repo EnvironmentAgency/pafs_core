@@ -1,16 +1,65 @@
 en:
-  confidence:
-    high:
-      label: High
+  pafs_core:
+    confidence:
+      homes_better_protected:
+        high:
+          label: High
+          description: In Construction/Scheme complete and home delivered
 
-    medium_high:
-      label: Medium High
+        medium_high:
+          label: Medium High
+          description: Number of homes verified in approve business case
 
-    medium_low:
-      label: Medium Low
+        medium_low:
+          label: Medium Low
+          description: Initial modelling carried out
 
-    low:
-      label: Low
+        low:
+          label: Low
+          description: Based on Shapefile / Estimate
 
-    not_applicable:
-      label: 'N/A'
+        not_applicable:
+          label: 'N/A'
+          description: No homes being delivered by scheme
+
+      homes_by_gateway_four:
+        high:
+          label: High
+          description: High confidence in delivery by specified gateway 4 date / Scheme complete and homes delivered
+
+        medium_high:
+          label: Medium High
+          description: Low level concerns in delivery by specified gateway 4 date or profile of OMs
+
+        medium_low:
+          label: Medium Low
+          description: Moderate concerns in delivery by specified gateway 4 date or profile of OMs
+
+        low:
+          label: Low
+          description: Significant concerns in delivery by specified gateway 4 date or profile of OMs
+
+        not_applicable:
+          label: 'N/A'
+          description: No homes being delivered by scheme
+
+      secured_partnership_funding:
+        high:
+          label: High
+          description: Secured, or heads of terms in place / Scheme complete with funding secured
+
+        medium_high:
+          label: Medium High
+          description: Expected that contributions will be received.  Possibly some issues to overcome; but confidence in required contributions being achieved
+
+        medium_low:
+          label: Medium Low
+          description: Contributors not known and/or concerns over those identified.  Optimistic a solution will be found; but not immediately obvious
+
+        low:
+          label: Low
+          description: Contributors not known and significant concerns over how funding gaps will be filled
+
+        not_applicable:
+          label: 'N/A'
+          description: Scheme fully funded through Grant in Aid
