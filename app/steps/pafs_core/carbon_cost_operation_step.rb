@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+module PafsCore
+  class CarbonCostOperationStep < BasicStep
+    include PafsCore::Carbon
+
+    validates :carbon_cost_operation, presence: { message: "^Add a carbon cost for the operation" }
+    validates :carbon_cost_operation, 
+      numericality: { message: "^Please enter a numerical value for carbon operation"},
+      unless: -> { carbon_cost_operation.blank? }
+
+  private
+    def step_params(params)
+      ActionController::Parameters.new(params)
+                                  .require(:carbon_cost_operation_step)
+                                  .permit(
+                                    :carbon_cost_operation
+                                  )
+    end
+  end
+end

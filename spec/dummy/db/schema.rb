@@ -292,7 +292,6 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.string   "confidence_secured_partnership_funding"
     t.integer  "carbon_cost_build"
     t.integer  "carbon_cost_operation"
-    t.integer  "carbon_sequestered"
   end
 
   add_index "pafs_core_projects", ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree

@@ -326,8 +326,10 @@ en:
           example_text: Limit your answer to 700 characters or fewer
 
 # Carbon
-        carbon:
-          heading: Carbon
+        carbon_cost_build:
+          heading: How much Capital Carbon will this project produce?
+        carbon_cost_operation:
+          heading: How much Carbon will this project’s assets produce in their lifecycle?
 
 # Confidence assessment
         confidence_homes_better_protected:

@@ -74,9 +74,8 @@ class PafsCore::Camc3Presenter
       .merge(funding_sources_mapper.attributes)
       .merge(
         {
-          carbon_cost_build: fcerm1_presenter.carbon_cost_build,
-          carbon_cost_operation: fcerm1_presenter.carbon_cost_operation,
-          carbon_sequestered: fcerm1_presenter.carbon_sequestered
+          capital_carbon: fcerm1_presenter.carbon_cost_build,
+          carbon_lifecycle: fcerm1_presenter.carbon_cost_operation,
         }
       )
       .merge(
