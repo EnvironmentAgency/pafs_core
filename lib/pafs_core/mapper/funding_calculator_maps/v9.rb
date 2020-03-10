@@ -18,6 +18,7 @@ module PafsCore
             pv_design_and_construction_costs:                           sheet.cell('E', 29),
             pv_risk_contingency:                                        sheet.cell('E', 30),
             pv_future_costs:                                            sheet.cell('E', 32),
+            pv_whole_life_benefits:                                     sheet.cell("E", 39),
 
             pv_local_levy_towards_appraisal_costs:                      sheet.cell('K', 28),
             pv_local_levy_towards_qualifying_outcomes_upfront:          sheet.cell('M', 28),
