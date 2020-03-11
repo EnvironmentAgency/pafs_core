@@ -5,12 +5,12 @@ en:
         high:
           label: High
           fcerm1: 4. High
-          description: In Construction/Scheme complete and home delivered
+          description: In Construction/Scheme complete and homes delivered
 
         medium_high:
           label: Medium High
           fcerm1: 3. Medium High
-          description: Number of homes verified in approve business case
+          description: Number of homes verified in approved business case
 
         medium_low:
           label: Medium Low
@@ -36,17 +36,17 @@ en:
         medium_high:
           label: Medium High
           fcerm1: 3. Medium High
-          description: Low level concerns in delivery by specified gateway 4 date or profile of OMs
+          description: Low level concerns in delivery by specified gateway 4 date or profile of homes better protected
 
         medium_low:
           label: Medium Low
           fcerm1: 2. Medium Low
-          description: Moderate concerns in delivery by specified gateway 4 date or profile of OMs
+          description: Moderate concerns in delivery by specified gateway 4 date or profile of homes better protected
 
         low:
           label: Low
           fcerm1: 1. Low
-          description: Significant concerns in delivery by specified gateway 4 date or profile of OMs
+          description: Significant concerns in delivery by specified gateway 4 date or profile of homes better protected
 
         not_applicable:
           label: 'N/A'
