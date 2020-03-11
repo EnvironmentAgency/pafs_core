@@ -4,9 +4,9 @@ module PafsCore
   class CarbonCostOperationStep < BasicStep
     include PafsCore::Carbon
 
-    validates :carbon_cost_operation, presence: { message: "^Add a numerical value for Capital carbon" }
+    validates :carbon_cost_operation, presence: { message: "^Add a numerical value for Carbon over the lifecycle of the project's assets" }
     validates :carbon_cost_operation, 
-      numericality: { message: "^Add a numerical value for Capital carbon"},
+      numericality: { message: "^Add a numerical value for Carbon over the lifecycle of the project's assets"},
       unless: -> { carbon_cost_operation.blank? }
 
   private
