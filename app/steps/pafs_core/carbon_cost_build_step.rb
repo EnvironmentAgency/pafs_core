@@ -6,7 +6,11 @@ module PafsCore
 
     validates :carbon_cost_build, presence: { message: "^Add a numerical value for Capital carbon" }
     validates :carbon_cost_build, 
-      numericality: { message: "^Add a numerical value for Capital carbon"},
+      numericality: { 
+        greater_than: 0,
+        only_integer: true,
+        message: "^Add a numerical value for Capital carbon"
+      },
       unless: -> { carbon_cost_build.blank? }
 
   private

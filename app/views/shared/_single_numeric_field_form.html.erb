@@ -11,8 +11,12 @@
           <%= f.form_group(numeric_field) do %>
             <%= f.error_message(numeric_field) %>
             <%= f.label(numeric_field, heading, class: "visuallyhidden") %>
+
+            <% min = local_assigns.has_key?(:min) ? min : 0.01 %>
+            <% step = local_assigns.has_key?(:step) ? step : 0.01 %>
+
             <%= f.number_field_without_label(numeric_field,
-                  class: "form-control form-medium", min: 0.01, step: 0.01) %>
+                  class: "form-control form-medium", min: min, step: step) %>
             <% if local_assigns.has_key? :units %>
               <span><%= units %></span>
             <% end %>

@@ -6,7 +6,11 @@ module PafsCore
 
     validates :carbon_cost_operation, presence: { message: "^Add a numerical value for Carbon over the lifecycle of the project's assets" }
     validates :carbon_cost_operation, 
-      numericality: { message: "^Add a numerical value for Carbon over the lifecycle of the project's assets"},
+      numericality: { 
+        greater_than: 0,
+        only_integer: true,
+        message: "^Add a numerical value for Carbon over the lifecycle of the project's assets"
+      },
       unless: -> { carbon_cost_operation.blank? }
 
   private
