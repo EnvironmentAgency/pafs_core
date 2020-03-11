@@ -16,11 +16,11 @@
             <tbody>
               <tr>
                 <td><%= project.summary_label(:carbon_cost_build) %></td>
-                <td class="align-right"><%= project.carbon_cost_build %></td>
+                <td class="align-right"><%= number_to_human(project.carbon_cost_build, significant: false, units: { unit: 'tonnes' }) %></td>
               </tr>
               <tr>
                 <td><%= project.summary_label(:carbon_cost_operation) %></td>
-                <td class="align-right"><%= project.carbon_cost_operation %></td>
+                <td class="align-right"><%= number_to_human(project.carbon_cost_operation, significant: false, units: { unit: 'tonnes' }) %></td>
               </tr>
             </tbody>
           </table>
