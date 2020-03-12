@@ -2,6 +2,17 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::FundingValue, type: :model do
+  let(:project) do 
+    FactoryBot.create(
+      :project,
+      internal_drainage_boards: true,
+      fcerm_gia: true,
+      local_levy: true,
+      not_yet_identified: true,
+      growth_funding: true
+    )
+  end
+
   describe "attributes" do
     subject { FactoryBot.create(:funding_value) }
 
@@ -13,11 +24,10 @@ RSpec.describe PafsCore::FundingValue, type: :model do
   end
 
   describe ".previous_years" do
-    let(:project) { FactoryBot.create(:project) }
-
     before(:each) do
       @values = FactoryBot.create(:funding_value, :previous_year, project: project)
     end
+
     it "returns records with :financial_year set to -1" do
       records = described_class.previous_years
       expect(records.first).to eq @values
@@ -25,7 +35,6 @@ RSpec.describe PafsCore::FundingValue, type: :model do
   end
 
   describe ".to_financial_year" do
-    let(:project) { FactoryBot.create(:project) }
     before(:each) do
       @values = [
         FactoryBot.create(:funding_value, :previous_year, project: project),
@@ -34,6 +43,7 @@ RSpec.describe PafsCore::FundingValue, type: :model do
         FactoryBot.create(:funding_value, project: project, financial_year: 2019)
       ]
     end
+
     it "returns records upto and including the specified year" do
       records = described_class.to_financial_year(2018)
       expect(records.count).to eq 3
@@ -41,13 +51,21 @@ RSpec.describe PafsCore::FundingValue, type: :model do
     end
   end
 
-  it "calculates the total before saving" do
-    values = FactoryBot.build(:funding_value)
-    values.fcerm_gia = 2_500_000
-    values.local_levy = 1_000_000
-    values.internal_drainage_boards = 100
-    values.growth_funding = 1_000
-    values.not_yet_identified = 2_500
-    expect { values.save }.to change { values.total }.to(3_503_600)
+  describe 'saving' do
+    subject do
+      FactoryBot.build(
+        :funding_value,
+        project: project,
+        fcerm_gia: 2_500_000,
+        local_levy: 1_000_000,
+        internal_drainage_boards: 100,
+        growth_funding: 1_000,
+        not_yet_identified: 2_500,
+      )
+    end
+
+    it "calculates the total" do
+      expect { subject.save }.to change { subject.total }.to(3_503_600)
+    end
   end
 end
