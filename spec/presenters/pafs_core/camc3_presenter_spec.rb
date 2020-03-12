@@ -15,6 +15,15 @@ RSpec.describe PafsCore::Camc3Presenter do
     )
   end
 
+  before(:each) do
+    allow_any_instance_of(PafsCore::Files)
+      .to receive(:fetch_funding_calculator_for)
+      .with(project)
+      .and_yield(pfc_file.read, calculator_file, project.funding_calculator_content_type)
+  end
+
+  let(:pfc_file) { File.open(File.join(Rails.root, '..', 'fixtures', 'calculators', calculator_file)) }
+
   let(:calculator_file) do
     "v8.xlsx"
   end
@@ -74,11 +83,12 @@ RSpec.describe PafsCore::Camc3Presenter do
   end
 
   context 'with a calculator file' do
-    before(:each) do
-      allow_any_instance_of(PafsCore::Files)
-        .to receive(:fetch_funding_calculator_for)
-        .with(project)
-        .and_return(File.open(File.join(Rails.root, '..', 'fixtures', 'calculators', calculator_file)))
+    context 'with a v9 calculator' do
+      let(:calculator_file) { "v9.xlsx" }
+
+      it 'should create a valid json response' do
+        expect(json).to match_json_schema('camc3')
+      end
     end
 
     it 'should create a valid json response' do

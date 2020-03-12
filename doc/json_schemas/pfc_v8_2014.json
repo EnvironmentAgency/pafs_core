@@ -1,0 +1,281 @@
+{
+  "pfc_v8_2014": {
+    "required": [
+      "partnership_funding_calculator_version",
+      "pv_appraisal_approach",
+      "pv_design_and_construction_costs",
+      "pv_funding_from_other_ea_functions_sources_secured_to_date",
+      "pv_local_levy_secured_to_date",
+      "pv_post_construction_costs",
+      "pv_private_contributions_secured_to_date",
+      "pv_public_contributions_secured_to_date",
+      "pv_whole_life_benefits",
+      "qualifying_benefits_outcome_measures"
+    ],
+    "properties": {
+      "partnership_funding_calculator_version": {
+        "type": "string",
+        "const": "v8 2014"
+      },
+      "pv_appraisal_approach": {
+        "type": ["number", "null"]
+      },
+      "pv_design_and_construction_costs": {
+        "type": ["number", "null"]
+      },
+      "pv_funding_from_other_ea_functions_sources_secured_to_date": {
+        "type": ["number", "null"]
+      },
+      "pv_local_levy_secured_to_date": {
+        "type": ["number", "null"]
+      },
+      "pv_post_construction_costs": {
+        "type": ["number", "null"]
+      },
+      "pv_private_contributions_secured_to_date": {
+        "type": ["number", "null"]
+      },
+      "pv_public_contributions_secured_to_date": {
+        "type": ["number", "null"]
+      },
+      "pv_whole_life_benefits": {
+        "type": ["number", "null"]
+      },
+      "qualifying_benefits_outcome_measures": {
+        "type": "object",
+        "required": [
+          "om2",
+          "om3",
+          "om4"
+        ],
+        "properties": {
+          "om2": {
+            "type": "object",
+            "required": [
+              "before",
+              "after"
+            ],
+            "properties": {
+              "before": {
+                "type": "object",
+                "required": [
+                  "most_deprived_20",
+                  "most_deprived_21_40",
+                  "least_deprived_60"
+                ],
+                "properties": {
+                  "most_deprived_20": {
+                    "type": "object",
+                    "required": [
+                      "moderate_risk",
+                      "significant_risk",
+                      "very_significant_risk"
+                    ],
+                    "properties": {
+                      "moderate_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "significant_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "very_significant_risk": {
+                        "type": ["number", "null"]
+                      }
+                    }
+                  },
+                  "most_deprived_21_40": {
+                    "type": "object",
+                    "required": [
+                      "moderate_risk",
+                      "significant_risk",
+                      "very_significant_risk"
+                    ],
+                    "properties": {
+                      "moderate_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "significant_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "very_significant_risk": {
+                        "type": ["number", "null"]
+                      }
+                    }
+                  },
+                  "least_deprived_60": {
+                    "type": "object",
+                    "required": [
+                      "moderate_risk",
+                      "significant_risk",
+                      "very_significant_risk"
+                    ],
+                    "properties": {
+                      "moderate_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "significant_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "very_significant_risk": {
+                        "type": ["number", "null"]
+                      }
+                    }
+                  }
+                }
+              },
+              "after": {
+                "type": "object",
+                "required": [
+                  "most_deprived_20",
+                  "most_deprived_21_40",
+                  "least_deprived_60"
+                ],
+                "properties": {
+                  "most_deprived_20": {
+                    "type": "object",
+                    "required": [
+                      "moderate_risk",
+                      "significant_risk",
+                      "very_significant_risk"
+                    ],
+                    "properties": {
+                      "moderate_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "significant_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "very_significant_risk": {
+                        "type": ["number", "null"]
+                      }
+                    }
+                  },
+                  "most_deprived_21_40": {
+                    "type": "object",
+                    "required": [
+                      "moderate_risk",
+                      "significant_risk",
+                      "very_significant_risk"
+                    ],
+                    "properties": {
+                      "moderate_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "significant_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "very_significant_risk": {
+                        "type": ["number", "null"]
+                      }
+                    }
+                  },
+                  "least_deprived_60": {
+                    "type": "object",
+                    "required": [
+                      "moderate_risk",
+                      "significant_risk",
+                      "very_significant_risk"
+                    ],
+                    "properties": {
+                      "moderate_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "significant_risk": {
+                        "type": ["number", "null"]
+                      },
+                      "very_significant_risk": {
+                        "type": ["number", "null"]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "om3": {
+            "type": "object",
+            "required": [
+              "before_construction"
+            ],
+            "properties": {
+              "before_construction": {
+                "type": "object",
+                "required": [
+                  "most_deprived_20",
+                  "most_deprived_21_40",
+                  "least_deprived_60"
+                ],
+                "properties": {
+                  "most_deprived_20": {
+                    "type": "object",
+                    "required": [
+                      "long_term_loss",
+                      "medium_term_loss"
+                    ],
+                    "properties": {
+                      "long_term_loss": {
+                        "type": ["number", "null"]
+                      },
+                      "medium_term_loss": {
+                        "type": ["number", "null"]
+                      }
+                    }
+                  },
+                  "most_deprived_21_40": {
+                    "type": "object",
+                    "required": [
+                      "long_term_loss",
+                      "medium_term_loss"
+                    ],
+                    "properties": {
+                      "long_term_loss": {
+                        "type": ["number", "null"]
+                      },
+                      "medium_term_loss": {
+                        "type": ["number", "null"]
+                      }
+                    }
+                  },
+                  "least_deprived_60": {
+                    "type": "object",
+                    "required": [
+                      "long_term_loss",
+                      "medium_term_loss"
+                    ],
+                    "properties": {
+                      "long_term_loss": {
+                        "type": ["number", "null"]
+                      },
+                      "medium_term_loss": {
+                        "type": ["number", "null"]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "om4": {
+            "type": "object",
+            "required": [
+              "hectares_of_net_water_dependent_habitat_created",
+              "hectares_of_net_water_intertidal_habitat_created",
+              "kilometres_of_protected_river_improved"
+            ],
+            "properties": {
+              "hectares_of_net_water_dependent_habitat_created": {
+                "type": ["number", "null"]
+              },
+              "hectares_of_net_water_intertidal_habitat_created": {
+                "type": ["number", "null"]
+              },
+              "kilometres_of_protected_river_improved": {
+                "type": ["number", "null"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
