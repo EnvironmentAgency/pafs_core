@@ -35,10 +35,14 @@ module PafsCore
 
     private
 
+    def selected_funding_sources
+      FundingSources::FUNDING_SOURCES.select { |s| project.public_send "#{s}?" }
+    end
+
     def update_total
       return if destroyed?
 
-      self.total = FundingSources::FUNDING_SOURCES.map {|f| public_send("#{f}_total") }.reduce(:+)
+      self.total = (selected_funding_sources.map {|f| public_send("#{f}_total") }.reduce(:+)) || 0
     end
   end
 end

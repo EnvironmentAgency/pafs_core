@@ -12,7 +12,7 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params).merge(funding_sources_visited: true))
 
-      valid? ? project.save : false
+      valid? && project.save
     end
 
   private
