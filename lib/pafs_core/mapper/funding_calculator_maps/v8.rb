@@ -4,7 +4,7 @@ module PafsCore
   module Mapper
     module FundingCalculatorMaps
       class V8 < Base
-        VERSION_NAME = '8'
+        VERSION_NAME = 'v8 2014'
 
         def extract_data
           {

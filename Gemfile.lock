@@ -993,6 +993,8 @@ GEM
     diff-lcs (1.3)
     docile (1.3.2)
     dotenv (2.7.5)
+    ecma-re-validator (0.2.0)
+      regexp_parser (~> 1.2)
     erubi (1.9.0)
     factory_bot (5.1.2)
       activesupport (>= 4.2.0)
@@ -1019,6 +1021,7 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    hana (1.3.5)
     hashdiff (1.0.1)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
@@ -1026,8 +1029,11 @@ GEM
     jaro_winkler (1.5.4)
     jmespath (1.4.0)
     json (2.3.0)
-    json-schema (2.8.1)
-      addressable (>= 2.4)
+    json_schemer (0.2.4)
+      ecma-re-validator (~> 0.2)
+      hana (~> 1.3)
+      regexp_parser (~> 1.5)
+      uri_template (~> 0.7)
     kaminari (1.2.0)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.0)
@@ -1188,6 +1194,7 @@ GEM
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.1)
+    uri_template (0.7.0)
     vcr (5.1.0)
     webmock (3.8.3)
       addressable (>= 2.3.6)
@@ -1213,7 +1220,7 @@ DEPENDENCIES
   dotenv
   factory_bot_rails
   guard-rspec
-  json-schema
+  json_schemer
   memory_profiler
   overcommit
   pafs_core!

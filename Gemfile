@@ -24,7 +24,7 @@ group :development, :test do
   gem "climate_control"
   gem "defra_ruby_style"
   gem "guard-rspec", require: false
-  gem "json-schema"
+  gem 'json_schemer'
   gem "pry"
   gem "rails-controller-testing"
   gem "rails5-spec-converter"

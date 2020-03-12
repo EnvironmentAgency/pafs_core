@@ -1,0 +1,330 @@
+{
+  "definitions": {
+    "deprivation_banding_risk": {
+      "type": "object",
+      "required": [
+        "most_deprived_20",
+        "most_deprived_21_40",
+        "least_deprived_60"
+      ],
+      "properties": {
+        "most_deprived_20": { "$ref": "#/definitions/risk_categories" },
+        "most_deprived_21_40": { "$ref": "#/definitions/risk_categories" },
+        "least_deprived_60": { "$ref": "#/definitions/risk_categories" }
+      }
+    },
+
+    "risk_categories": {
+      "required": [
+        "moderate_risk",
+        "intermediate_risk",
+        "significant_risk",
+        "very_significant_risk"
+      ],
+      "properties": {
+        "low_risk": {
+          "type": ["number", "null"]
+        },
+        "moderate_risk": {
+          "type": ["number", "null"]
+        },
+        "intermediate_risk": {
+          "type": ["number", "null"]
+        },
+        "significant_risk": {
+          "type": ["number", "null"]
+        },
+        "very_significant_risk": {
+          "type": ["number", "null"]
+        }
+      }
+    },
+
+    "term_loss_banding": {
+      "type": "object",
+      "required": [
+        "most_deprived_20",
+        "most_deprived_21_40",
+        "least_deprived_60"
+      ],
+      "properties": {
+        "most_deprived_20": { "$ref": "#/definitions/term_loss" },
+        "most_deprived_21_40": { "$ref": "#/definitions/term_loss" },
+        "least_deprived_60": { "$ref": "#/definitions/term_loss" }
+      }
+    },
+
+    "term_loss": {
+      "required": [
+        "long_term_loss",
+        "medium_term_loss"
+      ],
+      "properties": {
+        "long_term_loss": {
+          "type": ["number", "null"]
+        },
+        "medium_term_loss": {
+          "type": ["number", "null"]
+        }
+      }
+    },
+
+    "habitats": {
+      "required": [
+        "intertidal_habitat",
+        "woodland",
+        "wet_woodland",
+        "wetlands_wet_grassland",
+        "grassland",
+        "moor_heath",
+        "ponds_lakes",
+        "arable_land"
+      ],
+      "properties": {
+        "intertidal_habitat": { "$ref": "#/definitions/habitat_grades" },
+        "woodland": { "$ref": "#/definitions/habitat_grades" },
+        "wet_woodland": { "$ref": "#/definitions/habitat_grades" },
+        "wetlands_wet_grassland": { "$ref": "#/definitions/habitat_grades" },
+        "grassland": { "$ref": "#/definitions/habitat_grades" },
+        "moor_heath": { "$ref": "#/definitions/habitat_grades" },
+        "ponds_lakes": { "$ref": "#/definitions/habitat_grades" },
+        "arable_land": { "$ref": "#/definitions/habitat_grades" }
+      }
+    },
+
+    "habitat_grades": {
+      "type": "object",
+      "required": [
+        "poor",
+        "moderate",
+        "good"
+      ],
+      "properties": {
+        "poor": {
+          "type": ["number", "null"]
+        },
+        "moderate": {
+          "type": ["number", "null"]
+        },
+        "good": {
+          "type": ["number", "null"]
+        }
+      }
+    }
+  },
+
+  "pfc_v1_2020": {
+    "required": [
+      "partnership_funding_calculator_version",
+      "date_of_pf_calculator",
+      "lead_rma",
+      "project_stage",
+      "option_reference",
+      "pv_appraisal_approach",
+      "pv_design_and_construction_costs",
+      "pv_risk_contingency",
+      "pv_future_costs",
+      "pv_whole_life_benefits",
+      "pv_local_levy_towards_appraisal_costs",
+      "pv_local_levy_towards_qualifying_outcomes_upfront",
+      "pv_local_levy_towards_qualifying_outcomes_future",
+      "pv_public_contributions_towards_appraisal_costs",
+      "pv_public_contributions_towards_qualifying_outcomes_upfront",
+      "pv_public_contributions_towards_qualifying_outcomes_future",
+      "pv_public_contributions_contributor_or_fund",
+      "pv_private_contributions_towards_appraisal_costs",
+      "pv_private_contributions_towards_qualifying_outcomes_upfront",
+      "pv_private_contributions_towards_qualifying_outcomes_future",
+      "pv_private_contributions_contributor_or_fund",
+      "pv_funding_from_other_ea_functions_sources_towards_appraisal_costs",
+      "pv_funding_from_other_ea_functions_sources_towards_qualifying_outcomes_upfront",
+      "pv_funding_from_other_ea_functions_sources_towards_qualifying_outcomes_future",
+      "pv_funding_from_other_ea_functions_sources_contributor_or_fund",
+      "pv_whole_life_benefits_appraisal_period",
+      "pv_whole_life_benefits_duration_of_benefits",
+      "pv_whole_life_benefits_people_related_impacts",
+      "economic_summary_sheet_completed",
+      "economic_data_included_in_business_case",
+      "qualifying_benefits_outcome_measures"
+    ],
+    "properties": {
+      "partnership_funding_calculator_version": {
+        "type": "string",
+        "const": "v1 2020"
+      },
+      "date_of_pf_calculator": {
+        "type": ["string", "null"]
+      },
+      "lead_rma": {
+        "type": ["string", "null"]
+      },
+      "project_stage": {
+        "type": ["string", "null"]
+      },
+      "option_reference": {
+        "type": ["string", "null"]
+      },
+      "pv_appraisal_approach": {
+        "type": ["string", "null"]
+      },
+      "pv_design_and_construction_costs": {
+        "type": ["number", "null"]
+      },
+      "pv_risk_contingency": {
+        "type": ["number", "null"]
+      },
+      "pv_future_costs": {
+        "type": ["number", "null"]
+      },
+      "pv_whole_life_benefits": {
+        "type": ["number", "null"]
+      },
+      "pv_local_levy_towards_appraisal_costs": {
+        "type": ["number", "null"]
+      },
+      "pv_local_levy_towards_qualifying_outcomes_upfront": {
+        "type": ["number", "null"]
+      },
+      "pv_local_levy_towards_qualifying_outcomes_future": {
+        "type": ["number", "null"]
+      },
+      "pv_public_contributions_towards_appraisal_costs": {
+        "type": ["number", "null"]
+      },
+      "pv_public_contributions_towards_qualifying_outcomes_upfront": {
+        "type": ["number", "null"]
+      },
+      "pv_public_contributions_towards_qualifying_outcomes_future": {
+        "type": ["number", "null"]
+      },
+      "pv_public_contributions_contributor_or_fund": {
+        "type": ["string", "null"]
+      },
+      "pv_private_contributions_towards_appraisal_costs": {
+        "type": ["number", "null"]
+      },
+      "pv_private_contributions_towards_qualifying_outcomes_upfront": {
+        "type": ["number", "null"]
+      },
+      "pv_private_contributions_towards_qualifying_outcomes_future": {
+        "type": ["number", "null"]
+      },
+      "pv_private_contributions_contributor_or_fund": {
+        "type": ["string", "null"]
+      },
+      "pv_funding_from_other_ea_functions_sources_towards_appraisal_costs": {
+        "type": ["number", "null"]
+      },
+      "pv_funding_from_other_ea_functions_sources_towards_qualifying_outcomes_upfront": {
+        "type": ["number", "null"]
+      },
+      "pv_funding_from_other_ea_functions_sources_towards_qualifying_outcomes_future": {
+        "type": ["number", "null"]
+      },
+      "pv_funding_from_other_ea_functions_sources_contributor_or_fund": {
+        "type": ["string", "null"]
+      },
+      "pv_whole_life_benefits_appraisal_period": {
+        "type": ["number", "null"]
+      },
+      "pv_whole_life_benefits_duration_of_benefits": {
+        "type": ["number", "null"]
+      },
+      "pv_whole_life_benefits_people_related_impacts": {
+        "type": ["string", "null"]
+      },
+      "economic_summary_sheet_completed": {
+        "type": ["string", "null"]
+      },
+      "economic_data_included_in_business_case": {
+        "type": ["string", "null"]
+      },
+
+      "qualifying_benefits_outcome_measures": {
+        "type": "object",
+        "required": [
+          "om2_present_day",
+          "om2_in_2040",
+          "om3",
+          "om4"
+        ],
+        "properties": {
+          "om2_present_day": {
+            "type": "object",
+            "required": [
+              "before",
+              "after"
+            ],
+            "properties": {
+              "before": { "$ref": "#/definitions/deprivation_banding_risk" },
+              "after": { "$ref": "#/definitions/deprivation_banding_risk" }
+            }
+          },
+
+          "om2_in_2040": {
+            "type": "object",
+            "required": [
+              "before",
+              "after"
+            ],
+            "properties": {
+              "before": { "$ref": "#/definitions/deprivation_banding_risk" },
+              "after": { "$ref": "#/definitions/deprivation_banding_risk" }
+            }
+          },
+          
+          "om3": {
+            "type": "object",
+            "required": [
+              "before_construction"
+            ],
+            "properties": {
+              "before_construction": { "$ref": "#/definitions/term_loss_banding" }
+            }
+          },
+
+          "om4": {
+            "type": "object",
+            "required": [
+              "net_change_hectares",
+              "length_of_habitat_enhanced"
+            ],
+            "properties": {
+              "net_change_hectares": {
+                "type": "object",
+                "required": [
+                  "before",
+                  "after"
+                ],
+                "properties": {
+                  "before": { "$ref": "#/definitions/habitats" },
+                  "after": { "$ref": "#/definitions/habitats" }
+                }
+              },
+              "length_of_habitat_enhanced": {
+                "type": "object",
+                "required": [
+                  "comprehensive_restoration_of_physical_modifications",
+                  "partial_restoration_of_physical_modifications",
+                  "single_major_physical_improvement"
+                ],
+                "properties": {
+                  "comprehensive_restoration_of_physical_modifications": {
+                    "type": ["number", "null"]
+                  },
+                  "partial_restoration_of_physical_modifications": {
+                    "type": ["number", "null"]
+                  },
+                  "single_major_physical_improvement": {
+                    "type": ["number", "null"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
