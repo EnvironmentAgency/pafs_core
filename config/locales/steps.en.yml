@@ -325,6 +325,18 @@ en:
           lede: "You previously told us that your proposed project is urgent because:"
           example_text: Limit your answer to 700 characters or fewer
 
+# Carbon
+        carbon_cost_build:
+          heading: How much Capital Carbon will this project produce?
+          lede: |
+            <p>A Carbon Calculator is a requirement at both Outline Business Case and Full Business Case stages. Your project’s carbon calculation can be determined using the Environment Agency’s ERIC tool and is measured as Carbon Dioxide Equivalent (CO2e), expressed in tonnes.</p>
+            <p>For Risk Management Authorities outside of the Environment Agency, please contact your local Environment Agency office for support in using the ERIC tool.</p>
+        carbon_cost_operation:
+          heading: How much Carbon will this project’s assets produce in their lifecycle?
+          lede: |
+            <p>A Carbon Calculator is a requirement at both Outline Business Case and Full Business Case stages. Your project’s carbon calculation can be determined using the Environment Agency’s ERIC tool and is measured as Carbon Dioxide Equivalent (CO2e), expressed in tonnes.</p>
+            <p>For Risk Management Authorities outside of the Environment Agency, please contact your local Environment Agency office for support in using the ERIC tool.</p>
+
 # Confidence assessment
         confidence_homes_better_protected:
           heading: Confidence in number of homes better protected by this project

@@ -1,0 +1,12 @@
+<%= render partial: 'shared/single_numeric_field_form',
+  locals: {
+    project: @project,
+    numeric_field: :carbon_cost_operation,
+    heading: t(".heading"),
+    lede: t('.lede').html_safe,
+    units: "metric tonnes",
+    min: 0,
+    step: 1
+  }
+%>
+

@@ -543,6 +543,12 @@
     "urgency_details": {
       "type": ["string", "null"]
     },
+    "capital_carbon": {
+      "type": ["number", "null"]
+    },
+    "carbon_lifecycle": {
+      "type": ["number", "null"]
+    },
     "confidence": {
       "type": "object",
       "required": [
