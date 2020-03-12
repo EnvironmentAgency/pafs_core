@@ -98,6 +98,7 @@ module PafsCore
         { summary_12: :urgency },
         { summary_13: :funding_calculator },
         { summary_14: :confidence },
+        { summary_15: :carbon },
       ]
     end
 
@@ -203,6 +204,10 @@ module PafsCore
         s.add :confidence_homes_by_gateway_four
         s.add :confidence_secured_partnership_funding
         s.add :summary_14
+
+        s.add :carbon_cost_build
+        s.add :carbon_cost_operation
+        s.add :summary_15
       end
     end
     # rubocop:enable Metrics/AbcSize

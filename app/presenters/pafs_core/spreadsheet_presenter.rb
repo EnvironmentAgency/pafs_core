@@ -3,7 +3,7 @@ module PafsCore
   class SpreadsheetPresenter < SimpleDelegator
     include PafsCore::FundingSources, PafsCore::Risks,
       PafsCore::Outcomes, PafsCore::Urgency, PafsCore::StandardOfProtection,
-      PafsCore::EnvironmentalOutcomes, PafsCore::Confidence
+      PafsCore::EnvironmentalOutcomes, PafsCore::Confidence, PafsCore::Carbon
 
     include PafsCore::ProjectsHelper
 

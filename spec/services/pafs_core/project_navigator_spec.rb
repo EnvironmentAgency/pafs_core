@@ -19,7 +19,7 @@ RSpec.describe PafsCore::ProjectNavigator do
 
   describe "#last_step" do
     it "returns the identifier of last step in the journey" do
-      expect(subject.last_step).to eq :summary_14
+      expect(subject.last_step).to eq :summary_15
     end
   end
 
