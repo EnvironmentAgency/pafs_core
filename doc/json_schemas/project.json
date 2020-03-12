@@ -33,7 +33,9 @@
       "shapefile",
       "urgency_details",
       "outcome_measures",
-      "confidence"
+      "confidence",
+      "capital_carbon",
+      "carbon_lifecycle"
     ],
     "properties": {
       "name": {
