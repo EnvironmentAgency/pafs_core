@@ -3,17 +3,11 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
-  before(:all) do
-    file_path = [Rails.root, "..", "fixtures", "calculators", "v8.xlsx"].join("/")
-    @tempfile = File.open(file_path)
-  end
-
+  let(:v8_calculator_file) { File.open(File.join(Rails.root, '..', 'fixtures', 'calculators', 'v8.xlsx')) }
   let(:v9_calculator_file) { File.open(File.join(Rails.root, "..", "fixtures", "calculators", "v9.xlsx")) }
 
   describe "attributes" do
     subject { FactoryBot.build(:funding_calculator_step) }
-
-    let(:file_path) { File.join(Rails.root, "..", "fixtures", "calculator.xlsl") }
 
     it_behaves_like "a project step"
 
@@ -62,11 +56,11 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
   end
 
   describe "#update" do
-    subject { FactoryBot.create(:funding_calculator_step) }
+    subject { FactoryBot.build(:funding_calculator_step) }
     let(:filename) { "new_file.xlsx" }
     let(:content_type) { "text/plain" }
     let(:temp_file) do
-      ActionDispatch::Http::UploadedFile.new(tempfile: @tempfile,
+      ActionDispatch::Http::UploadedFile.new(tempfile: v8_calculator_file,
                                              filename: filename.dup,
                                              type: content_type)
     end
@@ -104,7 +98,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
         subject.update(params)
         expect(subject.funding_calculator_file_name).to eq filename
         expect(subject.funding_calculator_content_type).to eq content_type
-        expect(subject.funding_calculator_file_size).to eq @tempfile.size
+        expect(subject.funding_calculator_file_size).to eq v8_calculator_file.size
         expect(subject.funding_calculator_updated_at).to be_within(1.second).of(Time.zone.now)
       end
 
@@ -123,8 +117,8 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     end
 
     context "when a valid file has already been uploaded" do
-      it "returns true when no new file is selected" do
-        expect(subject.update(empty_params)).to eq true
+      it "returns false when no new file is selected" do
+        expect(subject.update(empty_params)).to eq false
       end
     end
 
@@ -133,7 +127,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
       before(:each) do
         allow(PafsCore::DevelopmentFileStorageService).to receive(:new) { storage }
         allow(storage).to receive(:upload) do
-          raise PafsCore::VirusFoundError.new(@tempfile.path, "nAsTyVirus")
+          raise PafsCore::VirusFoundError.new(v8_calculator_file.path, "nAsTyVirus")
         end
       end
 

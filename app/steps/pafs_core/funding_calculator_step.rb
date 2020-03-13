@@ -25,41 +25,39 @@ module PafsCore
     validate :validate_calculator_version
 
     def update(params)
-      if params.fetch(:commit, nil) == "Continue"
-        true
-      else
-        uploaded_file = step_params(params).fetch(:funding_calculator, nil)
+      return true if params.fetch(:commit, nil) == "Continue"
 
-        if uploaded_file
-          return false unless filetype_valid?(uploaded_file)
+      uploaded_file = step_params(params).fetch(:funding_calculator, nil)
 
-          begin
-            old_file = funding_calculator_file_name
-            # virus check and upload to S3
-            filename = File.basename(uploaded_file.original_filename)
-            dest_file = File.join(storage_path, filename)
-            storage.upload(uploaded_file.tempfile.path, dest_file)
-            PafsCore::CalculatorParser.parse(uploaded_file, project)
+      if uploaded_file
+        return false unless filetype_valid?(uploaded_file)
+        begin
+          old_file = funding_calculator_file_name
+          # virus check and upload to S3
+          filename = File.basename(uploaded_file.original_filename)
+          dest_file = File.join(storage_path, filename)
+          storage.upload(uploaded_file.tempfile.path, dest_file)
+          PafsCore::CalculatorParser.parse(uploaded_file, project)
 
-            if old_file && old_file != filename
-              # aws doesn't raise an error if it cannot find the key when deleting
-              storage.delete(File.join(storage_path, old_file))
-            end
-
-            self.uploaded_file = uploaded_file.tempfile
-            self.expected_version = step_params(params).fetch(:expected_version, nil)
-
-            self.funding_calculator_file_name = filename
-            self.funding_calculator_content_type = uploaded_file.content_type
-            self.funding_calculator_file_size = uploaded_file.size
-            self.funding_calculator_updated_at = Time.zone.now
-            self.virus_info = nil
-          rescue PafsCore::VirusFoundError, PafsCore::VirusScannerError => e
-            self.virus_info = e.message
+          if old_file && old_file != filename
+            # aws doesn't raise an error if it cannot find the key when deleting
+            storage.delete(File.join(storage_path, old_file))
           end
+
+          self.uploaded_file = uploaded_file.tempfile
+          self.expected_version = step_params(params).fetch(:expected_version, nil)
+
+          self.funding_calculator_file_name = filename
+          self.funding_calculator_content_type = uploaded_file.content_type
+          self.funding_calculator_file_size = uploaded_file.size
+          self.funding_calculator_updated_at = Time.zone.now
+          self.virus_info = nil
+        rescue PafsCore::VirusFoundError, PafsCore::VirusScannerError => e
+          self.virus_info = e.message
         end
-        valid? && project.save
       end
+
+      valid? && project.save
     end
 
     private
@@ -110,6 +108,7 @@ module PafsCore
     end
 
     def validate_calculator_sheet_present
+      return if virus_info.present?
       return if calculator_sheet_name.present?
 
       self.funding_calculator_file_name = ''
@@ -117,7 +116,7 @@ module PafsCore
     end
 
     def validate_calculator_version
-      return unless virus_info.nil? && self.uploaded_file
+      return if virus_info.present?
       return unless calculator_sheet_name.present?
       return if calculator_version.to_s == expected_version && calculator_version.present?
 
