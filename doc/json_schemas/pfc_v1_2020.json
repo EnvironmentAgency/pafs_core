@@ -162,10 +162,10 @@
         "type": ["string", "null"]
       },
       "option_reference": {
-        "type": ["string", "null"]
+        "type": ["number", "null"]
       },
       "pv_appraisal_approach": {
-        "type": ["string", "null"]
+        "type": ["number", "null"]
       },
       "pv_design_and_construction_costs": {
         "type": ["number", "null"]
@@ -272,7 +272,7 @@
               "after": { "$ref": "#/definitions/deprivation_banding_risk" }
             }
           },
-          
+
           "om3": {
             "type": "object",
             "required": [
