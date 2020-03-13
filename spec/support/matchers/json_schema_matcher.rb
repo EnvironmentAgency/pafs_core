@@ -12,6 +12,6 @@ RSpec::Matchers.define :match_json_schema do |schema|
 
   failure_message do |json|
     json = JSON.parse(json)
-    schemer.validate(json).to_a
+    schemer.validate(json).map {|error| error["details"]}.compact.join("\n")
   end
 end
