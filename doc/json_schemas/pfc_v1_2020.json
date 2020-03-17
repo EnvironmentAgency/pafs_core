@@ -231,13 +231,15 @@
         "type": ["number", "null"]
       },
       "pv_whole_life_benefits_people_related_impacts": {
-        "type": ["string", "null"]
+        "type": ["number", "null"]
       },
       "economic_summary_sheet_completed": {
-        "type": ["string", "null"]
+        "type": ["string", "null"],
+        "enum": ["Yes", "No", "", null]
       },
       "economic_data_included_in_business_case": {
-        "type": ["string", "null"]
+        "type": ["string", "null"],
+        "enum": ["Yes", "No", "", null]
       },
 
       "qualifying_benefits_outcome_measures": {
