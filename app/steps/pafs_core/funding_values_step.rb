@@ -13,6 +13,7 @@ module PafsCore
 
     def update(params)
       clean_unselected_funding_sources
+      funding_values.map(&:save!)
       super
     end
 
