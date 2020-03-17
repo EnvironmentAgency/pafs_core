@@ -291,13 +291,16 @@
         ],
         "properties": {
           "homes_better_protected": {
-            "type": ["string", "null"]
+            "type": ["string", "null"],
+            "enum": ["high", "medium_high", "medium_low", "low", "not_applicable", "", null]
           },
           "homes_by_gateway_four": {
-            "type": ["string", "null"]
+            "type": ["string", "null"],
+            "enum": ["high", "medium_high", "medium_low", "low", "not_applicable", "", null]
           },
           "secured_partnership_funding": {
-            "type": ["string", "null"]
+            "type": ["string", "null"],
+            "enum": ["high", "medium_high", "medium_low", "low", "not_applicable", "", null]
           }
         }
       },
