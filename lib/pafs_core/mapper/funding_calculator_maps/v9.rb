@@ -47,6 +47,8 @@ module PafsCore
             economic_data_included_in_business_case:       sheet.cell('K', 38),
             # wider_benefits_data_included_in_business_case: sheet.cell('K', 39),
 
+            year_measures_ready_for_service: sheet.cell('E', 58),
+
             qualifying_benefits_outcome_measures: {
               om2_present_day: {
                 before: {
