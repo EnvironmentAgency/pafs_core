@@ -145,6 +145,7 @@
       "pv_whole_life_benefits_people_related_impacts",
       "economic_summary_sheet_completed",
       "economic_data_included_in_business_case",
+      "year_measures_ready_for_service",
       "qualifying_benefits_outcome_measures"
     ],
     "properties": {
@@ -240,6 +241,9 @@
       "economic_data_included_in_business_case": {
         "type": ["string", "null"],
         "enum": ["Yes", "No", "", null]
+      },
+      "year_measures_ready_for_service": {
+        "type": ["number", "null"]
       },
 
       "qualifying_benefits_outcome_measures": {
