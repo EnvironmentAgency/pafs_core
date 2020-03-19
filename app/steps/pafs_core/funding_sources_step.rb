@@ -14,7 +14,7 @@ module PafsCore
     def update(params)
       assign_attributes(step_params(params).merge(funding_sources_visited: true))
       clean_unselected_funding_sources
-      funding_values.map(&:save!)
+      funding_values.select {|fv| !fv.destroyed? }.map(&:save!)
 
       valid? && project.save
     end

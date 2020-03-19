@@ -41,7 +41,6 @@ module PafsCore
 
     def update_total
       return if destroyed?
-
       self.total = (selected_funding_sources.map {|f| public_send("#{f}_total") }.reduce(:+)) || 0
     end
   end

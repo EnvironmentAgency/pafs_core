@@ -67,7 +67,7 @@ module PafsCore
       PafsCore::FundingContributor.transaction do
         setup_funding_values
         clean_unselected_funding_sources
-        funding_values.map(&:save!)
+        funding_values.select {|fv| !fv.destroyed? }.map(&:save!)
         funding_values.reload
 
         update_changed_contributors(params)
