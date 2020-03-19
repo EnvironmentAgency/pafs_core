@@ -15,8 +15,13 @@ function MultipleElementForm(element_selector) {
 
     var element_count = $(selector).find('input[type="hidden"]').length;
 
-    new_element.find('input[type="hidden"]').attr('name', 'name[' + element_count + '][previous]');
-    new_element.find('input[type="text"]').attr('name', 'name[' + element_count + '][current]');
+    new_element.find('input[type="hidden"]')
+      .attr('name', 'name[' + element_count + '][previous]')
+      .attr('id', 'name_' + element_count + '_previous');
+
+    new_element.find('input[type="text"]')
+      .attr('name', 'name[' + element_count + '][current]')
+      .attr('id', 'name_' + element_count + '_current');
 
     new_element.append(new_delete_button);
     new_element.insertBefore($(selector).find('a.add_element').parent());
