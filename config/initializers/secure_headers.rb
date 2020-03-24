@@ -29,6 +29,7 @@ SecureHeaders::Configuration.default do |config|
   # The following were used for reference
   # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
   # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/font-src
+  # rubocop:disable Lint/PercentStringArray
   config.csp = {
     default_src: %w['self'],
     font_src: %w['self' data:],
@@ -38,6 +39,7 @@ SecureHeaders::Configuration.default do |config|
     style_src: %w['self'],
     report_uri: %w[https://environmentagency.report-uri.io/r/default/csp/enforce]
   }
+  # rubocop:enable Lint/PercentStringArray
 
   # TODO: These have been set to match the headers we were currently using at
   # the time of implementing securer headers. We should review if they match
