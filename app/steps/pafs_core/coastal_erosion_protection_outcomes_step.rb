@@ -113,8 +113,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:coastal_erosion_protection_outcomes_step)
-                                  .permit(:reduced_risk_of_households_for_coastal_erosion, coastal_erosion_protection_outcomes_attributes:
+        .require(:coastal_erosion_protection_outcomes_step)
+        .permit(:reduced_risk_of_households_for_coastal_erosion, coastal_erosion_protection_outcomes_attributes:
                                     %i[
                                       id
                                       financial_year

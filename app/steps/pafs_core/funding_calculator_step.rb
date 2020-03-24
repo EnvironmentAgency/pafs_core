@@ -60,8 +60,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:funding_calculator_step)
-                                  .permit(:funding_calculator)
+        .require(:funding_calculator_step)
+        .permit(:funding_calculator)
     end
 
     # NOTE: we could probably check the content type of the file but we are

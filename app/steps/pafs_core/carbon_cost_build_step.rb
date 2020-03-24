@@ -17,10 +17,10 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:carbon_cost_build_step)
-                                  .permit(
-                                    :carbon_cost_build
-                                  )
+        .require(:carbon_cost_build_step)
+        .permit(
+          :carbon_cost_build
+        )
     end
   end
 end

@@ -10,8 +10,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:improve_sssi_step)
-                                  .permit(:improve_sssi)
+        .require(:improve_sssi_step)
+        .permit(:improve_sssi)
     end
 
     def a_choice_has_been_made

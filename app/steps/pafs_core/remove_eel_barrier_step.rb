@@ -10,8 +10,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:remove_eel_barrier_step)
-                                  .permit(:remove_eel_barrier)
+        .require(:remove_eel_barrier_step)
+        .permit(:remove_eel_barrier)
     end
 
     def a_choice_has_been_made

@@ -32,8 +32,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:location_step)
-                                  .permit(:grid_reference)
+        .require(:location_step)
+        .permit(:grid_reference)
     end
 
     def grid_reference_is_supplied

@@ -10,8 +10,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:financial_year_step)
-                                  .permit(:project_end_financial_year)
+        .require(:financial_year_step)
+        .permit(:project_end_financial_year)
     end
   end
 end

@@ -10,8 +10,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:improve_river_step)
-                                  .permit(:improve_river)
+        .require(:improve_river_step)
+        .permit(:improve_river)
     end
 
     def a_choice_has_been_made

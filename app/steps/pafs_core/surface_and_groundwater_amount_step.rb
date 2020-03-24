@@ -13,8 +13,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:surface_and_groundwater_amount_step)
-                                  .permit(:improve_surface_or_groundwater_amount)
+        .require(:surface_and_groundwater_amount_step)
+        .permit(:improve_surface_or_groundwater_amount)
     end
 
     def amount_is_present_and_correct

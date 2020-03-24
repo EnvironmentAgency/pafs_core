@@ -10,8 +10,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:improve_habitat_amount_step)
-                                  .permit(:improve_habitat_amount)
+        .require(:improve_habitat_amount_step)
+        .permit(:improve_habitat_amount)
     end
 
     def amount_is_present_and_correct

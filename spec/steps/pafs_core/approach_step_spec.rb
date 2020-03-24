@@ -19,18 +19,18 @@ RSpec.describe PafsCore::ApproachStep, type: :model do
   describe "#update" do
     let(:params) do
       ActionController::Parameters.new({
-                                      approach_step: {
-                                        approach: "Wigwam on toast"
-                                      }
-                                    })
+                                         approach_step: {
+                                           approach: "Wigwam on toast"
+                                         }
+                                       })
     end
 
     let(:error_params) do
       ActionController::Parameters.new({
-                                      approach_step: {
-                                        approach: ""
-                                      }
-                                    })
+                                         approach_step: {
+                                           approach: ""
+                                         }
+                                       })
     end
 
     it "saves the :approach when valid" do

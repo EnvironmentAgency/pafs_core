@@ -22,8 +22,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:standard_of_protection_coastal_step)
-                                  .permit(:coastal_protection_before)
+        .require(:standard_of_protection_coastal_step)
+        .permit(:coastal_protection_before)
     end
 
     def coastal_protection_improves
