@@ -27,6 +27,7 @@ group :development, :test do
   gem 'json_schemer'
   gem "pry"
   gem "rails-controller-testing"
+  gem "transpec"
 end
 
 group :test do
