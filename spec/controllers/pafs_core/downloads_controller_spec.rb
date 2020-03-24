@@ -18,19 +18,19 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
   describe "GET index" do
     it "renders the index template for html responses" do
-      get :index, id: @project.to_param
+      get :index, params: { id: @project.to_param }
       expect(response).to render_template("index")
     end
   end
 
   describe "GET proposal" do
     it "renders an excel spreadsheet for xlsx requests" do
-      get :proposal, id: @project.to_param, format: :xlsx
-      expect(response.headers["Content-Type"]).to eq(Mime::XLSX.to_s)
+      get :proposal, params: { id: @project.to_param }, format: :xlsx
+      expect(response.headers["Content-Type"]).to eq("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     end
 
     it "renders a csv for csv requests" do
-      get :proposal, id: @project.to_param, format: :csv
+      get :proposal, params: { id: @project.to_param }, format: :csv
       expect(response.headers["Content-Type"]).to eq("text/csv")
     end
   end
@@ -41,7 +41,7 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
       let(:step) { double("funding_calculator_step") }
       let(:data) { "This is the file data" }
       let(:filename) { "my_upload.xlsx" }
-      let(:content_type) { Mime::XLSX.to_s }
+      let(:content_type) { "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
       let(:download_filename) do
         "#{@project.reference_number.parameterize.upcase}_PFcalculator.xlsx"
       end
@@ -52,10 +52,10 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
           .with(@project.to_param) { @project }
 
         expect(controller).to receive(:fetch_funding_calculator_for).with(@project) do
-          controller.render nothing: true
+          controller.head 200
         end
 
-        get :funding_calculator, id: @project.to_param, step: "funding_calculator"
+        get :funding_calculator, params: { id: @project.to_param, step: "funding_calculator" }
       end
     end
   end
@@ -73,7 +73,7 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
         expect(controller).to receive(:delete_funding_calculator_for).with(@project)
 
-        get :delete_funding_calculator, id: @project.to_param
+        get :delete_funding_calculator, params: { id: @project.to_param }
       end
     end
   end
@@ -84,7 +84,7 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
       let(:step) { double("benefit_area_file_summary_step") }
       let(:data) { "This is the file data" }
       let(:filename) { "my_upload.jpg" }
-      let(:content_type) { Mime::JPEG.to_s }
+      let(:content_type) { Mime[:jpeg].to_s }
       let(:download_filename) do
         "#{@project.reference_number.parameterize.upcase}_benefit_area.jpg"
       end
@@ -94,9 +94,9 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
         expect(navigator).to receive(:find)
           .with(@project.to_param) { @project }
 
-        expect(controller).to receive(:fetch_benefit_area_file_for).with(@project) { controller.render nothing: true }
+        expect(controller).to receive(:fetch_benefit_area_file_for).with(@project) { controller.head 200 }
 
-        get :benefit_area, id: @project.to_param
+        get :benefit_area, params: { id: @project.to_param }
       end
     end
   end
@@ -115,7 +115,7 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
         expect(controller).to receive(:delete_benefit_area_file_for).with(@project)
 
-        get :delete_benefit_area, id: @project.to_param
+        get :delete_benefit_area, params: { id: @project.to_param }
       end
     end
   end
@@ -133,9 +133,9 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
         expect(navigator).to receive(:find)
           .with(@project.to_param) { @project }
 
-        expect(controller).to receive(:generate_moderation_for).with(@project) { controller.render nothing: true }
+        expect(controller).to receive(:generate_moderation_for).with(@project) { controller.head 200 }
 
-        get :moderation, id: @project.to_param
+        get :moderation, params: { id: @project.to_param }
       end
     end
   end
