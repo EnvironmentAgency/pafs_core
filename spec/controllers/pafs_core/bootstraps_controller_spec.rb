@@ -27,12 +27,12 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
     before(:each) { @project = FactoryBot.create(:bootstrap) }
 
     it "assigns @project with the appropriate step class" do
-      get :step, id: @project.to_param, step: "project_name"
+      get :step, params: { id: @project.to_param, step: "project_name" }
       expect(assigns(:project)).to be_instance_of PafsCore::ProjectNameStep
     end
 
     it "renders the template specified by the selected step" do
-      get :step, id: @project.to_param, step: "project_name"
+      get :step, params: { id: @project.to_param, step: "project_name" }
       expect(response).to render_template "project_name"
     end
   end
@@ -50,29 +50,26 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
     end
 
     it "assigns @project with appropriate step class" do
-      get :step, id: @project.to_param, step: "project_name"
+      get :step, params: { id: @project.to_param, step: "project_name" }
       expect(assigns(:project)).to be_instance_of PafsCore::ProjectNameStep
     end
 
     context "when given valid data to save" do
       it "updates the project" do
-        patch :save, id: @project.to_param, step: "project_name",
-                     project_name_step: { name: "Wigwam" }
+        patch :save, params: { id: @project.to_param, step: "project_name", project_name_step: { name: "Wigwam" } }
         expect(PafsCore::Bootstrap.find(@project.id).name).to eq "Wigwam"
       end
 
       it "redirects to the next step" do
         expect(subject).to receive(:navigator).exactly(3).times { @nav }
-        patch :save, id: @project.to_param, step: "project_name",
-                     project_name_step: { name: "Haystack" }
+        patch :save, params: { id: @project.to_param, step: "project_name", project_name_step: { name: "Haystack" } }
         expect(response).to redirect_to bootstrap_step_path(id: @project.to_param, step: "project_type")
       end
 
       context "when the last step is saved" do
         it "redirects to the project summary page" do
           expect(subject).to receive(:navigator).exactly(4).times { @nav }
-          patch :save, id: @project.to_param, step: "financial_year",
-                       financial_year_step: { project_end_financial_year: "2019" }
+          patch :save, params: { id: @project.to_param, step: "financial_year", financial_year_step: { project_end_financial_year: "2019" } }
           proj = PafsCore::Project.last
           expect(response).to redirect_to project_path(id: proj.to_param)
         end
@@ -81,14 +78,12 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
 
     context "when given invalid data to save" do
       it "does not update the project" do
-        patch :save, id: @project.to_param, step: "project_type",
-                     project_type_step: { project_type: "1234" }
+        patch :save, params: { id: @project.to_param, step: "project_type", project_type_step: { project_type: "1234" } }
         expect(PafsCore::Bootstrap.find(@project.id).project_type).not_to eq "1234"
       end
 
       it "renders the template specified by the selected step" do
-        patch :save, id: @project.to_param, step: "project_type",
-                     project_type_step: { project_type: "1234" }
+        patch :save, params: { id: @project.to_param, step: "project_type", project_type_step: { project_type: "1234" } }
         expect(response).to render_template("project_type")
       end
     end
