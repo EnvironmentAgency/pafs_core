@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -21,9 +20,8 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.string   "password_archivable_type", null: false
     t.integer  "password_archivable_id",   null: false
     t.datetime "created_at"
+    t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivableddu", using: :btree
   end
-
-  add_index "old_passwords", ["password_archivable_type", "password_archivable_id"], name: "index_password_archivableddu", using: :btree
 
   create_table "pafs_core_account_requests", force: :cascade do |t|
     t.string   "first_name",       default: "",    null: false
@@ -37,10 +35,9 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.boolean  "provisioned",      default: false, null: false
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.index ["email"], name: "index_pafs_core_account_requests_on_email", unique: true, using: :btree
+    t.index ["slug"], name: "index_pafs_core_account_requests_on_slug", unique: true, using: :btree
   end
-
-  add_index "pafs_core_account_requests", ["email"], name: "index_pafs_core_account_requests_on_email", unique: true, using: :btree
-  add_index "pafs_core_account_requests", ["slug"], name: "index_pafs_core_account_requests_on_slug", unique: true, using: :btree
 
   create_table "pafs_core_area_downloads", force: :cascade do |t|
     t.integer  "area_id"
@@ -55,9 +52,8 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "funding_calculator_filename"
+    t.index ["area_id"], name: "index_pafs_core_area_downloads_on_area_id", using: :btree
   end
-
-  add_index "pafs_core_area_downloads", ["area_id"], name: "index_pafs_core_area_downloads_on_area_id", using: :btree
 
   create_table "pafs_core_area_projects", force: :cascade do |t|
     t.integer  "area_id",                    null: false
@@ -65,10 +61,9 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.boolean  "owner",      default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.index ["area_id"], name: "index_pafs_core_area_projects_on_area_id", using: :btree
+    t.index ["project_id"], name: "index_pafs_core_area_projects_on_project_id", using: :btree
   end
-
-  add_index "pafs_core_area_projects", ["area_id"], name: "index_pafs_core_area_projects_on_area_id", using: :btree
-  add_index "pafs_core_area_projects", ["project_id"], name: "index_pafs_core_area_projects_on_project_id", using: :btree
 
   create_table "pafs_core_areas", force: :cascade do |t|
     t.string   "name"
@@ -77,9 +72,8 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "sub_type"
+    t.index ["name"], name: "index_pafs_core_areas_on_name", using: :btree
   end
-
-  add_index "pafs_core_areas", ["name"], name: "index_pafs_core_areas_on_name", using: :btree
 
   create_table "pafs_core_asite_files", force: :cascade do |t|
     t.integer "asite_submission_id"
@@ -105,9 +99,8 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.string   "rma_name"
+    t.index ["slug"], name: "index_pafs_core_bootstraps_on_slug", unique: true, using: :btree
   end
-
-  add_index "pafs_core_bootstraps", ["slug"], name: "index_pafs_core_bootstraps_on_slug", unique: true, using: :btree
 
   create_table "pafs_core_coastal_erosion_protection_outcomes", force: :cascade do |t|
     t.integer "project_id"
@@ -121,9 +114,8 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_pafs_core_contributor_details_on_name", using: :btree
   end
-
-  add_index "pafs_core_contributor_details", ["name"], name: "index_pafs_core_contributor_details_on_name", using: :btree
 
   create_table "pafs_core_flood_protection_outcomes", force: :cascade do |t|
     t.integer "project_id"
@@ -137,29 +129,28 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.string   "name"
     t.string   "contributor_type"
     t.integer  "funding_value_id"
-    t.integer  "amount",           limit: 8
-    t.boolean  "secured",                    default: false, null: false
-    t.boolean  "constrained",                default: false, null: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.bigint   "amount"
+    t.boolean  "secured",          default: false, null: false
+    t.boolean  "constrained",      default: false, null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["contributor_type"], name: "index_pafs_core_funding_contributors_on_contributor_type", using: :btree
+    t.index ["funding_value_id", "contributor_type"], name: "funding_contributors_on_funding_value_id_and_type", using: :btree
+    t.index ["funding_value_id"], name: "index_pafs_core_funding_contributors_on_funding_value_id", using: :btree
   end
-
-  add_index "pafs_core_funding_contributors", ["contributor_type"], name: "index_pafs_core_funding_contributors_on_contributor_type", using: :btree
-  add_index "pafs_core_funding_contributors", ["funding_value_id", "contributor_type"], name: "funding_contributors_on_funding_value_id_and_type", using: :btree
-  add_index "pafs_core_funding_contributors", ["funding_value_id"], name: "index_pafs_core_funding_contributors_on_funding_value_id", using: :btree
 
   create_table "pafs_core_funding_values", force: :cascade do |t|
     t.integer "project_id"
-    t.integer "financial_year",                                 null: false
-    t.integer "fcerm_gia",                limit: 8
-    t.integer "local_levy",               limit: 8
-    t.integer "internal_drainage_boards", limit: 8
-    t.integer "public_contributions",     limit: 8
-    t.integer "private_contributions",    limit: 8
-    t.integer "other_ea_contributions",   limit: 8
-    t.integer "growth_funding",           limit: 8
-    t.integer "not_yet_identified",       limit: 8
-    t.integer "total",                    limit: 8, default: 0, null: false
+    t.integer "financial_year",                       null: false
+    t.bigint  "fcerm_gia"
+    t.bigint  "local_levy"
+    t.bigint  "internal_drainage_boards"
+    t.bigint  "public_contributions"
+    t.bigint  "private_contributions"
+    t.bigint  "other_ea_contributions"
+    t.bigint  "growth_funding"
+    t.bigint  "not_yet_identified"
+    t.bigint  "total",                    default: 0, null: false
   end
 
   create_table "pafs_core_program_upload_failures", force: :cascade do |t|
@@ -168,9 +159,8 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.string   "messages",               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["program_upload_item_id"], name: "idx_program_upload_failures", using: :btree
   end
-
-  add_index "pafs_core_program_upload_failures", ["program_upload_item_id"], name: "idx_program_upload_failures", using: :btree
 
   create_table "pafs_core_program_upload_items", force: :cascade do |t|
     t.integer  "program_upload_id"
@@ -178,9 +168,8 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.boolean  "imported",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["program_upload_id"], name: "idx_program_upload_items", using: :btree
   end
-
-  add_index "pafs_core_program_upload_items", ["program_upload_id"], name: "idx_program_upload_items", using: :btree
 
   create_table "pafs_core_program_uploads", force: :cascade do |t|
     t.string   "filename",                             null: false
@@ -189,9 +178,8 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.datetime "updated_at"
     t.string   "status",               default: "new"
     t.boolean  "reset_consented_flag", default: false, null: false
+    t.index ["status"], name: "pafs_core_upload_status", using: :btree
   end
-
-  add_index "pafs_core_program_uploads", ["status"], name: "pafs_core_upload_status", using: :btree
 
   create_table "pafs_core_projects", force: :cascade do |t|
     t.string   "reference_number",                                                 null: false
@@ -287,16 +275,15 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.boolean  "reduced_risk_of_households_for_coastal_erosion",   default: false, null: false
     t.string   "rma_name"
     t.datetime "submitted_to_pol"
-    t.string   "confidence_homes_better_protected"
-    t.string   "confidence_homes_by_gateway_four"
-    t.string   "confidence_secured_partnership_funding"
+    t.integer  "confidence_homes_better_protected"
+    t.integer  "confidence_homes_by_gateway_four"
+    t.integer  "confidence_secured_partnership_funding"
     t.integer  "carbon_cost_build"
     t.integer  "carbon_cost_operation"
+    t.index ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree
+    t.index ["slug"], name: "index_pafs_core_projects_on_slug", unique: true, using: :btree
+    t.index ["submitted_to_pol"], name: "index_pafs_core_projects_on_submitted_to_pol", using: :btree
   end
-
-  add_index "pafs_core_projects", ["reference_number", "version"], name: "index_pafs_core_projects_on_reference_number_and_version", unique: true, using: :btree
-  add_index "pafs_core_projects", ["slug"], name: "index_pafs_core_projects_on_slug", unique: true, using: :btree
-  add_index "pafs_core_projects", ["submitted_to_pol"], name: "index_pafs_core_projects_on_submitted_to_pol", using: :btree
 
   create_table "pafs_core_reference_counters", force: :cascade do |t|
     t.string   "rfcc_code",    default: "", null: false
@@ -304,9 +291,8 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.integer  "low_counter",  default: 0,  null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.index ["rfcc_code"], name: "index_pafs_core_reference_counters_on_rfcc_code", unique: true, using: :btree
   end
-
-  add_index "pafs_core_reference_counters", ["rfcc_code"], name: "index_pafs_core_reference_counters_on_rfcc_code", unique: true, using: :btree
 
   create_table "pafs_core_states", force: :cascade do |t|
     t.integer  "project_id"
@@ -321,10 +307,9 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.integer  "user_id",                    null: false
     t.integer  "area_id",                    null: false
     t.boolean  "primary",    default: false
+    t.index ["area_id"], name: "index_pafs_core_user_areas_on_area_id", using: :btree
+    t.index ["user_id"], name: "index_pafs_core_user_areas_on_user_id", using: :btree
   end
-
-  add_index "pafs_core_user_areas", ["area_id"], name: "index_pafs_core_user_areas_on_area_id", using: :btree
-  add_index "pafs_core_user_areas", ["user_id"], name: "index_pafs_core_user_areas_on_user_id", using: :btree
 
   create_table "pafs_core_users", force: :cascade do |t|
     t.string   "email",                             default: "",    null: false
@@ -356,14 +341,13 @@ ActiveRecord::Schema.define(version: 20200309151323) do
     t.boolean  "admin",                             default: false, null: false
     t.boolean  "disabled",                          default: false, null: false
     t.string   "unique_session_id",      limit: 20
+    t.index ["disabled"], name: "index_pafs_core_users_on_disabled", using: :btree
+    t.index ["email"], name: "index_pafs_core_users_on_email", unique: true, using: :btree
+    t.index ["invitation_token"], name: "index_pafs_core_users_on_invitation_token", unique: true, using: :btree
+    t.index ["invitations_count"], name: "index_pafs_core_users_on_invitations_count", using: :btree
+    t.index ["invited_by_id"], name: "index_pafs_core_users_on_invited_by_id", using: :btree
+    t.index ["reset_password_token"], name: "index_pafs_core_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["unlock_token"], name: "index_pafs_core_users_on_unlock_token", unique: true, using: :btree
   end
-
-  add_index "pafs_core_users", ["disabled"], name: "index_pafs_core_users_on_disabled", using: :btree
-  add_index "pafs_core_users", ["email"], name: "index_pafs_core_users_on_email", unique: true, using: :btree
-  add_index "pafs_core_users", ["invitation_token"], name: "index_pafs_core_users_on_invitation_token", unique: true, using: :btree
-  add_index "pafs_core_users", ["invitations_count"], name: "index_pafs_core_users_on_invitations_count", using: :btree
-  add_index "pafs_core_users", ["invited_by_id"], name: "index_pafs_core_users_on_invited_by_id", using: :btree
-  add_index "pafs_core_users", ["reset_password_token"], name: "index_pafs_core_users_on_reset_password_token", unique: true, using: :btree
-  add_index "pafs_core_users", ["unlock_token"], name: "index_pafs_core_users_on_unlock_token", unique: true, using: :btree
 
 end
