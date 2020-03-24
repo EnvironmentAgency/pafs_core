@@ -25,7 +25,7 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
     subject { PafsCore::FundingValuesStep.new @project }
 
     let(:params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { funding_values_step: {
           funding_values_attributes: {
             "0" => { financial_year: 2020, fcerm_gia: 500_000 }

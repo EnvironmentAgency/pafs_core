@@ -133,7 +133,7 @@ module PafsCore
     end
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:map_step)
                                   .permit(:benefit_area,
                                           :benefit_area_centre,

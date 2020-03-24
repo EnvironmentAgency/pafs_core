@@ -9,7 +9,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:remove_eel_barrier_step)
                                   .permit(:remove_eel_barrier)
     end

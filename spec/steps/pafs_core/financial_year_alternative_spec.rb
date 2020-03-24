@@ -41,7 +41,7 @@ RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
   describe "#update" do
     subject { FactoryBot.create(:financial_year_alternative_step) }
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       financial_year_alternative_step: {
                                         project_end_financial_year: "2020"
                                       }
@@ -49,7 +49,7 @@ RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
     end
 
     let(:error_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       financial_year_alternative_step: {
                                         project_end_financial_year: "1983"
                                       }

@@ -16,7 +16,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:confidence_secured_partnership_funding_step)
                                   .permit(
                                     :confidence_secured_partnership_funding

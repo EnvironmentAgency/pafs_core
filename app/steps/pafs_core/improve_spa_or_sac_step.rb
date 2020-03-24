@@ -9,7 +9,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:improve_spa_or_sac_step)
                                   .permit(:improve_spa_or_sac)
     end

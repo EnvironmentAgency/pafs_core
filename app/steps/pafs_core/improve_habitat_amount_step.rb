@@ -9,7 +9,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:improve_habitat_amount_step)
                                   .permit(:improve_habitat_amount)
     end

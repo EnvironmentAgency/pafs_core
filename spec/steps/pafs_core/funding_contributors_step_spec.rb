@@ -15,7 +15,7 @@ describe PafsCore::FundingContributorsStep, type: :model do
     )
   end
 
-  let(:perform) { subject.update(params) }
+  let(:perform) { subject.update(ActionController::Parameters.new(params)) }
   let(:params) { { name: contributor_names } }
 
   context "when no contributors have been set (new project)" do

@@ -18,7 +18,7 @@ RSpec.describe PafsCore::ApproachStep, type: :model do
 
   describe "#update" do
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       approach_step: {
                                         approach: "Wigwam on toast"
                                       }
@@ -26,7 +26,7 @@ RSpec.describe PafsCore::ApproachStep, type: :model do
     end
 
     let(:error_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       approach_step: {
                                         approach: ""
                                       }

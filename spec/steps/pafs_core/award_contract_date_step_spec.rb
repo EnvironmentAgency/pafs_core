@@ -20,7 +20,7 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
 
     subject { FactoryBot.create(:award_contract_date_step, project: project) }
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       award_contract_date_step: {
                                         award_contract_case_year: "2020",
                                         award_contract_month: "1"
@@ -29,7 +29,7 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
     end
 
     let(:invalid_month_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       award_contract_date_step: {
                                         award_contract_month: "83",
                                         award_contract_year: "2020"
@@ -38,7 +38,7 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
     end
 
     let(:invalid_year_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       award_contract_date_step: {
                                         award_contract_month: "12",
                                         award_contract_year: "1999"
@@ -47,7 +47,7 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
     end
 
     let(:invalid_date_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       award_contract_date_step: {
                                         award_contract_month: "12",
                                         award_contract_year: "2011"
@@ -58,7 +58,8 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
     it "saves the start outline business case fields when valid" do
       %i[award_contract_month award_contract_year].each do |attr|
         new_val = subject.send(attr) + 1
-        expect(subject.update({ award_contract_date_step: { attr => new_val } })).to be true
+        params = ActionController::Parameters.new(award_contract_date_step: { attr => new_val })
+        expect(subject.update(params)).to be true
         expect(subject.send(attr)).to eq new_val
       end
     end

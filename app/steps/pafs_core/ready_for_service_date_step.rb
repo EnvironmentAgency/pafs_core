@@ -13,7 +13,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params).require(:ready_for_service_date_step).permit(
+      params.require(:ready_for_service_date_step).permit(
         :ready_for_service_month, :ready_for_service_year
       )
     end

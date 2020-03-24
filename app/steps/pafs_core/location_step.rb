@@ -31,7 +31,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:location_step)
                                   .permit(:grid_reference)
     end

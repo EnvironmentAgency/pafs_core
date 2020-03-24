@@ -11,7 +11,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params).require(:earliest_start_step).permit(:could_start_early)
+      params.require(:earliest_start_step).permit(:could_start_early)
     end
 
     def a_choice_has_been_made

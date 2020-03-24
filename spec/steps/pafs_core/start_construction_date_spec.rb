@@ -20,7 +20,7 @@ RSpec.describe PafsCore::StartConstructionDateStep, type: :model do
 
     subject { FactoryBot.create(:start_construction_date_step, project: project) }
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       start_construction_date_step: {
                                         start_construction_case_year: "2020",
                                         start_construction_month: "1"
@@ -29,7 +29,7 @@ RSpec.describe PafsCore::StartConstructionDateStep, type: :model do
     end
 
     let(:invalid_month_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       start_construction_date_step: {
                                         start_construction_month: "83",
                                         start_construction_year: "2020"
@@ -38,7 +38,7 @@ RSpec.describe PafsCore::StartConstructionDateStep, type: :model do
     end
 
     let(:invalid_year_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       start_construction_date_step: {
                                         start_construction_month: "12",
                                         start_construction_year: "1999"
@@ -47,7 +47,7 @@ RSpec.describe PafsCore::StartConstructionDateStep, type: :model do
     end
 
     let(:invalid_date_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       start_construction_date_step: {
                                         start_construction_month: "12",
                                         start_construction_year: "2011"
@@ -58,7 +58,8 @@ RSpec.describe PafsCore::StartConstructionDateStep, type: :model do
     it "saves the start construction fields when valid" do
       %i[start_construction_month start_construction_year].each do |attr|
         new_val = subject.send(attr) + 1
-        expect(subject.update({ start_construction_date_step: { attr => new_val } })).to be true
+        params = ActionController::Parameters.new(start_construction_date_step: { attr => new_val })
+        expect(subject.update(params)).to be true
         expect(subject.send(attr)).to eq new_val
       end
     end

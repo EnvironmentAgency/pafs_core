@@ -9,7 +9,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:remove_fish_barrier_step)
                                   .permit(:remove_fish_barrier)
     end

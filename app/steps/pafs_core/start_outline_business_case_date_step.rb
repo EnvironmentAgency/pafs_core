@@ -12,8 +12,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters
-        .new(params)
+      params
         .require(:start_outline_business_case_date_step)
         .permit(:start_outline_business_case_month, :start_outline_business_case_year)
     end

@@ -37,7 +37,7 @@ RSpec.describe PafsCore::ImproveHpiStep, type: :model do
   end
 
   def make_params(value)
-    HashWithIndifferentAccess.new(
+    ActionController::Parameters.new(
       improve_hpi_step: { improve_hpi: value }
     )
   end

@@ -9,7 +9,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params).require(:project_area_step).permit(:rma_name)
+      params.require(:project_area_step).permit(:rma_name)
     end
   end
 end

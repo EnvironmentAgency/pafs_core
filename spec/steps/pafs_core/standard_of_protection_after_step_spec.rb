@@ -27,14 +27,14 @@ RSpec.describe PafsCore::StandardOfProtectionAfterStep, type: :model do
   describe "#update" do
     subject { FactoryBot.create(:standard_of_protection_after_step) }
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       standard_of_protection_after_step: {
                                         flood_protection_after: "3"
                                       }
                                     })
     end
     let(:error_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       standard_of_protection_after_step: {
                                         flood_protection_after: "2011"
                                       }

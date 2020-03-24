@@ -50,13 +50,13 @@ RSpec.describe PafsCore::EarliestDateStep, type: :model do
   describe "#update" do
     subject { FactoryBot.create(:earliest_date_step) }
     let(:valid_params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { earliest_date_step:
           { earliest_start_month: "11", earliest_start_year: "2016" } }
       )
     end
     let(:error_params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { earliest_date_step:
           { earliest_start_month: "13" } }
       )

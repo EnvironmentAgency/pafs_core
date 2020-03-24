@@ -37,7 +37,7 @@ RSpec.describe PafsCore::ImproveSssiStep, type: :model do
   end
 
   def make_params(value)
-    HashWithIndifferentAccess.new(
+    ActionController::Parameters.new(
       improve_sssi_step: { improve_sssi: value }
     )
   end

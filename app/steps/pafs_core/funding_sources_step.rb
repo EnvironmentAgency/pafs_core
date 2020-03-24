@@ -23,7 +23,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params).require(:funding_sources_step).permit(
+      params.require(:funding_sources_step).permit(
         :fcerm_gia,
         :local_levy,
         :internal_drainage_boards,
