@@ -13,18 +13,18 @@ RSpec.describe PafsCore::StartOutlineBusinessCaseDateStep, type: :model do
     subject { FactoryBot.create(:start_outline_business_case_date_step) }
     let(:params) do
       ActionController::Parameters.new({
-                                      start_outline_business_case_date_step: {
-                                        start_outline_business_case_year: "2020"
-                                      }
-                                    })
+                                         start_outline_business_case_date_step: {
+                                           start_outline_business_case_year: "2020"
+                                         }
+                                       })
     end
 
     let(:error_params) do
       ActionController::Parameters.new({
-                                      start_outline_business_case_date_step: {
-                                        start_outline_business_case_month: "83"
-                                      }
-                                    })
+                                         start_outline_business_case_date_step: {
+                                           start_outline_business_case_month: "83"
+                                         }
+                                       })
     end
 
     it "saves the start outline business case fields when valid" do

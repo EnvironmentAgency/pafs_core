@@ -17,10 +17,10 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:confidence_homes_better_protected_step)
-                                  .permit(
-                                    :confidence_homes_better_protected
-                                  )
+        .require(:confidence_homes_better_protected_step)
+        .permit(
+          :confidence_homes_better_protected
+        )
     end
   end
 end

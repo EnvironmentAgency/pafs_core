@@ -94,9 +94,9 @@ module PafsCore
 
     def step_params(params)
       @step_params ||= params
-                                                   .permit(name: %i[previous current])
-                                                   .fetch(:name, {}).values
-                                                   .reject { |name| name[:current].strip.blank? }
+                       .permit(name: %i[previous current])
+                       .fetch(:name, {}).values
+                       .reject { |name| name[:current].strip.blank? }
     end
   end
 end

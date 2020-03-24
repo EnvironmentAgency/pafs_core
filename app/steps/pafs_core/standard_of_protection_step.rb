@@ -24,7 +24,7 @@ module PafsCore
 
     def step_params(params)
       params.require(:standard_of_protection_step)
-                                  .permit(:flood_protection_before, :flood_protection_after)
+            .permit(:flood_protection_before, :flood_protection_after)
     end
 
     def flood_protection_improves

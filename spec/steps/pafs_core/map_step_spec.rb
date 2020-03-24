@@ -55,22 +55,22 @@ RSpec.describe PafsCore::MapStep, type: :model do
 
     let(:params) do
       ActionController::Parameters.new({
-                                      map_step: {
-                                        benefit_area: "[[444444, 222222], [421212, 212121], [432123, 234432]]",
-                                        benefit_area_zoom_level: 3,
-                                        benefit_area_centre: "[\"420000\", \"230000\"]"
-                                      }
-                                    })
+                                         map_step: {
+                                           benefit_area: "[[444444, 222222], [421212, 212121], [432123, 234432]]",
+                                           benefit_area_zoom_level: 3,
+                                           benefit_area_centre: "[\"420000\", \"230000\"]"
+                                         }
+                                       })
     end
 
     let(:benefit_area_file) { fixture_file_upload("shapefile.zip") }
 
     let(:file_params) do
       ActionController::Parameters.new({
-                                      map_step: {
-                                        benefit_area_file: benefit_area_file
-                                      }
-                                    })
+                                         map_step: {
+                                           benefit_area_file: benefit_area_file
+                                         }
+                                       })
     end
 
     # it "saves the :benefit_area when benefit_area attributes are valid" do

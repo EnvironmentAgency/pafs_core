@@ -31,17 +31,17 @@ RSpec.describe PafsCore::StandardOfProtectionCoastalAfterStep, type: :model do
     subject { FactoryBot.create(:standard_of_protection_coastal_after_step) }
     let(:params) do
       ActionController::Parameters.new({
-                                      standard_of_protection_coastal_after_step: {
-                                        coastal_protection_after: "0"
-                                      }
-                                    })
+                                         standard_of_protection_coastal_after_step: {
+                                           coastal_protection_after: "0"
+                                         }
+                                       })
     end
     let(:error_params) do
       ActionController::Parameters.new({
-                                      standard_of_protection_coastal_after_step: {
-                                        coastal_protection_after: "2011"
-                                      }
-                                    })
+                                         standard_of_protection_coastal_after_step: {
+                                           coastal_protection_after: "2011"
+                                         }
+                                       })
     end
 
     it "saves the :project_type when valid" do

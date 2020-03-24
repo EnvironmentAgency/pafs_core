@@ -10,8 +10,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:fish_or_eel_amount_step)
-                                  .permit(:fish_or_eel_amount)
+        .require(:fish_or_eel_amount_step)
+        .permit(:fish_or_eel_amount)
     end
 
     def amount_is_present_and_correct

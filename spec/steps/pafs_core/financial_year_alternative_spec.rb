@@ -42,18 +42,18 @@ RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
     subject { FactoryBot.create(:financial_year_alternative_step) }
     let(:params) do
       ActionController::Parameters.new({
-                                      financial_year_alternative_step: {
-                                        project_end_financial_year: "2020"
-                                      }
-                                    })
+                                         financial_year_alternative_step: {
+                                           project_end_financial_year: "2020"
+                                         }
+                                       })
     end
 
     let(:error_params) do
       ActionController::Parameters.new({
-                                      financial_year_alternative_step: {
-                                        project_end_financial_year: "1983"
-                                      }
-                                    })
+                                         financial_year_alternative_step: {
+                                           project_end_financial_year: "1983"
+                                         }
+                                       })
     end
 
     it "saves the :project_end_financial_year if valid" do

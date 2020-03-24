@@ -21,38 +21,38 @@ RSpec.describe PafsCore::AwardContractDateStep, type: :model do
     subject { FactoryBot.create(:award_contract_date_step, project: project) }
     let(:params) do
       ActionController::Parameters.new({
-                                      award_contract_date_step: {
-                                        award_contract_case_year: "2020",
-                                        award_contract_month: "1"
-                                      }
-                                    })
+                                         award_contract_date_step: {
+                                           award_contract_case_year: "2020",
+                                           award_contract_month: "1"
+                                         }
+                                       })
     end
 
     let(:invalid_month_params) do
       ActionController::Parameters.new({
-                                      award_contract_date_step: {
-                                        award_contract_month: "83",
-                                        award_contract_year: "2020"
-                                      }
-                                    })
+                                         award_contract_date_step: {
+                                           award_contract_month: "83",
+                                           award_contract_year: "2020"
+                                         }
+                                       })
     end
 
     let(:invalid_year_params) do
       ActionController::Parameters.new({
-                                      award_contract_date_step: {
-                                        award_contract_month: "12",
-                                        award_contract_year: "1999"
-                                      }
-                                    })
+                                         award_contract_date_step: {
+                                           award_contract_month: "12",
+                                           award_contract_year: "1999"
+                                         }
+                                       })
     end
 
     let(:invalid_date_params) do
       ActionController::Parameters.new({
-                                      award_contract_date_step: {
-                                        award_contract_month: "12",
-                                        award_contract_year: "2011"
-                                      }
-                                    })
+                                         award_contract_date_step: {
+                                           award_contract_month: "12",
+                                           award_contract_year: "2011"
+                                         }
+                                       })
     end
 
     it "saves the start outline business case fields when valid" do

@@ -21,38 +21,38 @@ RSpec.describe PafsCore::StartConstructionDateStep, type: :model do
     subject { FactoryBot.create(:start_construction_date_step, project: project) }
     let(:params) do
       ActionController::Parameters.new({
-                                      start_construction_date_step: {
-                                        start_construction_case_year: "2020",
-                                        start_construction_month: "1"
-                                      }
-                                    })
+                                         start_construction_date_step: {
+                                           start_construction_case_year: "2020",
+                                           start_construction_month: "1"
+                                         }
+                                       })
     end
 
     let(:invalid_month_params) do
       ActionController::Parameters.new({
-                                      start_construction_date_step: {
-                                        start_construction_month: "83",
-                                        start_construction_year: "2020"
-                                      }
-                                    })
+                                         start_construction_date_step: {
+                                           start_construction_month: "83",
+                                           start_construction_year: "2020"
+                                         }
+                                       })
     end
 
     let(:invalid_year_params) do
       ActionController::Parameters.new({
-                                      start_construction_date_step: {
-                                        start_construction_month: "12",
-                                        start_construction_year: "1999"
-                                      }
-                                    })
+                                         start_construction_date_step: {
+                                           start_construction_month: "12",
+                                           start_construction_year: "1999"
+                                         }
+                                       })
     end
 
     let(:invalid_date_params) do
       ActionController::Parameters.new({
-                                      start_construction_date_step: {
-                                        start_construction_month: "12",
-                                        start_construction_year: "2011"
-                                      }
-                                    })
+                                         start_construction_date_step: {
+                                           start_construction_month: "12",
+                                           start_construction_year: "2011"
+                                         }
+                                       })
     end
 
     it "saves the start construction fields when valid" do

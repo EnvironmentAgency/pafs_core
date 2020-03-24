@@ -28,17 +28,17 @@ RSpec.describe PafsCore::StandardOfProtectionAfterStep, type: :model do
     subject { FactoryBot.create(:standard_of_protection_after_step) }
     let(:params) do
       ActionController::Parameters.new({
-                                      standard_of_protection_after_step: {
-                                        flood_protection_after: "3"
-                                      }
-                                    })
+                                         standard_of_protection_after_step: {
+                                           flood_protection_after: "3"
+                                         }
+                                       })
     end
     let(:error_params) do
       ActionController::Parameters.new({
-                                      standard_of_protection_after_step: {
-                                        flood_protection_after: "2011"
-                                      }
-                                    })
+                                         standard_of_protection_after_step: {
+                                           flood_protection_after: "2011"
+                                         }
+                                       })
     end
 
     it "saves the :project_type when valid" do

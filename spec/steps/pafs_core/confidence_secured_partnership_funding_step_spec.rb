@@ -25,10 +25,10 @@ RSpec.describe PafsCore::ConfidenceSecuredPartnershipFundingStep, type: :model d
   describe "#update" do
     let(:params) do
       ActionController::Parameters.new({
-                                      confidence_secured_partnership_funding_step: {
-                                        confidence_secured_partnership_funding: "high"
-                                      }
-                                    })
+                                         confidence_secured_partnership_funding_step: {
+                                           confidence_secured_partnership_funding: "high"
+                                         }
+                                       })
     end
 
     it "saves the state of valid params" do

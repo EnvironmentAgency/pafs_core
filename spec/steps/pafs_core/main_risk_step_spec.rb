@@ -35,17 +35,17 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
       context "protecting against flooding" do
         let(:params) do
           ActionController::Parameters.new({
-                                          main_risk_step: {
-                                            main_risk: "groundwater_flooding"
-                                          }
-                                        })
+                                             main_risk_step: {
+                                               main_risk: "groundwater_flooding"
+                                             }
+                                           })
         end
         let(:error_params) do
           ActionController::Parameters.new({
-                                          main_risk_step: {
-                                            main_risk: nil
-                                          }
-                                        })
+                                             main_risk_step: {
+                                               main_risk: nil
+                                             }
+                                           })
         end
 
         it "saves the state of valid params" do
@@ -64,10 +64,10 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
 
         let(:params) do
           ActionController::Parameters.new({
-                                          main_risk_step: {
-                                            main_risk: "coastal_erosion"
-                                          }
-                                        })
+                                             main_risk_step: {
+                                               main_risk: "coastal_erosion"
+                                             }
+                                           })
         end
         it "saves the state of valid params" do
           expect(subject.update(params)).to be true

@@ -10,8 +10,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:improve_spa_or_sac_step)
-                                  .permit(:improve_spa_or_sac)
+        .require(:improve_spa_or_sac_step)
+        .permit(:improve_spa_or_sac)
     end
 
     def a_choice_has_been_made

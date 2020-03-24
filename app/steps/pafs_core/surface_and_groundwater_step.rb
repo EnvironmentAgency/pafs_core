@@ -13,8 +13,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:surface_and_groundwater_step)
-                                  .permit(:improve_surface_or_groundwater)
+        .require(:surface_and_groundwater_step)
+        .permit(:improve_surface_or_groundwater)
     end
 
     def a_choice_has_been_made
