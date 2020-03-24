@@ -223,7 +223,9 @@ module PafsCore
           safe_join(content, "\n")
         end
       end
-      alias_method_chain(method_name, :label)
+
+      alias_method :"#{method_name}_without_label", :"#{method_name}"
+      alias_method :"#{method_name}", :"#{method_name}_with_label"
     end
 
     private
