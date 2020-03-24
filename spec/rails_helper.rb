@@ -23,8 +23,6 @@ require "webmock/rspec"
 require "spec_helper"
 require "climate_control"
 
-include ActionDispatch::TestProcess
-
 Rails.backtrace_cleaner.remove_silencers!
 
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -65,8 +63,8 @@ end
 
 # removes last word part from symbol
 # eg. takes :award_contract_year and returns :award_contract
-def parent_symbol(s)
-  s.to_s.split("_")[0...-1].join("_").to_sym
+def parent_symbol(symbol)
+  symbol.to_s.split("_")[0...-1].join("_").to_sym
 end
 
 RSpec.configure do |config|
