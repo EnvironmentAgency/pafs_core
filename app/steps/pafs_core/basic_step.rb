@@ -24,17 +24,15 @@ module PafsCore
     end
 
     def update(params)
-      @javascript_enabled = !!params.fetch(:js_enabled, false)
+      @javascript_enabled = params.fetch(:js_enabled, false)
       assign_attributes(step_params(params))
       valid? && project.save
     end
 
     def save!(*)
-      if valid?
-        project.save!
-      else
-        raise ActiveRecord::RecordInvalid, self
-      end
+      return project.save! if valid?
+
+      raise ActiveRecord::RecordInvalid, self
     end
 
     # override this in the subclass if you need more functionality
