@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "kaminari"
   s.add_dependency "nokogiri", "~> 1.10.3"
   s.add_dependency "rack-cors"
-  s.add_dependency "rails", ">= 5.0.0.rc2", "< 5.1"
+  s.add_dependency "rails", ">= 5.1.0", "< 5.2"
   s.add_dependency "roo", "~> 2.7.0"
   s.add_dependency "rubyXL", "~> 3.4"
   s.add_dependency "secure_headers", ">= 3.6", "< 7.0"
