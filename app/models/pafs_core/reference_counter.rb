@@ -1,7 +1,7 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
-  class ReferenceCounter < ActiveRecord::Base
+  class ReferenceCounter < ApplicationRecord
     def self.next_sequence_for(rfcc_code)
       raise ArgumentError.new("Invalid RFCC code") unless RFCC_CODES.include? rfcc_code
       counters = []

@@ -1,5 +1,5 @@
 module PafsCore
-  class FundingContributor < ActiveRecord::Base
+  class FundingContributor < ApplicationRecord
     belongs_to :funding_value
   end
 end

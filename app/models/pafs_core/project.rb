@@ -3,7 +3,7 @@
 require "bstard"
 
 module PafsCore
-  class Project < ActiveRecord::Base
+  class Project < ApplicationRecord
     validates :reference_number, presence: true, uniqueness: { scope: :version }
     # broaden validation to cope with initial bulk import of existing projects
     # with subtly non-standard formatting
@@ -15,7 +15,7 @@ module PafsCore
 
     validates :version, presence: true
 
-    belongs_to :creator, class_name: "User"
+    belongs_to :creator, class_name: "User", optional: true
     has_many :area_projects, dependent: :destroy
     has_many :areas, through: :area_projects
     has_many :funding_values, dependent: :destroy

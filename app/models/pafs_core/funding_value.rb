@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module PafsCore
-  class FundingValue < ActiveRecord::Base
+  class FundingValue < ApplicationRecord
     belongs_to :project
 
     has_many :funding_contributors, dependent: :destroy
