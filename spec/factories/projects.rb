@@ -1,7 +1,7 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 
-require File.join(PafsCore::Engine.root, 'spec', 'support', 'shapefile_upload')
+require File.join(PafsCore::Engine.root, "spec", "support", "shapefile_upload")
 
 FactoryBot.define do
   factory :project, class: PafsCore::Project do
@@ -21,19 +21,19 @@ FactoryBot.define do
     end
 
     trait :rma_area do
-      after(:build) do |project, builder|
+      after(:build) do |project, _builder|
         create(:area_project, project: project, area: create(:rma_area), owner: true)
       end
     end
 
     trait :pso_area do
-      after(:build) do |project, builder|
+      after(:build) do |project, _builder|
         create(:area_project, project: project, area: create(:pso_area), owner: true)
       end
     end
 
     trait :ea_area do
-      after(:build) do |project, builder|
+      after(:build) do |project, _builder|
         create(:area_project, project: project, area: create(:ea_area), owner: true)
       end
     end
@@ -72,20 +72,20 @@ FactoryBot.define do
             private_contribution_names: builder.private_contribution_names,
             other_ea_contribution_names: builder.other_ea_contribution_names,
             project: project,
-            financial_year: fy,
+            financial_year: fy
           )
         end
       end
     end
 
-    after(:create) do |project, builder|
+    after(:create) do |project, _builder|
       unless project.benefit_area_file_name.blank?
         ShapefileUpload::Upload.new(project, project.benefit_area_file_name).perform
       end
     end
 
     factory :full_project do
-      name { 'A test project' }
+      name { "A test project" }
       reference_number { PafsCore::ProjectService.generate_reference_number("SO") }
       version { 0 }
       project_type { PafsCore::PROJECT_TYPES.first }
@@ -110,10 +110,10 @@ FactoryBot.define do
       fluvial_flooding { true }
       sea_flooding { true }
       main_risk { "sea_flooding" }
-      project_location { [457733, 221751] }
+      project_location { [457_733, 221_751] }
       project_location_zoom_level { 15 }
       benefit_area { "[[432123, 132453], [444444, 134444], [456543, 123432]]" }
-      benefit_area_centre { [457733, 221751] }
+      benefit_area_centre { [457_733, 221_751] }
       benefit_area_zoom_level { 23 }
       benefit_area_file_name { "shapefile.zip" }
       flood_protection_before { 1 }

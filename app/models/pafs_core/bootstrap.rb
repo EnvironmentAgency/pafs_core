@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   class Bootstrap < ApplicationRecord
     validates :slug, presence: true, uniqueness: true
@@ -15,7 +16,8 @@ module PafsCore
       slug
     end
 
-  private
+    private
+
     def set_slug
       self.slug = SecureRandom.urlsafe_base64
     end

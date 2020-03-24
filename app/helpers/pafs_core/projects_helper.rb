@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   module ProjectsHelper
     def financial_year_end_for(date)
@@ -19,19 +20,19 @@ module PafsCore
 
     def status_label_for(state)
       scope = "pafs_core.projects.status"
-      scope = scope + ".rma" if current_resource.present? && rma_user?
+      scope += ".rma" if current_resource.present? && rma_user?
       I18n.t("#{state}_label", scope: scope)
     end
 
     def force_pso_to_use_pol?
-      ENV.fetch('FORCE_PSO_TO_POL', false)
+      ENV.fetch("FORCE_PSO_TO_POL", false)
     end
 
     def pso_can_create_project?
-      !ENV.fetch('PSO_CANNOT_CREATE_PROJECTS', false)
+      !ENV.fetch("PSO_CANNOT_CREATE_PROJECTS", false)
     end
 
-    def can_revert_to_draft?(project)
+    def can_revert_to_draft?(_project)
       !force_pso_to_use_pol?
     end
 
@@ -49,7 +50,7 @@ module PafsCore
 
     def project_status_change_link(project)
       return unless project.archived? || project.draft?
-      return content_tag(:span, 'EA Projects are now managed in PoL') if project.pso? && force_pso_to_use_pol?
+      return content_tag(:span, "EA Projects are now managed in PoL") if project.pso? && force_pso_to_use_pol?
       return unless rma_user? || pso_user?
 
       return link_to("Revert to draft", unlock_project_path(id: project.to_param)) if project.archived?
@@ -58,15 +59,17 @@ module PafsCore
 
     def project_status_line(project)
       out = [
-        status_label_for(project.status),
+        status_label_for(project.status)
       ]
 
       project_change_link = project_status_change_link(project)
 
-      out << [
-        ' | ',
-        project_change_link
-      ] if project_change_link
+      if project_change_link
+        out << [
+          " | ",
+          project_change_link
+        ]
+      end
 
       out.compact.join.html_safe
     end
@@ -105,7 +108,7 @@ module PafsCore
 
     def urgency_flag(project)
       if project.urgency_reason.present? && project.urgency_reason != "not_urgent"
-        %{<span class="urgent">Yes</span>}.html_safe
+        %(<span class="urgent">Yes</span>).html_safe
       else
         ""
       end
@@ -131,13 +134,13 @@ module PafsCore
       "31 March 2021"
     end
 
-    def housing_protection_table_cell(year, thing)
+    def housing_protection_table_cell(year, _thing)
       "#{str_year(year)}-#{funding_source} numeric"
     end
 
     def strategic_officer_link
       link_to t("strategic_officer_label"), t("strategic_officer_link"),
-        rel: "external", target: "_blank"
+              rel: "external", target: "_blank"
     end
 
     def urgency_reason_text(reason)
@@ -146,6 +149,7 @@ module PafsCore
 
     def format_date(dt)
       return "" if dt.nil?
+
       dt.strftime("%-d %B %Y")
     end
 
@@ -202,7 +206,7 @@ module PafsCore
     end
 
     def search_result_label(search_string, result)
-      if search_string != nil
+      if !search_string.nil?
         search_string
       else
         [result[:eastings], result[:northings]].join(",")

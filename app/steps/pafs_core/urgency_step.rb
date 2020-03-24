@@ -1,15 +1,17 @@
 # frozen_string_literal: true
+
 module PafsCore
   class UrgencyStep < BasicStep
     include PafsCore::Urgency
 
     validate :urgency_reason_is_present_and_correct
 
-  private
+    private
+
     def step_params(params)
       ActionController::Parameters.new(params).require(:urgency_step).permit(:urgency_reason).tap do |sp|
         # If we're setting the project as non-urgent, we don't need urgency_details
-        sp[:urgency_details] = nil if sp[:urgency_reason] == 'not_urgent'
+        sp[:urgency_details] = nil if sp[:urgency_reason] == "not_urgent"
       end
     end
 

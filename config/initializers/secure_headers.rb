@@ -1,4 +1,4 @@
-require 'secure_headers'
+require "secure_headers"
 
 # Added in response to initial PEN test requiring we specify a
 # Content-Security-Policy. A CSP is
@@ -28,13 +28,13 @@ SecureHeaders::Configuration.default do |config|
   # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src
   # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/font-src
   config.csp = {
-    default_src: %w('self'),
-    font_src: %w('self' data:),
-    img_src: %w('self' www.google-analytics.com),
-    object_src: %w('self'),
-    script_src: %w('self' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com),
-    style_src: %w('self'),
-    report_uri: %w(https://environmentagency.report-uri.io/r/default/csp/enforce)
+    default_src: %w['self'],
+    font_src: %w['self' data:],
+    img_src: %w['self' www.google-analytics.com],
+    object_src: %w['self'],
+    script_src: %w['self' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com],
+    style_src: %w['self'],
+    report_uri: %w[https://environmentagency.report-uri.io/r/default/csp/enforce]
   }
 
   # TODO: These have been set to match the headers we were currently using at

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::RisksStep, type: :model do
@@ -16,39 +17,35 @@ RSpec.describe PafsCore::RisksStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:risks_step) }
-    let(:params) {
+    let(:params) do
       HashWithIndifferentAccess.new(
         { risks_step: {
-            groundwater_flooding: "1",
-            coastal_erosion: "1"
-          }
-        }
+          groundwater_flooding: "1",
+          coastal_erosion: "1"
+        } }
       )
-    }
-    let(:flood_params) {
+    end
+    let(:flood_params) do
       HashWithIndifferentAccess.new(
         { risks_step: {
-            groundwater_flooding: "1",
-          }
-        }
+          groundwater_flooding: "1"
+        } }
       )
-    }
-    let(:coastal_params) {
+    end
+    let(:coastal_params) do
       HashWithIndifferentAccess.new(
         { risks_step: {
-            coastal_erosion: "1"
-          }
-        }
+          coastal_erosion: "1"
+        } }
       )
-    }
-    let(:error_params) {
+    end
+    let(:error_params) do
       HashWithIndifferentAccess.new(
         { risks_step: {
-            fluvial_flooding: nil
-          }
-        }
+          fluvial_flooding: nil
+        } }
       )
-    }
+    end
 
     it "saves the state of valid params" do
       expect(subject.update(params)).to be true
@@ -63,8 +60,8 @@ RSpec.describe PafsCore::RisksStep, type: :model do
     context "when only a single risk is selected" do
       it "auto sets the main risk" do
         subject.fluvial_flooding = nil
-        expect { subject.update(flood_params) }.
-          to change { subject.project.main_risk }.to "groundwater_flooding"
+        expect { subject.update(flood_params) }
+          .to change { subject.project.main_risk }.to "groundwater_flooding"
       end
     end
   end

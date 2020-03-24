@@ -1,7 +1,8 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
-  SQL_COLUMNS_FOR_SPREADSHEET = %w(
+  SQL_COLUMNS_FOR_SPREADSHEET = %w[
     p.name
     reference_number
     project_end_financial_year
@@ -86,5 +87,5 @@ module PafsCore
     public_contributor_names
     private_contributor_names
     other_ea_contributor_names
-  ).freeze
+  ].freeze
 end

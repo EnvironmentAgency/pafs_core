@@ -163,7 +163,7 @@ module PafsCore
 
       # Carbon
       { column: "KL", field_name: :carbon_cost_build },
-      { column: "KM", field_name: :carbon_cost_operation },
+      { column: "KM", field_name: :carbon_cost_operation }
     ].freeze
 
     A2Z = ("A".."Z").to_a.freeze

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 class TestHelper < ActionView::Base; end
@@ -248,8 +249,8 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
       end
       it "uses an I18n lookup for the label text" do
         @items.each do |item|
-          expect(@output).
-            to have_css("label[for=earliest_start_could_start_early_#{item.fetch(:value)}]", text: "my label")
+          expect(@output)
+            .to have_css("label[for=earliest_start_could_start_early_#{item.fetch(:value)}]", text: "my label")
         end
       end
     end
@@ -401,7 +402,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
     let(:options) { { rows: "2", cols: "40" } }
 
     before(:each) do
-      project.name = 'Test'
+      project.name = "Test"
       project.valid?
       allow(helper).to receive(:t) { "my label" }
       @output = builder.text_area(:name, options)

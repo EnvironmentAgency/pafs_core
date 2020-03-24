@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 # require_relative "./shared_step_spec"
 
@@ -12,16 +13,16 @@ RSpec.describe PafsCore::SurfaceAndGroundwaterAmountStep, type: :model do
     it "validates that :improve_surface_or_groundwater_amount is present" do
       subject.improve_surface_or_groundwater_amount = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:improve_surface_or_groundwater_amount]).
-        to include "^Enter a value to show how many kilometers of surface water "\
+      expect(subject.errors.messages[:improve_surface_or_groundwater_amount])
+        .to include "^Enter a value to show how many kilometers of surface water "\
                    "or groundwater the project will protect or improve."
     end
 
     it "validates that :improve_surface_or_groundwater_amount is greater than 0" do
       subject.improve_surface_or_groundwater_amount = 0
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:improve_surface_or_groundwater_amount]).
-        to include "^Enter a value greater than zero to show how many kilometers "\
+      expect(subject.errors.messages[:improve_surface_or_groundwater_amount])
+        .to include "^Enter a value greater than zero to show how many kilometers "\
                    "the project will protect or improve."
     end
   end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "bstard"
 
 module PafsCore
@@ -9,7 +10,7 @@ module PafsCore
 
     validate :file_selected
     validates :number_of_records, numericality: { only_integer: true }
-    validates :status, inclusion: { in: %w[ new uploaded processing completed failed ] }
+    validates :status, inclusion: { in: %w[new uploaded processing completed failed] }
 
     # rubocop:disable Style/HashSyntax
     def processing_state
@@ -31,7 +32,8 @@ module PafsCore
       state.completed? || state.failed?
     end
 
-  private
+    private
+
     def file_selected
       errors.add(:base, "^Select the completed FCERM program (.xlsx) file") if filename.blank?
     end

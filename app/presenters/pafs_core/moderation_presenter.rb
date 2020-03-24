@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class ModerationPresenter < SimpleDelegator
     include PafsCore::Urgency
@@ -18,7 +19,8 @@ module PafsCore
       end
     end
 
-  private
+    private
+
     def project
       __getobj__
     end

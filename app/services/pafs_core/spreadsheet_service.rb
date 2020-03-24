@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "rubyXL"
-require 'rubyXL/convenience_methods/cell'
-require 'rubyXL/convenience_methods/worksheet'
+require "rubyXL/convenience_methods/cell"
+require "rubyXL/convenience_methods/worksheet"
 
 require "csv"
 
@@ -48,13 +48,14 @@ module PafsCore
       workbook
     end
 
-    def generate_csv(project)
+    def generate_csv(_project)
       CSV.generate do |csv|
-        csv << %w[ not yet implemented ]
+        csv << %w[not yet implemented]
       end
     end
 
-  private
+    private
+
     def read_fcerm1_template
       RubyXL::Parser.parse(PafsCore::Engine.root.join("lib", "fcerm1_template.xlsx"))
     end
@@ -63,21 +64,21 @@ module PafsCore
       # HACK: for some reason the formula in column BJ, BI, BL-BX are not recognised by RubyXL
       #       so we'll poke in the correct formula here
       formulae_map = [
-        { 'BJ': [ 'JO',] },
-        { 'BI': [ 'JN',] },
-        { 'BL': [ 'BZ', 'CN', 'DB', 'DP', 'ED', 'ER', 'FF', 'FT', ] },
-        { 'BM': [ 'CA', 'CO', 'DC', 'DQ', 'EE', 'ES', 'FG', 'FU', ] },
-        { 'BN': [ 'CB', 'CP', 'DD', 'DR', 'EF', 'ET', 'FH', 'FV', ] },
-        { 'BO': [ 'CC', 'CQ', 'DE', 'DS', 'EG', 'EU', 'FI', 'FW', ] },
-        { 'BP': [ 'CD', 'CR', 'DF', 'DT', 'EH', 'EV', 'FJ', 'FX', ] },
-        { 'BQ': [ 'CE', 'CS', 'DG', 'DU', 'EI', 'EW', 'FK', 'FY', ] },
-        { 'BR': [ 'CF', 'CT', 'DH', 'DV', 'EJ', 'EX', 'FL', 'FZ', ] },
-        { 'BS': [ 'CG', 'CU', 'DI', 'DW', 'EK', 'EY', 'FM', 'GA', ] },
-        { 'BT': [ 'CH', 'CV', 'DJ', 'DX', 'EL', 'EZ', 'FN', 'GB', ] },
-        { 'BU': [ 'CI', 'CW', 'DK', 'DY', 'EM', 'FA', 'FO', 'GC', ] },
-        { 'BV': [ 'CJ', 'CX', 'DL', 'DZ', 'EN', 'FB', 'FP', 'GD', ] },
-        { 'BW': [ 'CK', 'CY', 'DM', 'EA', 'EO', 'FC', 'FQ', 'GE', ] },
-        { 'BX': [ 'CL', 'CZ', 'DN', 'EB', 'EP', 'FD', 'FR', 'GF', ] },
+        { 'BJ': ["JO"] },
+        { 'BI': ["JN"] },
+        { 'BL': %w[BZ CN DB DP ED ER FF FT] },
+        { 'BM': %w[CA CO DC DQ EE ES FG FU] },
+        { 'BN': %w[CB CP DD DR EF ET FH FV] },
+        { 'BO': %w[CC CQ DE DS EG EU FI FW] },
+        { 'BP': %w[CD CR DF DT EH EV FJ FX] },
+        { 'BQ': %w[CE CS DG DU EI EW FK FY] },
+        { 'BR': %w[CF CT DH DV EJ EX FL FZ] },
+        { 'BS': %w[CG CU DI DW EK EY FM GA] },
+        { 'BT': %w[CH CV DJ DX EL EZ FN GB] },
+        { 'BU': %w[CI CW DK DY EM FA FO GC] },
+        { 'BV': %w[CJ CX DL DZ EN FB FP GD] },
+        { 'BW': %w[CK CY DM EA EO FC FQ GE] },
+        { 'BX': %w[CL CZ DN EB EP FD FR GF] }
       ]
       formulae_map.each do |formula_hash|
         column = formula_hash.keys.first.to_s
@@ -111,27 +112,27 @@ module PafsCore
       copy_previous_row(sheet, row_no) if row_no != FIRST_DATA_ROW
 
       FCERM1_COLUMN_MAP.each do |col|
-        if col.fetch(:export, true)
-          range = col.fetch(:date_range, false)
-          name = col[:field_name]
-          conditional_proc = col.fetch(:if, nil)
-          use_value = conditional_proc.nil? || conditional_proc.call(project)
+        next unless col.fetch(:export, true)
 
-          if range
-            start_column = column_index(col[:column])
-            years = [-1].concat((2015..2027).to_a)
-            years.each_with_index do |year, i|
-              value = use_value ? project.send(name, year) : 0
-              sheet[row_no][start_column + i].change_contents(value)
-            end
-          else
-            begin
-              value = use_value ? project.send(col[:field_name]) : 0
-              sheet[row_no][column_index(col[:column])].change_contents(value)
-            rescue
-              raise "Boom - Project (#{project.slug}) Row no (#{row_no}) col (#{col})" \
-                    " field_name (#{col[:field_name]}) value (#{value})"
-            end
+        range = col.fetch(:date_range, false)
+        name = col[:field_name]
+        conditional_proc = col.fetch(:if, nil)
+        use_value = conditional_proc.nil? || conditional_proc.call(project)
+
+        if range
+          start_column = column_index(col[:column])
+          years = [-1].concat((2015..2027).to_a)
+          years.each_with_index do |year, i|
+            value = use_value ? project.send(name, year) : 0
+            sheet[row_no][start_column + i].change_contents(value)
+          end
+        else
+          begin
+            value = use_value ? project.send(col[:field_name]) : 0
+            sheet[row_no][column_index(col[:column])].change_contents(value)
+          rescue StandardError
+            raise "Boom - Project (#{project.slug}) Row no (#{row_no}) col (#{col})" \
+                  " field_name (#{col[:field_name]}) value (#{value})"
           end
         end
       end

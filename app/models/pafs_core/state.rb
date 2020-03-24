@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class State < ApplicationRecord
     VALID_STATES = %w[draft completed submitted updatable updated archived finished].freeze

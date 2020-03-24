@@ -9,13 +9,13 @@ SimpleCov.start "rails"
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 
-require File.expand_path("../dummy/config/environment", __FILE__)
+require File.expand_path("dummy/config/environment", __dir__)
 
 # Prevent database truncation if the environment is production
 # abort("The Rails environment is running in production mode!") if Rails.env.production?
 
 require "rspec/rails"
-#require "capybara/rspec"
+# require "capybara/rspec"
 require "factory_bot_rails"
 require "shoulda-matchers"
 require "vcr"
@@ -57,9 +57,9 @@ end
 
 def escape_xpath_quotes(str)
   if str =~ /'/
-    %[concat('] + str.gsub(/'/, %[', "'", ']) + %[')]
+    %[concat('] + str.gsub(/'/, %(', "'", ')) + %[')]
   else
-    %['#{str}']
+    %('#{str}')
   end
 end
 
@@ -71,7 +71,7 @@ end
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = File.join(__dir__, 'fixtures')
+  config.fixture_path = File.join(__dir__, "fixtures")
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -109,7 +109,7 @@ VCR.configure do |config|
   config.configure_rspec_metadata!
   config.ignore_hosts "codeclimate.com"
   config.default_cassette_options = {
-    :match_requests_on => [:method, :host, :path]
+    match_requests_on: %i[method host path]
   }
 end
 

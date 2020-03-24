@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class User < ApplicationRecord
     validates :first_name, presence: true
@@ -15,8 +16,8 @@ module PafsCore
     has_many :area_downloads, inverse_of: :user
 
     def self.expired_invite
-      where(invitation_accepted_at: nil).
-        where(arel_table[:invitation_created_at].lt(30.days.ago))
+      where(invitation_accepted_at: nil)
+        .where(arel_table[:invitation_created_at].lt(30.days.ago))
     end
 
     def full_name
@@ -25,13 +26,13 @@ module PafsCore
 
     def rfcc_code(area_name = nil)
       area = nil
-      if area_name
-        area = PafsCore::Area.find_by_name(area_name)
-      else
-        # find the PSO area under which this user belongs
-        area = primary_area
-      end
-      if !area.ea_area?
+      area = if area_name
+               PafsCore::Area.find_by_name(area_name)
+             else
+               # find the PSO area under which this user belongs
+               primary_area
+             end
+      unless area.ea_area?
         area = area.parent if area.rma?
         PafsCore::PSO_RFCC_MAP.fetch(area.name)
       end

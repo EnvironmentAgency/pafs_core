@@ -9,8 +9,8 @@ module PafsCore
     # with subtly non-standard formatting
     # rubocop:disable Metrics/LineLength
     validates :reference_number,
-              format: { with: /\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|TS|WX|YO)[A-Z]\d{3,4}[A-Z]?\/\d{2,3}[A-Z]?\/\d{2,4}[A-Z]{1,2}\z/,
-              message: "has an invalid format" }
+              format: { with: %r{\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|TS|WX|YO)[A-Z]\d{3,4}[A-Z]?/\d{2,3}[A-Z]?/\d{2,4}[A-Z]{1,2}\z},
+                        message: "has an invalid format" }
     # rubocop:enable Metrics/LineLength
 
     validates :version, presence: true
@@ -112,7 +112,7 @@ module PafsCore
     def total_for_funding_source(fs)
       source_total = 0
       funding_values.each do |fv|
-        source_total = source_total + fv.public_send("#{fs}_total")
+        source_total += fv.public_send("#{fs}_total")
       end
       source_total
     end
@@ -120,7 +120,7 @@ module PafsCore
     def total_households_flood_protected_by_category(category)
       households = 0
       flood_protection_outcomes.each do |fo|
-        households = households + fo[category].to_i
+        households += fo[category].to_i
       end
       households
     end
@@ -128,7 +128,7 @@ module PafsCore
     def total_households_coastal_protected_by_category(category)
       households = 0
       coastal_erosion_protection_outcomes.each do |fo|
-        households = households + fo[category].to_i
+        households += fo[category].to_i
       end
       households
     end
@@ -157,11 +157,11 @@ module PafsCore
       areas.map(&:area_type).include?(PafsCore::Area::RMA_AREA)
     end
 
-    %w(private public other_ea).each do |contributor_type|
+    %w[private public other_ea].each do |contributor_type|
       define_method "#{contributor_type}_contributor_names" do
         funding_contributors.where(
           contributor_type: "#{contributor_type}_contributions"
-        ).pluck(:name).uniq.join(', ')
+        ).pluck(:name).uniq.join(", ")
       end
     end
 

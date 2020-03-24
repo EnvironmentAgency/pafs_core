@@ -24,7 +24,7 @@ module PafsCore
       end
 
       def duplicate_states
-        @duplicate_states ||= states.reject do |state| 
+        @duplicate_states ||= states.reject do |state|
           state.id == project.state.id
         end
       end

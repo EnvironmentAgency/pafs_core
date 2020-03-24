@@ -4,6 +4,6 @@ module PafsCore
   module Carbon
     delegate :carbon_cost_build, :carbon_cost_build=,
              :carbon_cost_operation, :carbon_cost_operation=,
-            to: :project
+             to: :project
   end
 end

@@ -6,12 +6,12 @@ module PafsCore
       attr_reader :project, :value, :attr_name
 
       VALUE_MAP = {
-        'N/A' => :not_applicable,
-        '1. Low' => :low,
-        '2. Medium Low' => :medium_low,
-        '3. Medium High' => :medium_high,
-        '4. High' => :high
-      }
+        "N/A" => :not_applicable,
+        "1. Low" => :low,
+        "2. Medium Low" => :medium_low,
+        "3. Medium High" => :medium_high,
+        "4. High" => :high
+      }.freeze
 
       def initialize(project, value, attr_name)
         @project = project

@@ -3,9 +3,7 @@
 module PafsCore::Spreadsheet::Contributors::Coerce
   class Boolean < Base
     def perform
-      value == 'yes'
+      value == "yes"
     end
   end
 end
-
-

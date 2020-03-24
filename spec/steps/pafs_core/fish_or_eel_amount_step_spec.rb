@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::FishOrEelAmountStep, type: :model do
@@ -10,16 +11,16 @@ RSpec.describe PafsCore::FishOrEelAmountStep, type: :model do
     it "validates that :fish_or_eel_amount has been set" do
       subject.fish_or_eel_amount = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:fish_or_eel_amount]).
-        to include "^Enter a value to show how many kilometres of river "\
+      expect(subject.errors.messages[:fish_or_eel_amount])
+        .to include "^Enter a value to show how many kilometres of river "\
                    "the project is likely to open for fish or eel passage."
     end
 
     it "validates that :fish_or_eel_amount is greater than zero" do
       subject.fish_or_eel_amount = -234.4
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:fish_or_eel_amount]).
-        to include "^Enter a value greater than zero to show how many kilometres "\
+      expect(subject.errors.messages[:fish_or_eel_amount])
+        .to include "^Enter a value greater than zero to show how many kilometres "\
                    "of river the project is likely to open for fish or eel passage."
     end
   end

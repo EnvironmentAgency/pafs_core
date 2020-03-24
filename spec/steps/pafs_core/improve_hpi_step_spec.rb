@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::ImproveHpiStep, type: :model do
@@ -10,8 +11,8 @@ RSpec.describe PafsCore::ImproveHpiStep, type: :model do
     it "validates that :improve_hpi has been set" do
       subject.improve_hpi = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:improve_hpi]).
-        to include "^Tell us if the project protects or improves a Habitat of "\
+      expect(subject.errors.messages[:improve_hpi])
+        .to include "^Tell us if the project protects or improves a Habitat of "\
                    "Principal Importance"
     end
   end

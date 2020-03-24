@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class SurfaceAndGroundwaterAmountStep < BasicStep
     delegate :improve_surface_or_groundwater?,
@@ -8,11 +9,12 @@ module PafsCore
 
     validate :amount_is_present_and_correct
 
-  private
+    private
+
     def step_params(params)
-      ActionController::Parameters.new(params).
-        require(:surface_and_groundwater_amount_step).
-        permit(:improve_surface_or_groundwater_amount)
+      ActionController::Parameters.new(params)
+                                  .require(:surface_and_groundwater_amount_step)
+                                  .permit(:improve_surface_or_groundwater_amount)
     end
 
     def amount_is_present_and_correct

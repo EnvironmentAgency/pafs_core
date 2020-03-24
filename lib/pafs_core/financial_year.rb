@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   module FinancialYear
     delegate :project_end_financial_year,

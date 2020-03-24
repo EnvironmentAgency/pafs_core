@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'faraday'
+require "faraday"
 
 module PafsCore
   module Pol
@@ -25,6 +25,7 @@ module PafsCore
 
       def perform
         return unless enabled?
+
         success?
       end
 
@@ -32,8 +33,8 @@ module PafsCore
 
       def result
         @result ||= connection.put do |request|
-          request.headers['Content-Type'] = 'application/json'
-          request.headers['x-functions-key'] = api_token
+          request.headers["Content-Type"] = "application/json"
+          request.headers["x-functions-key"] = api_token
           request.body = payload
         end
       end
@@ -45,17 +46,17 @@ module PafsCore
       def payload
         @payload ||= {
           "NPN": project.reference_number,
-          "Status": 'Archived'
+          "Status": "Archived"
         }.to_json
       end
 
       def url
-        ENV.fetch('POL_ARCHIVE_URL', '').strip
+        ENV.fetch("POL_ARCHIVE_URL", "").strip
       end
 
       def api_token
         PafsCore::Pol::AzureVaultClient.fetch(
-          ENV.fetch('AZURE_VAULT_AUTH_TOKEN_KEY_NAME_SUBMISSION')
+          ENV.fetch("AZURE_VAULT_AUTH_TOKEN_KEY_NAME_SUBMISSION")
         )
       end
 

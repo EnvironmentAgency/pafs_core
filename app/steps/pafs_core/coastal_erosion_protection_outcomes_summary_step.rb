@@ -1,10 +1,12 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   class CoastalErosionProtectionOutcomesSummaryStep < BasicStep
-    include PafsCore::Outcomes, PafsCore::Risks
+    include PafsCore::Risks
+    include PafsCore::Outcomes
 
-    def update(params)
+    def update(_params)
       # just progress to next step
       true
     end

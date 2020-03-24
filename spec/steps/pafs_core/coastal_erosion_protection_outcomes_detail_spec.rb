@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::Project, type: :model do
@@ -25,10 +26,10 @@ RSpec.describe PafsCore::Project, type: :model do
 
     it "should return the correct totals for the three columns" do
       expect(subject.total_households_coastal_protected_by_category(:households_at_reduced_risk)).to eq 400
-      expect(subject.\
-total_households_coastal_protected_by_category(:households_protected_from_loss_in_next_20_years)).to eq 200
-      expect(subject.\
-total_households_coastal_protected_by_category(:households_protected_from_loss_in_20_percent_most_deprived)).to eq 100
+      expect(subject\
+.total_households_coastal_protected_by_category(:households_protected_from_loss_in_next_20_years)).to eq 200
+      expect(subject\
+.total_households_coastal_protected_by_category(:households_protected_from_loss_in_20_percent_most_deprived)).to eq 100
     end
   end
 end

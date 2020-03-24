@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 # require_relative "./shared_step_spec"
 
@@ -32,20 +33,20 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
   describe "#update" do
     context "a project that does protect households" do
       context "protecting against flooding" do
-        let(:params) {
+        let(:params) do
           HashWithIndifferentAccess.new({
-            main_risk_step: {
-              main_risk: "groundwater_flooding"
-            }
-          })
-        }
-        let(:error_params) {
+                                          main_risk_step: {
+                                            main_risk: "groundwater_flooding"
+                                          }
+                                        })
+        end
+        let(:error_params) do
           HashWithIndifferentAccess.new({
-            main_risk_step: {
-              main_risk: nil
-            }
-          })
-        }
+                                          main_risk_step: {
+                                            main_risk: nil
+                                          }
+                                        })
+        end
 
         it "saves the state of valid params" do
           expect(subject.update(params)).to be true
@@ -61,13 +62,13 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
           @project.project.update_attributes(groundwater_flooding: false, coastal_erosion: true)
         end
 
-        let(:params) {
+        let(:params) do
           HashWithIndifferentAccess.new({
-            main_risk_step: {
-              main_risk: "coastal_erosion"
-            }
-          })
-        }
+                                          main_risk_step: {
+                                            main_risk: "coastal_erosion"
+                                          }
+                                        })
+        end
         it "saves the state of valid params" do
           expect(subject.update(params)).to be true
           expect(subject.main_risk).to eq "coastal_erosion"

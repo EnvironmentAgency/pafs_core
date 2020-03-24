@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
@@ -27,17 +28,17 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
     subject { FactoryBot.create(:standard_of_protection_step) }
     let(:params) do
       HashWithIndifferentAccess.new({
-        standard_of_protection_step: {
-          flood_protection_before: "0",
-        }
-      })
+                                      standard_of_protection_step: {
+                                        flood_protection_before: "0"
+                                      }
+                                    })
     end
     let(:error_params) do
       HashWithIndifferentAccess.new({
-        standard_of_protection_step: {
-          flood_protection_before: "2011"
-        }
-      })
+                                      standard_of_protection_step: {
+                                        flood_protection_before: "2011"
+                                      }
+                                    })
     end
 
     it "saves the :flood_protection_before when valid" do
@@ -55,7 +56,7 @@ RSpec.describe PafsCore::StandardOfProtectionStep, type: :model do
     subject { FactoryBot.build(:standard_of_protection_step) }
 
     it "should return an array of options" do
-      array_of_options = [:very_significant, :significant, :moderate, :low]
+      array_of_options = %i[very_significant significant moderate low]
 
       expect(subject.flood_risk_options).to eq array_of_options
     end

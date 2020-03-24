@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::HabitatCreationStep, type: :model do
@@ -10,8 +11,8 @@ RSpec.describe PafsCore::HabitatCreationStep, type: :model do
     it "validates that :create_habitat has been set" do
       subject.create_habitat = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:create_habitat]).
-        to include "^Tell us if the project creates habitat"
+      expect(subject.errors.messages[:create_habitat])
+        .to include "^Tell us if the project creates habitat"
     end
   end
 

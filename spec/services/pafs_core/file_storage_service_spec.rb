@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::FileStorageService do
@@ -36,8 +37,8 @@ RSpec.describe PafsCore::FileStorageService do
   describe "#download" do
     context "given a valid source file key" do
       it "gets the requested file from storage" do
-        expect(storage).to receive(:get_object).
-          with(bucket: nil, key: dst_file, response_target: src_file)
+        expect(storage).to receive(:get_object)
+          .with(bucket: nil, key: dst_file, response_target: src_file)
         expect(Aws::S3::Client).to receive(:new) { storage }
         expect { subject.download(dst_file, src_file) }.not_to raise_error
       end
@@ -49,8 +50,8 @@ RSpec.describe PafsCore::FileStorageService do
         end
         expect(Aws::S3::Client).to receive(:new) { storage }
 
-        expect { subject.download("not_there", dst_file) }.
-          to raise_error PafsCore::FileNotFoundError
+        expect { subject.download("not_there", dst_file) }
+          .to raise_error PafsCore::FileNotFoundError
       end
     end
   end

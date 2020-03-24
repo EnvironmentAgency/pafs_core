@@ -1,22 +1,24 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   class UserArea < ApplicationRecord
     belongs_to :user
     belongs_to :area
 
     validate :area_is_set
-    validates_uniqueness_of :user_id, scope: :area_id,  message: '^Unable to assign area multiple times'
+    validates_uniqueness_of :user_id, scope: :area_id, message: "^Unable to assign area multiple times"
 
     default_scope { order(primary: :desc) }
 
     default_scope { order(primary: :desc) }
 
     def self.primary_area
-      self.includes(:area).where(primary: true)
+      includes(:area).where(primary: true)
     end
 
-  private
+    private
+
     def area_is_set
       # we're ignoring the user_id as that should be set when contructing
       # the user_area, it's the area that the user will be selecting.

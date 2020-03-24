@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
@@ -10,7 +11,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
   describe "attributes" do
     subject { FactoryBot.build(:funding_calculator_step) }
 
-    let(:file_path) { File.join(Rails.root, '..', 'fixtures', 'calculator.xlsl') }
+    let(:file_path) { File.join(Rails.root, "..", "fixtures", "calculator.xlsl") }
 
     it_behaves_like "a project step"
 
@@ -23,33 +24,33 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     it "validates that the file passed a virus check" do
       subject.virus_info = "Found a nasty virus"
       expect(subject.valid?).to eq false
-      expect(subject.errors[:base]).
-        to include "The file was rejected because it may contain a virus. Check the file and try again"
+      expect(subject.errors[:base])
+        .to include "The file was rejected because it may contain a virus. Check the file and try again"
     end
 
-    it 'validates the calculator version' do
-      allow(subject).
-        to receive(:uploaded_file).
-        and_return(file_path)
+    it "validates the calculator version" do
+      allow(subject)
+        .to receive(:uploaded_file)
+        .and_return(file_path)
 
-      expect(Roo::Excelx).
-        to receive(:new).
-        and_return(double(:sheet, cell: 'Version 5'))
+      expect(Roo::Excelx)
+        .to receive(:new)
+        .and_return(double(:sheet, cell: "Version 5"))
 
       subject.valid?
 
-      expect(subject.errors[:base]).
-        to include 'The partnership funding calculator file used is the wrong version. The file used must be version 8. Download the correct partnership funding calculator.'
+      expect(subject.errors[:base])
+        .to include "The partnership funding calculator file used is the wrong version. The file used must be version 8. Download the correct partnership funding calculator."
     end
 
-    context 'virus found' do
-      it 'does not validate the calculator version' do
-        allow(subject).
-          to receive(:virus_info).
-          and_return('Some virus')
+    context "virus found" do
+      it "does not validate the calculator version" do
+        allow(subject)
+          .to receive(:virus_info)
+          .and_return("Some virus")
 
-        expect(Roo::Excelx).
-          not_to receive(:new)
+        expect(Roo::Excelx)
+          .not_to receive(:new)
 
         subject.valid?
       end
@@ -67,12 +68,12 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     end
     let(:params) do
       HashWithIndifferentAccess.new(
-        { funding_calculator_step: { funding_calculator: temp_file }}
+        { funding_calculator_step: { funding_calculator: temp_file } }
       )
     end
     let(:empty_params) do
       HashWithIndifferentAccess.new(
-        { funding_calculator_step: { funding_calculator_file_name: "placeholder" }}
+        { funding_calculator_step: { funding_calculator_file_name: "placeholder" } }
       )
     end
     let(:continue_params) { { commit: "Continue" } }
@@ -146,7 +147,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
       before(:each) do
         expect(PafsCore::DevelopmentFileStorageService).to receive(:new) { storage }
         expect(storage).to receive(:upload) do
-          raise PafsCore::VirusScannerError.new("A problem occurred")
+          raise PafsCore::VirusScannerError, "A problem occurred"
         end
       end
 

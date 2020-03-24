@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class CoastalErosionProtectionOutcome < ApplicationRecord
     belongs_to :project

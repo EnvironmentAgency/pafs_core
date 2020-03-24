@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::DownloadsController, type: :controller do
@@ -47,8 +48,8 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
       it "sends the file to the client" do
         expect(controller).to receive(:navigator) { navigator }
-        expect(navigator).to receive(:find).
-          with(@project.to_param) { @project }
+        expect(navigator).to receive(:find)
+          .with(@project.to_param) { @project }
 
         expect(controller).to receive(:fetch_funding_calculator_for).with(@project) do
           controller.render nothing: true
@@ -67,8 +68,8 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
       it "deletes the funding calculator" do
         expect(controller).to receive(:navigator) { navigator }
-        expect(navigator).to receive(:find).
-          with(@project.to_param) { @project }
+        expect(navigator).to receive(:find)
+          .with(@project.to_param) { @project }
 
         expect(controller).to receive(:delete_funding_calculator_for).with(@project)
 
@@ -90,8 +91,8 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
       it "sends the file to the client" do
         expect(controller).to receive(:navigator) { navigator }
-        expect(navigator).to receive(:find).
-          with(@project.to_param) { @project }
+        expect(navigator).to receive(:find)
+          .with(@project.to_param) { @project }
 
         expect(controller).to receive(:fetch_benefit_area_file_for).with(@project) { controller.render nothing: true }
 
@@ -109,8 +110,8 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
       it "deletes the funding benefit area file" do
         expect(controller).to receive(:navigator) { navigator }
-        expect(navigator).to receive(:find).
-          with(@project.to_param) { @project }
+        expect(navigator).to receive(:find)
+          .with(@project.to_param) { @project }
 
         expect(controller).to receive(:delete_benefit_area_file_for).with(@project)
 
@@ -129,8 +130,8 @@ RSpec.describe PafsCore::DownloadsController, type: :controller do
 
       it "sends the file to the client" do
         expect(controller).to receive(:navigator) { navigator }
-        expect(navigator).to receive(:find).
-          with(@project.to_param) { @project }
+        expect(navigator).to receive(:find)
+          .with(@project.to_param) { @project }
 
         expect(controller).to receive(:generate_moderation_for).with(@project) { controller.render nothing: true }
 

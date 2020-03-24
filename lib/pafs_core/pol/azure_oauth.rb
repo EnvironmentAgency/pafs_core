@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'faraday'
+require "faraday"
 
 module PafsCore::Pol
   module AzureOauth
@@ -23,7 +23,7 @@ module PafsCore::Pol
       end
 
       def bearer_token
-        @bearer_token ||= token_response.fetch('access_token')
+        @bearer_token ||= token_response.fetch("access_token")
       end
 
       def token_response
@@ -58,20 +58,20 @@ module PafsCore::Pol
           "grant_type" => "client_credentials",
           "client_id" => client_id,
           "client_secret" => client_secret,
-          "scope" => 'https://vault.azure.net/.default'
+          "scope" => "https://vault.azure.net/.default"
         }
       end
 
       def auth_url
-        ENV.fetch('AZURE_OAUTH_URL')
+        ENV.fetch("AZURE_OAUTH_URL")
       end
 
       def client_id
-        ENV.fetch('AZURE_CLIENT_ID')
+        ENV.fetch("AZURE_CLIENT_ID")
       end
 
       def client_secret
-        ENV.fetch('AZURE_CLIENT_SECRET')
+        ENV.fetch("AZURE_CLIENT_SECRET")
       end
     end
 
@@ -80,4 +80,3 @@ module PafsCore::Pol
     end
   end
 end
-

@@ -1,18 +1,18 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PafsCore::Mapper::Fcerm1 do
   subject { PafsCore::Mapper::Fcerm1.new(project: presenter) }
 
-  let(:project) { (FactoryBot.create(:full_project)) }
+  let(:project) { FactoryBot.create(:full_project) }
   let(:presenter) { PafsCore::SpreadsheetPresenter.new(project) }
   let(:funding_values) do
     [
-      {year: -1, value: 2000},
-      {year: 2015, value: 200,},
-      {year: 2016, value: 250,},
-      {year: 2017, value: 350,},
-      {year: 2018, value: 1250,},
-      {year: 2019, value: 650,},
+      { year: -1, value: 2000 },
+      { year: 2015, value: 200  },
+      { year: 2016, value: 250  },
+      { year: 2017, value: 350  },
+      { year: 2018, value: 1250 },
+      { year: 2019, value: 650 }
     ]
   end
   let(:funding_years) do
@@ -78,7 +78,6 @@ RSpec.describe PafsCore::Mapper::Fcerm1 do
   it "pafs county" do
     expect(subject.pafs_county).to eql(presenter.county)
   end
-
 
   it "earliest funding profile date" do
     expect(subject.earliest_funding_profile_date).to eql(presenter.earliest_start_date)

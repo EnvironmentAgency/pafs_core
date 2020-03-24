@@ -13,7 +13,6 @@ module PafsCore
     delegate :confidence_homes_better_protected, :confidence_homes_better_protected=,
              :confidence_homes_by_gateway_four, :confidence_homes_by_gateway_four=,
              :confidence_secured_partnership_funding, :confidence_secured_partnership_funding=,
-            to: :project
+             to: :project
   end
 end
-

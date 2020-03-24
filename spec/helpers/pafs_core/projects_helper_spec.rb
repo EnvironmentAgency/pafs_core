@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 module PafsCore
@@ -69,7 +70,7 @@ module PafsCore
 
     describe "#search_result_label" do
       let(:search_string) { "The search" }
-      let(:result) { {eastings: 201212, northings: 121212} }
+      let(:result) { { eastings: 201_212, northings: 121_212 } }
 
       it "should return the correct string result" do
         expect(helper.search_result_label(nil, result)).to eq "201212,121212"

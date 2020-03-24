@@ -1,15 +1,17 @@
 # frozen_string_literal: true
+
 module PafsCore
   class FishOrEelAmountStep < BasicStep
     include PafsCore::EnvironmentalOutcomes
 
     validate :amount_is_present_and_correct
 
-  private
+    private
+
     def step_params(params)
-      ActionController::Parameters.new(params).
-        require(:fish_or_eel_amount_step).
-        permit(:fish_or_eel_amount)
+      ActionController::Parameters.new(params)
+                                  .require(:fish_or_eel_amount_step)
+                                  .permit(:fish_or_eel_amount)
     end
 
     def amount_is_present_and_correct

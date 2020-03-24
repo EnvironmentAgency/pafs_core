@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class BootstrapNavigator
     attr_reader :user
@@ -30,7 +31,7 @@ module PafsCore
       # and is 'owned' by a user.  I envisage that we would use the
       # current_user passed into the constructor to get this information.
       project = bootstrap_service.create_bootstrap(attrs)
-      Object::const_get("PafsCore::#{first_step.to_s.camelcase}Step").new project
+      Object.const_get("PafsCore::#{first_step.to_s.camelcase}Step").new project
     end
 
     def find_project_step(id, step)
@@ -43,7 +44,7 @@ module PafsCore
       # accept a step or a raw project activerecord object
       project = project.project if project.respond_to? :project
       # TODO: check that this user has permission to access this project
-      Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new(project, user)
+      Object.const_get("PafsCore::#{step.to_s.camelcase}Step").new(project, user)
     end
 
     def bootstrap_to_project(id)
@@ -56,7 +57,8 @@ module PafsCore
       project
     end
 
-  private
+    private
+
     def sequence
       @sequence ||= define_sequence
     end
@@ -73,7 +75,7 @@ module PafsCore
     end
 
     def check_step(step)
-      raise ActiveRecord::RecordNotFound.new("Unknown step [#{step}]") unless sequence.include? step.to_sym
+      raise ActiveRecord::RecordNotFound, "Unknown step [#{step}]" unless sequence.include? step.to_sym
     end
 
     def bootstrap_service

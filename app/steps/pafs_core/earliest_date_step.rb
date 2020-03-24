@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   class EarliestDateStep < BasicStep
     delegate :could_start_early?,
@@ -9,10 +10,12 @@ module PafsCore
 
     validate :earliest_start_date_is_present_and_correct
 
-  private
+    private
+
     def step_params(params)
       ActionController::Parameters.new(params).require(:earliest_date_step).permit(
-        :earliest_start_month, :earliest_start_year)
+        :earliest_start_month, :earliest_start_year
+      )
     end
 
     def earliest_start_date_is_present_and_correct

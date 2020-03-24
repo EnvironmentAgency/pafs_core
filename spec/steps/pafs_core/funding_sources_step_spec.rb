@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::FundingSourcesStep, type: :model do
@@ -18,12 +19,12 @@ RSpec.describe PafsCore::FundingSourcesStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:funding_sources_step) }
-    let(:params) {
-      HashWithIndifferentAccess.new({ funding_sources_step: { growth_funding: "1" }})
-    }
-    let(:error_params) {
-      HashWithIndifferentAccess.new({ funding_sources_step: { fcerm_gia: nil }})
-    }
+    let(:params) do
+      HashWithIndifferentAccess.new({ funding_sources_step: { growth_funding: "1" } })
+    end
+    let(:error_params) do
+      HashWithIndifferentAccess.new({ funding_sources_step: { fcerm_gia: nil } })
+    end
 
     it "saves the state of valid params" do
       expect(subject.update(params)).to be true

@@ -4,9 +4,9 @@ module PafsCore::Spreadsheet::Contributors
   class Export
     attr_reader :project, :workbook
 
-    SHEET_NAME = 'Funding Contributors'
-    SHEET_TITLES = %w[Project Name Type Year Amount Secured Constrained]
-    SHORT_NAME_SCOPE = 'funding_sources.short'
+    SHEET_NAME = "Funding Contributors"
+    SHEET_TITLES = %w[Project Name Type Year Amount Secured Constrained].freeze
+    SHORT_NAME_SCOPE = "funding_sources.short"
 
     def initialize(workbook, project)
       @project = project
@@ -16,7 +16,7 @@ module PafsCore::Spreadsheet::Contributors
     def generate
       write_title_row
 
-      project.funding_contributors.find_each.with_index do |contributor, index|
+      project.funding_contributors.find_each.with_index do |contributor, _index|
         row_index = next_row_index
 
         sheet.add_cell(row_index, 0, project.reference_number)
@@ -24,15 +24,15 @@ module PafsCore::Spreadsheet::Contributors
         sheet.add_cell(row_index, 2, I18n.t(contributor.contributor_type, scope: SHORT_NAME_SCOPE))
         sheet.add_cell(row_index, 3, financial_year(contributor.funding_value.financial_year))
         sheet.add_cell(row_index, 4, contributor.amount)
-        sheet.add_cell(row_index, 5, contributor.secured ? 'yes' : 'no')
-        sheet.add_cell(row_index, 6, contributor.constrained ? 'yes' : 'no')
+        sheet.add_cell(row_index, 5, contributor.secured ? "yes" : "no")
+        sheet.add_cell(row_index, 6, contributor.constrained ? "yes" : "no")
       end
     end
 
     private
 
     def financial_year(value)
-      return 'Previous years' if value == -1
+      return "Previous years" if value == -1
 
       "#{value} - #{value + 1}"
     end

@@ -1,9 +1,13 @@
 # frozen_string_literal: true
+
 module PafsCore
   class ImportedProjectDecorator < SimpleDelegator
-    include PafsCore::FundingSources, PafsCore::Risks, PafsCore::Outcomes,
-      PafsCore::Urgency, PafsCore::StandardOfProtection,
-      PafsCore::EnvironmentalOutcomes
+    include PafsCore::EnvironmentalOutcomes
+    include PafsCore::StandardOfProtection
+    include PafsCore::Urgency
+    include PafsCore::Outcomes
+    include PafsCore::Risks
+    include PafsCore::FundingSources
 
     def project_status=(value)
       PafsCore::Projects::StatusUpdate.new(project, value).perform
@@ -85,9 +89,9 @@ module PafsCore
             project.region = data[:region]
             project.county = data[:county]
             project.parliamentary_constituency = data[:parliamentary_constituency]
-          rescue PafsCore::MapServiceError => ex
+          rescue PafsCore::MapServiceError => e
             project.errors.add(:grid_reference,
-                               "^Unable to query for location information (#{ex})")
+                               "^Unable to query for location information (#{e})")
           end
         else
           project.errors.add(:grid_reference, "^Invalid grid reference (#{value})")
@@ -245,7 +249,7 @@ module PafsCore
       end
     end
 
-    ############################################################3
+    # ###########################################################3
 
     # prevent navigator falling over and giving us non-javascript steps
     def javascript_disabled?
@@ -253,6 +257,7 @@ module PafsCore
     end
 
     private
+
     def project
       __getobj__
     end
@@ -323,7 +328,7 @@ module PafsCore
           idx = ary.find_index(val)
           if idx.nil?
             project.errors.add(category,
-                             "^Invalid '#{category.to_s.titlecase}' value (#{value})")
+                               "^Invalid '#{category.to_s.titlecase}' value (#{value})")
           else
             project.send("#{category}=", idx)
           end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::ImproveSssiStep, type: :model do
@@ -10,8 +11,8 @@ RSpec.describe PafsCore::ImproveSssiStep, type: :model do
     it "validates that :improve_sssi has been set" do
       subject.improve_sssi = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:improve_sssi]).
-        to include "^Tell us if the project protects or improves a Site of Special "\
+      expect(subject.errors.messages[:improve_sssi])
+        .to include "^Tell us if the project protects or improves a Site of Special "\
                    "Scientific Interest"
     end
   end

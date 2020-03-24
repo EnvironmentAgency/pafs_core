@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::MapStep, type: :model do
@@ -34,17 +35,17 @@ RSpec.describe PafsCore::MapStep, type: :model do
 
     context "when the benefit_area_centre is set" do
       it "should get the correct benefit_area_centre" do
-        expect(subject.benefit_area_centre).to eq %w(457733 221751)
+        expect(subject.benefit_area_centre).to eq %w[457733 221751]
       end
     end
 
     context "when the benefit_area_centre is not set" do
       it "should get project_location instead" do
         subject.benefit_area_centre = nil
-        subject.project.project_location = [457736, 221754]
+        subject.project.project_location = [457_736, 221_754]
         subject.project.save
 
-        expect(subject.benefit_area_centre).to eq %w(457736 221754)
+        expect(subject.benefit_area_centre).to eq %w[457736 221754]
       end
     end
   end
@@ -52,35 +53,35 @@ RSpec.describe PafsCore::MapStep, type: :model do
   describe "#update" do
     subject { FactoryBot.create(:map_step) }
 
-    let(:params) {
+    let(:params) do
       HashWithIndifferentAccess.new({
-        map_step: {
-          benefit_area: "[[444444, 222222], [421212, 212121], [432123, 234432]]",
-          benefit_area_zoom_level: 3,
-          benefit_area_centre: "[\"420000\", \"230000\"]"
-        }
-      })
-    }
+                                      map_step: {
+                                        benefit_area: "[[444444, 222222], [421212, 212121], [432123, 234432]]",
+                                        benefit_area_zoom_level: 3,
+                                        benefit_area_centre: "[\"420000\", \"230000\"]"
+                                      }
+                                    })
+    end
 
-    let(:benefit_area_file) { fixture_file_upload('shapefile.zip') }
+    let(:benefit_area_file) { fixture_file_upload("shapefile.zip") }
 
-    let(:file_params) {
+    let(:file_params) do
       HashWithIndifferentAccess.new({
-        map_step: {
-          benefit_area_file: benefit_area_file
-        }
-      })
-    }
+                                      map_step: {
+                                        benefit_area_file: benefit_area_file
+                                      }
+                                    })
+    end
 
-    #it "saves the :benefit_area when benefit_area attributes are valid" do
-      #expect(subject.benefit_area).not_to eq "[[444444, 222222], [421212, 212121], [432123, 234432]]"
-      #expect(subject.benefit_area_centre).not_to eq %w(420000 230000)
-      #expect(subject.benefit_area_zoom_level).not_to eq 3
-      #expect(subject.update(params)).to be true
-      #expect(subject.benefit_area).to eq "[[444444, 222222], [421212, 212121], [432123, 234432]]"
-      #expect(subject.benefit_area_centre).to eq %w(420000 230000)
-      #expect(subject.benefit_area_zoom_level).to eq 3
-    #end
+    # it "saves the :benefit_area when benefit_area attributes are valid" do
+    # expect(subject.benefit_area).not_to eq "[[444444, 222222], [421212, 212121], [432123, 234432]]"
+    # expect(subject.benefit_area_centre).not_to eq %w(420000 230000)
+    # expect(subject.benefit_area_zoom_level).not_to eq 3
+    # expect(subject.update(params)).to be true
+    # expect(subject.benefit_area).to eq "[[444444, 222222], [421212, 212121], [432123, 234432]]"
+    # expect(subject.benefit_area_centre).to eq %w(420000 230000)
+    # expect(subject.benefit_area_zoom_level).to eq 3
+    # end
 
     it "saves the benefit area file" do
       expect(subject.update(file_params)).to be true
@@ -88,7 +89,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
   end
 
   describe "#delete_benefit_area_file" do
-    let(:benefit_area_file) { fixture_file_upload('shapefile.zip', 'application/zip') }
+    let(:benefit_area_file) { fixture_file_upload("shapefile.zip", "application/zip") }
     subject { FactoryBot.build(:map_step) }
 
     context "when an uploaded file exists" do

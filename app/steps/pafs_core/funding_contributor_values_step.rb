@@ -12,7 +12,7 @@ module PafsCore
     validate :at_least_one_value
 
     # override to allow us to set up the funding_values if needed
-    def before_view(params)
+    def before_view(_params)
       setup_funding_values
     end
 
@@ -27,10 +27,10 @@ module PafsCore
     end
 
     def at_least_one_value
-      contributors = funding_contributors.to_a.select {|x| x.contributor_type == contributor_type.to_s}.group_by(&:name)
-      contributors = contributors.values.map { |v| v.map(&:amount).compact.reduce(&:+)}
+      contributors = funding_contributors.to_a.select { |x| x.contributor_type == contributor_type.to_s }.group_by(&:name)
+      contributors = contributors.values.map { |v| v.map(&:amount).compact.reduce(&:+) }
 
-      return true if contributors.select {|total| total == 0}.empty?
+      return true if contributors.select { |total| total == 0 }.empty?
 
       errors.add(:base, "Please ensure you enter at least one value for every contributor")
       false
@@ -38,11 +38,11 @@ module PafsCore
 
     def step_params(params)
       ActionController::Parameters.new(params).require(param_key).permit(
-        funding_contributors_attributes: [
-          :id,
-          :amount,
-          :secured,
-          :constrained
+        funding_contributors_attributes: %i[
+          id
+          amount
+          secured
+          constrained
         ]
       )
     end

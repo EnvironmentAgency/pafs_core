@@ -11,8 +11,8 @@ module PafsCore
                "sub type"].freeze
 
     def initialize
-      @areas = Array.new
-      @faulty_entries = Array.new
+      @areas = []
+      @faulty_entries = []
     end
 
     def import(path_to_file)
@@ -60,7 +60,7 @@ module PafsCore
             begin
               a = Area.new(area)
               a.save!
-            rescue => e
+            rescue StandardError => e
               report_error(e.message, child)
             end
           else

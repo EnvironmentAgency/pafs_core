@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::ValidationPresenter do
@@ -99,10 +100,10 @@ RSpec.describe PafsCore::ValidationPresenter do
 
     context "when one of the key dates is missing" do
       let(:dates) do
-        [:start_outline_business_case_month,
-         :award_contract_month,
-         :start_construction_month,
-         :ready_for_service_month]
+        %i[start_outline_business_case_month
+           award_contract_month
+           start_construction_month
+           ready_for_service_month]
       end
 
       it "returns false" do
@@ -236,13 +237,13 @@ RSpec.describe PafsCore::ValidationPresenter do
 
   def make_flood_outcome(year, project_id)
     FactoryBot.create(:flood_protection_outcomes,
-                       financial_year: year,
-                       project_id: project_id)
+                      financial_year: year,
+                      project_id: project_id)
   end
 
   def make_coastal_outcome(year, project_id)
     FactoryBot.create(:coastal_erosion_protection_outcomes,
-                       financial_year: year,
-                       project_id: project_id)
+                      financial_year: year,
+                      project_id: project_id)
   end
 end

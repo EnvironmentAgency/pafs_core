@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::ProjectNavigator do
@@ -40,13 +41,13 @@ RSpec.describe PafsCore::ProjectNavigator do
     end
 
     it "raises ActiveRecord::RecordNotFound for an invalid :reference_number" do
-      expect { subject.find_project_step("123", subject.first_step) }.
-        to raise_error(ActiveRecord::RecordNotFound)
+      expect { subject.find_project_step("123", subject.first_step) }
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "raises ActiveRecord::RecordNotFound for an invalid :step" do
-      expect { subject.find_project_step(project, :wigwam) }.
-        to raise_error(ActiveRecord::RecordNotFound)
+      expect { subject.find_project_step(project, :wigwam) }
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class FundingCalculatorSummaryStep < BasicStep
 
@@ -6,7 +7,7 @@ module PafsCore
              :funding_calculator_updated_at,
              to: :project
 
-    def update(params)
+    def update(_params)
       true
     end
   end
