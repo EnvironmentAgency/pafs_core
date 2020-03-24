@@ -1,9 +1,9 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
-  class Bootstrap < ActiveRecord::Base
+  class Bootstrap < ApplicationRecord
     validates :slug, presence: true, uniqueness: true
-    belongs_to :creator, class_name: "User"
+    belongs_to :creator, class_name: "User", optional: true
 
     before_validation :set_slug, on: :create
 

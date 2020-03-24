@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module PafsCore
-  class State < ActiveRecord::Base
+  class State < ApplicationRecord
     VALID_STATES = %w[draft completed submitted updatable updated archived finished].freeze
 
     belongs_to :project, inverse_of: :state

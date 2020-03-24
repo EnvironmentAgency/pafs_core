@@ -1,7 +1,7 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 module PafsCore
-  class AccountRequest < ActiveRecord::Base
+  class AccountRequest < ApplicationRecord
     validates :first_name, presence: { message: "^Tell us your first name." }
     validates :last_name, presence: { message: "^Tell us your last name." }
     validates :email, presence: { message: "^Tell us your work email address." }
