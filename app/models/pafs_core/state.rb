@@ -3,7 +3,7 @@ module PafsCore
   class State < ApplicationRecord
     VALID_STATES = %w[draft completed submitted updatable updated archived finished].freeze
 
-    belongs_to :project, inverse_of: :state
+    belongs_to :project, inverse_of: :state, optional: true
     validates :state, inclusion: { in: VALID_STATES }
 
     def self.submitted
