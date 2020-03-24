@@ -2,7 +2,7 @@
   <div class="column-two-thirds">
     <div class="panel panel-border-narrow">
       <ul class="list">
-        <li>Area programme last generated on <%= downloads.requested_on %></li>
+        <li>Programme last generated on <%= downloads.requested_on %></li>
         <li>Containing <%= downloads.number_of_proposals_generated %> proposals</li>
         <li>Requested by <%= downloads.requested_by.try(:full_name) || "Unknown" %></li>
       </ul>
@@ -11,7 +11,7 @@
 </div>
 <div class="grid-row">
   <div class="column-two-thirds">
-    <%= link_to "Regenerate area programme", pafs_core.generate_multi_downloads_path,
+    <%= link_to "Regenerate programme", pafs_core.generate_multi_downloads_path,
         class: "button", role: "button" %>
   </div>
 </div>
