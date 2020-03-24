@@ -2,11 +2,9 @@
 
 module PafsCore
   module Pol
-    class SubmissionJob < ActiveJob::Base
-      queue_as :default
-
+    class SubmissionJob < ApplicationJob
       def perform(project_id)
-        ActiveRecord::Base.connection_pool.with_connection do
+        ApplicationRecord.connection_pool.with_connection do
           PafsCore::Pol::Submission.perform(PafsCore::Project.find(project_id))
         end
       end

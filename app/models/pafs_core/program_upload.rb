@@ -2,7 +2,7 @@
 require "bstard"
 
 module PafsCore
-  class ProgramUpload < ActiveRecord::Base
+  class ProgramUpload < ApplicationRecord
     include PafsCore::FileTypes
     has_many :program_upload_items, inverse_of: :program_upload, dependent: :destroy
     has_many :program_upload_failures, through: :program_upload_items

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module PafsCore
-  class Area < ActiveRecord::Base
+  class Area < ApplicationRecord
     AREA_TYPES = [
       COUNTRY_AREA = "Country",
       EA_AREA      = "EA Area",
@@ -14,7 +14,7 @@ module PafsCore
     validates_inclusion_of :area_type, in: AREA_TYPES
     validates :sub_type, presence: true, if: :rma?
 
-    belongs_to :parent, class_name: "Area"
+    belongs_to :parent, class_name: "Area", optional: true
     has_many :children, class_name: "Area", foreign_key: "parent_id"
     has_many :area_projects
     has_many :projects, through: :area_projects

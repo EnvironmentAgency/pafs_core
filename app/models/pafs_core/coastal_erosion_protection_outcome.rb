@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module PafsCore
-  class CoastalErosionProtectionOutcome < ActiveRecord::Base
+  class CoastalErosionProtectionOutcome < ApplicationRecord
     belongs_to :project
 
     validates_numericality_of :households_at_reduced_risk,

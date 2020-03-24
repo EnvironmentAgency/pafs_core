@@ -3,9 +3,9 @@
 require "bstard"
 
 module PafsCore
-  class AreaDownload < ActiveRecord::Base
-    belongs_to :area, inverse_of: :area_download
-    belongs_to :user, inverse_of: :area_downloads
+  class AreaDownload < ApplicationRecord
+    belongs_to :area, inverse_of: :area_download, optional: true
+    belongs_to :user, inverse_of: :area_downloads, optional: true
 
     # rubocop:disable Style/HashSyntax
     def documentation_state
