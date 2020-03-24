@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.describe PafsCore::ApplicationController, type: :controller do
   controller do
     def index
-      render text: "Hello World"
+      render plain: "Hello World"
     end
   end
 
