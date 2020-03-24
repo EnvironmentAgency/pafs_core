@@ -2,7 +2,7 @@
 
 module PafsCore
   class ConfirmationController < ActionController::Base
-    include PafsCore::CustomHeaders
+    include CustomHeaders
 
     protect_from_forgery with: :null_session
     before_action :cache_busting
@@ -75,7 +75,7 @@ module PafsCore
     end
 
     def service
-      @service ||= PafsCore::ProjectService.new
+      @service ||= ProjectService.new
     end
   end
 end
