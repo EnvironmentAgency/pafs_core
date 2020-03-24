@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateBootstrap < ActiveRecord::Migration
   def change
     create_table :pafs_core_bootstraps do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePafsCoreReferenceCounters < ActiveRecord::Migration
   def change
     create_table :pafs_core_reference_counters do |t|

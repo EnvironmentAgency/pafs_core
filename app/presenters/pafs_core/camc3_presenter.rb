@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "pafs_core/shapefile_serializer"
 
 class PafsCore::Camc3Presenter

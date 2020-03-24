@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddRisksStepToProjects < ActiveRecord::Migration
   def change
     add_column :pafs_core_projects, :fluvial_flooding, :boolean

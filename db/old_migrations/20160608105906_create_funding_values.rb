@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateFundingValues < ActiveRecord::Migration
   def change
     create_table :pafs_core_funding_values do |t|

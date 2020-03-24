@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateState < ActiveRecord::Migration
   def change
     create_table :pafs_core_states do |t|

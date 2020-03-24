@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddEnabledToUsers < ActiveRecord::Migration
   def change
     add_column :pafs_core_users, :disabled, :boolean, null: false, default: false

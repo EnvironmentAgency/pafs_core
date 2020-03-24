@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateUserAreas < ActiveRecord::Migration
   def change
     create_table :pafs_core_user_areas do |t|

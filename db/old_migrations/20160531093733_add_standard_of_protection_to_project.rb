@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddStandardOfProtectionToProject < ActiveRecord::Migration
   def change
     add_column :pafs_core_projects, :flood_protection_before, :integer

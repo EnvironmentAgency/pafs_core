@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePafsCoreAreaDownloads < ActiveRecord::Migration
   def change
     create_table :pafs_core_area_downloads do |t|

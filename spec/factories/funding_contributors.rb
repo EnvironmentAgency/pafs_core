@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :funding_contributor, class: "PafsCore::FundingContributor" do
     name { "EnviroCo Ltd" }
