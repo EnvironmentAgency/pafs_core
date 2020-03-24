@@ -73,7 +73,7 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
     subject { PafsCore::CoastalErosionProtectionOutcomesStep.new @project }
 
     let(:params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { coastal_erosion_protection_outcomes_step:
           { coastal_erosion_protection_outcomes_attributes:
             [{ financial_year: 2020,
@@ -84,7 +84,7 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
     end
 
     let(:error_params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { coastal_erosion_protection_outcomes_step:
           { coastal_erosion_protection_outcomes_attributes:
             [{ financial_year: 2020,

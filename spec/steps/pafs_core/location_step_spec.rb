@@ -32,7 +32,7 @@ RSpec.describe PafsCore::LocationStep, type: :model do
   # describe "#update", :vcr do
   #   subject { FactoryBot.create(:location_step) }
   #   let(:params) {
-  #     HashWithIndifferentAccess.new({
+  #     ActionController::Parameters.new({
   #       location_step: {
   #         project_location: "[\"457736\", \"221754\"]",
   #         project_location_zoom_level: 19
@@ -40,7 +40,7 @@ RSpec.describe PafsCore::LocationStep, type: :model do
   #     })
   #   }
   #   let(:error_params) {
-  #     HashWithIndifferentAccess.new({
+  #     ActionController::Parameters.new({
   #       location_step: {
   #         project_location: nil,
   #         project_location_zoom_level: nil

@@ -20,10 +20,10 @@ RSpec.describe PafsCore::FundingSourcesStep, type: :model do
   describe "#update" do
     subject { FactoryBot.create(:funding_sources_step) }
     let(:params) do
-      HashWithIndifferentAccess.new({ funding_sources_step: { growth_funding: "1" } })
+      ActionController::Parameters.new({ funding_sources_step: { growth_funding: "1" } })
     end
     let(:error_params) do
-      HashWithIndifferentAccess.new({ funding_sources_step: { fcerm_gia: nil } })
+      ActionController::Parameters.new({ funding_sources_step: { fcerm_gia: nil } })
     end
 
     it "saves the state of valid params" do

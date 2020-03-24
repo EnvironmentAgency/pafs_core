@@ -21,7 +21,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:standard_of_protection_coastal_step)
                                   .permit(:coastal_protection_before)
     end

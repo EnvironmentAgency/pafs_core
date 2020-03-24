@@ -13,8 +13,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters
-        .new(params)
+      params
         .require(:award_contract_date_step)
         .permit(:award_contract_month, :award_contract_year)
     end

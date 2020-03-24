@@ -64,7 +64,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:funding_calculator_step)
                                   .permit(:funding_calculator, :expected_version)
     end

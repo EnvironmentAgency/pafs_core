@@ -9,7 +9,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:financial_year_step)
                                   .permit(:project_end_financial_year)
     end

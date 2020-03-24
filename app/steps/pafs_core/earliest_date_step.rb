@@ -13,7 +13,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params).require(:earliest_date_step).permit(
+      params.require(:earliest_date_step).permit(
         :earliest_start_month, :earliest_start_year
       )
     end

@@ -46,8 +46,8 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:financial_year_step) }
-    let(:params) { HashWithIndifferentAccess.new({ financial_year_step: { project_end_financial_year: "2021" } }) }
-    let(:error_params) { HashWithIndifferentAccess.new({ financial_year_step: { project_end_financial_year: "1983" } }) }
+    let(:params) { ActionController::Parameters.new({ financial_year_step: { project_end_financial_year: "2021" } }) }
+    let(:error_params) { ActionController::Parameters.new({ financial_year_step: { project_end_financial_year: "1983" } }) }
 
     it "saves the :project_end_financial_year if valid" do
       expect(subject.project_end_financial_year).not_to eq 2021

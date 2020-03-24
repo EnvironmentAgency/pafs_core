@@ -9,7 +9,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:fish_or_eel_amount_step)
                                   .permit(:fish_or_eel_amount)
     end

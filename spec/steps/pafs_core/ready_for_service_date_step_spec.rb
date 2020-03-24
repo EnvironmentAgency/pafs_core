@@ -20,7 +20,7 @@ RSpec.describe PafsCore::ReadyForServiceDateStep, type: :model do
 
     subject { FactoryBot.create(:ready_for_service_date_step, project: project) }
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       ready_for_service_date_step: {
                                         ready_for_service_year: 5.years.from_now.year.to_s,
                                         ready_for_service_month: "1"
@@ -29,19 +29,19 @@ RSpec.describe PafsCore::ReadyForServiceDateStep, type: :model do
     end
 
     let(:invalid_month_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       ready_for_service_date_step: { ready_for_service_month: "83", ready_for_service_year: "1999" }
                                     })
     end
 
     let(:invalid_year_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       ready_for_service_date_step: { ready_for_service_month: "12", ready_for_service_year: "2000" }
                                     })
     end
 
     # Commented out as dates can now be in the past ...doesn't reduce the test covergage. let(:invalid_date_params) {
-    # HashWithIndifferentAccess.new({
+    # ActionController::Parameters.new({
     #  ready_for_service_date_step: { ready_for_service_month: "12", ready_for_service_year: "2013" }
     # })
     # }
@@ -49,7 +49,9 @@ RSpec.describe PafsCore::ReadyForServiceDateStep, type: :model do
     it "saves the start construction fields when valid" do
       %i[ready_for_service_month ready_for_service_year].each do |attr|
         new_val = subject.send(attr) + 1
-        expect(subject.update({ ready_for_service_date_step: { attr => new_val } })).to be true
+        params = ActionController::Parameters.new(ready_for_service_date_step: { attr => new_val })
+
+        expect(subject.update(params)).to be true
         expect(subject.send(attr)).to eq new_val
       end
     end

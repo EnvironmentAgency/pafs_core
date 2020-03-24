@@ -45,7 +45,7 @@ RSpec.describe PafsCore::SurfaceAndGroundwaterAmountStep, type: :model do
   end
 
   def make_params(value)
-    HashWithIndifferentAccess.new(
+    ActionController::Parameters.new(
       surface_and_groundwater_amount_step: {
         improve_surface_or_groundwater_amount: value
       }

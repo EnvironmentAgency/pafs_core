@@ -13,8 +13,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters
-        .new(params)
+      params
         .require(:start_construction_date_step)
         .permit(:start_construction_month, :start_construction_year)
     end

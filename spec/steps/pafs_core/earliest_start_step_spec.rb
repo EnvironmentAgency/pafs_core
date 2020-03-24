@@ -17,9 +17,9 @@ RSpec.describe PafsCore::EarliestStartStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:earliest_start_step) }
-    let(:true_params) { HashWithIndifferentAccess.new({ earliest_start_step: { could_start_early: "true" } }) }
-    let(:false_params) { HashWithIndifferentAccess.new({ earliest_start_step: { could_start_early: "false" } }) }
-    let(:error_params) { HashWithIndifferentAccess.new({ earliest_start_step: { could_start_early: nil } }) }
+    let(:true_params) { ActionController::Parameters.new({ earliest_start_step: { could_start_early: "true" } }) }
+    let(:false_params) { ActionController::Parameters.new({ earliest_start_step: { could_start_early: "false" } }) }
+    let(:error_params) { ActionController::Parameters.new({ earliest_start_step: { could_start_early: nil } }) }
 
     it "saves the :could_start_early when valid" do
       expect(subject.update(true_params)).to be true

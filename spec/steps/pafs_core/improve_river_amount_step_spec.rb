@@ -42,7 +42,7 @@ RSpec.describe PafsCore::ImproveRiverAmountStep, type: :model do
   end
 
   def make_params(value)
-    HashWithIndifferentAccess.new(
+    ActionController::Parameters.new(
       improve_river_amount_step: { improve_river_amount: value }
     )
   end

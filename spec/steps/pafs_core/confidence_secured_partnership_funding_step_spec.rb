@@ -24,7 +24,7 @@ RSpec.describe PafsCore::ConfidenceSecuredPartnershipFundingStep, type: :model d
 
   describe "#update" do
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       confidence_secured_partnership_funding_step: {
                                         confidence_secured_partnership_funding: "high"
                                       }

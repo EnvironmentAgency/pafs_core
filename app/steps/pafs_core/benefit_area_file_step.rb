@@ -60,7 +60,7 @@ module PafsCore
     end
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:benefit_area_file_step)
                                   .permit(:benefit_area_file)
     end

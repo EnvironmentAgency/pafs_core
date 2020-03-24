@@ -65,12 +65,12 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
                                              type: content_type)
     end
     let(:params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { funding_calculator_step: { funding_calculator: temp_file, expected_version: "v8" } }
       )
     end
     let(:empty_params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { funding_calculator_step: { funding_calculator_file_name: "placeholder", expected_version: "v8" } }
       )
     end

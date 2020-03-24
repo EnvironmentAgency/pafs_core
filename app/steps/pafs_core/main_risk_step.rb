@@ -11,7 +11,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params).require(:main_risk_step).permit(:main_risk)
+      params.require(:main_risk_step).permit(:main_risk)
     end
 
     def main_risk_is_present_and_a_selected_risk

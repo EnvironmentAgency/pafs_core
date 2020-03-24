@@ -16,7 +16,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:confidence_homes_better_protected_step)
                                   .permit(
                                     :confidence_homes_better_protected

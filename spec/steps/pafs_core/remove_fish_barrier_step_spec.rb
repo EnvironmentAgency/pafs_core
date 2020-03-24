@@ -36,7 +36,7 @@ RSpec.describe PafsCore::RemoveFishBarrierStep, type: :model do
   end
 
   def make_params(value)
-    HashWithIndifferentAccess.new(
+    ActionController::Parameters.new(
       remove_fish_barrier_step: { remove_fish_barrier: value }
     )
   end

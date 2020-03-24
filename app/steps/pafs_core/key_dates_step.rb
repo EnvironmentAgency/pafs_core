@@ -16,7 +16,7 @@ module PafsCore
     #
     #   private
     #     def step_params(params)
-    #       ActionController::Parameters.new(params).require(:key_dates_step).permit(
+    #       params.require(:key_dates_step).permit(
     #         :start_outline_business_case_month, :start_outline_business_case_year,
     #         :award_contract_month, :award_contract_year,
     #         :start_construction_month, :start_construction_year,

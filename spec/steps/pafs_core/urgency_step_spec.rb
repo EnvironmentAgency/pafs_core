@@ -29,8 +29,8 @@ RSpec.describe PafsCore::UrgencyStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:urgency_step) }
-    let(:params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "legal_need" } }) }
-    let(:error_params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "ABC" } }) }
+    let(:params) { ActionController::Parameters.new({ urgency_step: { urgency_reason: "legal_need" } }) }
+    let(:error_params) { ActionController::Parameters.new({ urgency_step: { urgency_reason: "ABC" } }) }
 
     it "saves the :urgency_reason when valid" do
       expect(subject.urgency_reason).not_to eq "legal_need"
@@ -45,7 +45,7 @@ RSpec.describe PafsCore::UrgencyStep, type: :model do
     end
 
     context "when setting the project to not_urgent" do
-      let(:params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "not_urgent" } }) }
+      let(:params) { ActionController::Parameters.new({ urgency_step: { urgency_reason: "not_urgent" } }) }
 
       it "clears the urgency_details from the project" do
         expect do
