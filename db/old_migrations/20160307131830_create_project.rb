@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateProject < ActiveRecord::Migration
   def change
     create_table :pafs_core_projects do |t|

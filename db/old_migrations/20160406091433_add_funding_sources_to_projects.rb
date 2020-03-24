@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddFundingSourcesToProjects < ActiveRecord::Migration
   def change
     add_column :pafs_core_projects, :fcerm_gia, :boolean

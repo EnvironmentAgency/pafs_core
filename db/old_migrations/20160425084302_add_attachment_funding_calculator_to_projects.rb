@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAttachmentFundingCalculatorToProjects < ActiveRecord::Migration
   def self.up
     add_column :pafs_core_projects, :funding_calculator_file_name, :string

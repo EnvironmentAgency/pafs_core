@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAttachmentBenefitAreaFileToProjects < ActiveRecord::Migration
   def change
     add_column :pafs_core_projects, :benefit_area_file_name, :string

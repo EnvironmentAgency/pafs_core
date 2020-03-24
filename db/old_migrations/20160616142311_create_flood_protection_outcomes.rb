@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateFloodProtectionOutcomes < ActiveRecord::Migration
   def change
     create_table :pafs_core_flood_protection_outcomes do |t|

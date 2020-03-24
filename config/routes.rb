@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 PafsCore::Engine.routes.draw do
   resources :bootstraps do
     collection do

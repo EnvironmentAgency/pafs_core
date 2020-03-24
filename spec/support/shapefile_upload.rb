@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ShapefileUpload
   class Upload
     include PafsCore::FileStorage

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddProjectRmaName < ActiveRecord::Migration
   def change
     add_column :pafs_core_projects, :rma_name, :string, null: true

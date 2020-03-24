@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPafsCoreAreaProjects < ActiveRecord::Migration
   def change
     create_table :pafs_core_area_projects do |t|

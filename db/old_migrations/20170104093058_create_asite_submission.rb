@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAsiteSubmission < ActiveRecord::Migration
   def change
     create_table :pafs_core_asite_submissions do |t|
