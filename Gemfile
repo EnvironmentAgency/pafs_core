@@ -23,6 +23,8 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'climate_control'
   gem 'json_schemer'
+  gem 'rails-controller-testing'
+  gem "defra_ruby_style"
 end
 
 group :test do
