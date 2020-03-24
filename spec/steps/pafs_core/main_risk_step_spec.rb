@@ -34,14 +34,14 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
     context "a project that does protect households" do
       context "protecting against flooding" do
         let(:params) do
-          HashWithIndifferentAccess.new({
+          ActionController::Parameters.new({
                                           main_risk_step: {
                                             main_risk: "groundwater_flooding"
                                           }
                                         })
         end
         let(:error_params) do
-          HashWithIndifferentAccess.new({
+          ActionController::Parameters.new({
                                           main_risk_step: {
                                             main_risk: nil
                                           }
@@ -63,7 +63,7 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
         end
 
         let(:params) do
-          HashWithIndifferentAccess.new({
+          ActionController::Parameters.new({
                                           main_risk_step: {
                                             main_risk: "coastal_erosion"
                                           }

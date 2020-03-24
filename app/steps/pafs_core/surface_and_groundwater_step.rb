@@ -12,7 +12,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:surface_and_groundwater_step)
                                   .permit(:improve_surface_or_groundwater)
     end

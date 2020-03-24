@@ -117,7 +117,7 @@ module PafsCore
     end
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:flood_protection_outcomes_step)
                                   .permit(:reduced_risk_of_households_for_floods, flood_protection_outcomes_attributes:
                                     %i[

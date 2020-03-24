@@ -18,7 +18,7 @@ RSpec.describe PafsCore::RisksStep, type: :model do
   describe "#update" do
     subject { FactoryBot.create(:risks_step) }
     let(:params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { risks_step: {
           groundwater_flooding: "1",
           coastal_erosion: "1"
@@ -26,21 +26,21 @@ RSpec.describe PafsCore::RisksStep, type: :model do
       )
     end
     let(:flood_params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { risks_step: {
           groundwater_flooding: "1"
         } }
       )
     end
     let(:coastal_params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { risks_step: {
           coastal_erosion: "1"
         } }
       )
     end
     let(:error_params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { risks_step: {
           fluvial_flooding: nil
         } }

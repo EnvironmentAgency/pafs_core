@@ -24,7 +24,7 @@ RSpec.describe PafsCore::ConfidenceHomesBetterProtectedStep, type: :model do
 
   describe "#update" do
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       confidence_homes_better_protected_step: {
                                         confidence_homes_better_protected: "high"
                                       }

@@ -77,7 +77,7 @@ RSpec.describe PafsCore::FloodProtectionOutcomesStep, type: :model do
     subject { PafsCore::FloodProtectionOutcomesStep.new @project }
 
     let(:params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { flood_protection_outcomes_step:
           { flood_protection_outcomes_attributes:
             [{ financial_year: 2020,
@@ -88,7 +88,7 @@ RSpec.describe PafsCore::FloodProtectionOutcomesStep, type: :model do
     end
 
     let(:error_params) do
-      HashWithIndifferentAccess.new(
+      ActionController::Parameters.new(
         { flood_protection_outcomes_step:
           { flood_protection_outcomes_attributes:
             [{ financial_year: 2020,

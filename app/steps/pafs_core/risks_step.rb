@@ -21,7 +21,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params).require(:risks_step).permit(
+      params.require(:risks_step).permit(
         :fluvial_flooding,
         :tidal_flooding,
         :groundwater_flooding,

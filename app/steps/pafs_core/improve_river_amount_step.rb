@@ -9,7 +9,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:improve_river_amount_step)
                                   .permit(:improve_river_amount)
     end

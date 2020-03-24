@@ -16,7 +16,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params)
+      params
                                   .require(:carbon_cost_operation_step)
                                   .permit(
                                     :carbon_cost_operation

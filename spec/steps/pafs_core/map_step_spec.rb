@@ -54,7 +54,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
     subject { FactoryBot.create(:map_step) }
 
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       map_step: {
                                         benefit_area: "[[444444, 222222], [421212, 212121], [432123, 234432]]",
                                         benefit_area_zoom_level: 3,
@@ -66,7 +66,7 @@ RSpec.describe PafsCore::MapStep, type: :model do
     let(:benefit_area_file) { fixture_file_upload("shapefile.zip") }
 
     let(:file_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       map_step: {
                                         benefit_area_file: benefit_area_file
                                       }
@@ -90,16 +90,17 @@ RSpec.describe PafsCore::MapStep, type: :model do
 
   describe "#delete_benefit_area_file" do
     let(:benefit_area_file) { fixture_file_upload("shapefile.zip", "application/zip") }
+    let(:params) { ActionController::Parameters.new(map_step: { benefit_area_file: benefit_area_file }) }
     subject { FactoryBot.build(:map_step) }
 
     context "when an uploaded file exists" do
       it "removes the file from storage" do
-        subject.update(map_step: { benefit_area_file: benefit_area_file })
+        subject.update(params)
         subject.delete_benefit_area_file
       end
 
       it "resets the stored file attributes" do
-        subject.update(map_step: { benefit_area_file: benefit_area_file })
+        subject.update(params)
         expect(subject.benefit_area_file_name).not_to be_nil
         expect(subject.benefit_area_content_type).not_to be_nil
         expect(subject.benefit_area_file_size).not_to be_nil

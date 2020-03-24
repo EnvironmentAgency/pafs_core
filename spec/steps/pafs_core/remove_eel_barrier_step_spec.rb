@@ -36,7 +36,7 @@ RSpec.describe PafsCore::RemoveEelBarrierStep, type: :model do
   end
 
   def make_params(value)
-    HashWithIndifferentAccess.new(
+    ActionController::Parameters.new(
       remove_eel_barrier_step: { remove_eel_barrier: value }
     )
   end

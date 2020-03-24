@@ -37,7 +37,7 @@ module PafsCore
     end
 
     def step_params(params)
-      ActionController::Parameters.new(params).require(param_key).permit(
+      params.require(param_key).permit(
         funding_contributors_attributes: %i[
           id
           amount

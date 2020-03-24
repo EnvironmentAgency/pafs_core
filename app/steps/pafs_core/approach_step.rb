@@ -14,7 +14,7 @@ module PafsCore
     private
 
     def step_params(params)
-      ActionController::Parameters.new(params).require(:approach_step).permit(:approach)
+      params.require(:approach_step).permit(:approach)
     end
   end
 end

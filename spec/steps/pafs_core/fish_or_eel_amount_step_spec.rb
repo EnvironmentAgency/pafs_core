@@ -40,7 +40,7 @@ RSpec.describe PafsCore::FishOrEelAmountStep, type: :model do
   end
 
   def make_params(value)
-    HashWithIndifferentAccess.new(
+    ActionController::Parameters.new(
       fish_or_eel_amount_step: { fish_or_eel_amount: value }
     )
   end

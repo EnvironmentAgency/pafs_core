@@ -93,7 +93,7 @@ module PafsCore
     end
 
     def step_params(params)
-      @step_params ||= ActionController::Parameters.new(params)
+      @step_params ||= params
                                                    .permit(name: %i[previous current])
                                                    .fetch(:name, {}).values
                                                    .reject { |name| name[:current].strip.blank? }

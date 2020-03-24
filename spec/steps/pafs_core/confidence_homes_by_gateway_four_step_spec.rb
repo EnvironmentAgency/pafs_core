@@ -24,7 +24,7 @@ RSpec.describe PafsCore::ConfidenceHomesByGatewayFourStep, type: :model do
 
   describe "#update" do
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       confidence_homes_by_gateway_four_step: {
                                         confidence_homes_by_gateway_four: "high"
                                       }

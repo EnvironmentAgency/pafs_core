@@ -25,7 +25,7 @@ RSpec.describe PafsCore::UrgencyDetailsStep, type: :model do
 
   describe "#update" do
     let(:params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       urgency_details_step: {
                                         urgency_details: "Hamster, peas and chips"
                                       }
@@ -33,7 +33,7 @@ RSpec.describe PafsCore::UrgencyDetailsStep, type: :model do
     end
 
     let(:error_params) do
-      HashWithIndifferentAccess.new({
+      ActionController::Parameters.new({
                                       urgency_details_step: {
                                         urgency_details: ""
                                       }

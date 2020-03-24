@@ -45,7 +45,7 @@ RSpec.describe PafsCore::HabitatCreationStep, type: :model do
   end
 
   def make_params(value)
-    HashWithIndifferentAccess.new(
+    ActionController::Parameters.new(
       habitat_creation_step: { create_habitat: value }
     )
   end

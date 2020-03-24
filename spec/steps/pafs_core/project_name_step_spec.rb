@@ -13,8 +13,8 @@ RSpec.describe PafsCore::ProjectNameStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:project_name_step) }
-    let(:params) { HashWithIndifferentAccess.new({ project_name_step: { name: "Wigwam waste water" } }) }
-    let(:error_params) { HashWithIndifferentAccess.new({ project_name_step: { name: nil } }) }
+    let(:params) { ActionController::Parameters.new({ project_name_step: { name: "Wigwam waste water" } }) }
+    let(:error_params) { ActionController::Parameters.new({ project_name_step: { name: nil } }) }
 
     it "saves the :name when valid" do
       expect(subject.name).not_to eq "Wigwam waste water"

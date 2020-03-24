@@ -37,7 +37,7 @@ RSpec.describe PafsCore::ImproveSpaOrSacStep, type: :model do
   end
 
   def make_params(value)
-    HashWithIndifferentAccess.new(
+    ActionController::Parameters.new(
       improve_spa_or_sac_step: { improve_spa_or_sac: value }
     )
   end
