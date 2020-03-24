@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
@@ -39,21 +40,21 @@ RSpec.describe PafsCore::FinancialYearAlternativeStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:financial_year_alternative_step) }
-    let(:params) {
+    let(:params) do
       HashWithIndifferentAccess.new({
-        financial_year_alternative_step: {
-          project_end_financial_year: "2020"
-        }
-      })
-    }
+                                      financial_year_alternative_step: {
+                                        project_end_financial_year: "2020"
+                                      }
+                                    })
+    end
 
-    let(:error_params) {
+    let(:error_params) do
       HashWithIndifferentAccess.new({
-        financial_year_alternative_step: {
-          project_end_financial_year: "1983"
-        }
-      })
-    }
+                                      financial_year_alternative_step: {
+                                        project_end_financial_year: "1983"
+                                      }
+                                    })
+    end
 
     it "saves the :project_end_financial_year if valid" do
       expect(subject.project_end_financial_year).not_to eq 2020

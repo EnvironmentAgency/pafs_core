@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "roo"
 
 module PafsCore
@@ -10,7 +11,7 @@ module PafsCore
         calculator = Roo::Excelx.new(file.path)
         begin
           extract_data(calculator, project)
-        rescue => e
+        rescue StandardError => e
           puts e
         end
       else
@@ -31,7 +32,7 @@ module PafsCore
       data[:hectares_of_net_water_intertidal_habitat_created] = sheet.cell("C", 82)
       data[:kilometres_of_protected_river_improved] = sheet.cell("C", 83)
 
-      #data
+      # data
       project.update(data)
     end
 

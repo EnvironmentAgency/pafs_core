@@ -21,8 +21,8 @@ class CreateProgramUploads < ActiveRecord::Migration
     end
 
     add_index :pafs_core_program_upload_items, :program_upload_id,
-      name: "idx_program_upload_items"
+              name: "idx_program_upload_items"
     add_index :pafs_core_program_upload_failures, :program_upload_item_id,
-      name: "idx_program_upload_failures"
+              name: "idx_program_upload_failures"
   end
 end

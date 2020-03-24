@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class LocationStep < BasicStep
     delegate :grid_reference, :grid_reference=,
@@ -27,7 +28,8 @@ module PafsCore
       result
     end
 
-  private
+    private
+
     def step_params(params)
       ActionController::Parameters.new(params)
                                   .require(:location_step)
@@ -38,9 +40,11 @@ module PafsCore
       if grid_reference.present?
         # check format
         gr = PafsCore::GridReference.new grid_reference
-        errors.add(:grid_reference,
-                   "^The National Grid Reference must be 2 letters "\
-                   "followed by 10 digits") unless gr.valid?
+        unless gr.valid?
+          errors.add(:grid_reference,
+                     "^The National Grid Reference must be 2 letters "\
+                     "followed by 10 digits")
+        end
       else
         errors.add(:grid_reference, "^Tell us the project's National Grid Reference")
       end

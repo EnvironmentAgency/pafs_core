@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class AsiteSubmissionJob < ApplicationJob
     def perform(project_id)

@@ -8,12 +8,13 @@ module PafsCore
              to: :project
 
     validates :confidence_homes_better_protected, presence: { message: "^Select the confidence level" }
-    validates :confidence_homes_better_protected, inclusion: { 
+    validates :confidence_homes_better_protected, inclusion: {
       in: PafsCore::Confidence::CONFIDENCE_VALUES,
       message: "^Chosen level must be one of the valid values"
     }, if: -> { confidence_homes_better_protected.present? }
 
-  private
+    private
+
     def step_params(params)
       ActionController::Parameters.new(params)
                                   .require(:confidence_homes_better_protected_step)
@@ -23,4 +24,3 @@ module PafsCore
     end
   end
 end
-

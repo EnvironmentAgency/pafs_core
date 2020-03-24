@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 FactoryBot.define do
   factory :area, class: PafsCore::Area do
     sequence :name do |n|

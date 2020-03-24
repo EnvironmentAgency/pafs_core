@@ -24,16 +24,15 @@ RSpec.describe PafsCore::FundingValuesStep, type: :model do
   describe "#update" do
     subject { PafsCore::FundingValuesStep.new @project }
 
-    let(:params) {
+    let(:params) do
       HashWithIndifferentAccess.new(
         { funding_values_step: {
-            funding_values_attributes: { 
-              "0" => { financial_year: 2020, fcerm_gia: 500_000 },
-            }
+          funding_values_attributes: {
+            "0" => { financial_year: 2020, fcerm_gia: 500_000 }
           }
-        }
+        } }
       )
-    }
+    end
 
     it "saves the changes" do
       expect { subject.update(params) }.to change { subject.funding_values.count }.by(1)

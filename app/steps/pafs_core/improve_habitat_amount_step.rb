@@ -1,15 +1,17 @@
 # frozen_string_literal: true
+
 module PafsCore
   class ImproveHabitatAmountStep < BasicStep
     include PafsCore::EnvironmentalOutcomes
 
     validate :amount_is_present_and_correct
 
-  private
+    private
+
     def step_params(params)
-      ActionController::Parameters.new(params).
-        require(:improve_habitat_amount_step).
-        permit(:improve_habitat_amount)
+      ActionController::Parameters.new(params)
+                                  .require(:improve_habitat_amount_step)
+                                  .permit(:improve_habitat_amount)
     end
 
     def amount_is_present_and_correct

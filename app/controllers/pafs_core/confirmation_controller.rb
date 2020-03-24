@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class ConfirmationController < ActionController::Base
     include PafsCore::CustomHeaders
@@ -39,7 +40,8 @@ module PafsCore
       end
     end
 
-  private
+    private
+
     def check_submission(submission, attachments)
       state = submission.submission_state
       if state.can_confirm? || state.can_reject?
@@ -49,6 +51,7 @@ module PafsCore
           attachments.each do |a|
             f = submission.asite_files.find_by(filename: a["filename"])
             break unless f && f.checksum == a["checksum"]
+
             valid += 1
           end
           if valid == submission.asite_files.count

@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 # require_relative "./shared_step_spec"
 
@@ -48,16 +49,18 @@ RSpec.describe PafsCore::EarliestDateStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:earliest_date_step) }
-    let(:valid_params) {
+    let(:valid_params) do
       HashWithIndifferentAccess.new(
         { earliest_date_step:
-          { earliest_start_month: "11", earliest_start_year: "2016"}
-        })}
-    let(:error_params) {
+          { earliest_start_month: "11", earliest_start_year: "2016" } }
+      )
+    end
+    let(:error_params) do
       HashWithIndifferentAccess.new(
         { earliest_date_step:
-          { earliest_start_month: "13" }
-        })}
+          { earliest_start_month: "13" } }
+      )
+    end
 
     it "saves the date params when valid" do
       expect(subject.update(valid_params)).to be true

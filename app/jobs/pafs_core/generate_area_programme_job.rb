@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+
 module PafsCore
   class GenerateAreaProgrammeJob < ApplicationJob
-    include PafsCore::Files, PafsCore::FileStorage
+    include PafsCore::FileStorage
+    include PafsCore::Files
 
     def perform(user_id)
       ApplicationRecord.connection_pool.with_connection do

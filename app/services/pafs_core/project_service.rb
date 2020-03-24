@@ -15,7 +15,7 @@ module PafsCore
     end
 
     def create_project(attrs = {})
-      project = PafsCore::Project.create!(initial_attributes(attrs['rma_name']).merge(attrs))
+      project = PafsCore::Project.create!(initial_attributes(attrs["rma_name"]).merge(attrs))
       area = find_project_area(project)
       project.area_projects.create!(area_id: area.id, owner: true)
 
@@ -23,31 +23,31 @@ module PafsCore
     end
 
     def find_project_area(project)
-      (project.rma_name) ? PafsCore::Area.find_by_name(project.rma_name) : project.creator.primary_area
+      project.rma_name ? PafsCore::Area.find_by_name(project.rma_name) : project.creator.primary_area
     end
 
     def find_project(id)
       # make it a case-insensitive search
       # TODO: security check! can the user actually access this project?
       # PafsCore::Project.find_by!(slug: id.to_s.upcase)
-      PafsCore::Project.where(slug: id.to_s.upcase).
-        joins(:area_projects).
-        merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user))).
-        first!
+      PafsCore::Project.where(slug: id.to_s.upcase)
+                       .joins(:area_projects)
+                       .merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user)))
+                       .first!
     end
 
     def downloadable_projects
-      PafsCore::Project.joins(:state).
-        joins(:area_projects).
-        includes(funding_contributors: :funding_value, area_projects: :area).
-        merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user)))
+      PafsCore::Project.joins(:state)
+                       .joins(:area_projects)
+                       .includes(funding_contributors: :funding_value, area_projects: :area)
+                       .merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user)))
     end
 
     def submitted_projects
-      PafsCore::Project.joins(:state).
-        merge(PafsCore::State.submitted).
-        joins(:area_projects).
-        merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user)))
+      PafsCore::Project.joins(:state)
+                       .merge(PafsCore::State.submitted)
+                       .joins(:area_projects)
+                       .merge(PafsCore::AreaProject.where(area_id: area_ids_for_user(user)))
     end
 
     def find_project_without_security(id)
@@ -62,7 +62,7 @@ module PafsCore
     def search(options = {})
       areas = area_ids_for_user(user)
 
-      sort_col = options[:sort_col];
+      sort_col = options[:sort_col]
       sort_order = options[:sort_order]
 
       sort_col = "updated_at" if sort_col.nil?
@@ -72,17 +72,21 @@ module PafsCore
               .joins(:area_projects)
               .merge(PafsCore::AreaProject.where(area_id: areas))
 
-      query = query
-              .where(
-                [
-                  "lower(pafs_core_projects.name) LIKE ? OR lower(reference_number) LIKE ?",
-                  "%#{options[:q].downcase}%",
-                  "%#{options[:q].downcase}%"
-                ]
-      ) unless options[:q].nil?
+      unless options[:q].nil?
+        query = query
+                .where(
+                  [
+                    "lower(pafs_core_projects.name) LIKE ? OR lower(reference_number) LIKE ?",
+                    "%#{options[:q].downcase}%",
+                    "%#{options[:q].downcase}%"
+                  ]
+                )
+      end
 
       query = query.joins(:state).merge(PafsCore::State.where(state: options[:state])) unless options[:state].nil?
-      query = query.joins(:state).merge(PafsCore::State.where.not(state: 'archived')) unless options[:state] == 'archived'
+      unless options[:state] == "archived"
+        query = query.joins(:state).merge(PafsCore::State.where.not(state: "archived"))
+      end
 
       query.order("#{sort_col}": sort_order)
     end
@@ -153,7 +157,8 @@ module PafsCore
       }).uniq
     end
 
-  private
+    private
+
     def initial_attributes(area_name = nil)
       {
         reference_number: self.class.generate_reference_number(derive_rfcc_code_from_user(area_name)),
@@ -163,7 +168,8 @@ module PafsCore
     end
 
     def derive_rfcc_code_from_user(area_name)
-      raise RuntimeError, "User has no RFCC area code" unless user.rfcc_code(area_name)
+      raise "User has no RFCC area code" unless user.rfcc_code(area_name)
+
       user.rfcc_code(area_name)
     end
   end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "fileutils"
 
 # This is a local file replacement for AWS storage only to
@@ -15,35 +16,36 @@ module PafsCore
       dest = file_path(to_path)
       x = FileUtils.mkdir_p(File.dirname(dest))
       FileUtils.cp(from_path, dest)
-    rescue
-      raise PafsCore::FileNotFoundError.new("Storage file not found: #{from_path}")
+    rescue StandardError
+      raise PafsCore::FileNotFoundError, "Storage file not found: #{from_path}"
     end
 
     def upload_data(io_object, to_path)
       dest = file_path(to_path)
       x = FileUtils.mkdir_p(File.dirname(dest))
-      File.open(dest, "wb",) { |f| f.write(io_object) }
-    rescue => e
-      raise PafsCore::FileNotFoundError.new("Something went wrong: #{dest}\n#{e}")
+      File.open(dest, "wb") { |f| f.write(io_object) }
+    rescue StandardError => e
+      raise PafsCore::FileNotFoundError, "Something went wrong: #{dest}\n#{e}"
     end
 
     def download(file_key, dest)
-      if File.exists?(file_path(file_key))
+      if File.exist?(file_path(file_key))
         FileUtils.cp(file_path(file_key), dest)
       else
-        raise PafsCore::FileNotFoundError.new("Storage file not found: #{file_key}")
+        raise PafsCore::FileNotFoundError, "Storage file not found: #{file_key}"
       end
     end
 
     def delete(file_key)
-      if File.exists? file_path(file_key)
+      if File.exist? file_path(file_key)
         FileUtils.rm(file_path(file_key))
       else
-        raise PafsCore::FileNotFoundError.new("Storage file not found: #{file_key}")
+        raise PafsCore::FileNotFoundError, "Storage file not found: #{file_key}"
       end
     end
 
-  private
+    private
+
     def file_path(path)
       Rails.root.join("tmp", path)
     end

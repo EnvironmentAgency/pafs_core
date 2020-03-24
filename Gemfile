@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 # Declare your gem's dependencies in pafs_core.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -10,25 +10,25 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-gem 'sprockets-rails'
 gem "dibble", "~> 0.1",
-  git: "https://github.com/tonyheadford/dibble",
-  branch: "develop"
+    git: "https://github.com/tonyheadford/dibble",
+    branch: "develop"
+gem "sprockets-rails"
 
-gem 'rubyzip', "~> 1.2"
+gem "rubyzip", "~> 1.2"
 
 group :development, :test do
-  gem 'byebug'
-  gem 'pry'
-  gem 'guard-rspec', require: false
-  gem 'climate_control'
-  gem 'json-schema'
-  gem 'rails-controller-testing'
+  gem "byebug"
+  gem "climate_control"
   gem "defra_ruby_style"
+  gem "guard-rspec", require: false
+  gem "json-schema"
+  gem "pry"
+  gem "rails-controller-testing"
 end
 
 group :test do
   gem "codeclimate-test-reporter", "~> 0.6", require: false
-  gem 'database_cleaner'
-  gem 'memory_profiler'
+  gem "database_cleaner"
+  gem "memory_profiler"
 end

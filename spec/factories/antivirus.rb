@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "clamav/client"
 FactoryBot.define do
   factory :virus_clear, class: ClamAV::SuccessResponse do

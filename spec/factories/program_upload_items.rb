@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryBot.define do
   factory :program_upload_item_success, class: PafsCore::ProgramUploadItem do
     program_upload

@@ -13,5 +13,3 @@ module PafsCore
     end
   end
 end
-
-

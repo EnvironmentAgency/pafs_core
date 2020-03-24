@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 class PafsCore::ArchivesController < PafsCore::ApplicationController
   def index
     page = params.fetch(:page, 1)
@@ -8,6 +9,7 @@ class PafsCore::ArchivesController < PafsCore::ApplicationController
   end
 
   private
+
   def navigator
     @navigator ||= PafsCore::ProjectNavigator.new current_resource
   end

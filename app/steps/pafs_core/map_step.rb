@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   class MapStep < BasicStep
     include PafsCore::FileTypes
@@ -39,7 +40,7 @@ module PafsCore
           return false
         end
       else
-        sp[:benefit_area_centre] = JSON.parse(sp[:benefit_area_centre]) if sp[:benefit_area_centre] != nil
+        sp[:benefit_area_centre] = JSON.parse(sp[:benefit_area_centre]) unless sp[:benefit_area_centre].nil?
         sp[:benefit_area_zoom_level] = sp[:benefit_area_zoom_level].to_i
         assign_attributes(sp)
       end
@@ -68,7 +69,7 @@ module PafsCore
       end
     end
 
-    def before_view(params)
+    def before_view(_params)
       @map_centre = PafsCore::MapService.new
                                         .find(
                                           benefit_area_centre.join(","),
@@ -83,26 +84,24 @@ module PafsCore
     end
 
     def upload_benefit_area_file(uploaded_file)
-      begin
-        old_file = benefit_area_file_name
-        # virus check and upload to S3
-        filename = File.basename(uploaded_file.original_filename)
-        dest_file = File.join(storage_path, filename)
-        storage.upload(uploaded_file.tempfile.path, dest_file)
+      old_file = benefit_area_file_name
+      # virus check and upload to S3
+      filename = File.basename(uploaded_file.original_filename)
+      dest_file = File.join(storage_path, filename)
+      storage.upload(uploaded_file.tempfile.path, dest_file)
 
-        if old_file && old_file != filename
-          # aws doesn't raise an error if it cannot find the key when deleting
-          storage.delete(File.join(storage_path, old_file))
-        end
-
-        self.benefit_area_file_name = filename
-        self.benefit_area_content_type = uploaded_file.content_type
-        self.benefit_area_file_size = uploaded_file.size
-        self.benefit_area_file_updated_at = Time.zone.now
-        self.virus_info = nil
-      rescue PafsCore::VirusFoundError, PafsCore::VirusScannerError => e
-        self.virus_info = e.message
+      if old_file && old_file != filename
+        # aws doesn't raise an error if it cannot find the key when deleting
+        storage.delete(File.join(storage_path, old_file))
       end
+
+      self.benefit_area_file_name = filename
+      self.benefit_area_content_type = uploaded_file.content_type
+      self.benefit_area_file_size = uploaded_file.size
+      self.benefit_area_file_updated_at = Time.zone.now
+      self.virus_info = nil
+    rescue PafsCore::VirusFoundError, PafsCore::VirusScannerError => e
+      self.virus_info = e.message
     end
 
     def reset_file_attributes

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::ProjectsController, type: :controller do
@@ -75,19 +76,19 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
     context "when given valid data to save" do
       it "updates the project" do
         patch :save, id: project.to_param, step: "project_name",
-          project_name_step: { name: "Wigwam" }
+                     project_name_step: { name: "Wigwam" }
         expect(PafsCore::Project.find(project.id).name).to eq "Wigwam"
       end
 
       it "redirects to the next step or summary" do
         patch :save, id: project.to_param, step: "project_name",
-          project_name_step: { name: "Haystack" }
-        expect(response).to redirect_to project_path(id: project.to_param, anchor: 'project-name')
+                     project_name_step: { name: "Haystack" }
+        expect(response).to redirect_to project_path(id: project.to_param, anchor: "project-name")
       end
     end
 
-    context 'user completes a section' do
-      context 'saving the project name' do
+    context "user completes a section" do
+      context "saving the project name" do
         let(:params) do
           {
             id: project.to_param,
@@ -100,11 +101,11 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
 
         it "redirects to the project name" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'project-name')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "project-name")
         end
       end
 
-      context 'saving the project type' do
+      context "saving the project type" do
         let(:params) do
           {
             project_type_step: {
@@ -119,11 +120,11 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
 
         it "redirects to the project type" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'project-type')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "project-type")
         end
       end
 
-      context 'saving the financial year' do
+      context "saving the financial year" do
         let(:params) do
           {
             "financial_year_step": {
@@ -138,11 +139,11 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
 
         it "redirects to the financial year" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'financial-year')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "financial-year")
         end
       end
 
-      context 'saving the location' do
+      context "saving the location" do
         let(:params) do
           {
             commit: "Save and continue",
@@ -153,11 +154,11 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
 
         it "redirects to the location" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'location')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "location")
         end
       end
 
-      context 'saving the important dates' do
+      context "saving the important dates" do
         let(:params) do
           {
             ready_for_service_date_step: {
@@ -170,21 +171,21 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the important dates' do
+        it "redirects to the important dates" do
           allow_any_instance_of(PafsCore::Project).to receive(:start_construction_year).and_return(2020)
           allow_any_instance_of(PafsCore::Project).to receive(:start_construction_month).and_return(8)
 
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'key-dates')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "key-dates")
         end
       end
 
-      context 'saving the funding source' do
+      context "saving the funding source" do
         let(:step_params) do
           {
             funding_sources_step: {
               fcerm_gia: "1",
-              local_levy: "1",
+              local_levy: "1"
             },
             commit: "Save and continue",
             id: project.to_param,
@@ -198,33 +199,33 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
               funding_values_attributes: {
                 "0": {
                   financial_year: first_year.financial_year,
-                  id:             first_year.id,
-                  fcerm_gia:      first_year.fcerm_gia,
-                  local_levy:     first_year.local_levy
+                  id: first_year.id,
+                  fcerm_gia: first_year.fcerm_gia,
+                  local_levy: first_year.local_levy
                 },
                 "1": {
                   financial_year: second_year.financial_year,
-                  id:             second_year.id,
-                  fcerm_gia:      second_year.fcerm_gia,
-                  local_levy:     second_year.local_levy
+                  id: second_year.id,
+                  fcerm_gia: second_year.fcerm_gia,
+                  local_levy: second_year.local_levy
                 },
                 "2": {
                   financial_year: third_year.financial_year,
-                  id:             third_year.id,
-                  fcerm_gia:      third_year.fcerm_gia,
-                  local_levy:     third_year.local_levy
+                  id: third_year.id,
+                  fcerm_gia: third_year.fcerm_gia,
+                  local_levy: third_year.local_levy
                 },
                 "3": {
                   financial_year: fourth_year.financial_year,
-                  id:             fourth_year.id,
-                  fcerm_gia:      fourth_year.fcerm_gia,
-                  local_levy:     fourth_year.local_levy
+                  id: fourth_year.id,
+                  fcerm_gia: fourth_year.fcerm_gia,
+                  local_levy: fourth_year.local_levy
                 },
                 "4": {
                   financial_year: fifth_year.financial_year,
-                  id:             fifth_year.id,
-                  fcerm_gia:      fifth_year.fcerm_gia,
-                  local_levy:     fifth_year.local_levy
+                  id: fifth_year.id,
+                  fcerm_gia: fifth_year.fcerm_gia,
+                  local_levy: fifth_year.local_levy
                 }
               }
             },
@@ -279,15 +280,15 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           patch :save, step_params
         end
 
-        it 'redirects to the funding sources' do
+        it "redirects to the funding sources" do
           allow_any_instance_of(PafsCore::Project).to receive(:project_end_financial_year).and_return(2020)
 
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'funding-sources')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "funding-sources")
         end
       end
 
-      context 'saving the earliest start' do
+      context "saving the earliest start" do
         let(:params) do
           {
             earliest_date_step: {
@@ -300,55 +301,55 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the earliest date' do
+        it "redirects to the earliest date" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'earliest-start')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "earliest-start")
         end
       end
 
-      context 'saving the risks' do
+      context "saving the risks" do
         let(:first_flood_project_outcome) do
           project.flood_protection_outcomes.create(
-            financial_year: '-1',
-            households_at_reduced_risk: '',
-            moved_from_very_significant_and_significant_to_moderate_or_low: '',
-            households_protected_from_loss_in_20_percent_most_deprived: ''
+            financial_year: "-1",
+            households_at_reduced_risk: "",
+            moved_from_very_significant_and_significant_to_moderate_or_low: "",
+            households_protected_from_loss_in_20_percent_most_deprived: ""
           )
         end
 
         let(:second_flood_project_outcome) do
           project.flood_protection_outcomes.create(
-            financial_year: '2015',
-            households_at_reduced_risk: '',
-            moved_from_very_significant_and_significant_to_moderate_or_low: '',
-            households_protected_from_loss_in_20_percent_most_deprived: ''
+            financial_year: "2015",
+            households_at_reduced_risk: "",
+            moved_from_very_significant_and_significant_to_moderate_or_low: "",
+            households_protected_from_loss_in_20_percent_most_deprived: ""
           )
         end
 
         let(:third_flood_project_outcome) do
           project.flood_protection_outcomes.create(
-            financial_year: '2016',
-            households_at_reduced_risk: '',
-            moved_from_very_significant_and_significant_to_moderate_or_low: '',
-            households_protected_from_loss_in_20_percent_most_deprived: ''
+            financial_year: "2016",
+            households_at_reduced_risk: "",
+            moved_from_very_significant_and_significant_to_moderate_or_low: "",
+            households_protected_from_loss_in_20_percent_most_deprived: ""
           )
         end
 
         let(:fourth_flood_project_outcome) do
           project.flood_protection_outcomes.create(
-            financial_year: '2017',
-            households_at_reduced_risk: '',
-            moved_from_very_significant_and_significant_to_moderate_or_low: '',
-            households_protected_from_loss_in_20_percent_most_deprived: ''
+            financial_year: "2017",
+            households_at_reduced_risk: "",
+            moved_from_very_significant_and_significant_to_moderate_or_low: "",
+            households_protected_from_loss_in_20_percent_most_deprived: ""
           )
         end
 
         let(:fifth_flood_project_outcome) do
           project.flood_protection_outcomes.create(
-            financial_year: '2018',
-            households_at_reduced_risk: '',
-            moved_from_very_significant_and_significant_to_moderate_or_low: '',
-            households_protected_from_loss_in_20_percent_most_deprived: ''
+            financial_year: "2018",
+            households_at_reduced_risk: "",
+            moved_from_very_significant_and_significant_to_moderate_or_low: "",
+            households_protected_from_loss_in_20_percent_most_deprived: ""
           )
         end
 
@@ -401,15 +402,15 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the risks' do
+        it "redirects to the risks" do
           allow_any_instance_of(PafsCore::Project).to receive(:project_end_financial_year).and_return(2020)
 
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'risks')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "risks")
         end
       end
 
-      context 'saving a standard of protection' do
+      context "saving a standard of protection" do
         let(:params) do
           {
             standard_of_protection_after_step: {
@@ -422,17 +423,17 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the standard of protection' do
+        it "redirects to the standard of protection" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'standard-of-protection')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "standard-of-protection")
         end
       end
 
-      context 'saving an approach' do
+      context "saving an approach" do
         let(:params) do
           {
             approach_step: {
-              approach: "Some text",
+              approach: "Some text"
             },
             commit: "Save and continue",
             id: project.to_param,
@@ -440,13 +441,13 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the approach' do
+        it "redirects to the approach" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'approach')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "approach")
         end
       end
 
-      context 'saving the environmental outcomes' do
+      context "saving the environmental outcomes" do
         let(:params) do
           {
             remove_eel_barrier_step: {
@@ -459,13 +460,13 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the environmental outcomes' do
+        it "redirects to the environmental outcomes" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'environmental-outcomes')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "environmental-outcomes")
         end
       end
 
-      context 'saving a project urgency' do
+      context "saving a project urgency" do
         let(:params) do
           {
             urgency_step: {
@@ -478,13 +479,13 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the project urgency' do
+        it "redirects to the project urgency" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'urgency')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "urgency")
         end
       end
 
-      context 'saving a project calculator' do
+      context "saving a project calculator" do
         let(:params) do
           {
             commit: "Save and continue",
@@ -493,17 +494,17 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the funding calculator' do
+        it "redirects to the funding calculator" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'funding-calculator')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "funding-calculator")
         end
       end
 
-      context 'saving a project confidence assessment' do
+      context "saving a project confidence assessment" do
         let(:params) do
           {
             confidence_secured_partnership_funding_step: {
-              confidence_secured_partnership_funding: 'high'
+              confidence_secured_partnership_funding: "high"
             },
             commit: "Save and continue",
             id: project.to_param,
@@ -511,24 +512,23 @@ RSpec.describe PafsCore::ProjectsController, type: :controller do
           }
         end
 
-        it 'redirects to the confidenxe' do
+        it "redirects to the confidenxe" do
           patch :save, params
-          expect(response).to redirect_to project_path(id: project.to_param, anchor: 'confidence')
+          expect(response).to redirect_to project_path(id: project.to_param, anchor: "confidence")
         end
       end
     end
 
-
     context "when given invalid data to save" do
       it "does not update the project" do
         patch :save, id: project.to_param, step: "project_type",
-          project_type_step: { project_type: "1234" }
+                     project_type_step: { project_type: "1234" }
         expect(PafsCore::Project.find(project.id).project_type).not_to eq "1234"
       end
 
       it "renders the template specified by the selected step" do
         patch :save, id: project.to_param, step: "project_type",
-          project_type_step: { project_type: "1234" }
+                     project_type_step: { project_type: "1234" }
         expect(response).to render_template("project_type")
       end
     end

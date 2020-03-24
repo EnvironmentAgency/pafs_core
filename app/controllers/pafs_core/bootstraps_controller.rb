@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class PafsCore::BootstrapsController < PafsCore::ApplicationController
   # NOTE: this should be added via a decorator in consuming qpp if needed
   # before_action :authenticate_user!
@@ -51,7 +52,8 @@ class PafsCore::BootstrapsController < PafsCore::ApplicationController
     end
   end
 
-private
+  private
+
   def navigator
     @navigator ||= PafsCore::BootstrapNavigator.new current_resource
   end

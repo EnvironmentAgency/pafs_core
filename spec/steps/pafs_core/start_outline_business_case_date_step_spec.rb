@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::StartOutlineBusinessCaseDateStep, type: :model do
@@ -10,26 +11,26 @@ RSpec.describe PafsCore::StartOutlineBusinessCaseDateStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:start_outline_business_case_date_step) }
-    let(:params) {
+    let(:params) do
       HashWithIndifferentAccess.new({
-        start_outline_business_case_date_step: {
-          start_outline_business_case_year: "2020"
-        }
-      })
-    }
+                                      start_outline_business_case_date_step: {
+                                        start_outline_business_case_year: "2020"
+                                      }
+                                    })
+    end
 
-    let(:error_params) {
+    let(:error_params) do
       HashWithIndifferentAccess.new({
-        start_outline_business_case_date_step: {
-          start_outline_business_case_month: "83"
-        }
-      })
-    }
+                                      start_outline_business_case_date_step: {
+                                        start_outline_business_case_month: "83"
+                                      }
+                                    })
+    end
 
     it "saves the start outline business case fields when valid" do
-      [:start_outline_business_case_month, :start_outline_business_case_year].each do |attr|
+      %i[start_outline_business_case_month start_outline_business_case_year].each do |attr|
         new_val = subject.send(attr) + 1
-        expect(subject.update({start_outline_business_case_date_step: { attr => new_val }})).to be true
+        expect(subject.update({ start_outline_business_case_date_step: { attr => new_val } })).to be true
         expect(subject.send(attr)).to eq new_val
       end
     end

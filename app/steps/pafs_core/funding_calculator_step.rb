@@ -1,9 +1,11 @@
 # frozen_string_literal: true
+
 require "roo"
 
 module PafsCore
   class FundingCalculatorStep < BasicStep
-    include PafsCore::FileTypes, PafsCore::FileStorage
+    include PafsCore::FileStorage
+    include PafsCore::FileTypes
     delegate :funding_calculator_file_name, :funding_calculator_file_name=,
              :funding_calculator_content_type, :funding_calculator_content_type=,
              :funding_calculator_file_size, :funding_calculator_file_size=,
@@ -25,6 +27,7 @@ module PafsCore
         uploaded_file = step_params(params).fetch(:funding_calculator, nil)
         if uploaded_file
           return false unless filetype_valid?(uploaded_file)
+
           begin
             old_file = funding_calculator_file_name
             # virus check and upload to S3
@@ -53,11 +56,12 @@ module PafsCore
       end
     end
 
-  private
+    private
+
     def step_params(params)
-      ActionController::Parameters.new(params).
-        require(:funding_calculator_step).
-        permit(:funding_calculator)
+      ActionController::Parameters.new(params)
+                                  .require(:funding_calculator_step)
+                                  .permit(:funding_calculator)
     end
 
     # NOTE: we could probably check the content type of the file but we are
@@ -79,11 +83,11 @@ module PafsCore
     end
 
     def validate_calculator_version
-      if virus_info.nil? && self.uploaded_file
-        sheet = ::Roo::Excelx.new(self.uploaded_file)
+      if virus_info.nil? && uploaded_file
+        sheet = ::Roo::Excelx.new(uploaded_file)
 
-        unless sheet.cell('B', 3) == 'Version 8 January 2014'
-          self.funding_calculator_file_name = ''
+        unless sheet.cell("B", 3) == "Version 8 January 2014"
+          self.funding_calculator_file_name = ""
           errors.add(:base, "The partnership funding calculator file used is the wrong version. The file used must be version 8. Download the correct partnership funding calculator.")
         end
       end

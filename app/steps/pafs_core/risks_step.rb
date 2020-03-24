@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class RisksStep < BasicStep
     include PafsCore::Risks
@@ -17,7 +18,8 @@ module PafsCore
       end
     end
 
-  private
+    private
+
     def step_params(params)
       ActionController::Parameters.new(params).require(:risks_step).permit(
         :fluvial_flooding,
@@ -26,7 +28,8 @@ module PafsCore
         :surface_water_flooding,
         :sea_flooding,
         :reservoir_flooding,
-        :coastal_erosion)
+        :coastal_erosion
+      )
     end
 
     def at_least_one_risk_is_selected

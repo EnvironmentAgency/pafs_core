@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class ValidationPresenter < PafsCore::ProjectSummaryPresenter
     include PafsCore::FundingSources
@@ -37,17 +38,17 @@ module PafsCore
 
     def confidence_complete?
       return true if confidence_homes_better_protected.present? &&
-        confidence_homes_by_gateway_four.present? &&
-        confidence_secured_partnership_funding.present?
+                     confidence_homes_by_gateway_four.present? &&
+                     confidence_secured_partnership_funding.present?
 
       add_error(:confidence, "^Tell us how confident you are in the project")
     end
 
     def carbon_complete?
-      return true if (carbon_cost_build.present?) &&
-        (carbon_cost_build.to_i >= 0) &&
-        (carbon_cost_operation.present?) &&
-        (carbon_cost_operation.to_i >= 0)
+      return true if carbon_cost_build.present? &&
+                     (carbon_cost_build.to_i >= 0) &&
+                     carbon_cost_operation.present? &&
+                     (carbon_cost_operation.to_i >= 0)
 
       add_error(:carbon, "^Tell us about the carbon cost of the project")
     end
@@ -211,7 +212,7 @@ module PafsCore
       if project_protects_households?
         all_articles
       else
-        all_articles - [:risks, :standard_of_protection]
+        all_articles - %i[risks standard_of_protection]
       end
     end
 

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::FundingValue, type: :model do
-  let(:project) do 
+  let(:project) do
     FactoryBot.create(
       :project,
       internal_drainage_boards: true,
@@ -51,7 +52,7 @@ RSpec.describe PafsCore::FundingValue, type: :model do
     end
   end
 
-  describe 'saving' do
+  describe "saving" do
     subject do
       FactoryBot.build(
         :funding_value,
@@ -60,7 +61,7 @@ RSpec.describe PafsCore::FundingValue, type: :model do
         local_levy: 1_000_000,
         internal_drainage_boards: 100,
         growth_funding: 1_000,
-        not_yet_identified: 2_500,
+        not_yet_identified: 2_500
       )
     end
 

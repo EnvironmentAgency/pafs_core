@@ -22,7 +22,7 @@ module PafsCore::Spreadsheet::Contributors
       funding_contributor.update_attributes!(
         amount: amount,
         secured: secured,
-        constrained: constrained,
+        constrained: constrained
       )
     end
 
@@ -32,7 +32,7 @@ module PafsCore::Spreadsheet::Contributors
 
     def funding_value
       @funding_value ||= project.funding_values.find_or_initialize_by(
-        financial_year: financial_year,
+        financial_year: financial_year
       )
     end
 
@@ -44,4 +44,3 @@ module PafsCore::Spreadsheet::Contributors
     end
   end
 end
-

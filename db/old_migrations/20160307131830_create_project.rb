@@ -8,6 +8,6 @@ class CreateProject < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :pafs_core_projects, [:reference_number, :version], unique: true
+    add_index :pafs_core_projects, %i[reference_number version], unique: true
   end
 end

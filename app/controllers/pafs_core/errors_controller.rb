@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class PafsCore::ErrorsController < PafsCore::ApplicationController
   def show
     @exception = env["action_dispatch.exception"]

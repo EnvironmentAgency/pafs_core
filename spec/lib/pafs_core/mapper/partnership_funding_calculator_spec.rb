@@ -13,11 +13,11 @@ RSpec.describe PafsCore::Mapper::PartnershipFundingCalculator do
 
   describe "#attributes" do
     it "has a PV appraisal approach" do
-      expect(subject.attributes[:pv_appraisal_approach]).to eql(12345)
+      expect(subject.attributes[:pv_appraisal_approach]).to eql(12_345)
     end
 
     it "has a PV design and construction costs" do
-      expect(subject.attributes[:pv_design_and_construction_costs]).to eql(12341)
+      expect(subject.attributes[:pv_design_and_construction_costs]).to eql(12_341)
     end
 
     it "has a PV post-construction costs" do

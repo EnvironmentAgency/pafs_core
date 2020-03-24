@@ -17,6 +17,7 @@ module PafsCore
     def next_step(step, project)
       step = sequence.next(step, project)
       return :summary if step.to_s.starts_with? "summary_"
+
       step
     end
 
@@ -37,7 +38,7 @@ module PafsCore
       # and is 'owned' by a user.  I envisage that we would use the
       # current_user passed into the constructor to get this information.
       project = project_service.create_project(attrs)
-      Object::const_get("PafsCore::#{sequence.first.to_s.camelcase}Step").new project
+      Object.const_get("PafsCore::#{sequence.first.to_s.camelcase}Step").new project
     end
 
     def find(ref_number)
@@ -68,14 +69,14 @@ module PafsCore
       # accept a step or a raw project activerecord object
       project = project.project if project.respond_to? :project
       # TODO: check that this user has permission to access this project
-      Object::const_get("PafsCore::#{step.to_s.camelcase}Step").new(project, user)
+      Object.const_get("PafsCore::#{step.to_s.camelcase}Step").new(project, user)
     end
 
     def step_anchor(step)
-      step_anchors.find {|s| !s[step].nil? }
+      step_anchors.find { |s| !s[step].nil? }
     end
 
-  private
+    private
 
     def step_anchors
       @anchor_steps ||= define_step_anchors
@@ -98,7 +99,7 @@ module PafsCore
         { summary_12: :urgency },
         { summary_13: :funding_calculator },
         { summary_14: :confidence },
-        { summary_15: :carbon },
+        { summary_15: :carbon }
       ]
     end
 
@@ -152,24 +153,24 @@ module PafsCore
 
         s.add :risks
         s.add :main_risk,
-          if: ->(p) { p.selected_risks.count > 1 }
+              if: ->(p) { p.selected_risks.count > 1 }
         s.add :flood_protection_outcomes,
-          if: ->(p) { p.protects_against_flooding? }
+              if: ->(p) { p.protects_against_flooding? }
         s.add :flood_protection_outcomes_summary,
-          if: ->(p) { p.protects_against_flooding? && p.javascript_disabled? }
+              if: ->(p) { p.protects_against_flooding? && p.javascript_disabled? }
         s.add :coastal_erosion_protection_outcomes,
-          if: ->(p) { p.protects_against_coastal_erosion? }
+              if: ->(p) { p.protects_against_coastal_erosion? }
         s.add :coastal_erosion_protection_outcomes_summary,
-          if: ->(p) { p.protects_against_coastal_erosion? && p.javascript_disabled? }
+              if: ->(p) { p.protects_against_coastal_erosion? && p.javascript_disabled? }
         s.add :summary_8
 
         s.add :standard_of_protection, if: :protects_against_flooding?
         s.add :standard_of_protection_after
         s.add :summary_91,
-          unless: ->(p) {
-            p.protects_against_coastal_erosion? &&
-              (p.coastal_protection_before.nil? || p.coastal_protection_after.nil?)
-          }
+              unless: lambda { |p|
+                p.protects_against_coastal_erosion? &&
+                  (p.coastal_protection_before.nil? || p.coastal_protection_after.nil?)
+              }
         s.add :standard_of_protection_coastal, if: :protects_against_coastal_erosion?
         s.add :standard_of_protection_coastal_after
         s.add :summary_9
@@ -213,7 +214,7 @@ module PafsCore
     # rubocop:enable Metrics/AbcSize
 
     def check_step(step)
-      raise ActiveRecord::RecordNotFound.new("Unknown step [#{step}]") unless sequence.include? step.to_sym
+      raise ActiveRecord::RecordNotFound, "Unknown step [#{step}]" unless sequence.include? step.to_sym
     end
 
     def project_service

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryBot.define do
   factory :flood_protection_outcomes, class: PafsCore::FloodProtectionOutcome do
     project_id { 1 }

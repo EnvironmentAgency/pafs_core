@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::ImproveSpaOrSacStep, type: :model do
@@ -10,8 +11,8 @@ RSpec.describe PafsCore::ImproveSpaOrSacStep, type: :model do
     it "validates that :improve_spa_or_sac has been set" do
       subject.improve_spa_or_sac = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:improve_spa_or_sac]).
-        to include "^Tell us if the project protects or improves a Special "\
+      expect(subject.errors.messages[:improve_spa_or_sac])
+        .to include "^Tell us if the project protects or improves a Special "\
                    "Protected Area or Special Area of Conservation"
     end
   end

@@ -1,9 +1,11 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   class ReferenceCounter < ApplicationRecord
     def self.next_sequence_for(rfcc_code)
-      raise ArgumentError.new("Invalid RFCC code") unless RFCC_CODES.include? rfcc_code
+      raise ArgumentError, "Invalid RFCC code" unless RFCC_CODES.include? rfcc_code
+
       counters = []
       # look up the counters for the rfcc_code
       rc = ReferenceCounter.find_by!(rfcc_code: rfcc_code)

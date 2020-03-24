@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::CalculatorParserService do
@@ -14,7 +15,7 @@ RSpec.describe PafsCore::CalculatorParserService do
       expect(project.strategic_approach).to eq(true)
       expect(project.raw_partnership_funding_score).to eq(59.30776823629341)
       expect(project.adjusted_partnership_funding_score).to eq(61.19828162789538)
-      expect(project.pv_whole_life_costs).to eq(25897.0)
+      expect(project.pv_whole_life_costs).to eq(25_897.0)
       expect(project.pv_whole_life_benefits).to eq(1234)
       expect(project.duration_of_benefits).to eq(50)
       # FIXME: newer pf calc has these in different rows

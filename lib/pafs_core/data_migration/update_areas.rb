@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 module PafsCore
   module DataMigration
@@ -20,18 +20,14 @@ module PafsCore
 
         CSV.foreach(csv_path, headers: true) do |row|
           begin
-            if row['PAFS_LRMA_NAME'] == row['POL_LRMA_NAME']
-              next
-            end
+            next if row["PAFS_LRMA_NAME"] == row["POL_LRMA_NAME"]
 
-            area = PafsCore::Area.find_by(name: row['PAFS_LRMA_NAME'])
+            area = PafsCore::Area.find_by(name: row["PAFS_LRMA_NAME"])
             destination_area = PafsCore::Area.where.not(
               id: (area ? area.id : nil)
-            ).find_by(name: row['POL_LRMA_NAME'])
+            ).find_by(name: row["POL_LRMA_NAME"])
 
-            if destination_area && area.nil?
-              next
-            end
+            next if destination_area && area.nil?
 
             if area.nil?
               not_found << row
@@ -45,7 +41,7 @@ module PafsCore
               area.destroy
             else
               puts "RENAME [#{area.id}] #{area.name} => #{row['POL_LRMA_NAME']}"
-              area.update_column(:name, row['POL_LRMA_NAME'])
+              area.update_column(:name, row["POL_LRMA_NAME"])
             end
           end
         end

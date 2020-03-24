@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 FactoryBot.define do
   factory :basic_step, class: PafsCore::BasicStep do
     project
@@ -71,7 +72,7 @@ FactoryBot.define do
     end
 
     factory :location_step, class: PafsCore::LocationStep do
-      project_location { [457733, 221751] }
+      project_location { [457_733, 221_751] }
       project_location_zoom_level { 15 }
     end
 
@@ -80,9 +81,9 @@ FactoryBot.define do
 
     factory :map_step, class: PafsCore::MapStep do
       benefit_area { "[[432123, 132453], [444444, 134444], [456543, 123432]]" }
-      benefit_area_centre { [457733, 221751] }
+      benefit_area_centre { [457_733, 221_751] }
       benefit_area_zoom_level { 23 }
-      benefit_area_file_name { 'shapefile.zip' }
+      benefit_area_file_name { "shapefile.zip" }
     end
 
     factory :benefit_area_file_summary_step, class: PafsCore::BenefitAreaFileSummaryStep do
@@ -170,7 +171,7 @@ FactoryBot.define do
     end
 
     factory :funding_calculator_step, class: PafsCore::FundingCalculatorStep do
-      funding_calculator_file_name  { "pf_calc.xls" }
+      funding_calculator_file_name { "pf_calc.xls" }
     end
 
     factory :funding_calculator_summary_step, class: PafsCore::FundingCalculatorSummaryStep do

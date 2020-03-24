@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'memory_profiler'
+require "memory_profiler"
 require "rails_helper"
 
 RSpec.describe PafsCore::DataMigration::GenerateFundingContributorFcerm do
@@ -12,8 +12,8 @@ RSpec.describe PafsCore::DataMigration::GenerateFundingContributorFcerm do
     end
   end
 
-  describe '#perform' do
-    xit 'testing perf' do
+  describe "#perform" do
+    xit "testing perf" do
       report = MemoryProfiler.report do
         described_class.perform(user)
         puts "complete"

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class ProjectsDownloadPresenter
     attr_reader :number_of_available_proposals, :download_info
@@ -38,7 +39,8 @@ module PafsCore
       download_info.number_of_proposals_with_moderation || 0
     end
 
-  private
+    private
+
     def calc_urgency_count
       projects.where.not(urgency_reason: "not_urgent").count
     end

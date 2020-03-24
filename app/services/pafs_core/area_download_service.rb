@@ -2,7 +2,8 @@
 
 module PafsCore
   class AreaDownloadService
-    include PafsCore::Files, PafsCore::FileStorage
+    include PafsCore::FileStorage
+    include PafsCore::Files
 
     attr_reader :user
 
@@ -16,7 +17,7 @@ module PafsCore
       if can_generate_documentation?
         info = download_info
 
-        #update the info
+        # update the info
         info.user = user
         info.area = area
         info.requested_on = Time.zone.now
@@ -73,7 +74,7 @@ module PafsCore
 
         download_info.documentation_state.complete!
         download_info.save!
-      rescue => e
+      rescue StandardError => e
         download_info.documentation_state.error!
         # send failure notification email
         PafsCore::AptNotificationMailer.area_programme_generation_failed(download_info).deliver_now
@@ -125,7 +126,8 @@ module PafsCore
       end
     end
 
-  private
+    private
+
     def navigator
       @navigator ||= PafsCore::ProjectNavigator.new user
     end

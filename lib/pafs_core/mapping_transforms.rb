@@ -1,20 +1,21 @@
 # frozen_string_literal: true
+
 module PafsCore
   module MappingTransforms
     NGR_CODES = [
-      %w[ HL HM HN HO HP JL JM JN ],
-      %w[ HQ HR HS HT HU JQ JR JS ],
-      %w[ HV HW HX HY HZ JV JW JX ],
-      %w[ NA NB NC ND NE OA OB OC ],
-      %w[ NF NG NH NJ NK OF OG OH ],
-      %w[ NL NM NN NO NP OL OM ON ],
-      %w[ NQ NR NS NT NU OQ OR OS ],
-      %w[ NV NW NX NY NZ OV OW OX ],
-      %w[ SA SB SC SD SE TA TB TC ],
-      %w[ SF SG SH SJ SK TF TG TH ],
-      %w[ SL SM SN SO SP TL TM TN ],
-      %w[ SQ SR SS ST SU TQ TR TS ],
-      %w[ SV SW SX SY SZ TV TW TX ]
+      %w[HL HM HN HO HP JL JM JN],
+      %w[HQ HR HS HT HU JQ JR JS],
+      %w[HV HW HX HY HZ JV JW JX],
+      %w[NA NB NC ND NE OA OB OC],
+      %w[NF NG NH NJ NK OF OG OH],
+      %w[NL NM NN NO NP OL OM ON],
+      %w[NQ NR NS NT NU OQ OR OS],
+      %w[NV NW NX NY NZ OV OW OX],
+      %w[SA SB SC SD SE TA TB TC],
+      %w[SF SG SH SJ SK TF TG TH],
+      %w[SL SM SN SO SP TL TM TN],
+      %w[SQ SR SS ST SU TQ TR TS],
+      %w[SV SW SX SY SZ TV TW TX]
     ].reverse.freeze
 
     def code_map
@@ -60,12 +61,12 @@ module PafsCore
     # Converts easting/northing coords into OSGB36 latitude/longitude
     def easting_northing_to_osgb36(easting, northing)
       osbg_f0   = 0.9996012717
-      n0        = -100000.0
-      e0        = 400000.0
+      n0        = -100_000.0
+      e0        = 400_000.0
       phi0      = deg_to_rad(49.0)
       lambda0   = deg_to_rad(-2.0)
-      _a        = 6377563.396
-      _b        = 6356256.909
+      _a        = 6_377_563.396
+      _b        = 6_356_256.909
       e_squared = ((_a * _a) - (_b * _b)) / (_a * _a)
       _phi      = 0.0
       _lambda   = 0.0
@@ -134,8 +135,8 @@ module PafsCore
     # Convert OSGB36 latitude/longitude coords
     # into WGS84 latitude/longitude
     def osgb36_to_wgs84(latitude, longitude)
-      _a        = 6377563.396
-      _b        = 6356256.909
+      _a        = 6_377_563.396
+      _b        = 6_356_256.909
       e_squared = ((_a * _a) - (_b * _b)) / (_a * _a)
 
       _phi = deg_to_rad(latitude)
@@ -159,8 +160,8 @@ module PafsCore
       _yb = _ty + (_rz * _x)      + (_y * (1 + _s)) + (-_rx * _z)
       _zb = _tz + (-_ry * _x)     + (_rx * _y)      + (_z * (1 + _s))
 
-      _a        = 6378137.000
-      _b        = 6356752.3141
+      _a        = 6_378_137.000
+      _b        = 6_356_752.3141
       e_squared = ((_a * _a) - (_b * _b)) / (_a * _a)
 
       _lambda_b = rad_to_deg(Math.atan(_yb / _xb))

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "aws-sdk"
 
 module PafsCore
@@ -26,7 +27,7 @@ module PafsCore
     def download(file_key, dest)
       storage.get_object(bucket: bucket_name, key: file_key, response_target: dest)
     rescue Aws::S3::Errors::NoSuchKey => e
-      raise PafsCore::FileNotFoundError.new("Storage file not found: #{file_key}")
+      raise PafsCore::FileNotFoundError, "Storage file not found: #{file_key}"
     end
 
     def delete(file_key)
@@ -34,7 +35,8 @@ module PafsCore
       storage.delete_object(bucket: bucket_name, key: file_key)
     end
 
-  private
+    private
+
     def antivirus
       PafsCore::AntivirusService.new user
     end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 module PafsCore
@@ -10,7 +11,7 @@ module PafsCore
       end
 
       let(:ref_no) { "AB501C-0000A-0001A" }
-      let(:files) { Hash.new }
+      let(:files) { {} }
       let(:mail) { described_class.submit_project(ref_no, files).deliver_now }
 
       it "uses the reference number as the subject" do

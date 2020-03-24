@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::StandardOfProtectionCoastalAfterStep, type: :model do
@@ -30,17 +31,17 @@ RSpec.describe PafsCore::StandardOfProtectionCoastalAfterStep, type: :model do
     subject { FactoryBot.create(:standard_of_protection_coastal_after_step) }
     let(:params) do
       HashWithIndifferentAccess.new({
-        standard_of_protection_coastal_after_step: {
-          coastal_protection_after: "0"
-        }
-      })
+                                      standard_of_protection_coastal_after_step: {
+                                        coastal_protection_after: "0"
+                                      }
+                                    })
     end
     let(:error_params) do
       HashWithIndifferentAccess.new({
-        standard_of_protection_coastal_after_step: {
-          coastal_protection_after: "2011"
-        }
-      })
+                                      standard_of_protection_coastal_after_step: {
+                                        coastal_protection_after: "2011"
+                                      }
+                                    })
     end
 
     it "saves the :project_type when valid" do
@@ -58,12 +59,12 @@ RSpec.describe PafsCore::StandardOfProtectionCoastalAfterStep, type: :model do
     subject { FactoryBot.build(:standard_of_protection_coastal_after_step) }
 
     it "should return an array of options" do
-      array_of_options = [
-                          :less_than_ten_years,
-                          :ten_to_nineteen_years,
-                          :twenty_to_fortynine_years,
-                          :fifty_years_or_more
-                         ]
+      array_of_options = %i[
+        less_than_ten_years
+        ten_to_nineteen_years
+        twenty_to_fortynine_years
+        fifty_years_or_more
+      ]
 
       expect(subject.coastal_erosion_after_options).to eq array_of_options
     end

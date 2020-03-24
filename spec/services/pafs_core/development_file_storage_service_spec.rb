@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::DevelopmentFileStorageService do
@@ -7,8 +8,8 @@ RSpec.describe PafsCore::DevelopmentFileStorageService do
   let(:dst_path) { subject.send(:file_path, dst_file) }
 
   after(:each) do
-    FileUtils.rm(src_file) if File.exists?(src_file)
-    FileUtils.rm(dst_path) if File.exists?(dst_path)
+    FileUtils.rm(src_file) if File.exist?(src_file)
+    FileUtils.rm(dst_path) if File.exist?(dst_path)
   end
 
   describe "#upload" do
@@ -17,13 +18,13 @@ RSpec.describe PafsCore::DevelopmentFileStorageService do
     end
     it "copies the file to the Rails tmp directory" do
       expect { subject.upload(src_file, dst_file) }.not_to raise_error
-      expect(File.exists?(dst_path)).to eq true
+      expect(File.exist?(dst_path)).to eq true
     end
 
     context "when the file cannot be accessed" do
       it "raises an error" do
-        expect { subject.upload("missing.txt", dst_path) }.
-          to raise_error PafsCore::FileNotFoundError
+        expect { subject.upload("missing.txt", dst_path) }
+          .to raise_error PafsCore::FileNotFoundError
       end
     end
   end
@@ -37,7 +38,7 @@ RSpec.describe PafsCore::DevelopmentFileStorageService do
     context "given a valid source file key" do
       it "gets the requested file from storage" do
         expect { subject.download(dst_file, src_file) }.not_to raise_error
-        expect(File.exists?(src_file)).to eq true
+        expect(File.exist?(src_file)).to eq true
       end
     end
 
@@ -56,13 +57,13 @@ RSpec.describe PafsCore::DevelopmentFileStorageService do
 
     it "deletes the requested file from storage" do
       expect { subject.delete(dst_file) }.not_to raise_error
-      expect(File.exists?(dst_path)).to eq false
+      expect(File.exist?(dst_path)).to eq false
     end
 
     context "when the file cannot be accessed" do
       it "raises an error" do
-        expect { subject.delete("missing.txt") }.
-          to raise_error PafsCore::FileNotFoundError
+        expect { subject.delete("missing.txt") }
+          .to raise_error PafsCore::FileNotFoundError
       end
     end
   end

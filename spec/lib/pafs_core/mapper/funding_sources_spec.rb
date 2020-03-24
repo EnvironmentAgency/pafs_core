@@ -1,12 +1,12 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PafsCore::Mapper::FundingSources do
   subject { described_class.new(project: project) }
 
-  let(:funding_values) { [ create(:funding_value) ] }
+  let(:funding_values) { [create(:funding_value)] }
   let(:project) { create(:full_project, funding_values: funding_values) }
 
-  describe '#attributes' do
+  describe "#attributes" do
     let(:expected_funding_values) do
       {
         values: project.funding_values.order(:financial_year).collect do |values|

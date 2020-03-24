@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   class EarliestStartStep < BasicStep
     delegate :could_start_early, :could_start_early=, :could_start_early?,
@@ -7,7 +8,8 @@ module PafsCore
 
     validate :a_choice_has_been_made
 
-  private
+    private
+
     def step_params(params)
       ActionController::Parameters.new(params).require(:earliest_start_step).permit(:could_start_early)
     end

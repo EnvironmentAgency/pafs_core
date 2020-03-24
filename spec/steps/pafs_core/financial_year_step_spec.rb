@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::FinancialYearStep, type: :model do
@@ -11,7 +12,8 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
       subject.project_end_financial_year = nil
       expect(subject.valid?).to be false
       expect(subject.errors[:project_end_financial_year]).to include(
-        "^Tell us the financial year when the project will stop spending funds.")
+        "^Tell us the financial year when the project will stop spending funds."
+      )
     end
 
     # validates_numericality_of doesn't work with multiple qualifiers
@@ -20,7 +22,8 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
       subject.project_end_financial_year = "abc"
       expect(subject.valid?).to be false
       expect(subject.errors[:project_end_financial_year]).to include(
-        "^Tell us the financial year when the project will stop spending funds.")
+        "^Tell us the financial year when the project will stop spending funds."
+      )
     end
 
     it "validates that :project_end_financial_year is current financial year or later" do
@@ -28,21 +31,23 @@ RSpec.describe PafsCore::FinancialYearStep, type: :model do
       current_financial_year = Time.current.uk_financial_year
       expect(subject.valid?).to be false
       expect(subject.errors[:project_end_financial_year]).to include(
-        "^The financial year must be in the future")
+        "^The financial year must be in the future"
+      )
     end
 
     it "validates that :project_end_financial_year is earlier than 2100" do
       subject.project_end_financial_year = 2101
       expect(subject.valid?).to be false
       expect(subject.errors[:project_end_financial_year]).to include(
-        "must be 2100 or earlier")
+        "must be 2100 or earlier"
+      )
     end
   end
 
   describe "#update" do
     subject { FactoryBot.create(:financial_year_step) }
-    let(:params) { HashWithIndifferentAccess.new({ financial_year_step: { project_end_financial_year: "2021" }})}
-    let(:error_params) { HashWithIndifferentAccess.new({ financial_year_step: { project_end_financial_year: "1983" }})}
+    let(:params) { HashWithIndifferentAccess.new({ financial_year_step: { project_end_financial_year: "2021" } }) }
+    let(:error_params) { HashWithIndifferentAccess.new({ financial_year_step: { project_end_financial_year: "1983" } }) }
 
     it "saves the :project_end_financial_year if valid" do
       expect(subject.project_end_financial_year).not_to eq 2021

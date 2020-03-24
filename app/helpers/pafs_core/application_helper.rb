@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   module ApplicationHelper
     # for our form builder
@@ -82,7 +83,7 @@ module PafsCore
         arrow = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" # Not the currently sorted column, so display no arrow.
         next_sort_order = "asc" # Starting sort order should be asc
       end
-      sort_properties_for_col = {next_sort_order: next_sort_order, curr_arrow: arrow}
+      sort_properties_for_col = { next_sort_order: next_sort_order, curr_arrow: arrow }
       sort_properties_for_col
     end
   end

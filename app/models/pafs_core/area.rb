@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class Area < ApplicationRecord
     AREA_TYPES = [
@@ -56,12 +57,13 @@ module PafsCore
 
     def ea_parent
       return self if ea_area?
+
       if ea_area?
-        return self
+        self
       elsif pso_area?
-        return parent
+        parent
       elsif rma?
-        return parent.parent
+        parent.parent
       else
         raise "Cannot find ea parent for #{name}"
       end

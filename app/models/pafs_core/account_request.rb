@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   class AccountRequest < ApplicationRecord
     validates :first_name, presence: { message: "^Tell us your first name." }
@@ -37,13 +38,14 @@ module PafsCore
       "#{first_name} #{last_name}" unless first_name.nil? || last_name.nil?
     end
 
-  private
+    private
+
     def generate_slug
       self.slug = email.parameterize
     end
 
     def downcase_email
-      self.email.downcase! unless email.nil?
+      email&.downcase!
     end
   end
 end

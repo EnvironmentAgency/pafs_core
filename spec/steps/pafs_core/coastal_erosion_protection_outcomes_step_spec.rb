@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
@@ -54,9 +55,9 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
 
     it "validates that number of households is less than or equal to 1 million" do
       subject.coastal_erosion_protection_outcomes.build(financial_year: 2020,
-                                                        households_at_reduced_risk: 1000001,
-                                                        households_protected_from_loss_in_next_20_years: 1000001,
-                                                    households_protected_from_loss_in_20_percent_most_deprived: 1000001)
+                                                        households_at_reduced_risk: 1_000_001,
+                                                        households_protected_from_loss_in_next_20_years: 1_000_001,
+                                                        households_protected_from_loss_in_20_percent_most_deprived: 1_000_001)
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:base]).to include
       "The number of households at reduced risk must be less than or equal to 1 million."
@@ -71,33 +72,27 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
   describe "#update" do
     subject { PafsCore::CoastalErosionProtectionOutcomesStep.new @project }
 
-    let(:params) {
+    let(:params) do
       HashWithIndifferentAccess.new(
         { coastal_erosion_protection_outcomes_step:
           { coastal_erosion_protection_outcomes_attributes:
             [{ financial_year: 2020,
-              households_at_reduced_risk: 2000,
-              households_protected_from_loss_in_next_20_years: 1000,
-              households_protected_from_loss_in_20_percent_most_deprived: 500
-            }]
-          }
-        }
+               households_at_reduced_risk: 2000,
+               households_protected_from_loss_in_next_20_years: 1000,
+               households_protected_from_loss_in_20_percent_most_deprived: 500 }] } }
       )
-    }
+    end
 
-    let(:error_params) {
+    let(:error_params) do
       HashWithIndifferentAccess.new(
         { coastal_erosion_protection_outcomes_step:
           { coastal_erosion_protection_outcomes_attributes:
             [{ financial_year: 2020,
-              households_at_reduced_risk: 1000,
-              households_protected_from_loss_in_next_20_years: 2000,
-              households_protected_from_loss_in_20_percent_most_deprived: 5000
-            }]
-          }
-        }
+               households_at_reduced_risk: 1000,
+               households_protected_from_loss_in_next_20_years: 2000,
+               households_protected_from_loss_in_20_percent_most_deprived: 5000 }] } }
       )
-    }
+    end
 
     context "when params are invalid" do
       it "returns false" do
@@ -127,7 +122,7 @@ RSpec.describe PafsCore::CoastalErosionProtectionOutcomesStep, type: :model do
 
   describe "#current_coastal_erosion_protection_outcomes" do
     subject { PafsCore::CoastalErosionProtectionOutcomesStep.new @project }
-    #subject.project.coastal_erosion_protection_outcomes << [@cepo1, @cepo2, @cepo3]
+    # subject.project.coastal_erosion_protection_outcomes << [@cepo1, @cepo2, @cepo3]
     it "should include the coastal erosion protection outcomes before the project end financial year" do
       expect(subject.current_coastal_erosion_protection_outcomes).to include(@cepo1, @cepo2)
     end

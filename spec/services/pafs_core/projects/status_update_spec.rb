@@ -3,13 +3,13 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::Projects::StatusUpdate do
-  describe 'with a valid new status' do
+  describe "with a valid new status" do
     STATUS_MAP = {
       'Draft': :draft,
       'Review': :completed,
       'Submitted': :submitted,
       'Archived': :archived
-    }
+    }.freeze
 
     let(:project) { create(:project) }
 
@@ -25,10 +25,9 @@ RSpec.describe PafsCore::Projects::StatusUpdate do
       end
     end
 
-    it 'sets the project status to draft when an invalid status is received' do
-      described_class.new(project, 'INVALID').perform
+    it "sets the project status to draft when an invalid status is received" do
+      described_class.new(project, "INVALID").perform
       expect(project.reload.status).to eql(:draft)
     end
   end
 end
-

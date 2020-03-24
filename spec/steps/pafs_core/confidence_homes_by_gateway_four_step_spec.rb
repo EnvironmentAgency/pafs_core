@@ -16,20 +16,20 @@ RSpec.describe PafsCore::ConfidenceHomesByGatewayFourStep, type: :model do
     end
 
     it "validates that the confidence is a valid value" do
-      subject.confidence_homes_by_gateway_four = 'Invalid'
+      subject.confidence_homes_by_gateway_four = "Invalid"
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:confidence_homes_by_gateway_four]).to include "^Chosen level must be one of the valid values"
     end
   end
 
   describe "#update" do
-    let(:params) {
+    let(:params) do
       HashWithIndifferentAccess.new({
-        confidence_homes_by_gateway_four_step: {
-          confidence_homes_by_gateway_four: "high"
-        }
-      })
-    }
+                                      confidence_homes_by_gateway_four_step: {
+                                        confidence_homes_by_gateway_four: "high"
+                                      }
+                                    })
+    end
 
     it "saves the state of valid params" do
       expect(subject.update(params)).to be true

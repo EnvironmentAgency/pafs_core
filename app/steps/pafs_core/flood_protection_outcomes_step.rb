@@ -1,7 +1,10 @@
 # frozen_string_literal: true
+
 module PafsCore
   class FloodProtectionOutcomesStep < BasicStep
-    include PafsCore::Outcomes, PafsCore::Risks, PafsCore::FinancialYear
+    include PafsCore::FinancialYear
+    include PafsCore::Risks
+    include PafsCore::Outcomes
     delegate :project_end_financial_year,
              :project_type,
              :project_protects_households?,
@@ -14,7 +17,7 @@ module PafsCore
 
     validate :has_values, if: :reduced_risk_of_households_for_floods?
 
-    def before_view(params)
+    def before_view(_params)
       setup_flood_protection_outcomes
     end
 
@@ -22,10 +25,8 @@ module PafsCore
 
     def has_values
       values = flood_protection_outcomes.collect do |outcome|
-        if outcome.households_at_reduced_risk.present?  || outcome.moved_from_very_significant_and_significant_to_moderate_or_low.present? || outcome.households_protected_from_loss_in_20_percent_most_deprived.present?
+        if outcome.households_at_reduced_risk.present? || outcome.moved_from_very_significant_and_significant_to_moderate_or_low.present? || outcome.households_protected_from_loss_in_20_percent_most_deprived.present?
           true
-        else
-          nil
         end
       end.compact!
 
@@ -48,30 +49,36 @@ module PafsCore
         b_too_big.push fpo.id if a < b
         c_too_big.push fpo.id if b < c
       end
-      errors.add(
-        :base,
-        "The number of households moved from very significant or significant to\
-        the moderate or low flood risk category (column B) must be lower than or equal\
-        to the number of households moved to a lower flood risk category (column A)."
-      ) if !b_too_big.empty?
+      unless b_too_big.empty?
+        errors.add(
+          :base,
+          "The number of households moved from very significant or significant to\
+          the moderate or low flood risk category (column B) must be lower than or equal\
+          to the number of households moved to a lower flood risk category (column A)."
+        )
+      end
 
-      errors.add(
-        :base,
-        "The number of households in the 20% most deprived areas (column C) must be lower than or equal \
-        to the number of households moved from very significant \
-        or significant to the moderate or low flood risk category (column B)."
-      ) if !c_too_big.empty?
+      unless c_too_big.empty?
+        errors.add(
+          :base,
+          "The number of households in the 20% most deprived areas (column C) must be lower than or equal \
+          to the number of households moved from very significant \
+          or significant to the moderate or low flood risk category (column B)."
+        )
+      end
     end
 
     def at_least_one_value
-      errors.add(
-        :base,
-        "In the applicable year(s), tell us how many households moved to a lower flood risk category (column A), OR if this does not apply select the checkbox."
-      ) if flooding_total_protected_households.zero? and !project.reduced_risk_of_households_for_floods?
+      if flooding_total_protected_households.zero? && !project.reduced_risk_of_households_for_floods?
+        errors.add(
+          :base,
+          "In the applicable year(s), tell us how many households moved to a lower flood risk category (column A), OR if this does not apply select the checkbox."
+        )
+      end
     end
 
     def sensible_number_of_houses
-      limit = 1000000
+      limit = 1_000_000
       a_insensible = []
       b_insensible = []
       c_insensible = []
@@ -85,34 +92,40 @@ module PafsCore
         c_insensible.push fpo.id if c > limit
       end
 
-      errors.add(
-        :base,
-        "The number of households at reduced risk must be less than or equal to 1 million."
-      ) if !a_insensible.empty?
+      unless a_insensible.empty?
+        errors.add(
+          :base,
+          "The number of households at reduced risk must be less than or equal to 1 million."
+        )
+      end
 
-      errors.add(
-        :base,
-        "The number of households moved from very significant and significant to moderate or low must be \
-        less than or equal to 1 million."
-      ) if !b_insensible.empty?
+      unless b_insensible.empty?
+        errors.add(
+          :base,
+          "The number of households moved from very significant and significant to moderate or low must be \
+          less than or equal to 1 million."
+        )
+      end
 
-      errors.add(
-        :base,
-        "The number of households protected from loss in the 20 percent most deprived must be \
-        less than or equal to 1 million."
-      ) if !c_insensible.empty?
+      unless c_insensible.empty?
+        errors.add(
+          :base,
+          "The number of households protected from loss in the 20 percent most deprived must be \
+          less than or equal to 1 million."
+        )
+      end
     end
 
     def step_params(params)
       ActionController::Parameters.new(params)
                                   .require(:flood_protection_outcomes_step)
                                   .permit(:reduced_risk_of_households_for_floods, flood_protection_outcomes_attributes:
-                                    [
-                                      :id,
-                                      :financial_year,
-                                      :households_at_reduced_risk,
-                                      :moved_from_very_significant_and_significant_to_moderate_or_low,
-                                      :households_protected_from_loss_in_20_percent_most_deprived
+                                    %i[
+                                      id
+                                      financial_year
+                                      households_at_reduced_risk
+                                      moved_from_very_significant_and_significant_to_moderate_or_low
+                                      households_protected_from_loss_in_20_percent_most_deprived
                                     ])
     end
 
@@ -128,7 +141,7 @@ module PafsCore
     end
 
     def build_missing_year(year)
-      if !flood_protection_outcomes.exists?(financial_year: year)
+      unless flood_protection_outcomes.exists?(financial_year: year)
         flood_protection_outcomes.build(financial_year: year)
       end
     end
