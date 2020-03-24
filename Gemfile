@@ -28,6 +28,7 @@ group :development, :test do
   gem "pry"
   gem "rails-controller-testing"
   gem "transpec"
+  gem "rails5-spec-converter"
 end
 
 group :test do
