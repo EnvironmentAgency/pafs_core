@@ -21,23 +21,23 @@ RSpec.describe PafsCore::ReadyForServiceDateStep, type: :model do
     subject { FactoryBot.create(:ready_for_service_date_step, project: project) }
     let(:params) do
       ActionController::Parameters.new({
-                                      ready_for_service_date_step: {
-                                        ready_for_service_year: 5.years.from_now.year.to_s,
-                                        ready_for_service_month: "1"
-                                      }
-                                    })
+                                         ready_for_service_date_step: {
+                                           ready_for_service_year: 5.years.from_now.year.to_s,
+                                           ready_for_service_month: "1"
+                                         }
+                                       })
     end
 
     let(:invalid_month_params) do
       ActionController::Parameters.new({
-                                      ready_for_service_date_step: { ready_for_service_month: "83", ready_for_service_year: "1999" }
-                                    })
+                                         ready_for_service_date_step: { ready_for_service_month: "83", ready_for_service_year: "1999" }
+                                       })
     end
 
     let(:invalid_year_params) do
       ActionController::Parameters.new({
-                                      ready_for_service_date_step: { ready_for_service_month: "12", ready_for_service_year: "2000" }
-                                    })
+                                         ready_for_service_date_step: { ready_for_service_month: "12", ready_for_service_year: "2000" }
+                                       })
     end
 
     # Commented out as dates can now be in the past ...doesn't reduce the test covergage. let(:invalid_date_params) {

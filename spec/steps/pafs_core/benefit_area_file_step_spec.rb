@@ -15,10 +15,10 @@ RSpec.describe PafsCore::BenefitAreaFileStep, type: :model do
     let(:antivirus) { double(:antivirus) }
     let(:params) do
       ActionController::Parameters.new({
-                                      benefit_area_file_step: {
-                                        benefit_area_file: benefit_area_file
-                                      }
-                                    })
+                                         benefit_area_file_step: {
+                                           benefit_area_file: benefit_area_file
+                                         }
+                                       })
     end
 
     before do

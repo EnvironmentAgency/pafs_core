@@ -25,10 +25,10 @@ RSpec.describe PafsCore::ConfidenceHomesByGatewayFourStep, type: :model do
   describe "#update" do
     let(:params) do
       ActionController::Parameters.new({
-                                      confidence_homes_by_gateway_four_step: {
-                                        confidence_homes_by_gateway_four: "high"
-                                      }
-                                    })
+                                         confidence_homes_by_gateway_four_step: {
+                                           confidence_homes_by_gateway_four: "high"
+                                         }
+                                       })
     end
 
     it "saves the state of valid params" do

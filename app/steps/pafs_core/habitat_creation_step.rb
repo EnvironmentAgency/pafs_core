@@ -10,8 +10,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:habitat_creation_step)
-                                  .permit(:create_habitat)
+        .require(:habitat_creation_step)
+        .permit(:create_habitat)
     end
 
     def a_choice_has_been_made

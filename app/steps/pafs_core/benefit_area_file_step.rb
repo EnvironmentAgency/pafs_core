@@ -61,8 +61,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:benefit_area_file_step)
-                                  .permit(:benefit_area_file)
+        .require(:benefit_area_file_step)
+        .permit(:benefit_area_file)
     end
 
     EXPECTED_EXTENSIONS = %w[dbf shx shp prj].freeze

@@ -134,11 +134,11 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:map_step)
-                                  .permit(:benefit_area,
-                                          :benefit_area_centre,
-                                          :benefit_area_zoom_level,
-                                          :benefit_area_file)
+        .require(:map_step)
+        .permit(:benefit_area,
+                :benefit_area_centre,
+                :benefit_area_zoom_level,
+                :benefit_area_file)
     end
   end
 end

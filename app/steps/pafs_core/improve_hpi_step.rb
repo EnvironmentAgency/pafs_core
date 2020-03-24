@@ -25,8 +25,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:improve_hpi_step)
-                                  .permit(:improve_hpi)
+        .require(:improve_hpi_step)
+        .permit(:improve_hpi)
     end
 
     def a_choice_has_been_made

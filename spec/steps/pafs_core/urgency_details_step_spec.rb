@@ -26,18 +26,18 @@ RSpec.describe PafsCore::UrgencyDetailsStep, type: :model do
   describe "#update" do
     let(:params) do
       ActionController::Parameters.new({
-                                      urgency_details_step: {
-                                        urgency_details: "Hamster, peas and chips"
-                                      }
-                                    })
+                                         urgency_details_step: {
+                                           urgency_details: "Hamster, peas and chips"
+                                         }
+                                       })
     end
 
     let(:error_params) do
       ActionController::Parameters.new({
-                                      urgency_details_step: {
-                                        urgency_details: ""
-                                      }
-                                    })
+                                         urgency_details_step: {
+                                           urgency_details: ""
+                                         }
+                                       })
     end
 
     it "saves the :urgency_details when valid" do

@@ -10,8 +10,8 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:remove_fish_barrier_step)
-                                  .permit(:remove_fish_barrier)
+        .require(:remove_fish_barrier_step)
+        .permit(:remove_fish_barrier)
     end
 
     def a_choice_has_been_made

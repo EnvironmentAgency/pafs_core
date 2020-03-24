@@ -17,10 +17,10 @@ module PafsCore
 
     def step_params(params)
       params
-                                  .require(:confidence_secured_partnership_funding_step)
-                                  .permit(
-                                    :confidence_secured_partnership_funding
-                                  )
+        .require(:confidence_secured_partnership_funding_step)
+        .permit(
+          :confidence_secured_partnership_funding
+        )
     end
   end
 end
