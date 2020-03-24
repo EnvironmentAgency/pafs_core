@@ -1,13 +1,14 @@
 # frozen_string_literal: true
+
 module PafsCore
   # file extensions permitted for funding calculator upload
-  FUNDING_CALCULATOR_FILE_TYPES = %w[ .xlsx ].freeze
+  FUNDING_CALCULATOR_FILE_TYPES = %w[.xlsx].freeze
 
   # file extensions permitted for benefit area file upload
-  BENEFIT_AREA_FILE_TYPES = %w[ .zip ].freeze
+  BENEFIT_AREA_FILE_TYPES = %w[.zip].freeze
 
   # file extensions permitted for program upload
-  PROGRAM_UPLOAD_FILE_TYPES = %w[ .xlsx ].freeze
+  PROGRAM_UPLOAD_FILE_TYPES = %w[.xlsx].freeze
 
   module FileTypes
     def valid_funding_calculator_file?(filename)

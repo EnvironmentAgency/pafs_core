@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'roo'
+require "roo"
 
 module PafsCore
   module Mapper
@@ -31,34 +31,34 @@ module PafsCore
                 most_deprived_20: {
                   moderate_risk: nil,
                   significant_risk: nil,
-                  very_significant_risk: nil,
+                  very_significant_risk: nil
                 },
                 most_deprived_21_40: {
                   moderate_risk: nil,
                   significant_risk: nil,
-                  very_significant_risk: nil,
+                  very_significant_risk: nil
                 },
                 least_deprived_60: {
                   moderate_risk: nil,
                   significant_risk: nil,
-                  very_significant_risk: nil,
+                  very_significant_risk: nil
                 }
               },
               after: {
                 most_deprived_20: {
                   moderate_risk: nil,
                   significant_risk: nil,
-                  very_significant_risk: nil,
+                  very_significant_risk: nil
                 },
                 most_deprived_21_40: {
                   moderate_risk: nil,
                   significant_risk: nil,
-                  very_significant_risk: nil,
+                  very_significant_risk: nil
                 },
                 least_deprived_60: {
                   moderate_risk: nil,
                   significant_risk: nil,
-                  very_significant_risk: nil,
+                  very_significant_risk: nil
                 }
               }
             },
@@ -66,22 +66,22 @@ module PafsCore
               before_construction: {
                 most_deprived_20: {
                   long_term_loss: nil,
-                  medium_term_loss: nil,
+                  medium_term_loss: nil
                 },
                 most_deprived_21_40: {
                   long_term_loss: nil,
-                  medium_term_loss: nil,
+                  medium_term_loss: nil
                 },
                 least_deprived_60: {
                   long_term_loss: nil,
-                  medium_term_loss: nil,
-                },
+                  medium_term_loss: nil
+                }
               }
             },
             om4: {
               hectares_of_net_water_dependent_habitat_created: nil,
               hectares_of_net_water_intertidal_habitat_created: nil,
-              kilometres_of_protected_river_improved: nil,
+              kilometres_of_protected_river_improved: nil
             }
           }
         }

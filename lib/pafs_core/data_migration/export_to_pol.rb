@@ -14,7 +14,7 @@ module PafsCore
       end
 
       def ids
-        @ids ||= File.readlines(File.join(Rails.root, 'ids.txt'))
+        @ids ||= File.readlines(File.join(Rails.root, "ids.txt"))
       end
 
       def projects
@@ -47,7 +47,7 @@ module PafsCore
           end
         end
 
-        File.open(File.join(Rails.root, 'results.txt'), 'w').write(results.inspect)
+        File.open(File.join(Rails.root, "results.txt"), "w").write(results.inspect)
         puts results.inspect
       end
     end

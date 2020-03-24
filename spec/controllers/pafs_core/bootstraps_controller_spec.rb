@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::BootstrapsController, type: :controller do
@@ -56,14 +57,14 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
     context "when given valid data to save" do
       it "updates the project" do
         patch :save, id: @project.to_param, step: "project_name",
-          project_name_step: { name: "Wigwam" }
+                     project_name_step: { name: "Wigwam" }
         expect(PafsCore::Bootstrap.find(@project.id).name).to eq "Wigwam"
       end
 
       it "redirects to the next step" do
         expect(subject).to receive(:navigator).exactly(3).times { @nav }
         patch :save, id: @project.to_param, step: "project_name",
-          project_name_step: { name: "Haystack" }
+                     project_name_step: { name: "Haystack" }
         expect(response).to redirect_to bootstrap_step_path(id: @project.to_param, step: "project_type")
       end
 
@@ -71,7 +72,7 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
         it "redirects to the project summary page" do
           expect(subject).to receive(:navigator).exactly(4).times { @nav }
           patch :save, id: @project.to_param, step: "financial_year",
-            financial_year_step: { project_end_financial_year: "2019" }
+                       financial_year_step: { project_end_financial_year: "2019" }
           proj = PafsCore::Project.last
           expect(response).to redirect_to project_path(id: proj.to_param)
         end
@@ -81,13 +82,13 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
     context "when given invalid data to save" do
       it "does not update the project" do
         patch :save, id: @project.to_param, step: "project_type",
-          project_type_step: { project_type: "1234" }
+                     project_type_step: { project_type: "1234" }
         expect(PafsCore::Bootstrap.find(@project.id).project_type).not_to eq "1234"
       end
 
       it "renders the template specified by the selected step" do
         patch :save, id: @project.to_param, step: "project_type",
-          project_type_step: { project_type: "1234" }
+                     project_type_step: { project_type: "1234" }
         expect(response).to render_template("project_type")
       end
     end

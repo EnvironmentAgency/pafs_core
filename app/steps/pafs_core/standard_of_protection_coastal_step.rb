@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class StandardOfProtectionCoastalStep < BasicStep
     include PafsCore::StandardOfProtection
@@ -17,11 +18,12 @@ module PafsCore
 
     validate :coastal_protection_improves
 
-  private
+    private
+
     def step_params(params)
-      ActionController::Parameters.new(params).
-        require(:standard_of_protection_coastal_step).
-        permit(:coastal_protection_before)
+      ActionController::Parameters.new(params)
+                                  .require(:standard_of_protection_coastal_step)
+                                  .permit(:coastal_protection_before)
     end
 
     def coastal_protection_improves

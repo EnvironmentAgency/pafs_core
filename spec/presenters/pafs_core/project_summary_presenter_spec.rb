@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::ProjectSummaryPresenter do
@@ -242,8 +243,8 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
       end
       context "when the project does not protect against coastal erosion" do
         it "raises an error" do
-          expect { subject.standard_of_protection_step }.
-            to raise_error(RuntimeError, "Risks not set prior to standard of protection")
+          expect { subject.standard_of_protection_step }
+            .to raise_error(RuntimeError, "Risks not set prior to standard of protection")
         end
       end
     end
@@ -708,8 +709,8 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
 
   describe "#summary_label" do
     it "returns the text associated with the :symbol" do
-      expect(subject.summary_label(:standard_of_protection_title)).
-        to eq "Standard of protection"
+      expect(subject.summary_label(:standard_of_protection_title))
+        .to eq "Standard of protection"
     end
   end
 
@@ -731,7 +732,7 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
     context "when project does not protect households" do
       it "should return the list or articles without :risks or :standard_of_protection" do
         subject.project_type = "ENV_WITHOUT_HOUSEHOLDS"
-        expect(subject.articles).not_to include [:risks, :standard_of_protection]
+        expect(subject.articles).not_to include %i[risks standard_of_protection]
       end
     end
   end
@@ -790,13 +791,13 @@ RSpec.describe PafsCore::ProjectSummaryPresenter do
 
   def make_flood_outcome(year, project_id)
     FactoryBot.create(:flood_protection_outcomes,
-                       financial_year: year,
-                       project_id: project_id)
+                      financial_year: year,
+                      project_id: project_id)
   end
 
   def make_coastal_outcome(year, project_id)
     FactoryBot.create(:coastal_erosion_protection_outcomes,
-                       financial_year: year,
-                       project_id: project_id)
+                      financial_year: year,
+                      project_id: project_id)
   end
 end

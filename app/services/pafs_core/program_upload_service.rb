@@ -1,10 +1,13 @@
 # frozen_string_literal: true
+
 # require "rubyXL"
 require "roo"
 
 module PafsCore
   class ProgramUploadService
-    include PafsCore::Fcerm1, PafsCore::FileTypes, PafsCore::Files
+    include PafsCore::Files
+    include PafsCore::FileTypes
+    include PafsCore::Fcerm1
 
     attr_accessor :user, :errors
 
@@ -59,8 +62,9 @@ module PafsCore
         # Roo has an odd offset so we have to take 2 off our zero-based
         # FIRST_DATA_ROW value
         xlsx.sheet(0).each_row_streaming(pad_cells: true,
-                                offset: FIRST_DATA_ROW - 1) do |row|
+                                         offset: FIRST_DATA_ROW - 1) do |row|
           next if row.nil? || row[0].blank?
+
           reset_errors
           row_count += 1
           project = build_project_from_row(row)
@@ -116,9 +120,9 @@ module PafsCore
         upload_record.number_of_records = row_count
         upload_record.save
         upload_record.processing_state.complete!
-      rescue StandardError => exc
+      rescue StandardError => e
         upload_record.processing_state.error!
-        Airbrake.notify(exc) if defined? Airbrake
+        Airbrake.notify(e) if defined? Airbrake
         raise
       end
     end
@@ -129,29 +133,29 @@ module PafsCore
       return project unless project.valid?
 
       FCERM1_COLUMN_MAP.each do |col|
-        if col.fetch(:import, true)
-          range = col.fetch(:date_range, false)
-          name = col[:field_name]
-          column = column_index col[:column]
+        next unless col.fetch(:import, true)
 
-          if range
-            # handle ranges
-            start_column = column
-            years = [-1].concat((2015..2027).to_a)
-            values = []
-            years.each_with_index do |_year, i|
-              cell = row[start_column + i]
-              values << if cell && cell.value.present?
-                          cell.value.to_i
-                        else
-                          0
-                        end
-            end
-            project.send("#{name}=", values)
-          else
-            cell = row[column]
-            project.send("#{name}=", cell && cell.value)
+        range = col.fetch(:date_range, false)
+        name = col[:field_name]
+        column = column_index col[:column]
+
+        if range
+          # handle ranges
+          start_column = column
+          years = [-1].concat((2015..2027).to_a)
+          values = []
+          years.each_with_index do |_year, i|
+            cell = row[start_column + i]
+            values << if cell && cell.value.present?
+                        cell.value.to_i
+                      else
+                        0
+                      end
           end
+          project.send("#{name}=", values)
+        else
+          cell = row[column]
+          project.send("#{name}=", cell && cell.value)
         end
       end
       project
@@ -165,7 +169,8 @@ module PafsCore
       @errors ||= {}
     end
 
-  private
+    private
+
     def storage_path
       @storage_path ||= File.join("program_upload",
                                   Time.current.strftime("%Y-%m-%d_%H-%M-%S_%L"))
@@ -176,7 +181,8 @@ module PafsCore
         PafsCore::Project.find_or_create_by(reference_number: ref_no) do |p|
           p.version = 1
           p.creator = user
-        end)
+        end
+      )
     end
 
     def fetch_workbook(filename)
@@ -207,6 +213,7 @@ module PafsCore
           break if step == :summary_12
           next if step.to_s.start_with? "benefit_area_file"
           next if step.to_s.start_with? "summary_"
+
           break
         end
         break if step == :summary_12
@@ -247,13 +254,13 @@ module PafsCore
     end
 
     def error_trim(message)
-      message.split("^").last if message
+      message&.split("^")&.last
     end
 
     def create_failures_from_errors(item)
       errors.each do |k, v|
-        item.program_upload_failures.
-          create(field_name: k, messages: v)
+        item.program_upload_failures
+            .create(field_name: k, messages: v)
       end
     end
 

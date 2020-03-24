@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   module EmailHelper
     # Embed an image inline into a html email

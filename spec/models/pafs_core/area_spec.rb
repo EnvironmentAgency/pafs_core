@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::Area, type: :model do
@@ -20,7 +21,7 @@ RSpec.describe PafsCore::Area, type: :model do
       {
         level: :rma_area,
         parent_id: 1
-      },
+      }
     ]
     area = area_levels.sample
     subject { FactoryBot.create(area[:level], parent_id: area[:parent_id]) }

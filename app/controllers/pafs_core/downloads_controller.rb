@@ -21,7 +21,7 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
       format.xlsx do
         xlsx = generate_fcerm1(@project, :xlsx)
         send_data xlsx.stream.read,
-          filename: fcerm1_filename(@project.reference_number, :xlsx)
+                  filename: fcerm1_filename(@project.reference_number, :xlsx)
       end
     end
   end
@@ -66,6 +66,7 @@ class PafsCore::DownloadsController < PafsCore::ApplicationController
   end
 
   private
+
   def navigator
     @navigator ||= PafsCore::ProjectNavigator.new current_resource
   end

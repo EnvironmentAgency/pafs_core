@@ -8,13 +8,13 @@ module PafsCore
              to: :project
 
     validates :confidence_secured_partnership_funding, presence: { message: "^Select the confidence level" }
-    validates :confidence_secured_partnership_funding, inclusion: { 
+    validates :confidence_secured_partnership_funding, inclusion: {
       in: PafsCore::Confidence::CONFIDENCE_VALUES,
       message: "^Chosen level must be one of the valid values"
     }, if: -> { confidence_secured_partnership_funding.present? }
 
+    private
 
-  private
     def step_params(params)
       ActionController::Parameters.new(params)
                                   .require(:confidence_secured_partnership_funding_step)

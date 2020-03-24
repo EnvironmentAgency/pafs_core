@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::RemoveEelBarrierStep, type: :model do
@@ -10,8 +11,8 @@ RSpec.describe PafsCore::RemoveEelBarrierStep, type: :model do
     it "validates that :remove_eel_barrier has been set" do
       subject.remove_eel_barrier = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:remove_eel_barrier]).
-        to include "^Tell us if the project removes a barrier to migration for eels"
+      expect(subject.errors.messages[:remove_eel_barrier])
+        .to include "^Tell us if the project removes a barrier to migration for eels"
     end
   end
 

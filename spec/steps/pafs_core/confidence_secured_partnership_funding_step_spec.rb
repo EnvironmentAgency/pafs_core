@@ -16,20 +16,20 @@ RSpec.describe PafsCore::ConfidenceSecuredPartnershipFundingStep, type: :model d
     end
 
     it "validates that the confidence is a valid value" do
-      subject.confidence_secured_partnership_funding = 'Invalid'
+      subject.confidence_secured_partnership_funding = "Invalid"
       expect(subject.valid?).to be false
       expect(subject.errors.messages[:confidence_secured_partnership_funding]).to include "^Chosen level must be one of the valid values"
     end
   end
 
   describe "#update" do
-    let(:params) {
+    let(:params) do
       HashWithIndifferentAccess.new({
-        confidence_secured_partnership_funding_step: {
-          confidence_secured_partnership_funding: "high"
-        }
-      })
-    }
+                                      confidence_secured_partnership_funding_step: {
+                                        confidence_secured_partnership_funding: "high"
+                                      }
+                                    })
+    end
 
     it "saves the state of valid params" do
       expect(subject.update(params)).to be true
@@ -37,4 +37,3 @@ RSpec.describe PafsCore::ConfidenceSecuredPartnershipFundingStep, type: :model d
     end
   end
 end
-

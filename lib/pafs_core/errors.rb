@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class VirusFoundError < StandardError
     attr_reader :file, :virus_name

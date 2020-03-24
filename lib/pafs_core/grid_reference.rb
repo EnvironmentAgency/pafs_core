@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "pafs_core/mapping_transforms"
 
 module PafsCore
@@ -29,7 +30,8 @@ module PafsCore
         get_os_grid_ref(@ngr)
     end
 
-  private
+    private
+
     def tidy(str)
       str.to_s.delete("\s").upcase unless str.nil?
     end

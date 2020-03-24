@@ -1,10 +1,16 @@
 # frozen_string_literal: true
+
 module PafsCore
   class ProjectSummaryPresenter < SimpleDelegator
-    include PafsCore::FundingSources, PafsCore::Risks, PafsCore::Outcomes,
-      PafsCore::Urgency, PafsCore::StandardOfProtection,
-      PafsCore::EnvironmentalOutcomes, PafsCore::Confidence, PafsCore::Carbon,
-      ActionView::Helpers::NumberHelper
+    include ActionView::Helpers::NumberHelper
+    include PafsCore::Carbon
+    include PafsCore::Confidence
+    include PafsCore::EnvironmentalOutcomes
+    include PafsCore::StandardOfProtection
+    include PafsCore::Urgency
+    include PafsCore::Outcomes
+    include PafsCore::Risks
+    include PafsCore::FundingSources
 
     def location_set?
       project.grid_reference.present?
@@ -30,7 +36,7 @@ module PafsCore
     def grid_reference_link
       if project.grid_reference
         I18n.t("see_this_location_link",
-               grid_reference: CGI::escape(grid_reference))
+               grid_reference: CGI.escape(grid_reference))
       else
         "#"
       end
@@ -146,6 +152,7 @@ module PafsCore
 
     def surface_and_groundwater_size
       return km(0) unless improve_surface_or_groundwater?
+
       km(improve_surface_or_groundwater_amount)
     end
 
@@ -159,11 +166,13 @@ module PafsCore
 
     def improve_river_size
       return km(0) unless (improves_habitat? && improve_river.nil?) || improve_river?
+
       km(improve_river_amount)
     end
 
     def create_habitat_size
       return ha(0) unless create_habitat.nil? || create_habitat?
+
       ha(create_habitat_amount)
     end
 
@@ -177,11 +186,13 @@ module PafsCore
 
     def km(n)
       return not_provided if n.blank?
+
       "#{number_with_delimiter squish_int_float(n)} kilometres"
     end
 
     def ha(n)
       return not_provided if n.blank?
+
       "#{number_with_delimiter squish_int_float(n)} hectares"
     end
 
@@ -205,31 +216,37 @@ module PafsCore
 
     def total_for_flooding_a
       return not_provided unless flood_protection_outcomes_entered?
+
       total_fpo_for(:households_at_reduced_risk)
     end
 
     def total_for_flooding_b
       return not_provided unless flood_protection_outcomes_entered?
+
       total_fpo_for(:moved_from_very_significant_and_significant_to_moderate_or_low)
     end
 
     def total_for_flooding_c
       return not_provided unless flood_protection_outcomes_entered?
+
       total_fpo_for(:households_protected_from_loss_in_20_percent_most_deprived)
     end
 
     def total_for_coastal_a
       return not_provided unless coastal_erosion_protection_outcomes_entered?
+
       total_ce_for(:households_at_reduced_risk)
     end
 
     def total_for_coastal_b
       return not_provided unless coastal_erosion_protection_outcomes_entered?
+
       total_ce_for(:households_protected_from_loss_in_next_20_years)
     end
 
     def total_for_coastal_c
       return not_provided unless coastal_erosion_protection_outcomes_entered?
+
       total_ce_for(:households_protected_from_loss_in_20_percent_most_deprived)
     end
 
@@ -249,7 +266,7 @@ module PafsCore
           all_articles - [:standard_of_protection]
         end
       else
-        all_articles - [:risks, :standard_of_protection]
+        all_articles - %i[risks standard_of_protection]
       end
     end
 
@@ -258,6 +275,7 @@ module PafsCore
     end
 
     private
+
     def project
       __getobj__
     end
@@ -267,28 +285,28 @@ module PafsCore
     end
 
     def all_articles
-      [:project_name,
-       :project_type,
-       :financial_year,
-       :location,
-       :key_dates,
-       :funding_sources,
-       :earliest_start,
-       :risks,
-       :standard_of_protection,
-       :approach,
-       :environmental_outcomes,
-       :urgency,
-       :funding_calculator,
-       :confidence,
-       :carbon
-      ].freeze
+      %i[project_name
+         project_type
+         financial_year
+         location
+         key_dates
+         funding_sources
+         earliest_start
+         risks
+         standard_of_protection
+         approach
+         environmental_outcomes
+         urgency
+         funding_calculator
+         confidence
+         carbon].freeze
     end
 
     def presentable_date(name)
       m = send("#{name}_month")
       y = send("#{name}_year")
       return not_provided if m.nil? || y.nil?
+
       Date.new(y, m, 1).strftime("%B %Y") # Month-name Year
     end
   end

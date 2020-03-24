@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::SurfaceAndGroundwaterStep, type: :model do
@@ -10,8 +11,8 @@ RSpec.describe PafsCore::SurfaceAndGroundwaterStep, type: :model do
     it "validates that :improve_surface_or_groundwater has been set" do
       subject.improve_surface_or_groundwater = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:improve_surface_or_groundwater]).
-        to include "^Tell us if the project protects or improves surface water or groundwater"
+      expect(subject.errors.messages[:improve_surface_or_groundwater])
+        .to include "^Tell us if the project protects or improves surface water or groundwater"
     end
   end
 

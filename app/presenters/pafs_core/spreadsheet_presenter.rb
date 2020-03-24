@@ -1,9 +1,15 @@
 # frozen_string_literal: true
+
 module PafsCore
   class SpreadsheetPresenter < SimpleDelegator
-    include PafsCore::FundingSources, PafsCore::Risks,
-      PafsCore::Outcomes, PafsCore::Urgency, PafsCore::StandardOfProtection,
-      PafsCore::EnvironmentalOutcomes, PafsCore::Confidence, PafsCore::Carbon
+    include PafsCore::Carbon
+    include PafsCore::Confidence
+    include PafsCore::EnvironmentalOutcomes
+    include PafsCore::StandardOfProtection
+    include PafsCore::Urgency
+    include PafsCore::Outcomes
+    include PafsCore::Risks
+    include PafsCore::FundingSources
 
     include PafsCore::ProjectsHelper
 
@@ -18,9 +24,7 @@ module PafsCore
     def ea_area
       owning_area = owner
       if owning_area
-        until owning_area.ea_area? do
-          owning_area = owning_area.parent
-        end
+        owning_area = owning_area.parent until owning_area.ea_area?
         owning_area.name
       end
     end
@@ -32,7 +36,7 @@ module PafsCore
 
     def rma_type
       owning_area = owner
-      owning_area.sub_type if owning_area && owning_area.rma?
+      owning_area.sub_type if owning_area&.rma?
     end
 
     def coastal_group
@@ -46,7 +50,7 @@ module PafsCore
     end
 
     def project_type
-      if project.project_type && project.project_type.start_with?("ENV")
+      if project.project_type&.start_with?("ENV")
         "ENV"
       else
         project.project_type
@@ -157,15 +161,15 @@ module PafsCore
     end
 
     def public_contributions(year)
-      funding_for(year).joins(:public_contributions).sum('pafs_core_funding_contributors.amount')
+      funding_for(year).joins(:public_contributions).sum("pafs_core_funding_contributors.amount")
     end
 
     def private_contributions(year)
-      funding_for(year).joins(:private_contributions).sum('pafs_core_funding_contributors.amount')
+      funding_for(year).joins(:private_contributions).sum("pafs_core_funding_contributors.amount")
     end
 
     def other_ea_contributions(year)
-      funding_for(year).joins(:other_ea_contributions).sum('pafs_core_funding_contributors.amount')
+      funding_for(year).joins(:other_ea_contributions).sum("pafs_core_funding_contributors.amount")
     end
 
     def not_yet_identified(year)
@@ -280,9 +284,9 @@ module PafsCore
       I18n.t(
         :fcerm1,
         scope: [
-          'pafs_core',
-          'confidence',
-          'homes_better_protected',
+          "pafs_core",
+          "confidence",
+          "homes_better_protected",
           project.confidence_homes_better_protected
         ]
       )
@@ -294,9 +298,9 @@ module PafsCore
       I18n.t(
         :fcerm1,
         scope: [
-          'pafs_core',
-          'confidence',
-          'homes_by_gateway_four',
+          "pafs_core",
+          "confidence",
+          "homes_by_gateway_four",
           project.confidence_homes_by_gateway_four
         ]
       )
@@ -308,15 +312,16 @@ module PafsCore
       I18n.t(
         :fcerm1,
         scope: [
-          'pafs_core',
-          'confidence',
-          'secured_partnership_funding',
+          "pafs_core",
+          "confidence",
+          "secured_partnership_funding",
           project.confidence_secured_partnership_funding
         ]
       )
     end
 
     private
+
     def project
       __getobj__
     end
@@ -353,17 +358,19 @@ module PafsCore
 
     def sum_flood_protection_for(year, category)
       return 0 if year > project.project_end_financial_year
+
       flood_protection_for(year).sum(category)
     end
 
     def sum_coastal_erosion_protection_for(year, category)
       return 0 if year > project.project_end_financial_year
+
       coastal_erosion_protection_for(year).sum(category)
     end
 
     def format_2_part_date(dt)
       if project.send("#{dt}_month") && project.send("#{dt}_year")
-        "%02d/%d" % [project.send("#{dt}_month"), project.send("#{dt}_year")]
+        format("%02d/%d", project.send("#{dt}_month"), project.send("#{dt}_year"))
       end
     end
 
@@ -375,6 +382,7 @@ module PafsCore
       m = send("#{name}_month")
       y = send("#{name}_year")
       return not_provided if m.nil? || y.nil?
+
       Date.new(y, m, 1).strftime("%B %Y") # Month-name Year
     end
 

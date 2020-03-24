@@ -7,7 +7,7 @@ class PafsCore::PartnershipFundingCalculatorPresenter
   attr_accessor :pv_appraisal_approach
 
   def initialize(project:)
-    fetch_funding_calculator_for(project) do |data, filename, content_type|
+    fetch_funding_calculator_for(project) do |data, filename, _content_type|
       file = Tempfile.new(filename)
       file.write(data)
       file.close

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::ImproveRiverAmountStep, type: :model do
@@ -10,16 +11,16 @@ RSpec.describe PafsCore::ImproveRiverAmountStep, type: :model do
     it "validates that :improve_river_amount has been set" do
       subject.improve_river_amount = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:improve_river_amount]).
-        to include "^Enter a value to show how many kilometres of river or priority "\
+      expect(subject.errors.messages[:improve_river_amount])
+        .to include "^Enter a value to show how many kilometres of river or priority "\
                    "river habitat the project will protect or improve."
     end
 
     it "validates that :improve_river_amount is greater than zero" do
       subject.improve_river_amount = -234.4
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:improve_river_amount]).
-        to include "^Enter a value greater than zero to show how many kilometres "\
+      expect(subject.errors.messages[:improve_river_amount])
+        .to include "^Enter a value greater than zero to show how many kilometres "\
                    "of river or priority river habitat the project will protect or improve."
     end
   end

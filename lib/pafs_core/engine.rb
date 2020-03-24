@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 module PafsCore
   class Engine < ::Rails::Engine
     isolate_namespace PafsCore
@@ -11,8 +12,8 @@ module PafsCore
       g.helper false
     end
 
-    initializer "pafs_core.factories", :after => "factory_bot.set_factory_paths" do
-      FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories', __FILE__) if defined?(FactoryBot)
+    initializer "pafs_core.factories", after: "factory_bot.set_factory_paths" do
+      FactoryBot.definition_file_paths << File.expand_path("../../spec/factories", __dir__) if defined?(FactoryBot)
     end
 
     initializer :append_migrations do |app|

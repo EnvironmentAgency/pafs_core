@@ -3,8 +3,8 @@
 module PafsCore::Spreadsheet::Contributors::Coerce
   class FinancialYear < Base
     def perform
-      return -1 if value == 'Previous years'
-      fail('unknown year') if matches.nil?
+      return -1 if value == "Previous years"
+      raise("unknown year") if matches.nil?
 
       matches[0]
     end
@@ -14,4 +14,3 @@ module PafsCore::Spreadsheet::Contributors::Coerce
     end
   end
 end
-

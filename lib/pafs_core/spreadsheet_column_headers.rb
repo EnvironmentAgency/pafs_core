@@ -342,6 +342,6 @@ module PafsCore
     project_executive: "Project Executive (for PPMT)",
     project_manager: "Project Manager (for PPMT)",
     project_record_owner: "Project Record Owner",
-    county: "County",
+    county: "County"
   }.freeze
 end

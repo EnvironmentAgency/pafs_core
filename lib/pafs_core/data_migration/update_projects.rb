@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 module PafsCore
   module DataMigration
@@ -17,8 +17,8 @@ module PafsCore
 
       def perform
         CSV.foreach(csv_path, headers: true) do |row|
-          project = PafsCore::Project.find_by(reference_number: row['PID'])
-          area = PafsCore::Area.find_by(name: row['AREA'])
+          project = PafsCore::Project.find_by(reference_number: row["PID"])
+          area = PafsCore::Area.find_by(name: row["AREA"])
 
           if project.nil?
             puts "could not find #{row['PID']}"

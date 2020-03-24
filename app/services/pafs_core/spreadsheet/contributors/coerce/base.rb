@@ -13,7 +13,7 @@ module PafsCore::Spreadsheet::Contributors::Coerce
     end
 
     def perform
-      fail('override #perform')
+      raise("override #perform")
     end
   end
 end

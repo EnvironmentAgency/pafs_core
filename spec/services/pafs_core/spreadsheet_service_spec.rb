@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 
 class SpreadsheetMapperHelper
@@ -11,7 +12,7 @@ RSpec.describe PafsCore::SpreadsheetService do
 
   describe "#generate_multi_xlsx" do
     let(:program_upload) { PafsCore::ProgramUploadService.new }
-    let(:filename) { 'expected_program_spreadsheet.xlsx' }
+    let(:filename) { "expected_program_spreadsheet.xlsx" }
     let(:content_type) { "text/plain" }
 
     let(:file_path) { File.join(Rails.root, "..", "fixtures", filename) }
@@ -19,7 +20,7 @@ RSpec.describe PafsCore::SpreadsheetService do
     let(:projects) { PafsCore::Project.all.order(:name) }
     let(:expected) { subject.generate_multi_xlsx(projects) }
 
-    let(:test_project_1) { PafsCore::Project.find_by(name: 'Test Project 1') }
+    let(:test_project_1) { PafsCore::Project.find_by(name: "Test Project 1") }
 
     let(:spreadsheet_presenter_1) { PafsCore::SpreadsheetPresenter.new(test_project_1) }
 
@@ -36,14 +37,14 @@ RSpec.describe PafsCore::SpreadsheetService do
       }
     end
 
-    let(:pso_area) { PafsCore::Area.find_by(name: 'PSO Test Area') }
-    let(:rma_area) { PafsCore::Area.find_by(name: 'RMA Test Area') }
+    let(:pso_area) { PafsCore::Area.find_by(name: "PSO Test Area") }
+    let(:rma_area) { PafsCore::Area.find_by(name: "RMA Test Area") }
 
     before(:each) do
       file_path = "#{Rails.root}/../fixtures/test_areas.csv"
       PafsCore::AreaImporter.new.import(file_path)
 
-      VCR.use_cassette('process_spreadsheet_with_postcodes') do
+      VCR.use_cassette("process_spreadsheet_with_postcodes") do
         record = program_upload.upload(program_uploads_params)
         program_upload.process_spreadsheet(record)
       end
@@ -57,60 +58,60 @@ RSpec.describe PafsCore::SpreadsheetService do
     let(:fourth_row) { expected.worksheets[0][9] }
     let(:fifth_row) { expected.worksheets[0][10] }
 
-    it 'includes the project reference number' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('A')].value).to eql(spreadsheet_presenter_1.reference_number)
+    it "includes the project reference number" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("A")].value).to eql(spreadsheet_presenter_1.reference_number)
     end
 
-    it 'includes column B' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('B')].value).to eql(spreadsheet_presenter_1.name)
+    it "includes column B" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("B")].value).to eql(spreadsheet_presenter_1.name)
     end
 
-    it 'includes column BI' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('BI')].value).to eql(first_row[SpreadsheetMapperHelper.column_index('JM')].value)
+    it "includes column BI" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("BI")].value).to eql(first_row[SpreadsheetMapperHelper.column_index("JM")].value)
     end
 
-    it 'includes column BL' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('BL')].value).to eql(0)
+    it "includes column BL" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("BL")].value).to eql(0)
     end
 
-    it 'includes column BM' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('BL')].value).to eql(0)
+    it "includes column BM" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("BL")].value).to eql(0)
     end
 
-    it 'includes column BM' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('BL')].value).to eql(0)
+    it "includes column BM" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("BL")].value).to eql(0)
     end
 
-    it 'includes column JS' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('JS')].value).to eql(spreadsheet_presenter_1.designated_site)
+    it "includes column JS" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("JS")].value).to eql(spreadsheet_presenter_1.designated_site)
     end
 
-    it 'includes JT' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('JT')].value).to eql(spreadsheet_presenter_1.improve_surface_or_groundwater_amount)
+    it "includes JT" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("JT")].value).to eql(spreadsheet_presenter_1.improve_surface_or_groundwater_amount)
     end
 
-    it 'includes column JU' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('JU')].value).to eql(spreadsheet_presenter_1.remove_fish_or_eel_barrier)
+    it "includes column JU" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("JU")].value).to eql(spreadsheet_presenter_1.remove_fish_or_eel_barrier)
     end
 
-    it 'includes column JV' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('JV')].value).to eql(spreadsheet_presenter_1.fish_or_eel_amount)
+    it "includes column JV" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("JV")].value).to eql(spreadsheet_presenter_1.fish_or_eel_amount)
     end
 
-    it 'includes column JW' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('JW')].value).to eql(spreadsheet_presenter_1.improve_river_amount)
+    it "includes column JW" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("JW")].value).to eql(spreadsheet_presenter_1.improve_river_amount)
     end
 
-    it 'includes column JX' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('JX')].value).to eql(spreadsheet_presenter_1.improve_habitat_amount)
+    it "includes column JX" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("JX")].value).to eql(spreadsheet_presenter_1.improve_habitat_amount)
     end
 
-    it 'includes column JY' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('JY')].value).to eql(spreadsheet_presenter_1.create_habitat_amount)
+    it "includes column JY" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("JY")].value).to eql(spreadsheet_presenter_1.create_habitat_amount)
     end
 
-    it 'includes column KK' do
-      expect(first_row[SpreadsheetMapperHelper.column_index('KK')].value.to_s).to eql(spreadsheet_presenter_1.state.state.capitalize)
+    it "includes column KK" do
+      expect(first_row[SpreadsheetMapperHelper.column_index("KK")].value.to_s).to eql(spreadsheet_presenter_1.state.state.capitalize)
     end
   end
 end

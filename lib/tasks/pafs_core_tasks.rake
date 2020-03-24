@@ -12,18 +12,18 @@ namespace :pafs do
 
   task update_areas: :environment do
     PafsCore::DataMigration::UpdateAreas.perform(
-      File.join(Rails.root, 'lib', 'fixtures', 'area_migration.csv')
+      File.join(Rails.root, "lib", "fixtures", "area_migration.csv")
     )
   end
 
   task update_project_areas: :environment do
     PafsCore::DataMigration::UpdateProjects.perform(
-      File.join(Rails.root, 'lib', 'fixtures', 'project_area_migration.csv')
+      File.join(Rails.root, "lib", "fixtures", "project_area_migration.csv")
     )
   end
 
   task generate_funding_contributor_fcerm: :environment do
-    user = PafsCore::User.find(ENV.fetch('USER_ID'))
+    user = PafsCore::User.find(ENV.fetch("USER_ID"))
     PafsCore::DataMigration::GenerateFundingContributorFcerm.perform(user)
   end
 

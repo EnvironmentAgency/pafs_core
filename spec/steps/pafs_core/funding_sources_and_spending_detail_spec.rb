@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe PafsCore::Project, type: :model do
-  subject do 
+  subject do
     create(
       :project,
       fcerm_gia: true,

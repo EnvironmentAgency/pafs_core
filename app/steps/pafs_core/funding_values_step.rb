@@ -13,12 +13,12 @@ module PafsCore
 
     def update(params)
       clean_unselected_funding_sources
-      funding_values.select {|fv| !fv.destroyed? }.map(&:save!)
+      funding_values.select { |fv| !fv.destroyed? }.map(&:save!)
       super
     end
 
     # override to allow us to set up the funding_values if needed
-    def before_view(params)
+    def before_view(_params)
       setup_funding_values
     end
 
@@ -26,24 +26,23 @@ module PafsCore
       SORTED_SOURCES & selected_funding_sources
     end
 
-  private
+    private
 
     def funding_values_to_check
       selected_funding_sources - AGGREGATE_SOURCES
     end
 
     def at_least_one_value
-      values = funding_values.map {|x| x.attributes.slice(*funding_values_to_check.map(&:to_s))}
-      zero_valued = values.inject({}) do |a, e| 
-        e.each do |k, v| 
-          if a.key?(k)
-            a[k] = a[k].to_i + v.to_i
-          else
-            a[k] = v.to_i
-          end
+      values = funding_values.map { |x| x.attributes.slice(*funding_values_to_check.map(&:to_s)) }
+      zero_valued = values.each_with_object({}) do |e, a|
+        e.each do |k, v|
+          a[k] = if a.key?(k)
+                   a[k].to_i + v.to_i
+                 else
+                   v.to_i
+                 end
         end
-        a
-      end.select {|k, v| v == 0 }
+      end.select { |_k, v| v == 0 }
 
       return if zero_valued.empty?
 
@@ -54,10 +53,10 @@ module PafsCore
     def step_params(params)
       ActionController::Parameters.new(params).require(:funding_values_step).permit(
         funding_values_attributes:
-        [
-          :id,
-          :financial_year,
-          :total
+        %i[
+          id
+          financial_year
+          total
         ].concat(FUNDING_SOURCES - AGGREGATE_SOURCES)
       )
     end

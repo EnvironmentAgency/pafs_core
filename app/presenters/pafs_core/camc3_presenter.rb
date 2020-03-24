@@ -1,4 +1,4 @@
-require 'pafs_core/shapefile_serializer'
+require "pafs_core/shapefile_serializer"
 
 class PafsCore::Camc3Presenter
   def initialize(project:)
@@ -6,7 +6,7 @@ class PafsCore::Camc3Presenter
 
     self.funding_sources_mapper = PafsCore::Mapper::FundingSources.new(project: project)
     self.fcerm1_presenter = PafsCore::SpreadsheetPresenter.new(project)
-    self.fcerm1_mapper = PafsCore::Mapper::Fcerm1.new(project: self.fcerm1_presenter)
+    self.fcerm1_mapper = PafsCore::Mapper::Fcerm1.new(project: fcerm1_presenter)
     self.pf_calculator_presenter = PafsCore::PartnershipFundingCalculatorPresenter.new(project: project)
   end
 
@@ -70,46 +70,46 @@ class PafsCore::Camc3Presenter
 
   def attributes
     fcerm1_mapper.attributes
-      .merge(pf_calculator_presenter.attributes)
-      .merge(funding_sources_mapper.attributes)
-      .merge(
-        {
-          capital_carbon: fcerm1_presenter.carbon_cost_build,
-          carbon_lifecycle: fcerm1_presenter.carbon_cost_operation,
-        }
-      )
-      .merge(
-        {
-          confidence: {
-            homes_better_protected: project.confidence_homes_better_protected,
-            homes_by_gateway_four: project.confidence_homes_by_gateway_four,
-            secured_partnership_funding: project.confidence_secured_partnership_funding
-          }
-        }
-      )
-      .merge(
-        {
-          national_grid_reference: project.grid_reference,
-          shapefile: base64_shapefile,
-          urgency_details: fcerm1_presenter.urgency_details,
-          outcome_measures: {
-            om2: households_at_reduced_risk,
-            om2b: moved_from_very_significant_and_significant_to_moderate_or_low,
-            om2c: households_protected_from_loss_in_20_percent_most_deprived,
-            om3: coastal_households_at_reduced_risk,
-            om3b: coastal_households_protected_from_loss_in_next_20_years,
-            om3c: coastal_households_protected_from_loss_in_20_percent_most_deprived,
-            om4a: fcerm1_presenter.hectares_of_net_water_dependent_habitat_created,
-            om4b: fcerm1_presenter.hectares_of_net_water_intertidal_habitat_created,
-            om4c: fcerm1_presenter.kilometres_of_protected_river_improved,
-            om4d: fcerm1_presenter.improve_surface_or_groundwater_amount,
-            om4e: fcerm1_presenter.fish_or_eel_amount,
-            om4f: fcerm1_presenter.improve_river_amount,
-            om4g: fcerm1_presenter.improve_habitat_amount,
-            om4h: fcerm1_presenter.create_habitat_amount,
-          }
-        }
-    )
+                 .merge(pf_calculator_presenter.attributes)
+                 .merge(funding_sources_mapper.attributes)
+                 .merge(
+                   {
+                     capital_carbon: fcerm1_presenter.carbon_cost_build,
+                     carbon_lifecycle: fcerm1_presenter.carbon_cost_operation
+                   }
+                 )
+                 .merge(
+                   {
+                     confidence: {
+                       homes_better_protected: project.confidence_homes_better_protected,
+                       homes_by_gateway_four: project.confidence_homes_by_gateway_four,
+                       secured_partnership_funding: project.confidence_secured_partnership_funding
+                     }
+                   }
+                 )
+                 .merge(
+                   {
+                     national_grid_reference: project.grid_reference,
+                     shapefile: base64_shapefile,
+                     urgency_details: fcerm1_presenter.urgency_details,
+                     outcome_measures: {
+                       om2: households_at_reduced_risk,
+                       om2b: moved_from_very_significant_and_significant_to_moderate_or_low,
+                       om2c: households_protected_from_loss_in_20_percent_most_deprived,
+                       om3: coastal_households_at_reduced_risk,
+                       om3b: coastal_households_protected_from_loss_in_next_20_years,
+                       om3c: coastal_households_protected_from_loss_in_20_percent_most_deprived,
+                       om4a: fcerm1_presenter.hectares_of_net_water_dependent_habitat_created,
+                       om4b: fcerm1_presenter.hectares_of_net_water_intertidal_habitat_created,
+                       om4c: fcerm1_presenter.kilometres_of_protected_river_improved,
+                       om4d: fcerm1_presenter.improve_surface_or_groundwater_amount,
+                       om4e: fcerm1_presenter.fish_or_eel_amount,
+                       om4f: fcerm1_presenter.improve_river_amount,
+                       om4g: fcerm1_presenter.improve_habitat_amount,
+                       om4h: fcerm1_presenter.create_habitat_amount
+                     }
+                   }
+                 )
   end
 
   protected
@@ -135,7 +135,7 @@ class PafsCore::Camc3Presenter
       2025,
       2026,
       2027,
-      2028,
+      2028
     ]
   end
 end

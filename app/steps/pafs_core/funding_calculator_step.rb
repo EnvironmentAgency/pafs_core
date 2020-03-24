@@ -1,9 +1,13 @@
 # frozen_string_literal: true
+
 require "roo"
 
 module PafsCore
   class FundingCalculatorStep < BasicStep
-    include PafsCore::FileTypes, PafsCore::FileStorage, PafsCore::FundingCalculatorVersion
+
+    include PafsCore::FileStorage
+    include PafsCore::FileTypes
+    include PafsCore::FundingCalculatorVersion
 
     delegate :funding_calculator_file_name, :funding_calculator_file_name=,
              :funding_calculator_content_type, :funding_calculator_content_type=,
@@ -57,11 +61,12 @@ module PafsCore
       valid? && project.save
     end
 
-  private
+    private
+
     def step_params(params)
-      ActionController::Parameters.new(params).
-        require(:funding_calculator_step).
-        permit(:funding_calculator, :expected_version)
+      ActionController::Parameters.new(params)
+                                  .require(:funding_calculator_step)
+                                  .permit(:funding_calculator, :expected_version)
     end
 
     # NOTE: we could probably check the content type of the file but we are
@@ -83,7 +88,7 @@ module PafsCore
     end
 
     def calculator
-      @calculator ||= ::Roo::Excelx.new(self.uploaded_file)
+      @calculator ||= ::Roo::Excelx.new(uploaded_file)
     end
 
     def calculator_sheet_name
@@ -98,8 +103,8 @@ module PafsCore
 
     def expected_version_name
       {
-        v8: 'v8 2014',
-        v9: 'v1 2020'
+        v8: "v8 2014",
+        v9: "v1 2020"
       }[expected_version.to_sym]
     end
 
@@ -107,7 +112,7 @@ module PafsCore
       return if virus_info.present?
       return if calculator_sheet_name.present?
 
-      self.funding_calculator_file_name = ''
+      self.funding_calculator_file_name = ""
       errors.add(:base, "Please ensure you upload a valid partnership funding calculator")
     end
 
@@ -116,7 +121,7 @@ module PafsCore
       return unless calculator_sheet_name.present?
       return if calculator_version.to_s == expected_version && calculator_version.present?
 
-      self.funding_calculator_file_name = ''
+      self.funding_calculator_file_name = ""
       errors.add(:base, "The partnership funding calculator file used is the wrong version. The file used must be #{expected_version_name}. Download the correct partnership funding calculator.")
     end
   end

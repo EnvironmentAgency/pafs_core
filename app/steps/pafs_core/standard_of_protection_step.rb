@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+
 module PafsCore
   class StandardOfProtectionStep < BasicStep
-    include PafsCore::Risks, PafsCore::StandardOfProtection
+    include PafsCore::StandardOfProtection
+    include PafsCore::Risks
 
     validates :flood_protection_before, presence: {
       message:
@@ -18,10 +20,11 @@ module PafsCore
 
     validate :flood_protection_improves
 
-  private
+    private
+
     def step_params(params)
-      ActionController::Parameters.new(params).require(:standard_of_protection_step).
-        permit(:flood_protection_before, :flood_protection_after)
+      ActionController::Parameters.new(params).require(:standard_of_protection_step)
+                                  .permit(:flood_protection_before, :flood_protection_after)
     end
 
     def flood_protection_improves

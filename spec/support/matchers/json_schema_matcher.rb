@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :match_json_schema do |schema|
-  schema_directory = File.join('doc', 'json_schemas')
+  schema_directory = File.join("doc", "json_schemas")
   schema_path = File.join(schema_directory, "#{schema}.json")
   schemer = JSONSchemer.schema(Pathname.new(schema_path))
 
@@ -10,6 +12,6 @@ RSpec::Matchers.define :match_json_schema do |schema|
 
   failure_message do |json|
     json = JSON.parse(json)
-    schemer.validate(json).map {|error| error["details"]}.compact.join("\n")
+    schemer.validate(json).map { |error| error["details"] }.compact.join("\n")
   end
 end

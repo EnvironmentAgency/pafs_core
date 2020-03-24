@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class FormBuilder < ActionView::Helpers::FormBuilder
     delegate :content_tag, :tag, :safe_join, to: :@template
@@ -17,18 +18,18 @@ module PafsCore
                     end
 
         content_tag(:div, class: "error-summary", role: "group",
-                    aria: { labelledby: "error-summary-heading" },
-                    tabindex: "-1") do
-                      safe_join(contents, "\n")
-                    end
+                          aria: { labelledby: "error-summary-heading" },
+                          tabindex: "-1") do
+          safe_join(contents, "\n")
+        end
       end
     end
 
-    def fields_for record_name, record_object = nil, fields_options = {}, &block
+    def fields_for(record_name, record_object = nil, fields_options = {}, &block)
       super record_name, record_object, fields_options.merge(builder: self.class), &block
     end
 
-    def form_group(name, &block)
+    def form_group(name)
       name = name.to_sym
       content = []
       content << content_tag(:div) { yield } if block_given?
@@ -40,7 +41,7 @@ module PafsCore
                   end
     end
 
-    def check_box(attribute, options = {}, &block)
+    def check_box(attribute, options = {})
       attribute = attribute.to_sym
       label_opts = { class: error_class(attribute, "block-label") }
 
@@ -85,21 +86,22 @@ module PafsCore
       # need to handle the 2 fields as one for errors
       contents << content_tag(:div, class: "form-date") do
         safe_join([
-          content_tag(:div, class: "form-group form-group-month") do
-            safe_join([
-              label(m_key, I18n.t("month_label"), class: "form-label"),
-              number_field_without_label(m_key, in: 1..12, maxlength: 2,
-                         class: "form-control form-month")], "\n")
-          end,
-          content_tag(:div, class: "form-group form-group-year") do
-            safe_join([
-              label(y_key, I18n.t("year_label"), class: "form-label"),
-              number_field_without_label(y_key,
-                                         in: 2000..2100, maxlength: 4,
-                                         class: "form-control form-year")
-              ], "\n")
-          end
-        ], "\n")
+                    content_tag(:div, class: "form-group form-group-month") do
+                      safe_join([
+                                  label(m_key, I18n.t("month_label"), class: "form-label"),
+                                  number_field_without_label(m_key, in: 1..12, maxlength: 2,
+                                                                    class: "form-control form-month")
+                                ], "\n")
+                    end,
+                    content_tag(:div, class: "form-group form-group-year") do
+                      safe_join([
+                                  label(y_key, I18n.t("year_label"), class: "form-label"),
+                                  number_field_without_label(y_key,
+                                                             in: 2000..2100, maxlength: 4,
+                                                             class: "form-control form-year")
+                                ], "\n")
+                    end
+                  ], "\n")
       end
 
       form_group(attribute) do
@@ -161,7 +163,7 @@ module PafsCore
       label_val = options.delete(:label) if options.include? :label
       unless label_val == :none
         label_args = [attribute]
-        label_args << label_val #options.delete(:label) if options.include? :label
+        label_args << label_val # options.delete(:label) if options.include? :label
         label_args << { class: "form-label" }
 
         contents << label(*label_args)
@@ -224,7 +226,8 @@ module PafsCore
       alias_method_chain(method_name, :label)
     end
 
-  private
+    private
+
     def label_for(attribute, options = {})
       if options.include? :label
         options.delete(:label)
@@ -297,7 +300,7 @@ module PafsCore
     # pipe it through here to trim off everything upto and including the '^'
     # or just return the original message if no '^' is present
     def error_trim(message)
-      message.split("^").last if message
+      message&.split("^")&.last
     end
 
     def error_item(attr, message, index)

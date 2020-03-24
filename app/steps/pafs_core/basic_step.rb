@@ -2,10 +2,11 @@
 
 module PafsCore
   class BasicStep
-    include ActiveModel::Model, ActiveRecord::AttributeAssignment
+    include ActiveRecord::AttributeAssignment
+    include ActiveModel::Model
 
     attr_reader :project, :user, :javascript_enabled
-    alias :javascript_enabled? :javascript_enabled
+    alias javascript_enabled? javascript_enabled
 
     delegate  :id,
               :reference_number,
@@ -32,7 +33,7 @@ module PafsCore
       if valid?
         project.save!
       else
-        raise ActiveRecord::RecordInvalid.new(self)
+        raise ActiveRecord::RecordInvalid, self
       end
     end
 
@@ -68,8 +69,7 @@ module PafsCore
 
     # override this to handle any setup required before being viewed
     # This is called before rendering in the controller
-    def before_view(params)
-    end
+    def before_view(params); end
 
     def view_path
       "pafs_core/projects/steps/#{step}"

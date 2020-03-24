@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class BootstrapService
     attr_reader :user
@@ -23,7 +24,8 @@ module PafsCore
       PafsCore::Bootstrap.find_by!(slug: slug.to_s)
     end
 
-  private
+    private
+
     def initial_attributes
       {
         creator: user

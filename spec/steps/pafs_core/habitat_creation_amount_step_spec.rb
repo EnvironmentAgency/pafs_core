@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::HabitatCreationAmountStep, type: :model do
@@ -10,16 +11,16 @@ RSpec.describe PafsCore::HabitatCreationAmountStep, type: :model do
     it "validates that :create_habitat_amount has been set" do
       subject.create_habitat_amount = nil
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:create_habitat_amount]).
-        to include "^Enter a value to show how many hectares of habitat "\
+      expect(subject.errors.messages[:create_habitat_amount])
+        .to include "^Enter a value to show how many hectares of habitat "\
                    "the project is likely to create."
     end
 
     it "validates that :create_habitat_amount is greater than zero" do
       subject.create_habitat_amount = -234.4
       expect(subject.valid?).to be false
-      expect(subject.errors.messages[:create_habitat_amount]).
-        to include "^Enter a value greater than zero to show how many hectares "\
+      expect(subject.errors.messages[:create_habitat_amount])
+        .to include "^Enter a value greater than zero to show how many hectares "\
                    "the project is likely to create."
     end
   end

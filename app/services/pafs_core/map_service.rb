@@ -1,6 +1,7 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
-#require "cumberland"
+
+# require "cumberland"
 require "faraday"
 
 module PafsCore
@@ -24,10 +25,10 @@ module PafsCore
           }
         end
       else
-        raise MapServiceError.new "MapService error: #{response.status}"
+        raise MapServiceError, "MapService error: #{response.status}"
       end
-    rescue Faraday::Error => ex
-      raise MapServiceError.new ex
+    rescue Faraday::Error => e
+      raise MapServiceError, e
     end
 
     def connection

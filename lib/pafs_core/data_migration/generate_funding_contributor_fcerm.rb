@@ -3,7 +3,8 @@
 module PafsCore
   module DataMigration
     class GenerateFundingContributorFcerm
-      include PafsCore::Files, PafsCore::FileStorage
+      include PafsCore::FileStorage
+      include PafsCore::Files
 
       def self.perform(user)
         new(user).perform
@@ -42,7 +43,7 @@ module PafsCore
 
       def projects
         @projects ||= PafsCore::Project.where(
-          'private_contributions = true OR public_contributions = true or other_ea_contributions = true'
+          "private_contributions = true OR public_contributions = true or other_ea_contributions = true"
         )
       end
     end

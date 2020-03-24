@@ -4,15 +4,15 @@ module PafsCore::Spreadsheet::Contributors
   class ImportAll
     attr_reader :project, :workbook
 
-    SHEET_NAME = 'Funding Contributors'
-    SHORT_NAME_SCOPE = 'funding_sources.short'
+    SHEET_NAME = "Funding Contributors"
+    SHORT_NAME_SCOPE = "funding_sources.short"
 
     def initialize(workbook)
       @workbook = workbook
     end
 
     def sheet
-      @sheet ||= workbook.sheet(SHEET_NAME) || fail('Could not find contributor sheet')
+      @sheet ||= workbook.sheet(SHEET_NAME) || raise("Could not find contributor sheet")
     end
 
     def import

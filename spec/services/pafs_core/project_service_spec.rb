@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::ProjectService do
@@ -50,19 +51,19 @@ RSpec.describe PafsCore::ProjectService do
       expect { project }.to_not change { PafsCore::Project.count }
     end
 
-    it 'builds the correct type of object' do
+    it "builds the correct type of object" do
       expect(project).to be_a PafsCore::Project
     end
 
-    it 'initializes the project version correctly' do
+    it "initializes the project version correctly" do
       expect(project.version).to eq(1)
     end
 
-    it 'assigns the project creator correctly' do
+    it "assigns the project creator correctly" do
       expect(project.creator_id).to eq(user.id)
     end
 
-    it 'generates the reference number correctly' do
+    it "generates the reference number correctly" do
       expect(project.reference_number).to start_with reference_number
     end
   end
@@ -70,8 +71,8 @@ RSpec.describe PafsCore::ProjectService do
   describe "#create_project" do
     it "creates a new project and saves to the database" do
       p = nil
-      expect { p = subject.create_project }.
-        to change { PafsCore::Project.count }.by(1)
+      expect { p = subject.create_project }
+        .to change { PafsCore::Project.count }.by(1)
 
       expect(p).to be_a PafsCore::Project
       expect(p.reference_number).to_not be_nil
@@ -90,8 +91,8 @@ RSpec.describe PafsCore::ProjectService do
     end
 
     it "raises ActiveRecord::RecordNotFound for an invalid reference_number" do
-      expect { subject.find_project("123") }.
-        to raise_error(ActiveRecord::RecordNotFound)
+      expect { subject.find_project("123") }
+        .to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -100,11 +101,11 @@ RSpec.describe PafsCore::ProjectService do
     let(:ea_area_1) { country.children.first }
     let(:ea_area_2) { country.children.second }
     let(:pso_area_1) { ea_area_1.children.first }
-    let(:pso_area_2) { ea_area_1.children.second}
+    let(:pso_area_2) { ea_area_1.children.second }
     let(:pso_area_3) { ea_area_2.children.first }
     let(:rma_area_1) { pso_area_1.children.first }
-    let(:rma_area_2) { pso_area_1.children.second}
-    let(:rma_area_3) { pso_area_2.children.first}
+    let(:rma_area_2) { pso_area_1.children.second }
+    let(:rma_area_3) { pso_area_2.children.first }
     let(:rma_area_4) { pso_area_3.children.first }
 
     context "as a country" do
@@ -228,7 +229,7 @@ RSpec.describe PafsCore::ProjectService do
     it "returns a reference number in the correct format" do
       PafsCore::RFCC_CODES.each do |rfcc_code|
         ref = described_class.generate_reference_number(rfcc_code)
-        expect(ref).to match /\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|TS|WX|YO)C501E\/\d{3}A\/\d{3}A\z/
+        expect(ref).to match %r{\A(AC|AE|AN|NO|NW|SN|SO|SW|TH|TR|TS|WX|YO)C501E/\d{3}A/\d{3}A\z}
       end
     end
   end

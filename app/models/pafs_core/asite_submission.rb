@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PafsCore
   class AsiteSubmission < ApplicationRecord
     belongs_to :project, inverse_of: :asite_submissions

@@ -1,14 +1,15 @@
 # frozen_string_literal: true
+
 module PafsCore
   module Risks
-    RISKS = [
-      :fluvial_flooding,
-      :tidal_flooding,
-      :groundwater_flooding,
-      :surface_water_flooding,
-      :sea_flooding,
-      :reservoir_flooding,
-      :coastal_erosion
+    RISKS = %i[
+      fluvial_flooding
+      tidal_flooding
+      groundwater_flooding
+      surface_water_flooding
+      sea_flooding
+      reservoir_flooding
+      coastal_erosion
     ].freeze
 
     RISKS.each do |r|

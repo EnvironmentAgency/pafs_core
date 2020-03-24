@@ -8,7 +8,7 @@ module PafsCore
         'Review': :completed,
         'Submitted': :submitted,
         'Archived': :archived
-      }
+      }.freeze
 
       def initialize(project, status)
         @project = project

@@ -1,5 +1,6 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
+
 require "rails_helper"
 # require_relative "./shared_step_spec"
 
@@ -28,8 +29,8 @@ RSpec.describe PafsCore::ProjectTypeStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:project_type_step) }
-    let(:params) { HashWithIndifferentAccess.new({ project_type_step: { project_type: "STR" }})}
-    let(:error_params) { HashWithIndifferentAccess.new({ project_type_step: { project_type: "ABC" }})}
+    let(:params) { HashWithIndifferentAccess.new({ project_type_step: { project_type: "STR" } }) }
+    let(:error_params) { HashWithIndifferentAccess.new({ project_type_step: { project_type: "ABC" } }) }
 
     it "saves the :project_type when valid" do
       expect(subject.project_type).not_to eq "STR"

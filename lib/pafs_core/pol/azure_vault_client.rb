@@ -31,7 +31,7 @@ module PafsCore::Pol
     def value
       raise VaultReadFailure.new(key_name, result.status, result.body) unless success?
 
-      JSON.parse(result.body).fetch('value')
+      JSON.parse(result.body).fetch("value")
     end
 
     def success?
@@ -50,20 +50,17 @@ module PafsCore::Pol
 
     def headers
       {
-        'Content-Type' => "application/x-www-form-urlencoded",
-        'Authorization' => "Bearer #{bearer_token}"
+        "Content-Type" => "application/x-www-form-urlencoded",
+        "Authorization" => "Bearer #{bearer_token}"
       }
     end
 
     def key_url
-      @key_url ||= "%{vault_url}/secrets/%{secret_name}?api-version=2016-10-01" % {
-        vault_url: vault_url,
-        secret_name: key_name
-      }
+      @key_url ||= format("%{vault_url}/secrets/%{secret_name}?api-version=2016-10-01", vault_url: vault_url, secret_name: key_name)
     end
 
     def vault_url
-      @vault_url ||= ENV.fetch('AZURE_VAULT_HOST')
+      @vault_url ||= ENV.fetch("AZURE_VAULT_HOST")
     end
   end
 end

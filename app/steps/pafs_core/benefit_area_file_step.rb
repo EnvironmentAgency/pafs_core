@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+
 module PafsCore
   class BenefitAreaFileStep < BasicStep
-    include PafsCore::FileTypes, PafsCore::FileStorage
+    include PafsCore::FileStorage
+    include PafsCore::FileTypes
 
     delegate :benefit_area_file_name, :benefit_area_file_name=,
              :benefit_area_content_type, :benefit_area_content_type=,
@@ -50,26 +52,27 @@ module PafsCore
         valid? && project.save
       end
     end
-  private
+
+    private
 
     def antivirus
       PafsCore::AntivirusService.new user
     end
 
     def step_params(params)
-      ActionController::Parameters.new(params).
-        require(:benefit_area_file_step).
-        permit(:benefit_area_file)
+      ActionController::Parameters.new(params)
+                                  .require(:benefit_area_file_step)
+                                  .permit(:benefit_area_file)
     end
 
-    EXPECTED_EXTENSIONS = %w(dbf shx shp prj).freeze
+    EXPECTED_EXTENSIONS = %w[dbf shx shp prj].freeze
 
     def contins_required_gis_files(uploaded_file)
       Zip::File.open(uploaded_file.tempfile.path) do |zip_file|
         entries = zip_file.entries.map(&:name)
 
         EXPECTED_EXTENSIONS.each do |ext|
-          next if entries.select{|entry| entry.match(/\.#{ext}$/)}.any?
+          next if entries.select { |entry| entry.match(/\.#{ext}$/) }.any?
 
           errors.add(:base, "The selected file must be a zip file, containing the following mandatory files: dbf. shx. shp. prj.")
           return false
@@ -79,7 +82,7 @@ module PafsCore
       true
     rescue Zip::Error
       errors.add(:base, "The selected file must be a zip file, containing the following mandatory files: dbf. shx. shp. prj.")
-      return false
+      false
     end
 
     def filetype_valid?(file)

@@ -8,11 +8,11 @@ module PafsCore
       end
 
       def ids
-        @ids ||= File.readlines(File.join(Rails.root, 'ids.txt'))
+        @ids ||= File.readlines(File.join(Rails.root, "ids.txt"))
       end
 
       def date
-        @date ||= Date.parse(ENV.fetch('SUBMISSION_DATE'))
+        @date ||= Date.parse(ENV.fetch("SUBMISSION_DATE"))
       end
 
       def perform

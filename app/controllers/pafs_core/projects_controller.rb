@@ -40,8 +40,7 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
   end
 
   # GET
-  def pipeline
-  end
+  def pipeline; end
 
   # GET
   def complete
@@ -131,7 +130,7 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
       if next_step == :summary
         step = navigator.next_step_raw(@project.step, @project)
         anchor = navigator.step_anchor(step)
-        anchor = anchor.nil? ? '' : anchor.values.first
+        anchor = anchor.nil? ? "" : anchor.values.first
 
         # we're at the end so return to project summary
         if anchor.empty?
@@ -148,7 +147,8 @@ class PafsCore::ProjectsController < PafsCore::ApplicationController
     end
   end
 
-private
+  private
+
   def project_params
     params.require(:project).permit(:fcerm_gia, :local_levy)
   end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe PafsCore::UrgencyStep, type: :model do
@@ -28,8 +29,8 @@ RSpec.describe PafsCore::UrgencyStep, type: :model do
 
   describe "#update" do
     subject { FactoryBot.create(:urgency_step) }
-    let(:params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "legal_need" }})}
-    let(:error_params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "ABC" }})}
+    let(:params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "legal_need" } }) }
+    let(:error_params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "ABC" } }) }
 
     it "saves the :urgency_reason when valid" do
       expect(subject.urgency_reason).not_to eq "legal_need"
@@ -37,16 +38,16 @@ RSpec.describe PafsCore::UrgencyStep, type: :model do
       expect(subject.urgency_reason).to eq "legal_need"
     end
 
-    it 'does not change the urgency_details when urgent' do
+    it "does not change the urgency_details when urgent" do
       expect do
         subject.update(params)
       end.not_to change { subject.urgency_details }
     end
 
-    context 'when setting the project to not_urgent' do
-      let(:params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "not_urgent" }})}
+    context "when setting the project to not_urgent" do
+      let(:params) { HashWithIndifferentAccess.new({ urgency_step: { urgency_reason: "not_urgent" } }) }
 
-      it 'clears the urgency_details from the project' do
+      it "clears the urgency_details from the project" do
         expect do
           subject.update(params)
         end.to change { subject.urgency_details }.to nil
