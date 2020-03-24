@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateCoastalErosionProtectionOutcomes < ActiveRecord::Migration
   def change
     create_table :pafs_core_coastal_erosion_protection_outcomes do |t|

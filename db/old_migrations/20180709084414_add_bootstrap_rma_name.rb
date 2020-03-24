@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddBootstrapRmaName < ActiveRecord::Migration
   def change
     add_column :pafs_core_bootstraps, :rma_name, :string, null: true

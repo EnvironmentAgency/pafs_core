@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddWfdToProjects < ActiveRecord::Migration
   def change
     change_table(:pafs_core_projects) do |t|

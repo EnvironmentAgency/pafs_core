@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateProgramUploads < ActiveRecord::Migration
   def change
     create_table :pafs_core_program_uploads do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePafsCoreAccountRequests < ActiveRecord::Migration
   def change
     create_table :pafs_core_account_requests do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "secure_headers"
 
 # Added in response to initial PEN test requiring we specify a

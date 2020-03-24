@@ -67,7 +67,7 @@ module PafsCore
       PafsCore::FundingContributor.transaction do
         setup_funding_values
         clean_unselected_funding_sources
-        funding_values.select { |fv| !fv.destroyed? }.map(&:save!)
+        funding_values.reject(&:destroyed?).map(&:save!)
         funding_values.reload
 
         update_changed_contributors(params)
@@ -86,7 +86,7 @@ module PafsCore
     end
 
     def at_least_one_name(params)
-      return true if step_params(params).size > 0
+      return true unless step_params(params).empty?
 
       errors.add(:base, "Please add at least one contributor")
       false
@@ -96,7 +96,7 @@ module PafsCore
       @step_params ||= ActionController::Parameters.new(params)
                                                    .permit(name: %i[previous current])
                                                    .fetch(:name, {}).values
-                                                   .select { |name| !name[:current].strip.blank? }
+                                                   .reject { |name| name[:current].strip.blank? }
     end
   end
 end

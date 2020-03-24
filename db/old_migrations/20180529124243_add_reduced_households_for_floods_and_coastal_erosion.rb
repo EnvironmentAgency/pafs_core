@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddReducedHouseholdsForFloodsAndCoastalErosion < ActiveRecord::Migration
   def change
     add_column :pafs_core_projects, :reduced_risk_of_households_for_floods,          :boolean, null: false, default: false

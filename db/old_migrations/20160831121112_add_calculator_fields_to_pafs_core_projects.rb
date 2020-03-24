@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddCalculatorFieldsToPafsCoreProjects < ActiveRecord::Migration
   def change
     add_column :pafs_core_projects, :strategic_approach,                                :boolean

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateOldPasswords < ActiveRecord::Migration
   def change
     create_table :old_passwords do |t|

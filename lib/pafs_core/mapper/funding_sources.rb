@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PafsCore
   module Mapper
     class FundingSources
