@@ -1,7 +1,7 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 
-module Pafs
+module PafsCore
   class ArchivesController < ApplicationController
     def index
       page = params.fetch(:page, 1)
