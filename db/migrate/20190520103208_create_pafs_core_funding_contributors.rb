@@ -1,4 +1,4 @@
-class CreatePafsCoreFundingContributors < ActiveRecord::Migration
+class CreatePafsCoreFundingContributors < ActiveRecord::Migration[4.2]
   def change
     create_table :pafs_core_funding_contributors do |t|
       t.string :name

@@ -1,4 +1,4 @@
-class AddConfidenceToProjects < ActiveRecord::Migration
+class AddConfidenceToProjects < ActiveRecord::Migration[4.2]
   def change
     add_column :pafs_core_projects, :confidence_homes_better_protected, :string, length: 20
     add_column :pafs_core_projects, :confidence_homes_by_gateway_four, :string, length: 20
