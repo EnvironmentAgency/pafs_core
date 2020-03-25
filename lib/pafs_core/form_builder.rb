@@ -47,18 +47,23 @@ module PafsCore
 
       label_opts[:data] = { target: content_id(attribute) } if block_given?
       label_value = options[:label] || label_text(attribute)
-      f = label(attribute, label_opts) do
-        safe_join([super(attribute, options), label_value], "\n")
-      end
+      f = safe_join([
+            super(attribute, options),
+            label(attribute, label_opts) do
+              label_value
+            end
+      ], "\n")
 
-      if block_given?
-        safe_join([f, content_tag(:div,
-                                  id: content_id(attribute),
-                                  class: "panel js-hidden") do
-                                    yield
-                                  end])
-      else
-        f
+      content_tag(:div, class: "multiple-choice") do
+        if block_given?
+          safe_join([f, content_tag(:div,
+                                    id: content_id(attribute),
+                                    class: "panel js-hidden") do
+                                      yield
+                                    end])
+        else
+          f
+        end
       end
     end
 
@@ -127,12 +132,17 @@ module PafsCore
       label_opts[:data] = { target: options.fetch(:target) } if options.include?(:target)
       # label_opts[:data] = { target: content_id("#{attribute}-#{value}") } if block_given?
 
-      f = label(attribute, label_opts) do
-        safe_join([super(attribute, value, options.except(:label)), label_for(attribute, options)],
-                  "\n")
+      content_tag(:div, class: "multiple-choice") do
+        safe_join(
+          [
+            super(attribute, value, options.except(:label)),
+            label(attribute, label_opts) do
+              label_for(attribute, options)
+            end
+          ],
+          "\n"
+        )
       end
-
-      f
     end
 
     def select(attribute, choices = nil, options = {}, html_options = {}, &block)
