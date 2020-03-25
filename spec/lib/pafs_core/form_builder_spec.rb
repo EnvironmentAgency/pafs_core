@@ -129,7 +129,7 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
 
     it "outputs a checkbox control" do
       output = builder.check_box(:fcerm_gia)
-      expect(output).to have_css("label.block-label input#funding_sources_fcerm_gia[type='checkbox']")
+      expect(output).to have_css("input#funding_sources_fcerm_gia[type='checkbox']")
     end
 
     it "is valid" do
