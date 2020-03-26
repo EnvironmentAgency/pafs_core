@@ -1,6 +1,6 @@
 <div class="grid-row">
   <div class="column-two-thirds">
-    <h2 class="heading-medium">The area programme is being generated</h2>
+    <h2 class="heading-medium">The programme is being generated</h2>
     <div class="headroom-shuffle-up">
       Requested by <span class="bold-small"><%= @downloads.requested_by.try(:full_name) || "Unknown" %></span>
       on <%= @downloads.requested_on %>
@@ -12,7 +12,7 @@
     <div class="panel panel-border-narrow">
       <p>
         This may take several minutes to complete.
-        Re-visit this page later to download the area programme.
+        Re-visit this page later to download the programme.
       </p>
       <% if @downloads.requested_by.try(:email) == current_resource.email %>
         <p>

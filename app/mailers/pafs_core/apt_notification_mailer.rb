@@ -10,7 +10,7 @@ module PafsCore
 
       return unless @download_info.requested_by
 
-      mail(to: @download_info.requested_by.email, subject: "Area programme generation complete - FCERM project funding")
+      mail(to: @download_info.requested_by.email, subject: "Programme generation complete - FCERM project funding")
     end
 
     def area_programme_generation_failed(download_info)
@@ -19,7 +19,7 @@ module PafsCore
 
       return unless @download_info.requested_by
 
-      mail(to: @download_info.requested_by.email, subject: "Area programme generation failed - FCERM project funding")
+      mail(to: @download_info.requested_by.email, subject: "Programme generation failed - FCERM project funding")
     end
   end
 end

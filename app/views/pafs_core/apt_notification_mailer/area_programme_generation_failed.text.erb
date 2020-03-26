@@ -1,9 +1,9 @@
 Hello <%= @download_info.requested_by.try(:full_name) %>,
 
-Unfortunately, we encountered a problem and the area programme documents you requested on
+Unfortunately, we encountered a problem and the programme documents you requested on
 <%= @download_info.requested_on %> did not generate properly.
 
-Use the link below to generate the area programme documents again.
+Use the link below to generate the programme documents again.
 
 <%= link_to nil, pafs_core.multi_downloads_url %>
 
