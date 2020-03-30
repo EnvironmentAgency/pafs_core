@@ -13,7 +13,7 @@ RSpec.describe PafsCore::ApplicationController, type: :controller do
     it "has cache busting headers in the response" do
       get :index
 
-      expect(response.headers["Cache-Control"]).to eq "no-cache, no-store, max-age=0, must-revalidate, private"
+      expect(response.headers["Cache-Control"]).to eq "no-cache, no-store"
       expect(response.headers["Pragma"]).to eq "no-cache"
       expect(response.headers["Expires"]).to eq "Fri, 01 Jan 1990 00:00:00 GMT"
     end
