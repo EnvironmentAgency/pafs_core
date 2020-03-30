@@ -12,7 +12,7 @@ module PafsCore
       def self.perform_all
         PafsCore::Project.find_each do |project|
           new(project).perform
-          puts project.reference_number
+          puts project.reference_number unless Rails.env.test?
         end
       end
 
