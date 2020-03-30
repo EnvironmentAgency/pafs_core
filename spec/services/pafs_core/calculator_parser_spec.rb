@@ -79,13 +79,13 @@ RSpec.describe PafsCore::CalculatorParser do
       it 'parses and saves the raw_partnership_funding_score' do
         expect do
           perform
-        end.to change{ project.reload.raw_partnership_funding_score }.to(0.6)
+        end.to change{ project.reload.raw_partnership_funding_score }.to(119962.642857253)
       end
 
       it 'parses and saves the adjusted_partnership_funding_score' do
         expect do
           perform
-        end.to change{ project.reload.adjusted_partnership_funding_score }.to(6.0)
+        end.to change{ project.reload.adjusted_partnership_funding_score }.to(1199626.42857253)
       end
 
       it 'parses and saves the pv_whole_life_costs' do
