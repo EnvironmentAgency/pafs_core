@@ -33,8 +33,6 @@ module PafsCore
 
       row_number = FIRST_DATA_ROW
       projects.find_each do |project|
-        puts "#{row_number} #{project.reference_number}"
-
         add_project_to_sheet(
           sheet,
           PafsCore::SpreadsheetPresenter.new(project),
