@@ -6,6 +6,10 @@ FactoryBot.define do
     project
     initialize_with { new(project) }
 
+    after(:build) do |object|
+      object.project.valid?
+    end
+
     factory :project_name_step, class: PafsCore::ProjectNameStep do
       name { "My fantastic flood prevention scheme" }
     end
