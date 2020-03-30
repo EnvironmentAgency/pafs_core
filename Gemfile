@@ -17,7 +17,7 @@ gem "dibble", "~> 0.1",
     branch: "develop"
 gem "sprockets-rails"
 
-gem "rubyzip", "~> 1.2"
+gem "rubyzip"
 
 group :development, :test do
   gem 'byebug'
