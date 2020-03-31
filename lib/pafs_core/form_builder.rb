@@ -48,11 +48,11 @@ module PafsCore
       label_opts[:data] = { target: content_id(attribute) } if block_given?
       label_value = options[:label] || label_text(attribute)
       f = safe_join([
-            super(attribute, options),
-            label(attribute, label_opts) do
-              label_value
-            end
-      ], "\n")
+                      super(attribute, options),
+                      label(attribute, label_opts) do
+                        label_value
+                      end
+                    ], "\n")
 
       content_tag(:div, class: "multiple-choice") do
         if block_given?

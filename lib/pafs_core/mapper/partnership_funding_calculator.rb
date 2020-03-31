@@ -11,12 +11,12 @@ module PafsCore
 
       CALCULATOR_MAPS = {
         v8: PafsCore::Mapper::FundingCalculatorMaps::V8,
-        v9: PafsCore::Mapper::FundingCalculatorMaps::V9,
-      }
+        v9: PafsCore::Mapper::FundingCalculatorMaps::V9
+      }.freeze
 
       def self.default_attributes
         {
-          partnership_funding_calculator_version: 'v8 2014',
+          partnership_funding_calculator_version: "v8 2014",
           pv_appraisal_approach: nil,
           pv_design_and_construction_costs: nil,
           pv_funding_from_other_ea_functions_sources_secured_to_date: nil,

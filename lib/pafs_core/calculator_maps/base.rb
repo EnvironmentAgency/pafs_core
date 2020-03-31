@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PafsCore
   module CalculatorMaps
     class Base
@@ -8,7 +10,7 @@ module PafsCore
       end
 
       def data
-        fail "Override #data in subclass"
+        raise "Override #data in subclass"
       end
 
       def binary_value(value)
@@ -19,4 +21,3 @@ module PafsCore
     end
   end
 end
-

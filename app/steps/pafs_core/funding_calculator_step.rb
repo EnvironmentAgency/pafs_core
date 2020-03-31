@@ -31,6 +31,7 @@ module PafsCore
 
       if uploaded_file
         return false unless filetype_valid?(uploaded_file)
+
         begin
           old_file = funding_calculator_file_name
           # virus check and upload to S3
@@ -87,12 +88,12 @@ module PafsCore
     end
 
     def calculator
-      @calculator ||= ::Roo::Excelx.new(self.uploaded_file)
+      @calculator ||= ::Roo::Excelx.new(uploaded_file)
     end
 
     def calculator_sheet_name
       @calculator_sheet_name ||= calculator.sheets.grep(/PF Calculator/i).first
-    rescue
+    rescue StandardError
       nil
     end
 
@@ -102,8 +103,8 @@ module PafsCore
 
     def expected_version_name
       {
-        v8: 'v8 2014',
-        v9: 'v1 2020'
+        v8: "v8 2014",
+        v9: "v1 2020"
       }[expected_version.to_sym]
     end
 
@@ -111,7 +112,7 @@ module PafsCore
       return if virus_info.present?
       return if calculator_sheet_name.present?
 
-      self.funding_calculator_file_name = ''
+      self.funding_calculator_file_name = ""
       errors.add(:base, "Please ensure you upload a valid partnership funding calculator")
     end
 

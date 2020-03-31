@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PafsCore
   module CalculatorMaps
     class V8 < Base
@@ -17,4 +19,3 @@ module PafsCore
     end
   end
 end
-

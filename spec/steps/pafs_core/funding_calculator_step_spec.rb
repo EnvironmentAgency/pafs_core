@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
-  let(:v8_calculator_file) { File.open(File.join(Rails.root, '..', 'fixtures', 'calculators', 'v8.xlsx')) }
+  let(:v8_calculator_file) { File.open(File.join(Rails.root, "..", "fixtures", "calculators", "v8.xlsx")) }
   let(:v9_calculator_file) { File.open(File.join(Rails.root, "..", "fixtures", "calculators", "v9.xlsx")) }
 
   describe "attributes" do
@@ -25,7 +25,7 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
     end
 
     it "validates the calculator version when correct" do
-      allow(subject).to receive(:expected_version).and_return('v9')
+      allow(subject).to receive(:expected_version).and_return("v9")
       allow(subject).to receive(:uploaded_file).and_return(v9_calculator_file)
 
       expect(subject.valid?).to be_truthy
@@ -37,8 +37,8 @@ RSpec.describe PafsCore::FundingCalculatorStep, type: :model do
 
       subject.valid?
 
-      expect(subject.errors[:base]).
-        to include "The partnership funding calculator file used is the wrong version. The file used must be v8 2014. Download the correct partnership funding calculator."
+      expect(subject.errors[:base])
+        .to include "The partnership funding calculator file used is the wrong version. The file used must be v8 2014. Download the correct partnership funding calculator."
     end
 
     context "virus found" do

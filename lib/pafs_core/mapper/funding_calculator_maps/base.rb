@@ -11,7 +11,7 @@ module PafsCore
         end
 
         def extract_data
-          fail "Override #extract_data"
+          raise "Override #extract_data"
         end
       end
     end

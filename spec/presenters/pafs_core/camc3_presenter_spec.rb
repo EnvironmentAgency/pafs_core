@@ -24,7 +24,7 @@ RSpec.describe PafsCore::Camc3Presenter do
       .and_yield(pfc_file.read, calculator_file, project.funding_calculator_content_type)
   end
 
-  let(:pfc_file) { File.open(File.join(Rails.root, '..', 'fixtures', 'calculators', calculator_file)) }
+  let(:pfc_file) { File.open(File.join(Rails.root, "..", "fixtures", "calculators", calculator_file)) }
 
   let(:calculator_file) do
     "v8.xlsx"

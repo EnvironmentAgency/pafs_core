@@ -12,11 +12,11 @@ module PafsCore
     PARSER_MAPS = {
       v8: PafsCore::CalculatorMaps::V8,
       v9: PafsCore::CalculatorMaps::V9
-    }
+    }.freeze
 
     SHEET_NAMES = [
-      'PF Calculator',
-      'PF calculator'
+      "PF Calculator",
+      "PF calculator"
     ].freeze
 
     def initialize(calculator, project)
@@ -39,7 +39,7 @@ module PafsCore
     end
 
     def parser_map
-      PARSER_MAPS[calculator_version] || fail('Unknown PFC version')
+      PARSER_MAPS[calculator_version] || raise("Unknown PFC version")
     end
 
     def data
