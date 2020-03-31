@@ -12,9 +12,12 @@ class PafsCore::PartnershipFundingCalculatorPresenter
     fetch_funding_calculator_for(project) do |data, filename, _content_type|
       file = Tempfile.new(filename)
       file.write(data)
-      file.close
+      file.rewind
 
-      self.mapper = PafsCore::Mapper::PartnershipFundingCalculator.new(calculator_file: File.open(file))
+      self.mapper = PafsCore::Mapper::PartnershipFundingCalculator.new(calculator_file: file)
+      attributes
+
+      file.close
     end
   end
 
