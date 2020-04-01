@@ -2,6 +2,9 @@ en:
   pafs_core:
     confidence:
       homes_better_protected:
+        # default label
+        label: ''
+
         high:
           label: High
           fcerm1: 4. High
@@ -28,6 +31,9 @@ en:
           description: No homes being delivered by scheme
 
       homes_by_gateway_four:
+        # default label
+        label: ''
+
         high:
           label: High
           fcerm1: 4. High
@@ -54,6 +60,9 @@ en:
           description: No homes being delivered by scheme
 
       secured_partnership_funding:
+        # default label
+        label: ''
+
         high:
           label: High
           fcerm1: 4. High
