@@ -69,7 +69,7 @@ RSpec.describe PafsCore::BootstrapsController, type: :controller do
       context "when the last step is saved" do
         it "redirects to the project summary page" do
           expect(subject).to receive(:navigator).exactly(4).times { @nav }
-          patch :save, params: { id: @project.to_param, step: "financial_year", financial_year_step: { project_end_financial_year: "2019" } }
+          patch :save, params: { id: @project.to_param, step: "financial_year", financial_year_step: { project_end_financial_year: "2025" } }
           proj = PafsCore::Project.last
           expect(response).to redirect_to project_path(id: proj.to_param)
         end
