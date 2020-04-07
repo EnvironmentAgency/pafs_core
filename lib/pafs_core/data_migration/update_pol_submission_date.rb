@@ -8,7 +8,7 @@ module PafsCore
       end
 
       def ids
-        @ids ||= File.readlines(File.join(Rails.root, "ids.txt"))
+        @ids ||= File.readlines(File.join(Rails.root, "ids.txt")).map(&:strip)
       end
 
       def date
