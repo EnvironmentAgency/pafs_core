@@ -37,7 +37,7 @@ en:
   # fcerm_form_link: "https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/515766/LIT_10123.xlsx"
   funding_calculator_link: 
     v8: "https://www.gov.uk/government/publications/fcrm-partnership-funding-calculator"
-    v9: "https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/879641/Partnership_Funding_Calculator_2020_for_FCERM_GiA.xlsx"
+    v9: "https://www.gov.uk/government/publications/partnership-funding-supporting-documents"
   funding_calculator_label: "partnership funding calculator"
   surface_water_description: "In this section, surface waters are rivers, lakes, estuaries and stretches of coastal water. This is not the same as surface waters in a flood. Groundwater is water found underground in cracks and spaces in soil, sand and rock."
   missing_shapefile_error: "Upload a shapefile that outlines the area of protection"
