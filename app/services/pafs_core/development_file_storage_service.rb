@@ -14,7 +14,7 @@ module PafsCore
 
     def upload(from_path, to_path)
       dest = file_path(to_path)
-      x = FileUtils.mkdir_p(File.dirname(dest))
+      FileUtils.mkdir_p(File.dirname(dest))
       FileUtils.cp(from_path, dest)
     rescue StandardError
       raise PafsCore::FileNotFoundError, "Storage file not found: #{from_path}"
@@ -22,26 +22,26 @@ module PafsCore
 
     def upload_data(io_object, to_path)
       dest = file_path(to_path)
-      x = FileUtils.mkdir_p(File.dirname(dest))
+      FileUtils.mkdir_p(File.dirname(dest))
       File.open(dest, "wb") { |f| f.write(io_object) }
     rescue StandardError => e
       raise PafsCore::FileNotFoundError, "Something went wrong: #{dest}\n#{e}"
     end
 
     def download(file_key, dest)
-      if File.exist?(file_path(file_key))
-        FileUtils.cp(file_path(file_key), dest)
-      else
-        raise PafsCore::FileNotFoundError, "Storage file not found: #{file_key}"
-      end
+      raise PafsCore::FileNotFoundError, "Storage file not found: #{file_key}" unless exists?(file_key)
+
+      FileUtils.cp(file_path(file_key), dest)
     end
 
     def delete(file_key)
-      if File.exist? file_path(file_key)
-        FileUtils.rm(file_path(file_key))
-      else
-        raise PafsCore::FileNotFoundError, "Storage file not found: #{file_key}"
-      end
+      raise PafsCore::FileNotFoundError, "Storage file not found: #{file_key}" unless exists?(file_key)
+
+      FileUtils.rm(file_path(file_key))
+    end
+
+    def exists?(file_key)
+      File.exist? file_path(file_key)
     end
 
     private

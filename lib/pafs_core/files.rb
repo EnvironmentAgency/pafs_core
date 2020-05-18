@@ -221,6 +221,10 @@ module PafsCore
       end
     end
 
+    def file_exists?(filename)
+      storage.exists? filename
+    end
+
     def storage
       @storage ||= if Rails.env.test? || Rails.env.development?
                      PafsCore::DevelopmentFileStorageService.new

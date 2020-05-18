@@ -35,6 +35,13 @@ module PafsCore
       storage.delete_object(bucket: bucket_name, key: file_key)
     end
 
+    def exists?(file_key)
+      storage.head_object(bucket: bucket_name, key: file_key)
+      true
+    rescue Aws::S3::Errors::NoSuchKey
+      false
+    end
+
     private
 
     def antivirus
