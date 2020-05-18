@@ -14,19 +14,19 @@ module PafsCore
     end
 
     def generate_downloads
-      if can_generate_documentation?
-        info = download_info
+      return unless can_generate_documentation?
 
-        # update the info
-        info.user = user
-        info.area = area
-        info.requested_on = Time.zone.now
-        info.documentation_state.generate!
-        info.save!
+      info = download_info
 
-        # kick off background job
-        PafsCore::GenerateAreaProgrammeJob.perform_later user.id
-      end
+      # update the info
+      info.user = user
+      info.area = area
+      info.requested_on = Time.zone.now
+      info.documentation_state.generate!
+      info.save!
+
+      # kick off background job
+      PafsCore::GenerateAreaProgrammeJob.perform_later user.id
     end
 
     def download_info
@@ -88,41 +88,33 @@ module PafsCore
 
     def fetch_fcerm1
       fetch_file(apt_fcerm1_storage_filename(area)) do |file_data, _filename|
-        if block_given?
-          yield file_data, apt_fcerm1_filename
-        else
-          raise "Expecting block for apt fcerm1 download"
-        end
+        raise "Expecting block for apt fcerm1 download" unless block_given?
+
+        yield file_data, apt_fcerm1_filename
       end
     end
 
     def fetch_funding_calculators
       fetch_file(apt_pf_calculator_filename(area)) do |file_data, _filename|
-        if block_given?
-          yield file_data, "application/zip", apt_funding_calculator_filename
-        else
-          raise "Expecting block for apt funding calculator download"
-        end
+        raise "Expecting block for apt funding calculator download" unless block_given?
+
+        yield file_data, "application/zip", apt_funding_calculator_filename
       end
     end
 
     def fetch_benefit_areas
       fetch_file(apt_benefit_areas_storage_filename(area)) do |file_data, _filename|
-        if block_given?
-          yield file_data, "application/zip", apt_benefit_areas_filename
-        else
-          raise "Expecting block for apt benefit areas download"
-        end
+        raise "Expecting block for apt benefit areas download" unless block_given?
+
+        yield file_data, "application/zip", apt_benefit_areas_filename
       end
     end
 
     def fetch_moderations
       fetch_file(apt_moderation_storage_filename(area)) do |file_data, _filename|
-        if block_given?
-          yield file_data, "application/zip", apt_moderation_filename
-        else
-          raise "Expecting block for apt moderation download"
-        end
+        raise "Expecting block for apt moderation download" unless block_given?
+
+        yield file_data, "application/zip", apt_moderation_filename
       end
     end
 
