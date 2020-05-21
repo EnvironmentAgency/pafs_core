@@ -13,22 +13,22 @@ module PafsCore
         file_exists?(FILENAME)
       end
 
-      def self.fetch_all_fcrm1
-        fetch_file(FILENAME) do |data, _filename|
-          raise "Expected block to be passed to #fetch_all_fcrm1" unless block_given?
+      def fetch_remote_file
+        fetch_file(FILENAME) do |data|
+          raise "Expected block to be passed to #fetch_remote_file" unless block_given?
 
-          yield data, filename
+          yield data
         end
       end
 
       def projects
-        @projects ||= PafsCore::Project.joins(
+        @projects ||= PafsCore::Project.includes(
           :areas,
           :coastal_erosion_protection_outcomes,
           :flood_protection_outcomes,
           :funding_values,
           :funding_contributors
-        ).limit(30)
+        )
       end
 
       def update_status(data)
@@ -40,8 +40,6 @@ module PafsCore
       end
 
       def perform
-        update_status(status: "pending", current_record: 1, total_records: projects.size)
-
         generate_multi_fcerm1(projects, FILENAME) do |total_records, current_record_index|
           if (current_record_index % 10).zero?
             update_status(status: "pending", current_record: current_record_index, total_records: total_records)
