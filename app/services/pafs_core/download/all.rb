@@ -43,7 +43,7 @@ module PafsCore
         update_status(status: "pending", current_record: 1, total_records: projects.size)
 
         generate_multi_fcerm1(projects, FILENAME) do |total_records, current_record_index|
-          if true || (current_record_index % 10) == 0
+          if (current_record_index % 10).zero?
             update_status(status: "pending", current_record: current_record_index, total_records: total_records)
           end
         end
