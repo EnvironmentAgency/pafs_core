@@ -8,7 +8,7 @@ module PafsCore
     def perform(user_id)
       ApplicationRecord.connection_pool.with_connection do
         user = PafsCore::User.find(user_id)
-        PafsCore::Download::Area.perform(user)
+        PafsCore::Download::Area.perform(requesting_user: user)
         # PafsCore::AreaDownloadService.new(PafsCore::User.find(user_id)).generate_area_programme
       end
     end

@@ -22,13 +22,9 @@ module PafsCore
       end
 
       def projects
-        @projects ||= PafsCore::Project.includes(
-          :areas,
-          :coastal_erosion_protection_outcomes,
-          :flood_protection_outcomes,
-          :funding_values,
-          :funding_contributors
-        )
+        @projects ||= PafsCore::Project.joins(:state)
+                       .joins(:area_projects)
+                       .includes(funding_contributors: :funding_value, area_projects: :area)
       end
 
       def update_status(data)

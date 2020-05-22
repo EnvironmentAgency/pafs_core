@@ -18,46 +18,46 @@ module PafsCore
       end
 
       def area
-        @area ||= user.area
+        @area ||= user.primary_area
       end
 
       def download_info
         area.area_download
       end
 
-      def generate_fcrm1
+      def create_fcrm1
         download_info.number_of_proposals = projects.count
         download_info.fcerm1_filename = apt_fcerm1_storage_filename(area)
         generate_multi_fcerm1(projects, download_info.fcerm1_filename)
       end
 
-      def generate_benefit_areas
+      def create_benefit_areas
         download_info.benefit_areas_filename = apt_benefit_areas_storage_filename(area)
         generate_benefit_areas_file(projects, download_info.benefit_areas_filename)
       end
 
-      def generate_proposals_funding_calc
+      def create_proposals_funding_calc
         download_info.funding_calculator_filename = apt_pf_calculator_filename(area)
         generate_proposals_funding_calculator_file(projects, download_info.funding_calculator_filename)
       end
 
-      def generate_moderations
+      def create_moderations
         download_info.moderation_filename = apt_moderation_storage_filename(area)
         generate_moderations_file(projects, download_info.moderation_filename)
       end
 
       def perform
         # Generate FCERM1 with all submitted areas for the given user
-        generate_multi_fcerm1
+        create_fcrm1
 
         # Generate benefit areas archive
-        generate_benefit_areas_file
+        create_benefit_areas
 
         # Generate proposal funding calc file
-        generate_proposals_funding_calc
+        create_proposals_funding_calc
 
         if download_info.number_of_proposals_with_moderation.positive?
-          generate_moderations
+          create_moderations
         else
           download_info.moderation_filename = nil
         end
