@@ -26,7 +26,7 @@ module PafsCore
 
     def download(file_key, dest)
       storage.get_object(bucket: bucket_name, key: file_key, response_target: dest)
-    rescue Aws::S3::Errors::NoSuchKey => e
+    rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound
       raise PafsCore::FileNotFoundError, "Storage file not found: #{file_key}"
     end
 
@@ -38,7 +38,7 @@ module PafsCore
     def exists?(file_key)
       storage.head_object(bucket: bucket_name, key: file_key)
       true
-    rescue Aws::S3::Errors::NoSuchKey
+    rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound
       false
     end
 
