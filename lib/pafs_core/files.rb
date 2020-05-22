@@ -63,7 +63,11 @@ module PafsCore
 
     def generate_multi_fcerm1(projects, filename)
       puts "Generating"
-      xlsx = PafsCore::SpreadsheetService.new.generate_multi_xlsx(projects)
+
+      xlsx = PafsCore::SpreadsheetService.new.generate_multi_xlsx(projects) do |total_projects, project_index|
+        yield(total_projects, project_index) if block_given?
+      end
+
       puts "Generation complete"
       puts "Uploading"
       storage.upload_data(xlsx.stream.read, filename)
@@ -219,6 +223,10 @@ module PafsCore
           t
         end
       end
+    end
+
+    def file_exists?(filename)
+      storage.exists? filename
     end
 
     def storage

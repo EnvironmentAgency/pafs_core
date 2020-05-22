@@ -32,7 +32,8 @@ module PafsCore
       fix_worksheet(sheet)
 
       row_number = FIRST_DATA_ROW
-      projects.find_each do |project|
+      total_projects = projects.size
+      projects.find_each.with_index do |project, project_index|
         add_project_to_sheet(
           sheet,
           PafsCore::SpreadsheetPresenter.new(project),
@@ -41,6 +42,7 @@ module PafsCore
 
         PafsCore::Spreadsheet::Contributors::Export.new(workbook, project).generate
 
+        yield(total_projects, project_index) if block_given?
         row_number += 1
       end
       workbook

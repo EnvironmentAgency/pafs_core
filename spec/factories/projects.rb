@@ -7,6 +7,7 @@ FactoryBot.define do
   factory :project, class: PafsCore::Project do
     reference_number { PafsCore::ProjectService.generate_reference_number("TH") }
     version { 0 }
+    project_end_financial_year { 2022 }
     private_contributions { private_contribution_names.any? }
     public_contributions { public_contribution_names.any? }
     other_ea_contributions { other_ea_contribution_names.any? }

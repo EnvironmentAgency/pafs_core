@@ -3,6 +3,7 @@
 module PafsCore
   class AptNotificationMailer < ApplicationMailer
     include PafsCore::Email
+
     add_template_helper(PafsCore::EmailHelper)
 
     def area_programme_generation_complete(download_info)
