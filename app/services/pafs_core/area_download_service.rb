@@ -97,9 +97,5 @@ module PafsCore
       # TODO: this will need to change one day when multi-area users are enabled
       user.primary_area
     end
-
-    def calc_moderation_count(projects)
-      projects.where.not(urgency_reason: "not_urgent").count
-    end
   end
 end

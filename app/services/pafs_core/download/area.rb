@@ -25,6 +25,10 @@ module PafsCore
         area.area_download
       end
 
+      def moderation_count
+        projects.where.not(urgency_reason: "not_urgent").count
+      end
+
       def create_fcrm1
         download_info.number_of_proposals = projects.count
         download_info.fcerm1_filename = apt_fcerm1_storage_filename(area)
@@ -42,7 +46,7 @@ module PafsCore
       end
 
       def create_moderations
-        download_info.number_of_proposals_with_moderation = calc_moderation_count(projects)
+        download_info.number_of_proposals_with_moderation = moderation_count
 
         if download_info.number_of_proposals_with_moderation.positive?
           download_info.moderation_filename = apt_moderation_storage_filename(area)
