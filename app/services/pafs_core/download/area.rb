@@ -42,8 +42,14 @@ module PafsCore
       end
 
       def create_moderations
-        download_info.moderation_filename = apt_moderation_storage_filename(area)
-        generate_moderations_file(projects, download_info.moderation_filename)
+        download_info.number_of_proposals_with_moderation = calc_moderation_count(projects)
+
+        if download_info.number_of_proposals_with_moderation.positive?
+          download_info.moderation_filename = apt_moderation_storage_filename(area)
+          generate_moderations_file(projects, download_info.moderation_filename)
+        else
+          download_info.moderation_filename = nil
+        end
       end
 
       def perform
@@ -56,11 +62,8 @@ module PafsCore
         # Generate proposal funding calc file
         create_proposals_funding_calc
 
-        if download_info.number_of_proposals_with_moderation.positive?
-          create_moderations
-        else
-          download_info.moderation_filename = nil
-        end
+        # Generate moderation archive (only for urgent projects)
+        create_moderations
 
         download_info.documentation_state.complete!
         download_info.save!
