@@ -225,8 +225,8 @@ module PafsCore
       end
     end
 
-    def expiring_url_for(filename)
-      storage.expiring_url_for(filename)
+    def expiring_url_for(file_key, filename = nil)
+      storage.expiring_url_for(file_key, filename)
     end
 
     def file_exists?(filename)
