@@ -44,6 +44,12 @@ module PafsCore
       File.exist? file_path(file_key)
     end
 
+    def expiring_url_for(file_key, _filename)
+      return unless exists?(file_key)
+
+      File.join(file_path, file_key)
+    end
+
     private
 
     def file_path(path)

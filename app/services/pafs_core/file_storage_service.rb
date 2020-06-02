@@ -42,6 +42,19 @@ module PafsCore
       false
     end
 
+    def expiring_url_for(file_key, filename = nil)
+      return unless exists?(file_key)
+
+      filename ||= File.basename(file_key)
+
+      Aws::S3::Object.new(
+        bucket_name,
+        file_key,
+        region: "eu-west-1",
+        credentials: credentials
+      ).presigned_url(:get, expires_in: 60, response_content_disposition: "attachment; filename=#{filename}")
+    end
+
     private
 
     def antivirus

@@ -55,36 +55,20 @@ module PafsCore
       raise e
     end
 
-    def fetch_fcerm1
-      fetch_file(apt_fcerm1_storage_filename(area)) do |file_data, _filename|
-        raise "Expecting block for apt fcerm1 download" unless block_given?
-
-        yield file_data, apt_fcerm1_filename
-      end
+    def fcerm1_url
+      expiring_url_for(apt_fcerm1_storage_filename(area), apt_fcerm1_filename)
     end
 
-    def fetch_funding_calculators
-      fetch_file(apt_pf_calculator_filename(area)) do |file_data, _filename|
-        raise "Expecting block for apt funding calculator download" unless block_given?
-
-        yield file_data, "application/zip", apt_funding_calculator_filename
-      end
+    def funding_calculators_url
+      expiring_url_for(apt_pf_calculator_filename(area), apt_funding_calculator_filename)
     end
 
-    def fetch_benefit_areas
-      fetch_file(apt_benefit_areas_storage_filename(area)) do |file_data, _filename|
-        raise "Expecting block for apt benefit areas download" unless block_given?
-
-        yield file_data, "application/zip", apt_benefit_areas_filename
-      end
+    def benefit_areas_url
+      expiring_url_for(apt_benefit_areas_storage_filename(area), apt_benefit_areas_filename)
     end
 
-    def fetch_moderations
-      fetch_file(apt_moderation_storage_filename(area)) do |file_data, _filename|
-        raise "Expecting block for apt moderation download" unless block_given?
-
-        yield file_data, "application/zip", apt_moderation_filename
-      end
+    def moderations_url
+      expiring_url_for(apt_moderation_storage_filename(area), apt_moderation_filename)
     end
 
     private
