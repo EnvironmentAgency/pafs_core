@@ -47,13 +47,13 @@ module PafsCore
     def expiring_url_for(file_key, _filename)
       return unless exists?(file_key)
 
-      "file://#{file_path(file_key)}"
+      File.join("/", "tmp", file_key)
     end
 
     private
 
     def file_path(path)
-      Rails.root.join("tmp", path)
+      Rails.root.join("public", "tmp", path)
     end
   end
 end
