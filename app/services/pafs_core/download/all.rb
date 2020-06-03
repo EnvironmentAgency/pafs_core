@@ -13,18 +13,14 @@ module PafsCore
         file_exists?(FILENAME)
       end
 
-      def fetch_remote_file
-        fetch_file(FILENAME) do |data|
-          raise "Expected block to be passed to #fetch_remote_file" unless block_given?
-
-          yield data
-        end
+      def remote_file_url
+        expiring_url_for(FILENAME)
       end
 
       def projects
         @projects ||= PafsCore::Project.joins(:state)
-                       .joins(:area_projects)
-                       .includes(funding_contributors: :funding_value, area_projects: :area)
+                                       .joins(:area_projects)
+                                       .includes(funding_contributors: :funding_value, area_projects: :area)
       end
 
       def update_status(data)
