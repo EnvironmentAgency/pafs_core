@@ -29,9 +29,7 @@ module PafsCore
     def proposals
       info = download_service.download_info
       if info.documentation_state.ready?
-        download_service.fetch_fcerm1 do |data, filename|
-          send_data data, filename: filename
-        end
+        redirect_to download_service.fcerm1_url
       else
         redirect_to pafs_core.multi_downloads_path
       end
@@ -40,9 +38,7 @@ module PafsCore
     def funding_calculators
       info = download_service.download_info
       if info.documentation_state.ready?
-        download_service.fetch_funding_calculators do |data, data_type, filename|
-          send_data data, type: data_type, filename: filename
-        end
+        redirect_to download_service.funding_calculators_url
       else
         redirect_to pafs_core.multi_downloads_path
       end
@@ -51,9 +47,7 @@ module PafsCore
     def benefit_areas
       info = download_service.download_info
       if info.documentation_state.ready?
-        download_service.fetch_benefit_areas do |data, data_type, filename|
-          send_data data, type: data_type, filename: filename
-        end
+        redirect_to download_service.benefit_areas_url
       else
         redirect_to pafs_core.multi_downloads_path
       end
@@ -62,9 +56,7 @@ module PafsCore
     def moderations
       info = download_service.download_info
       if info.documentation_state.ready?
-        download_service.fetch_moderations do |data, data_type, filename|
-          send_data data, type: data_type, filename: filename
-        end
+        redirect_to download_service.moderations_url
       else
         redirect_to pafs_core.multi_downloads_path
       end

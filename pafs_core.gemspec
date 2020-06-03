@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "spec/factories/**/*", "spec/support/**/*", "LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "aws-sdk", "~> 3"
+  s.add_dependency "aws-sdk-s3", "~> 1.67"
   s.add_dependency "bstard"
   s.add_dependency "clamav-client"
   s.add_dependency "faraday"
