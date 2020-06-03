@@ -10,6 +10,14 @@ FactoryBot.define do
     last_name { "Clemence" }
     email
 
+    transient do
+      area { nil }
+    end
+
+    after(:create) do |user, evaluator|
+      user.user_areas.create(area: evaluator.area, primary: true) if evaluator.area
+    end
+
     trait :ea do
       after(:create) do |user|
         area = PafsCore::Area.ea_areas.first || create(:ea_area)
