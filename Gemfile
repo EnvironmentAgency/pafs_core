@@ -20,7 +20,7 @@ gem "sprockets-rails"
 gem "rubyzip"
 
 group :development, :test do
-  gem 'rake', '< 11.0'
+  gem "rake", "< 11.0"
   gem "byebug"
   gem "climate_control"
   gem "defra_ruby_style"
@@ -29,7 +29,6 @@ group :development, :test do
   gem "pry"
   gem "rails-controller-testing"
   gem "rails5-spec-converter"
-  gem "transpec"
 end
 
 group :test do
