@@ -20,7 +20,6 @@ gem "sprockets-rails"
 gem "rubyzip"
 
 group :development, :test do
-  gem "rake", "< 11.0"
   gem "byebug"
   gem "climate_control"
   gem "defra_ruby_style"
