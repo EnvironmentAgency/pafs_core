@@ -3,7 +3,7 @@
 module PafsCore
   module EmailHelper
     # Embed an image inline into a html email
-    def email_image_tag(image, **options)
+    def email_image_tag(image, options)
       path = "app/assets/images"
 
       full_path = Rails.root.join(path, image)
