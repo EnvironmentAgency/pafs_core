@@ -5,7 +5,15 @@ require "rails_helper"
 class TestHelper < ActionView::Base; end
 
 RSpec.describe PafsCore::FormBuilder, type: :feature do
-  let(:helper) { TestHelper.new }
+  let(:helper) do
+    Object.new.tap do |template|
+      template.extend ActionView::Helpers::FormHelper
+      template.extend ActionView::Helpers::FormOptionsHelper
+      template.extend ActionView::Helpers::TagHelper
+      template.extend ActionView::Helpers::TranslationHelper
+      template.extend ActionView::Context
+    end
+  end
   let(:project) { FactoryBot.build :project_name_step, name: nil }
   let(:builder) { described_class.new project.step, project, helper, {} }
 
@@ -243,13 +251,16 @@ RSpec.describe PafsCore::FormBuilder, type: :feature do
     end
 
     context "when options do not contain a :label key" do
-      before(:each) do
-        @items = [{ value: "true" }, { value: "false" }]
-        @output = builder.radio_button_group(:could_start_early, @items)
+      let(:items) {[{ value: "true" }, { value: "false" }]}
+      let(:output) { builder.radio_button_group(:could_start_early, items) }
+
+      before do
+        allow(helper).to receive(:t).and_return("my label")
       end
+
       it "uses an I18n lookup for the label text" do
-        @items.each do |item|
-          expect(@output)
+        items.each do |item|
+          expect(output)
             .to have_css("label[for=earliest_start_could_start_early_#{item.fetch(:value)}]", text: "my label")
         end
       end

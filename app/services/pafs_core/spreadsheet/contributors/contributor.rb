@@ -19,7 +19,7 @@ module PafsCore::Spreadsheet::Contributors
     end
 
     def perform
-      funding_contributor.update_attributes!(
+      funding_contributor.update!(
         amount: amount,
         secured: secured,
         constrained: constrained

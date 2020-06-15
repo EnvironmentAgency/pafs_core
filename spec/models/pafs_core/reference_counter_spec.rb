@@ -25,7 +25,7 @@ module PafsCore
       it "increments the high counter and resets the lower counter when the lower counter is greater the than 999" do
         rc = described_class.find_by(rfcc_code: rfcc_code)
         expect(rc.high_counter).to eq(0)
-        rc.update_attributes(low_counter: 999)
+        rc.update(low_counter: 999)
 
         sequence_nos = described_class.next_sequence_for(rfcc_code)
         expect(sequence_nos[0]).to eq 1

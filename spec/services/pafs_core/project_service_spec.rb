@@ -182,7 +182,7 @@ RSpec.describe PafsCore::ProjectService do
 
     context "as a country" do
       it "should return the area :ids in my tree" do
-        user.user_areas.first.update_attributes(area_id: country.id)
+        user.user_areas.first.update(area_id: country.id)
         user.touch
         areas = [country.id,
                  ea_area_1.id, ea_area_2.id,
@@ -196,7 +196,7 @@ RSpec.describe PafsCore::ProjectService do
 
     context "as an EA area" do
       it "should return the area :ids in my sub-tree" do
-        user.user_areas.first.update_attributes(area_id: ea_area_1.id)
+        user.user_areas.first.update(area_id: ea_area_1.id)
         user.touch
         areas = [ea_area_1.id,
                  pso_area_1.id, pso_area_2.id,
@@ -207,7 +207,7 @@ RSpec.describe PafsCore::ProjectService do
 
     context "as a PSO area" do
       it "should return the area :ids in my sub-tree" do
-        user.user_areas.first.update_attributes(area_id: pso_area_1.id)
+        user.user_areas.first.update(area_id: pso_area_1.id)
         user.touch
         areas = [pso_area_1.id,
                  rma_area_1.id, rma_area_2.id]
@@ -217,7 +217,7 @@ RSpec.describe PafsCore::ProjectService do
 
     context "as an RMA area" do
       it "should return the area :ids in my sub-tree" do
-        user.user_areas.first.update_attributes(area_id: rma_area_1.id)
+        user.user_areas.first.update(area_id: rma_area_1.id)
         user.touch
         areas = [rma_area_1.id]
         expect(subject.area_ids_for_user(user)).to eq areas

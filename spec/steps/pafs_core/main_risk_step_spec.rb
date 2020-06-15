@@ -8,7 +8,7 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
   before(:each) do
     @project = FactoryBot.build(:main_risk_step)
     # required to be valid
-    @project.project.update_attributes(groundwater_flooding: true)
+    @project.project.update(groundwater_flooding: true)
     @project.project.save
   end
   subject { @project }
@@ -59,7 +59,7 @@ RSpec.describe PafsCore::MainRiskStep, type: :model do
       end
       context "protecting against coastal erosion" do
         before(:each) do
-          @project.project.update_attributes(groundwater_flooding: false, coastal_erosion: true)
+          @project.project.update(groundwater_flooding: false, coastal_erosion: true)
         end
 
         let(:params) do
