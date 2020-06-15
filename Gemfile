@@ -15,6 +15,7 @@ gemspec
 gem "dibble", "~> 0.1",
     git: "https://github.com/tonyheadford/dibble",
     branch: "develop"
+gem "sprockets", "< 4"
 gem "sprockets-rails"
 
 gem "rubyzip"

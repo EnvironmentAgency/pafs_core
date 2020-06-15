@@ -89,7 +89,7 @@ GEM
       parser (~> 2.2)
     aws-eventstream (1.1.0)
     aws-partitions (1.329.0)
-    aws-sdk-core (3.99.1)
+    aws-sdk-core (3.99.2)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
@@ -327,7 +327,7 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
-    sprockets (4.0.2)
+    sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)
@@ -379,6 +379,7 @@ DEPENDENCIES
   rubyzip
   shoulda-matchers
   simplecov
+  sprockets (< 4)
   sprockets-rails
   vcr
   webmock
