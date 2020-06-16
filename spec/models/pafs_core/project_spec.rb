@@ -17,10 +17,21 @@ RSpec.describe PafsCore::Project, type: :model do
       expect(subject.to_param).to eq(subject.reference_number.parameterize.upcase)
     end
 
-    it "validates the format of :reference_number" do
-      subject.reference_number = "123"
-      expect(subject.valid?).to be false
-      expect(subject.errors[:reference_number].join).to match /invalid format/
+    context "validating reference numbers" do
+      %w[YOC357I/000A/037A].each do |ref|
+        it "accepts #{ref}" do
+          subject.reference_number = ref
+          expect(subject.valid?).to be_truthy
+        end
+      end
+
+      %w[123].each do |ref|
+        it "rejects #{ref}" do
+          subject.reference_number = ref
+          expect(subject.valid?).to be_falsey
+          expect(subject.errors[:reference_number].join).to match(/invalid format/)
+        end
+      end
     end
   end
 
