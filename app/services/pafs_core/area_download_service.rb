@@ -44,7 +44,7 @@ module PafsCore
 
     # NOTE: Call me from a Job as I take a long time to complete
     def generate_area_programme
-      PafsCore::Download::Area.perform(user)
+      PafsCore::Download::Area.perform(requesting_user: user)
 
       # send notification email to requestor
       PafsCore::AptNotificationMailer.area_programme_generation_complete(download_info).deliver_now
