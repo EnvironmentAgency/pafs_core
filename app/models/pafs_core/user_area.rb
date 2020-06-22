@@ -11,13 +11,19 @@ module PafsCore
 
     default_scope { order(primary: :desc) }
 
-    default_scope { order(primary: :desc) }
+    # When saving changes to the users areas, we need to be sure that we also
+    # update the users updated_at timestamp so that the cache of area_ids is invalidated.
+    after_commit :touch_user
 
     def self.primary_area
       includes(:area).where(primary: true)
     end
 
     private
+
+    def touch_user
+      user&.touch
+    end
 
     def area_is_set
       # we're ignoring the user_id as that should be set when contructing
