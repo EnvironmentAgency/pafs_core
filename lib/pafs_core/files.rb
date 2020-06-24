@@ -97,7 +97,8 @@ module PafsCore
       end
 
       # store file
-      tmpfile.rewind
+      tmpfile.close
+      tmpfile.open
       storage.upload_data(tmpfile, filename)
     ensure
       tmpfile.close
@@ -118,7 +119,8 @@ module PafsCore
       end
 
       # store file
-      tmpfile.rewind
+      tmpfile.close
+      tmpfile.open
       storage.upload_data(tmpfile, filename)
     ensure
       tmpfile.close
@@ -139,7 +141,8 @@ module PafsCore
       end
 
       # store file
-      tmpfile.rewind
+      tmpfile.close
+      tmpfile.open
       storage.upload_data(tmpfile, filename)
     ensure
       tmpfile.close
