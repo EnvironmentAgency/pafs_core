@@ -30,6 +30,8 @@ module PafsCore
         end
 
         block_given? ? yield(@_file_content) : @_file_content
+      rescue JSON::ParserError
+        nil
       end
 
       def exists?
