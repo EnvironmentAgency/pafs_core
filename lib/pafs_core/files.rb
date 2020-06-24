@@ -69,9 +69,18 @@ module PafsCore
       end
 
       puts "Generation complete"
-      puts "Uploading"
-      storage.upload_data(xlsx.stream.read, filename)
-      puts "Upload complete"
+      tmpfile = Tempfile.new(["multi_fcerm1", ".xlsx"])
+
+      begin
+        xlsx.write(tmpfile.path)
+
+        puts "Uploading"
+        storage.upload_data(tmpfile, filename)
+        puts "Upload complete"
+      ensure
+        tmpfile.close
+        tmpfile.unlink
+      end
     end
 
     def generate_benefit_areas_file(projects, filename)
@@ -88,7 +97,8 @@ module PafsCore
       end
 
       # store file
-      storage.upload_data(File.read(tmpfile.path), filename)
+      tmpfile.rewind
+      storage.upload_data(tmpfile, filename)
     ensure
       tmpfile.close
       tmpfile.unlink
@@ -108,7 +118,8 @@ module PafsCore
       end
 
       # store file
-      storage.upload_data(File.read(tmpfile.path), filename)
+      tmpfile.rewind
+      storage.upload_data(tmpfile, filename)
     ensure
       tmpfile.close
       tmpfile.unlink
@@ -128,7 +139,8 @@ module PafsCore
       end
 
       # store file
-      storage.upload_data(File.read(tmpfile.path), filename)
+      tmpfile.rewind
+      storage.upload_data(tmpfile, filename)
     ensure
       tmpfile.close
       tmpfile.unlink

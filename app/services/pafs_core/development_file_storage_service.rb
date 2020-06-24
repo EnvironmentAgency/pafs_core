@@ -23,7 +23,11 @@ module PafsCore
     def upload_data(io_object, to_path)
       dest = file_path(to_path)
       FileUtils.mkdir_p(File.dirname(dest))
-      File.open(dest, "wb") { |f| f.write(io_object) }
+      io_object = StringIO.new(io_object) if io_object.is_a?(String)
+
+      File.open(dest, "wb") do |dest_file|
+        IO.copy_stream(io_object, dest_file)
+      end
     rescue StandardError => e
       raise PafsCore::FileNotFoundError, "Something went wrong: #{dest}\n#{e}"
     end
