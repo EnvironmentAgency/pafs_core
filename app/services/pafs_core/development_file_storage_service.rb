@@ -32,6 +32,12 @@ module PafsCore
       raise PafsCore::FileNotFoundError, "Something went wrong: #{dest}\n#{e}"
     end
 
+    def upload_file(local_path, remote_path)
+      File.open(local_path, "rb") do |file|
+        upload_data(file, remote_path)
+      end
+    end
+
     def download(file_key, dest)
       raise PafsCore::FileNotFoundError, "Storage file not found: #{file_key}" unless exists?(file_key)
 

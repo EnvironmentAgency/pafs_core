@@ -6,6 +6,8 @@ module PafsCore
   class FileStorageService
     attr_reader :user
 
+    REGION = "eu-west-1"
+
     def initialize(user = nil)
       # when instantiated from a controller the 'current_user' should
       # be passed in. This will allow us to audit actions etc. down the line.
@@ -22,6 +24,17 @@ module PafsCore
       # NOTE: NO VIRUS CHECK HERE - only use this for in-memory generated documents
       # or files that have already been scanned
       storage.put_object(bucket: bucket_name, key: to_path, body: io_object)
+    end
+
+    def upload_file(local_path, remote_path)
+      s3_object = Aws::S3::Object.new(
+        bucket_name,
+        remote_path,
+        region: REGION,
+        credentials: credentials
+      )
+
+      s3_object.upload_file(local_path)
     end
 
     def download(file_key, dest)
@@ -50,7 +63,7 @@ module PafsCore
       Aws::S3::Object.new(
         bucket_name,
         file_key,
-        region: "eu-west-1",
+        region: REGION,
         credentials: credentials
       ).presigned_url(:get, expires_in: 60, response_content_disposition: "attachment; filename=#{filename}")
     end
@@ -62,7 +75,7 @@ module PafsCore
     end
 
     def storage
-      @storage ||= Aws::S3::Client.new(region: "eu-west-1", credentials: credentials)
+      @storage ||= Aws::S3::Client.new(region: REGION, credentials: credentials)
     end
 
     def credentials
