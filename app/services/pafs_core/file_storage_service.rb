@@ -24,6 +24,17 @@ module PafsCore
       storage.put_object(bucket: bucket_name, key: to_path, body: io_object)
     end
 
+    def upload_file(local_path, remote_path)
+      s3_object = Aws::S3::Object.new(
+        bucket_name,
+        remote_path,
+        region: "eu-west-1",
+        credentials: credentials
+      )
+
+      s3_object.upload_file(local_path)
+    end
+
     def download(file_key, dest)
       storage.get_object(bucket: bucket_name, key: file_key, response_target: dest)
     rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound

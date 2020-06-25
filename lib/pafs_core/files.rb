@@ -75,7 +75,7 @@ module PafsCore
         xlsx.write(tmpfile.path)
 
         puts "Uploading"
-        storage.upload_data(tmpfile, filename)
+        storage.upload_file(tmpfile.path, filename)
         puts "Upload complete"
       ensure
         tmpfile.close
@@ -97,9 +97,7 @@ module PafsCore
       end
 
       # store file
-      tmpfile.close
-      tmpfile.open
-      storage.upload_data(tmpfile, filename)
+      storage.upload_file(tmpfile.path, filename)
     ensure
       tmpfile.close
       tmpfile.unlink
@@ -119,9 +117,7 @@ module PafsCore
       end
 
       # store file
-      tmpfile.close
-      tmpfile.open
-      storage.upload_data(tmpfile, filename)
+      storage.upload_file(tmpfile.path, filename)
     ensure
       tmpfile.close
       tmpfile.unlink
@@ -141,9 +137,7 @@ module PafsCore
       end
 
       # store file
-      tmpfile.close
-      tmpfile.open
-      storage.upload_data(tmpfile, filename)
+      storage.upload_file(tmpfile.path, filename)
     ensure
       tmpfile.close
       tmpfile.unlink
