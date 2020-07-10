@@ -24,6 +24,10 @@ module PafsCore
       I18n.t("#{state}_label", scope: scope)
     end
 
+    def skip_pso_confirmation?
+      ENV.fetch("SKIP_PSO_CONFIRMATION", false)
+    end
+
     def force_pso_to_use_pol?
       ENV.fetch("FORCE_PSO_TO_POL", false)
     end
