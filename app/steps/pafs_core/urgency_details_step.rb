@@ -11,7 +11,7 @@ module PafsCore
       old_details = urgency_details
       result = super
       if result
-        project.update_attributes(urgency_details_updated_at: Time.zone.now) if urgency_details != old_details
+        project.update(urgency_details_updated_at: Time.zone.now) if urgency_details != old_details
       end
       result
     end

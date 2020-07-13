@@ -1,0 +1,13 @@
+.cookie-settings__form-wrapper {
+  display: none;
+
+  .js-enabled & {
+    display: block;
+  }
+}
+
+.cookie-settings__no-js {
+  .js-enabled & {
+    display: none;
+  }
+}

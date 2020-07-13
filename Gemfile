@@ -15,6 +15,7 @@ gemspec
 gem "dibble", "~> 0.1",
     git: "https://github.com/tonyheadford/dibble",
     branch: "develop"
+gem "sprockets", "< 4"
 gem "sprockets-rails"
 
 gem "rubyzip"
@@ -28,7 +29,6 @@ group :development, :test do
   gem "pry"
   gem "rails-controller-testing"
   gem "rails5-spec-converter"
-  gem "transpec"
 end
 
 group :test do

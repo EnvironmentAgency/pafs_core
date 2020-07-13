@@ -1,6 +1,6 @@
 language: ruby
 cache: bundler
-rvm: 2.3.0
+rvm: 2.7.1
 
 # Travis CI clones repositories to a depth of 50 commits, which is only really
 # useful if you are performing git operations.
@@ -12,7 +12,7 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y libproj-dev
   - sudo apt-get install -y libffi-dev
-  - gem install -v 1.17.3 bundler
+  - gem install bundler
 
 before_script:
   - git config --global user.name "Travis Test"

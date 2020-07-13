@@ -6,7 +6,7 @@ RSpec.describe PafsCore::UrgencyDetailsStep, type: :model do
   before(:each) do
     @project = FactoryBot.build(:urgency_details_step)
     # required to be valid
-    @project.project.update_attributes(urgency_reason: "health_and_safety")
+    @project.project.update(urgency_reason: "health_and_safety")
     @project.project.save
   end
 

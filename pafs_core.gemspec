@@ -26,10 +26,17 @@ Gem::Specification.new do |s|
   s.add_dependency "kaminari"
   s.add_dependency "nokogiri"
   s.add_dependency "rack-cors"
-  s.add_dependency "rails", ">= 5.2.0", "< 6"
+  s.add_dependency "rails", ">= 6.0", "< 6.1"
   s.add_dependency "roo"
   s.add_dependency "rubyXL"
   s.add_dependency "secure_headers"
+
+  # Provided by GDS - Template gives us a master layout into which
+  # we can inject our content using yield and content_for
+  s.add_dependency "govuk_template"
+  s.add_dependency "govuk_frontend_toolkit"
+  s.add_dependency "govuk_elements_rails"
+
   s.add_development_dependency "capybara"
   s.add_development_dependency "climate_control"
   s.add_development_dependency "database_cleaner"
