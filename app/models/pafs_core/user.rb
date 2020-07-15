@@ -39,7 +39,7 @@ module PafsCore
     end
 
     def primary_area
-      user_areas.primary_area.first.area
+      user_areas.primary_area.first&.area
     end
 
     def update_primary_area(area)
