@@ -31,6 +31,9 @@ Gem::Specification.new do |s|
   s.add_dependency "rubyXL"
   s.add_dependency "secure_headers"
 
+  # defra_ruby_alert is a gem we created to manage airbrake across projects
+  s.add_dependency "defra_ruby_alert", "~> 2.1"
+
   # Provided by GDS - Template gives us a master layout into which
   # we can inject our content using yield and content_for
   s.add_dependency "govuk_template"
