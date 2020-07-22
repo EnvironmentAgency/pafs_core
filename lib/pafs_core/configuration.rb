@@ -12,25 +12,6 @@
 #   PafsCore.config.banner_feedback_uri
 #
 module PafsCore
-  # Enable the ability to configure the gem from its host app, rather than
-  # reading directly from env vars. Derived from
-  # https://robots.thoughtbot.com/mygem-configure-block
-  class << self
-    attr_writer :configuration
-
-    def configuration
-      @configuration ||= Configuration.new
-    end
-  end
-
-  def self.configure
-    yield(configuration)
-  end
-
-  def self.start_airbrake
-    DefraRuby::Alert.start
-  end
-
   class Configuration
     include ActiveSupport::Configurable
 
