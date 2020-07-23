@@ -1,6 +1,8 @@
 # Play nice with Ruby 3 (and rubocop)
 # frozen_string_literal: true
 
+require "defra_ruby/alert"
+
 module PafsCore
   class Engine < ::Rails::Engine
     isolate_namespace PafsCore
