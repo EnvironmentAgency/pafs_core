@@ -9,7 +9,7 @@
 #    config.exemptions_expire_after_duration = 3.years - 1.day
 #   end
 # To access configuration settings use e.g.
-#   PafsCore.config.banner_feedback_uri
+#   PafsCore.configuration.banner_feedback_uri
 #
 module PafsCore
   class Configuration
