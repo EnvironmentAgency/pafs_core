@@ -25,7 +25,7 @@ module PafsCore
     end
 
     def skip_pso_confirmation?
-      ENV.fetch("SKIP_PSO_CONFIRMATION", false)
+      ENV.fetch("SKIP_PSO_CONFIRMATION", false) == 'True'
     end
 
     def force_pso_to_use_pol?
